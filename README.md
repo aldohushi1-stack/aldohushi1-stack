@@ -1,6 +1,6 @@
 # Aldo Hushi — Adelaide software developer
 
-I'm trying to become the best software developer in Adelaide.
+I'm trying to become the best software developer in Adelaide and Australia. Adelaide first, then the rest of the country.
 
 I build custom software for Adelaide trade and small business: one tool, one problem, $2,000.
 Founder of [BlueprintAU](https://blueprintau.com), an Adelaide product lab with 25+ working builds.
