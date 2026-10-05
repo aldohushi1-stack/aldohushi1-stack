@@ -29,6 +29,8 @@ Cloud sessions start with no memory of earlier ones. Pipeline state lives in pri
 - **aldo.today agent outreach** (council slots, sent/queued emails, next steps): https://claude.ai/artifact/9jUsKYxY24s1h5fdfoWyvu
   Read it with `ArtifactData` (`leads` collection, `meta/plan` doc) before talking about aldo.today emails.
   Update it after sending a batch or seeing a reply. Gmail (aldohushi1@gmail.com) is the source of truth for what was actually sent.
+- **The $240 Ledger** (gift from Dario, report due 3 Nov 2026): https://claude.ai/artifact/XGu46cE7CpsEvqTVPpzDYx
+  Journal is the `entries` collection. Log real spends and earnings only; the first signed aldo.today slot is the first "Earned" line.
 - Never put lead names, emails or prices in this repo — it's public.
 
 ## How to work with Aldo
