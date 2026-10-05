@@ -22,6 +22,15 @@ Products:
 - `bearings` — npm `get-bearings`. ~1,500-token orientation map of a folder injected at session start. Zero deps, Node ≥ 20.
 - `signal-bot` — paper-trading stock scanner (simulated $100k, no real money, not advice). Runs daily on GitHub Actions.
 
+## Live work — check before answering
+
+Cloud sessions start with no memory of earlier ones. Pipeline state lives in private trackers, not in this public repo:
+
+- **aldo.today agent outreach** (council slots, sent/queued emails, next steps): https://claude.ai/artifact/9jUsKYxY24s1h5fdfoWyvu
+  Read it with `ArtifactData` (`leads` collection, `meta/plan` doc) before talking about aldo.today emails.
+  Update it after sending a batch or seeing a reply. Gmail (aldohushi1@gmail.com) is the source of truth for what was actually sent.
+- Never put lead names, emails or prices in this repo — it's public.
+
 ## How to work with Aldo
 
 - He moves fast and talks casually. Act, then report; ask only when blocked.
