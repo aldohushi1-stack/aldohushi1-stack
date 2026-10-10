@@ -80,7 +80,7 @@ header.top p { margin: 0; color: var(--muted); font-size: 14px; }
 .intro h2, .endcard h2 { font-family: var(--display); font-weight: 400; margin: 0; line-height: .98; text-wrap: balance; text-shadow: 0 4px 24px rgba(0,0,0,.35); }
 .intro h2 { font-size: clamp(26px, 8cqw, 84px); }
 .intro p { margin: 0; font-weight: 600; font-size: clamp(11px, 2cqw, 20px); letter-spacing: .04em; opacity: .95; }
-.endcard { background: rgba(13,39,48,.82); }
+.endcard { background: linear-gradient(180deg, rgba(13,39,48,.35), rgba(13,39,48,.78) 45%, rgba(13,39,48,.78) 75%, rgba(13,39,48,.35)); }
 .endcard h2 { font-size: clamp(28px, 9cqw, 92px); color: var(--sand); }
 .endcard p { margin: 0 auto; max-width: 34ch; font-size: clamp(12px, 2.2cqw, 22px); }
 .endcard .cta { justify-self: center; margin-top: 1cqw; background: var(--accent); color: #fff; font-weight: 800; border-radius: 999px; padding: .6em 1.3em; font-size: clamp(12px, 2.2cqw, 22px); }
@@ -90,6 +90,49 @@ header.top p { margin: 0; color: var(--muted); font-size: 14px; }
 .stage[data-format="portrait"] :is(.intro p, .endcard p, .endcard .cta) { font-size: clamp(12px, 4.2cqw, 20px); }
 .stage[data-format="portrait"] .endcard .fine { font-size: clamp(9px, 2.6cqw, 12px); }
 .hide { opacity: 0; }
+
+/* ---------- the model board ---------- */
+.boardscene {
+  position: absolute; inset: 0; opacity: 0; pointer-events: none; overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 38%, #f1ebde 0%, #d9cfbb 55%, #a89a81 100%);
+}
+.boardscene.live { pointer-events: auto; }
+.board {
+  position: absolute; left: 50%; top: 50%; aspect-ratio: 6400 / 1180; transform-style: preserve-3d;
+  --rx: 54deg; --rz: -10deg; --sc: 1; --tx: 0px;
+  transform: translate(-50%, -50%) translateX(var(--tx)) rotateX(var(--rx)) rotateZ(var(--rz)) scale(var(--sc));
+  box-shadow: 0 40px 60px rgba(60,40,15,.35), 0 8px 14px rgba(60,40,15,.25);
+}
+.board canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.edge-front {
+  position: absolute; left: 0; top: 100%; width: 100%; height: var(--thick, 14px);
+  transform-origin: top center; transform: rotateX(-90deg);
+  background: linear-gradient(#94633a, #5e3b20); display: flex; align-items: center; justify-content: center;
+}
+.plaque {
+  background: linear-gradient(#ecd283, #b48d3d); color: #3b2a12; border-radius: 2px;
+  font: 800 calc(var(--thick, 14px) * .42) / 1 var(--body); letter-spacing: .14em; text-transform: uppercase;
+  padding: .3em .9em; white-space: nowrap; box-shadow: inset 0 0 0 1px rgba(60,40,10,.35);
+}
+.bpin {
+  position: absolute; width: var(--pin, 22px); height: calc(var(--pin, 22px) * 2.3); padding: 0; border: 0; background: none; cursor: pointer;
+  transform-origin: 50% 100%;
+  transform: translate(-50%, -100%) rotateZ(calc(var(--rz) * -1)) rotateX(calc(var(--rx) * -1)) scale(0);
+  transition: transform .45s cubic-bezier(.3, 1.6, .5, 1);
+}
+.bpin.up { transform: translate(-50%, -100%) rotateZ(calc(var(--rz) * -1)) rotateX(calc(var(--rx) * -1)) scale(1); }
+.bpin .head {
+  position: absolute; left: 0; top: 0; width: 100%; aspect-ratio: 1; border-radius: 50%;
+  background: var(--accent); border: 2px solid #fff; color: #fff; display: grid; place-items: center;
+  font: 800 calc(var(--pin, 22px) * .48) / 1 var(--body); box-shadow: 0 3px 8px rgba(0,0,0,.3);
+}
+.bpin .stick { position: absolute; left: calc(50% - 1px); top: var(--pin, 22px); width: 2px; bottom: 0; background: #fff; }
+.bpin:focus-visible .head, .bpin.sel .head { outline: 3px solid #fff; outline-offset: 2px; background: #e24a2a; }
+.ts { position: absolute; left: 0; right: 0; pointer-events: none; backdrop-filter: blur(2.5px); -webkit-backdrop-filter: blur(2.5px); }
+.ts.top { top: 0; height: 28%; mask-image: linear-gradient(#000, transparent); -webkit-mask-image: linear-gradient(#000, transparent); }
+.ts.bot { bottom: 0; height: 26%; mask-image: linear-gradient(transparent, #000); -webkit-mask-image: linear-gradient(transparent, #000); }
+.endcard { z-index: 2; }
+.card { z-index: 3; }
 
 /* ---------- controls ---------- */
 .controls { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; align-items: center; }
@@ -105,7 +148,7 @@ header.top p { margin: 0; color: var(--muted); font-size: 14px; }
 .timebar span { display: block; height: 100%; width: 0; background: var(--accent); }
 
 /* ---------- how it works ---------- */
-.how { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 6px; }
+.how { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 6px; }
 .how div { background: var(--panel); border-radius: 12px; padding: 16px; min-width: 0; }
 .how h3 { font-family: var(--display); font-weight: 400; font-size: 17px; margin: 0 0 4px; color: var(--sand); }
 .how p { margin: 0; color: var(--muted); font-size: 14px; }
@@ -122,6 +165,13 @@ header.top p { margin: 0; color: var(--muted); font-size: 14px; }
   <div class="stage-shell">
     <div class="stage" id="stage" data-format="landscape">
       <canvas id="cv" aria-label="Animated miniature flyover of Henley Beach with ad pins for local businesses"></canvas>
+      <div class="boardscene" id="boardscene">
+        <div class="board" id="board">
+          <canvas id="bcv" aria-label="The whole Henley miniature as a model board, Grange on the left, Henley Beach South on the right"></canvas>
+          <div class="edge-front"><span class="plaque">Grange · Henley Beach · Henley Beach South · SA 5022</span></div>
+        </div>
+        <div class="ts top"></div><div class="ts bot"></div>
+      </div>
 
       <div class="ov brand">aldo.today<small>Your local, from above</small></div>
       <div class="ov chip" id="chip">Henley Beach South <i>SA 5022</i></div>
@@ -145,6 +195,7 @@ header.top p { margin: 0; color: var(--muted); font-size: 14px; }
   <div class="controls">
     <button id="play" type="button" aria-label="Pause">Pause</button>
     <button id="replay" type="button">Replay</button>
+    <button id="explore" type="button" aria-pressed="false">Explore the board</button>
     <div class="timebar" aria-hidden="true"><span id="prog"></span></div>
     <div class="seg" role="group" aria-label="Ad format">
       <button type="button" data-f="landscape" aria-pressed="true">16:9</button>
@@ -156,6 +207,7 @@ header.top p { margin: 0; color: var(--muted); font-size: 14px; }
   <section class="how" aria-label="How the ad slots work">
     <div><h3>A pin on the map</h3><p>Your shop sits where it really is, on your street, in the flyover locals scroll past.</p></div>
     <div><h3>A card as we pass</h3><p>Your name and what you do pop up as the camera flies over. Fifteen words, no clutter.</p></div>
+    <div><h3>One board, every slot</h3><p>The ad ends on the whole suburb as a model board. Tap any pin to see who's on it.</p></div>
     <div><h3>Suburb to suburb</h3><p>Henley first. Grange, Fulham and West Beach next, one local flyover each.</p></div>
   </section>
   <p class="note">Ad slots in this demo are placeholders. Map is a stylised miniature, not to survey scale.</p>
@@ -276,7 +328,7 @@ header.top p { margin: 0; color: var(--muted); font-size: 14px; }
     { x: 520, y: 5640, cat: "Real estate", ttl: "Your agency here", where: "Henley Beach South · the sold sign on every street" },
     { x: 700, y: 5080, cat: "Plumber · sparky", ttl: "Your trade here", where: "Henley Beach South · on call, round the corner" },
     { x: 510, y: 3205, cat: "Café", ttl: "Your café here", where: "Henley Square · first coffee after the swim" },
-    { x: 330, y: 3080, cat: "Fish & chips", ttl: "Your shop here", where: "Esplanade · eaten on the sand" },
+    { x: 330, y: 2950, cat: "Fish & chips", ttl: "Your shop here", where: "Esplanade · eaten on the sand" },
     { x: 640, y: 2880, cat: "Barber · salon", ttl: "Your chair here", where: "Seaview Road · walk-ins welcome" },
     { x: 590, y: 3520, cat: "Surf & swim", ttl: "Your shop here", where: "Seaview Road · two blocks from the water" },
     { x: 720, y: 2260, cat: "Physio · health", ttl: "Your clinic here", where: "Henley Beach · after the jetty jump" },
@@ -293,12 +345,13 @@ header.top p { margin: 0; color: var(--muted); font-size: 14px; }
 
   // ---------- timeline ----------
   const KEYS = [[0, 6150], [3, 6150], [9.5, 4950], [16.5, 3240], [21.5, 2050], [27.5, 820], [30, 560]];
-  const T_FLY_END = 30, T_END = 37;
+  const T_FLY_END = 30, T_BOARD_IN = 1.2, T_PULL = 5.5, T_ENDCARD = 37, T_END = 44;
   const CAPTIONS = [
     [3.4, 9, "Every street has someone who does it best."],
     [10, 17, "The coffee. The haircut. Fish and chips on the sand."],
     [17.5, 22.5, "All of it a walk from home."],
     [23, 29.5, "Next door, Grange. Same idea."],
+    [31.5, 36.6, "The whole neighbourhood, on one board."],
   ];
   const sstep = u => u * u * (3 - 2 * u);
   function camY(t) {
@@ -320,7 +373,7 @@ header.top p { margin: 0; color: var(--muted); font-size: 14px; }
     W = r.width; H = r.height;
     for (const c of [cv, sc, bc]) { c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); }
   }
-  new ResizeObserver(() => { resize(); if (!playing) frame(0); }).observe(stage);
+  new ResizeObserver(() => { resize(); if (conf !== undefined) { layoutBoard(); boardFrame = 0; } if (!playing) frame(0); }).observe(stage);
 
   function view(t, y) {
     const f = stage.dataset.format;
@@ -334,8 +387,13 @@ header.top p { margin: 0; color: var(--muted); font-size: 14px; }
   }
 
   function drawScene(c, t, v) {
-    const k = v.s * DPR;
-    c.setTransform(k, 0, 0, k, -v.x0 * k, -v.y0 * k);
+    if (v.mat) {
+      c.setTransform(...v.mat);
+      c.save(); c.beginPath(); c.rect(v.x0, 0, BOARD_X1 - v.x0, WL); c.clip();
+    } else {
+      const k = v.s * DPR;
+      c.setTransform(k, 0, 0, k, -v.x0 * k, -v.y0 * k);
+    }
     const ya = v.y0 - 60, yb = v.y0 + v.vh + 60;
     const vis = (y0, y1) => y1 > ya && y0 < yb;
 
@@ -510,7 +568,8 @@ header.top p { margin: 0; color: var(--muted); font-size: 14px; }
       }
     }
 
-    // pins
+    // pins (the board shows them as standing HTML pins instead)
+    if (v.mat) { c.restore(); c.setTransform(1, 0, 0, 1, 0, 0); return; }
     PINS.forEach((p, i) => {
       if (!vis(p.y - 40, p.y + 10)) return;
       const on = i === activePin, bob = Math.sin(t * 3 + i) * 1.5, top = p.y - 20 + bob;
@@ -561,12 +620,103 @@ header.top p { margin: 0; color: var(--muted); font-size: 14px; }
   const chip = $("chip"), caption = $("caption"), card = $("card"), intro = $("intro"), end = $("end"), prog = $("prog"), scalebar = $("scalebar");
   let activePin = -1, shownPin = -2, lastSuburb = "", lastCap = null;
 
+  // ---------- model board ----------
+  const BOARD_X0 = -20, BOARD_X1 = 1160;
+  const bscene = $("boardscene"), board = $("board"), bcv = $("bcv"), bctx = bcv.getContext("2d");
+  let mode = "ad", conf = null, selPin = -1, tiltX = 0, tiltZ = 0;
+  PINS.forEach((p, i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "bpin";
+    b.style.left = (p.y / WL * 100).toFixed(2) + "%";
+    b.style.top = ((BOARD_X1 - p.x) / (BOARD_X1 - BOARD_X0) * 100).toFixed(2) + "%";
+    b.innerHTML = `<span class="head">${i + 1}</span><span class="stick"></span>`;
+    b.setAttribute("aria-label", `Slot ${i + 1}: ${p.cat}, ${p.where}`);
+    b.addEventListener("click", e => { e.stopPropagation(); selPin = selPin === i ? -1 : i; showBoardCard(); });
+    board.appendChild(b);
+    p.el = b;
+  });
+  bscene.addEventListener("click", () => { selPin = -1; showBoardCard(); });
+  bscene.addEventListener("pointermove", e => {
+    if (mode !== "board") return;
+    const r = bscene.getBoundingClientRect();
+    tiltZ = ((e.clientX - r.left) / r.width - .5) * 6;
+    tiltX = ((e.clientY - r.top) / r.height - .5) * -6;
+  });
+
+  function layoutBoard() {
+    const f = stage.dataset.format;
+    conf = f === "portrait" ? { bw: H * 1.02, rz: -74, rx: 46 }
+         : f === "square"   ? { bw: W * 1.32, rz: -32, rx: 50 }
+         :                    { bw: W * 1.04, rz: -9,  rx: 56 };
+    board.style.width = conf.bw.toFixed(0) + "px";
+    board.style.setProperty("--thick", (conf.bw * .011).toFixed(1) + "px");
+    board.style.setProperty("--pin", (Math.min(W, H) * .036).toFixed(1) + "px");
+    bscene.style.perspective = (Math.max(W, H) * 1.5).toFixed(0) + "px";
+    bcv.width = Math.min(4000, Math.round(conf.bw * DPR * 1.3));
+    bcv.height = Math.round(bcv.width * (BOARD_X1 - BOARD_X0) / WL);
+  }
+
+  function showBoardCard() {
+    PINS.forEach((p, i) => p.el.classList.toggle("sel", i === selPin));
+    if (selPin < 0) { card.classList.remove("on"); return; }
+    const p = PINS[selPin];
+    card.querySelector(".cat").textContent = `Slot ${selPin + 1} · ${p.cat}`;
+    card.querySelector(".ttl").textContent = p.ttl;
+    card.querySelector(".where").textContent = p.where;
+    card.classList.add("on");
+    placeBoardCard();
+  }
+  function placeBoardCard() {
+    if (selPin < 0) return;
+    const r = PINS[selPin].el.querySelector(".head").getBoundingClientRect(), sr = stage.getBoundingClientRect();
+    const px = r.left + r.width / 2 - sr.left, py = r.top - sr.top;
+    const cw = card.offsetWidth, ch = card.offsetHeight;
+    const left = Math.max(8, Math.min(W - cw - 8, px - cw / 2));
+    card.style.transform = `translate(${left.toFixed(1)}px, ${Math.max(8, py - ch - 10).toFixed(1)}px)`;
+    card.style.setProperty("--tail", Math.max(14, Math.min(cw - 14, px - left)).toFixed(1) + "px");
+  }
+
+  const easeIO = u => u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+  const lerp = (a, b, u) => a + (b - a) * u;
+  let boardFrame = 0;
+  function updateBoard(t, clock) {
+    let op, u;
+    if (mode === "board") { op = 1; u = 1; }
+    else if (t < T_FLY_END) { op = 0; u = 0; }
+    else { op = Math.min(1, (t - T_FLY_END) / T_BOARD_IN); u = easeIO(Math.min(1, (t - T_FLY_END) / T_PULL)); }
+    bscene.style.opacity = op;
+    cv.style.opacity = mode === "board" ? 0 : 1 - op;
+    bscene.classList.toggle("live", mode === "board");
+    scalebar.parentElement.style.opacity = 1 - op;
+    if (op <= 0) return false;
+    // pull back from Grange (left end of the board) to the whole board
+    board.style.setProperty("--rx", (lerp(14, conf.rx, u) + tiltX).toFixed(2) + "deg");
+    board.style.setProperty("--rz", (lerp(0, conf.rz, u) + tiltZ).toFixed(2) + "deg");
+    board.style.setProperty("--sc", lerp(2.6, 1, u).toFixed(3));
+    board.style.setProperty("--tx", lerp(conf.bw * 1.0, 0, u).toFixed(1) + "px");
+    PINS.forEach((p, i) => p.el.classList.toggle("up", mode === "board" || t > T_FLY_END + 1.8 + i * .22));
+    if (boardFrame++ % 2 === 0) {
+      const k = bcv.width / WL;
+      bctx.setTransform(1, 0, 0, 1, 0, 0);
+      bctx.clearRect(0, 0, bcv.width, bcv.height);
+      drawScene(bctx, clock, { mat: [0, -k, k, 0, 0, k * BOARD_X1], x0: BOARD_X0, y0: 0, vh: WL, s: 1 });
+    }
+    if (mode === "board") placeBoardCard();
+    return op >= 1;
+  }
+
   function overlays(t, v) {
+    if (mode === "board") {
+      intro.classList.add("hide"); end.classList.add("hide"); chip.style.opacity = 0;
+      if (lastCap !== "board") { lastCap = "board"; caption.textContent = "Tap a pin to see the slot."; caption.classList.remove("off"); }
+      prog.style.width = "0%";
+      return;
+    }
     const y = camY(t);
     const sub = SUBURBS.find(s => y >= s.from && y < s.to) || SUBURBS[0];
     if (sub.name !== lastSuburb) { lastSuburb = sub.name; chip.innerHTML = `${sub.name} <i>SA 5022</i>`; }
     intro.classList.toggle("hide", t > 2.8);
-    end.classList.toggle("hide", t < T_FLY_END + .3);
+    end.classList.toggle("hide", t < T_ENDCARD);
     chip.style.opacity = t > T_FLY_END ? 0 : 1;
     const cap = CAPTIONS.find(([a, b]) => t >= a && t < b);
     if (cap !== lastCap) {
@@ -608,14 +758,15 @@ header.top p { margin: 0; color: var(--muted); font-size: 14px; }
 
   // ---------- loop ----------
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let t = reduce ? 16.5 : 0, playing = !reduce, last = 0;
+  let t = reduce ? 16.5 : 0, playing = !reduce, last = 0, clock = t;
   function frame(dt) {
     if (!W) return;
-    if (playing) { t += dt; if (t > T_END) t = 0; }
+    if (playing || mode === "board") clock += dt;
+    if (playing && mode === "ad") { t += dt; if (t > T_END) t = 0; }
     const y = camY(t), v = view(t, y);
     overlays(t, v);
-    drawScene(sx, t, v);
-    composite();
+    const covered = updateBoard(t, clock);
+    if (!covered && mode === "ad") { drawScene(sx, t, v); composite(); }
   }
   function tick(now) {
     const dt = last ? Math.min(.05, (now - last) / 1000) : 0;
@@ -628,7 +779,16 @@ header.top p { margin: 0; color: var(--muted); font-size: 14px; }
   function setPlaying(p) { playing = p; playBtn.textContent = p ? "Pause" : "Play"; playBtn.setAttribute("aria-label", p ? "Pause" : "Play"); }
   setPlaying(playing);
   playBtn.addEventListener("click", () => setPlaying(!playing));
-  $("replay").addEventListener("click", () => { t = 0; setPlaying(true); });
+  const exploreBtn = $("explore");
+  function setMode(m) {
+    mode = m; selPin = -1; tiltX = tiltZ = 0; lastCap = null; shownPin = -2;
+    showBoardCard();
+    exploreBtn.setAttribute("aria-pressed", String(m === "board"));
+    exploreBtn.textContent = m === "board" ? "Back to the ad" : "Explore the board";
+    playBtn.disabled = m === "board";
+  }
+  exploreBtn.addEventListener("click", () => setMode(mode === "board" ? "ad" : "board"));
+  $("replay").addEventListener("click", () => { setMode("ad"); t = 0; setPlaying(true); });
   document.querySelectorAll("[data-f]").forEach(b => b.addEventListener("click", () => {
     stage.dataset.format = b.dataset.f;
     document.querySelectorAll("[data-f]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
@@ -636,6 +796,7 @@ header.top p { margin: 0; color: var(--muted); font-size: 14px; }
   }));
 
   resize();
+  layoutBoard();
   requestAnimationFrame(tick);
 })();
 </script>
