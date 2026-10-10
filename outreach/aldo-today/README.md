@@ -9,6 +9,8 @@ Files:
 - `scripts.md`: walk-in, phone, email, LinkedIn, follow-ups, objections, close
 - `councils.csv`: the 19 councils, the day each one's letters go up, prices and open spots
 - `pipeline.csv`: one row per business you contact (blank, fill it in as you go)
+- `locals-plan.md`: the next product, one business of each kind per suburb, on the miniature and the suburb page
+- `targets-charles-sturt-onkaparinga.csv`: real agency offices for Monday's councils
 
 ---
 
