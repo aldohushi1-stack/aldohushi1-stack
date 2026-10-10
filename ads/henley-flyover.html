@@ -1,0 +1,641 @@
+<title>Henley in Miniature</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Figtree:wght@400;600;800&display=swap">
+<style>
+/* Layout: one stage (the ad itself) on a deep-gulf page, controls underneath, a short "how the slots work" strip below. Single dark look by choice. */
+:root {
+  --bg: #0d2730;        /* Gulf St Vincent at dusk */
+  --panel: #133540;
+  --fg: #f4efe3;
+  --muted: #9dbcbf;
+  --accent: #ff6a48;    /* pin coral */
+  --sand: #f2dba2;
+  --ink: #12262b;
+  --display: "Bowlby One", "Arial Black", Impact, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+html, body { background: var(--bg); color: var(--fg); }
+body { font-family: var(--body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1000px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 40px; display: grid; gap: 18px; }
+
+header.top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; }
+header.top h1 { font-family: var(--display); font-weight: 400; font-size: clamp(22px, 4vw, 30px); letter-spacing: .01em; margin: 0; text-wrap: balance; }
+header.top p { margin: 0; color: var(--muted); font-size: 14px; }
+
+/* ---------- the stage ---------- */
+.stage-shell { display: flex; justify-content: center; }
+.stage {
+  position: relative; width: 100%; aspect-ratio: 16 / 9; max-width: 100%;
+  border-radius: 14px; overflow: hidden; background: #3a8fa8;
+  container-type: inline-size; box-shadow: 0 24px 60px rgba(0,0,0,.45);
+}
+.stage[data-format="portrait"] { aspect-ratio: 9 / 16; width: min(100%, calc(78vh * 9 / 16)); }
+.stage[data-format="square"]   { aspect-ratio: 1 / 1;  width: min(100%, 78vh); }
+.stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+.ov { position: absolute; pointer-events: none; color: #fff; }
+.brand { top: 3.2cqw; left: 3.2cqw; font-family: var(--display); font-size: clamp(13px, 3.1cqw, 30px); line-height: 1; text-shadow: 0 2px 10px rgba(0,0,0,.35); }
+.brand small { display: block; font-family: var(--body); font-weight: 600; font-size: .42em; letter-spacing: .14em; text-transform: uppercase; margin-top: .5em; opacity: .9; }
+
+.chip {
+  top: 3.2cqw; right: 3.2cqw; background: rgba(255,255,255,.92); color: var(--ink);
+  border-radius: 999px; padding: .45em .95em; font-weight: 800; font-size: clamp(10px, 1.8cqw, 15px);
+  display: flex; gap: .5em; align-items: center; transition: opacity .4s;
+}
+.chip i { font-style: normal; font-weight: 600; opacity: .6; font-variant-numeric: tabular-nums; }
+.chip::before { content: ""; width: .6em; height: .6em; border-radius: 50%; background: var(--accent); }
+
+.caption {
+  left: 3.2cqw; right: 3.2cqw; bottom: 4cqw; font-family: var(--display);
+  font-size: clamp(15px, 3.6cqw, 36px); line-height: 1.05; text-shadow: 0 3px 16px rgba(0,0,0,.45);
+  max-width: 22ch; text-wrap: balance; transition: opacity .5s, transform .5s;
+}
+.caption.off { opacity: 0; transform: translateY(8px); }
+.stage[data-format="portrait"] .caption { font-size: clamp(18px, 7.6cqw, 40px); bottom: 14cqw; }
+
+.scale { right: 3.2cqw; bottom: 3.2cqw; font-size: clamp(9px, 1.3cqw, 12px); font-weight: 600; display: grid; justify-items: end; gap: 3px; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
+.scale b { display: block; height: 5px; border: 2px solid #fff; border-top: 0; }
+.stage[data-format="portrait"] .scale { bottom: 4cqw; font-size: clamp(9px, 2.6cqw, 12px); }
+
+.card {
+  left: 0; top: 0; background: #fff; color: var(--ink); border-radius: 10px;
+  padding: .7em .9em .75em; width: max-content; max-width: 46cqw;
+  font-size: clamp(10px, 1.75cqw, 16px); line-height: 1.25;
+  box-shadow: 0 10px 28px rgba(0,0,0,.3); opacity: 0; transition: opacity .35s;
+}
+.stage[data-format="portrait"] .card { font-size: clamp(11px, 3.6cqw, 16px); max-width: 70cqw; }
+.card.on { opacity: 1; }
+.card .cat { font-size: .72em; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.card .ttl { font-family: var(--display); font-size: 1.35em; margin: .15em 0 .2em; }
+.card .where { font-size: .8em; opacity: .7; }
+.card::after { content: ""; position: absolute; left: var(--tail, 50%); bottom: -6px; width: 12px; height: 12px; background: #fff; transform: translateX(-50%) rotate(45deg); border-radius: 2px; }
+
+.intro, .endcard {
+  inset: 0; display: grid; place-content: center; text-align: center; gap: 1.4cqw; padding: 6cqw;
+  transition: opacity .7s;
+}
+.intro { background: linear-gradient(180deg, rgba(10,40,55,.0), rgba(10,40,55,.35)); }
+.intro h2, .endcard h2 { font-family: var(--display); font-weight: 400; margin: 0; line-height: .98; text-wrap: balance; text-shadow: 0 4px 24px rgba(0,0,0,.35); }
+.intro h2 { font-size: clamp(26px, 8cqw, 84px); }
+.intro p { margin: 0; font-weight: 600; font-size: clamp(11px, 2cqw, 20px); letter-spacing: .04em; opacity: .95; }
+.endcard { background: rgba(13,39,48,.82); }
+.endcard h2 { font-size: clamp(28px, 9cqw, 92px); color: var(--sand); }
+.endcard p { margin: 0 auto; max-width: 34ch; font-size: clamp(12px, 2.2cqw, 22px); }
+.endcard .cta { justify-self: center; margin-top: 1cqw; background: var(--accent); color: #fff; font-weight: 800; border-radius: 999px; padding: .6em 1.3em; font-size: clamp(12px, 2.2cqw, 22px); }
+.endcard .fine { font-size: clamp(9px, 1.2cqw, 12px); opacity: .7; margin-top: 1cqw; }
+.stage[data-format="portrait"] .intro h2 { font-size: clamp(28px, 14cqw, 70px); }
+.stage[data-format="portrait"] .endcard h2 { font-size: clamp(30px, 15cqw, 76px); }
+.stage[data-format="portrait"] :is(.intro p, .endcard p, .endcard .cta) { font-size: clamp(12px, 4.2cqw, 20px); }
+.stage[data-format="portrait"] .endcard .fine { font-size: clamp(9px, 2.6cqw, 12px); }
+.hide { opacity: 0; }
+
+/* ---------- controls ---------- */
+.controls { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; align-items: center; }
+.controls button {
+  font: 600 14px var(--body); color: var(--fg); background: var(--panel);
+  border: 1px solid rgba(255,255,255,.12); border-radius: 999px; padding: 8px 16px; cursor: pointer;
+}
+.controls button:hover { border-color: rgba(255,255,255,.35); }
+.controls button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.controls button[aria-pressed="true"] { background: var(--fg); color: var(--ink); }
+.seg { display: inline-flex; gap: 4px; }
+.timebar { width: min(260px, 60%); height: 4px; background: rgba(255,255,255,.12); border-radius: 4px; overflow: hidden; }
+.timebar span { display: block; height: 100%; width: 0; background: var(--accent); }
+
+/* ---------- how it works ---------- */
+.how { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 6px; }
+.how div { background: var(--panel); border-radius: 12px; padding: 16px; min-width: 0; }
+.how h3 { font-family: var(--display); font-weight: 400; font-size: 17px; margin: 0 0 4px; color: var(--sand); }
+.how p { margin: 0; color: var(--muted); font-size: 14px; }
+.note { color: var(--muted); font-size: 13px; text-align: center; margin: 0; }
+@media (max-width: 680px) { .how { grid-template-columns: 1fr; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>Henley in Miniature</h1>
+    <p>A flyover ad for aldo.today · Henley Beach South → Henley Beach → Grange</p>
+  </header>
+
+  <div class="stage-shell">
+    <div class="stage" id="stage" data-format="landscape">
+      <canvas id="cv" aria-label="Animated miniature flyover of Henley Beach with ad pins for local businesses"></canvas>
+
+      <div class="ov brand">aldo.today<small>Your local, from above</small></div>
+      <div class="ov chip" id="chip">Henley Beach South <i>SA 5022</i></div>
+      <div class="ov scale"><span>100 m</span><b id="scalebar"></b></div>
+      <div class="ov caption off" id="caption"></div>
+      <div class="ov card" id="card"><div class="cat"></div><div class="ttl"></div><div class="where"></div></div>
+
+      <div class="ov intro" id="intro">
+        <h2>Henley,<br>in miniature.</h2>
+        <p>Sunday, 7am. The jetty's already busy.</p>
+      </div>
+      <div class="ov endcard hide" id="end">
+        <h2>Keep it in Henley.</h2>
+        <p>Local ads for the businesses your neighbours already walk past. Suburb to suburb, street by street.</p>
+        <div class="cta">Get your pin on the map · aldo.today</div>
+        <div class="fine">Ad slots shown are examples, not real businesses.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="play" type="button" aria-label="Pause">Pause</button>
+    <button id="replay" type="button">Replay</button>
+    <div class="timebar" aria-hidden="true"><span id="prog"></span></div>
+    <div class="seg" role="group" aria-label="Ad format">
+      <button type="button" data-f="landscape" aria-pressed="true">16:9</button>
+      <button type="button" data-f="square" aria-pressed="false">1:1</button>
+      <button type="button" data-f="portrait" aria-pressed="false">9:16</button>
+    </div>
+  </div>
+
+  <section class="how" aria-label="How the ad slots work">
+    <div><h3>A pin on the map</h3><p>Your shop sits where it really is, on your street, in the flyover locals scroll past.</p></div>
+    <div><h3>A card as we pass</h3><p>Your name and what you do pop up as the camera flies over. Fifteen words, no clutter.</p></div>
+    <div><h3>Suburb to suburb</h3><p>Henley first. Grange, Fulham and West Beach next, one local flyover each.</p></div>
+  </section>
+  <p class="note">Ad slots in this demo are placeholders. Map is a stylised miniature, not to survey scale.</p>
+</div>
+
+<script>
+(() => {
+  // ---------- world ----------
+  const WL = 6400;                     // world length (north = 0, south = WL), ~1 unit = 1 m
+  function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const R = rng(5022);
+  const pick = a => a[Math.floor(R() * a.length)];
+  const rand = (a, b) => a + R() * (b - a);
+
+  const SHORE = 290, SAND_END = 370, ESP = [392, 412], SEAVIEW = [600, 624], EASTRD = [840, 860];
+  const COLS = [[412, 600], [624, 840], [860, 1160]];
+  const HBR = [3290, 3318], GR = [690, 712];
+  const JETTIES = [{ y: 3200, len: 270, name: "Henley" }, { y: 700, len: 230, name: "Grange" }];
+
+  const ROOFS = ["#c4643f", "#b5553a", "#a8493a", "#6b7378", "#8a9195", "#3e4347", "#dcdcd4", "#4d5450", "#7b6a5c"];
+  const WALLS = ["#efe6d6", "#e4d7c0", "#d9cdb8", "#f2efe8", "#cbb9a0", "#e9dcc9"];
+  const AWN = ["#ff6a48", "#2f7fa8", "#f3b23a", "#3f8f6b", "#d9476b", "#ffffff"];
+  const SHOPWALL = ["#f7f1e6", "#e8f0ee", "#f4e3cf", "#e6e9f2", "#f6dede"];
+
+  const ground = [], objs = [], umbrellas = [], people = [], cars = [], boats = [];
+
+  // east-west streets
+  const ew = [];
+  for (let y = 100; y < WL; y += 200) {
+    if (Math.abs(y - HBR[0]) < 120 || Math.abs(y - GR[0]) < 120) continue;
+    ew.push([y, y + 14]);
+  }
+  ew.push(HBR, GR);
+  ew.sort((a, b) => a[0] - b[0]);
+
+  const isShopZone = (ci, y) => (ci < 2 && y > 2700 && y < 3700) || (ci === 0 && y > 520 && y < 880);
+
+  function addHouse(lx, ly, lw, lh, faceWest) {
+    ground.push({ k: "lawn", x: lx + 1, y: ly + 1, w: lw - 2, h: lh - 2, c: pick(["#8fb36a", "#9bbd72", "#86aa64", "#a5c27c", "#b9c48a"]) });
+    const w = lw * rand(.5, .66), h = lh * rand(.52, .7);
+    const x = faceWest ? lx + rand(7, 12) : lx + lw - w - rand(7, 12);
+    const y = ly + (lh - h) / 2;
+    objs.push({ k: "house", x, y, w, h, z: rand(4, 7), roof: pick(ROOFS), wall: pick(WALLS), by: y + h });
+    if (R() < .26) {
+      const pw = Math.min(16, lw * .18), ph = Math.min(10, lh * .3);
+      const px = faceWest ? lx + lw - pw - 5 : lx + 5;
+      ground.push({ k: "pool", x: px, y: ly + rand(4, lh - ph - 4), w: pw, h: ph });
+    }
+    const nt = R() < .55 ? 1 : R() < .5 ? 2 : 0;
+    for (let i = 0; i < nt; i++) {
+      const tx = faceWest ? lx + lw - rand(4, 14) : lx + rand(4, 14);
+      const ty = ly + rand(6, lh - 4);
+      objs.push({ k: "tree", x: tx, y: ty, r: rand(4.5, 8), c: pick(["#5f8a4a", "#4f7d43", "#6f8f55", "#7c9a5d"]), by: ty });
+    }
+  }
+  function addShop(lx, ly, lw, lh, faceWest) {
+    ground.push({ k: "rect", x: lx, y: ly, w: lw, h: lh, c: "#d8d2c4" });
+    const w = lw - 6, h = lh - 3;
+    const x = faceWest ? lx + 4 : lx + 2, y = ly + 1.5;
+    objs.push({ k: "shop", x, y, w, h, z: rand(7, 11), wall: pick(SHOPWALL), awn: pick(AWN), faceWest, by: y + h });
+  }
+
+  // fill blocks
+  for (let i = 0; i < ew.length - 1; i++) {
+    const by0 = ew[i][1], by1 = ew[i + 1][0];
+    COLS.forEach(([x0, x1], ci) => {
+      if (ci === 0 && by0 >= 3100 && by1 <= HBR[0] + 1) return; // Henley Square
+      if (ci === 2 && by0 > 4480 && by1 < 4960) { // reserve
+        ground.push({ k: "park", x: x0 + 2, y: by0 + 2, w: x1 - x0 - 4, h: by1 - by0 - 4 });
+        for (let t = 0; t < 9; t++) { const tx = rand(x0 + 10, x1 - 10), ty = rand(by0 + 8, by1 - 8); objs.push({ k: "tree", x: tx, y: ty, r: rand(7, 11), c: pick(["#557f45", "#6a8d50"]), by: ty }); }
+        return;
+      }
+      const n = Math.max(1, Math.round((by1 - by0) / 46)), lh = (by1 - by0) / n, half = (x1 - x0) / 2;
+      for (let r = 0; r < n; r++) {
+        const ly = by0 + r * lh;
+        for (let side = 0; side < 2; side++) {
+          const lx = x0 + side * half, faceWest = side === 0;
+          const shop = isShopZone(ci, ly) && ((ci === 0 && side === 1) || (ci === 1 && side === 0) || (ci === 0 && ly < 900));
+          shop ? addShop(lx, ly, half, lh, faceWest) : addHouse(lx, ly, half, lh, faceWest);
+        }
+      }
+    });
+  }
+
+  // Henley Square
+  const SQ = { x: 412, y: 3114, w: 188, h: HBR[0] - 3114 };
+  ground.push({ k: "square", ...SQ });
+  for (let i = 0; i < 6; i++) { const tx = SQ.x + 20 + i * 30, ty = SQ.y + 18; objs.push({ k: "pine", x: tx, y: ty, r: 7, by: ty }); }
+  for (let i = 0; i < 14; i++) { const tx = rand(SQ.x + 14, SQ.x + SQ.w - 14), ty = rand(SQ.y + 40, SQ.y + SQ.h - 12); objs.push({ k: "brolly", x: tx, y: ty, c: pick(["#ffffff", "#ff6a48", "#2f7fa8", "#f3b23a"]), by: ty }); }
+
+  // Norfolk Island pines along the Esplanade
+  for (let y = 40; y < WL; y += 34) {
+    if (JETTIES.some(j => Math.abs(y - j.y) < 18)) continue;
+    objs.push({ k: "pine", x: 381 + rand(-2, 2), y, r: rand(6, 8), by: y });
+  }
+
+  // beach umbrellas and people (busier near the jetties)
+  for (let i = 0; i < 520; i++) {
+    const y = R() < .55 ? pick(JETTIES).y + (R() - .5) * 900 : rand(0, WL);
+    umbrellas.push({ x: rand(SHORE + 14, SAND_END - 10), y, c: pick(["#ff6a48", "#2f7fa8", "#f3b23a", "#ffffff", "#3f8f6b", "#d9476b"]), c2: "#ffffff" });
+  }
+  for (let i = 0; i < 700; i++) {
+    const near = R() < .6, y = near ? pick(JETTIES).y + (R() - .5) * 1000 : rand(0, WL);
+    const inWater = R() < .4;
+    people.push({ x: inWater ? rand(SHORE - 22, SHORE - 2) : rand(SHORE + 2, SAND_END - 4), y, c: pick(["#ffd4b0", "#e0a07a", "#8a5a3c", "#f2c9a0"]), ph: R() * 6.28, water: inWater });
+  }
+  // cars
+  [[397, 1], [407, -1], [606, 1], [618, -1], [846, 1], [854, -1]].forEach(([x, dir]) => {
+    for (let i = 0; i < 26; i++) cars.push({ x, y: rand(0, WL), dir, v: rand(16, 26), c: pick(["#ffffff", "#c8ccd0", "#2c3338", "#b83a2e", "#2f5f8f", "#e9e4d8", "#50606a"]) });
+  });
+  for (let i = 0; i < 9; i++) cars.push({ h: true, x: rand(412, 1160), y: R() < .5 ? HBR[0] + 7 : HBR[0] + 21, v: rand(14, 22), c: pick(["#ffffff", "#2c3338", "#b83a2e", "#2f5f8f"]) });
+  for (let i = 0; i < 14; i++) boats.push({ x: rand(30, 250), y: rand(0, WL), v: rand(3, 8) * (R() < .5 ? 1 : -1), s: rand(.8, 1.3) });
+
+  objs.sort((a, b) => a.by - b.by);
+
+  // ---------- ad slots (placeholders, never real businesses) ----------
+  const PINS = [
+    { x: 520, y: 5640, cat: "Real estate", ttl: "Your agency here", where: "Henley Beach South · the sold sign on every street" },
+    { x: 700, y: 5080, cat: "Plumber · sparky", ttl: "Your trade here", where: "Henley Beach South · on call, round the corner" },
+    { x: 510, y: 3205, cat: "Café", ttl: "Your café here", where: "Henley Square · first coffee after the swim" },
+    { x: 330, y: 3080, cat: "Fish & chips", ttl: "Your shop here", where: "Esplanade · eaten on the sand" },
+    { x: 640, y: 2880, cat: "Barber · salon", ttl: "Your chair here", where: "Seaview Road · walk-ins welcome" },
+    { x: 590, y: 3520, cat: "Surf & swim", ttl: "Your shop here", where: "Seaview Road · two blocks from the water" },
+    { x: 720, y: 2260, cat: "Physio · health", ttl: "Your clinic here", where: "Henley Beach · after the jetty jump" },
+    { x: 470, y: 1820, cat: "Real estate", ttl: "Your agency here", where: "Henley Beach · listings by the sea" },
+    { x: 480, y: 760, cat: "Pub · bistro", ttl: "Your venue here", where: "Grange · Sunday session" },
+    { x: 560, y: 1080, cat: "Bakery", ttl: "Your bakery here", where: "Grange · fresh before the school run" },
+  ];
+
+  const SUBURBS = [
+    { from: 4200, to: WL, name: "Henley Beach South" },
+    { from: 1450, to: 4200, name: "Henley Beach" },
+    { from: 0, to: 1450, name: "Grange" },
+  ];
+
+  // ---------- timeline ----------
+  const KEYS = [[0, 6150], [3, 6150], [9.5, 4950], [16.5, 3240], [21.5, 2050], [27.5, 820], [30, 560]];
+  const T_FLY_END = 30, T_END = 37;
+  const CAPTIONS = [
+    [3.4, 9, "Every street has someone who does it best."],
+    [10, 17, "The coffee. The haircut. Fish and chips on the sand."],
+    [17.5, 22.5, "All of it a walk from home."],
+    [23, 29.5, "Next door, Grange. Same idea."],
+  ];
+  const sstep = u => u * u * (3 - 2 * u);
+  function camY(t) {
+    if (t >= KEYS[KEYS.length - 1][0]) return KEYS[KEYS.length - 1][1];
+    for (let i = 0; i < KEYS.length - 1; i++) {
+      const [t0, y0] = KEYS[i], [t1, y1] = KEYS[i + 1];
+      if (t <= t1) return y0 + (y1 - y0) * sstep((t - t0) / (t1 - t0));
+    }
+  }
+
+  // ---------- canvas ----------
+  const stage = document.getElementById("stage"), cv = document.getElementById("cv"), ctx = cv.getContext("2d");
+  const sc = document.createElement("canvas"), sx = sc.getContext("2d");
+  const bc = document.createElement("canvas"), bx = bc.getContext("2d");
+  let W = 0, H = 0, DPR = 1;
+  function resize() {
+    const r = stage.getBoundingClientRect();
+    DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+    W = r.width; H = r.height;
+    for (const c of [cv, sc, bc]) { c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); }
+  }
+  new ResizeObserver(() => { resize(); if (!playing) frame(0); }).observe(stage);
+
+  function view(t, y) {
+    const f = stage.dataset.format;
+    let vw = f === "portrait" ? 470 : f === "square" ? 700 : 1000;
+    let cx = f === "portrait" ? 460 : f === "square" ? 470 : 500;
+    const zoom = 1 - .16 * Math.exp(-(((y - 3240) / 650) ** 2)) - .08 * Math.exp(-(((y - 760) / 500) ** 2));
+    vw *= zoom;
+    cx += Math.sin(t * .25) * 12;
+    const s = W / vw, vh = H / s;
+    return { s, x0: cx - vw / 2, y0: y - vh / 2, vw, vh };
+  }
+
+  function drawScene(c, t, v) {
+    const k = v.s * DPR;
+    c.setTransform(k, 0, 0, k, -v.x0 * k, -v.y0 * k);
+    const ya = v.y0 - 60, yb = v.y0 + v.vh + 60;
+    const vis = (y0, y1) => y1 > ya && y0 < yb;
+
+    // sea
+    const g = c.createLinearGradient(v.x0, 0, SHORE, 0);
+    g.addColorStop(0, "#1f6f95"); g.addColorStop(.55, "#2d8fb0"); g.addColorStop(1, "#5cc2c6");
+    c.fillStyle = g; c.fillRect(v.x0 - 10, ya, SHORE - v.x0 + 10, yb - ya);
+    // sand
+    c.fillStyle = "#ead39a"; c.fillRect(SHORE, ya, SAND_END - SHORE, yb - ya);
+    c.fillStyle = "#cfb47a"; c.fillRect(SHORE, ya, 7, yb - ya);
+    // pine strip + footpath
+    c.fillStyle = "#9cb877"; c.fillRect(SAND_END, ya, ESP[0] - SAND_END, yb - ya);
+    c.fillStyle = "#e3ddcf"; c.fillRect(SAND_END, ya, 4, yb - ya);
+    // land base
+    c.fillStyle = "#cfc8b6"; c.fillRect(ESP[0], ya, 1400, yb - ya);
+
+    // waves
+    c.lineCap = "round";
+    for (let i = 0; i < 4; i++) {
+      const off = (t * 7 + i * 11) % 44;
+      c.strokeStyle = `rgba(255,255,255,${(.75 * (1 - off / 44)).toFixed(3)})`;
+      c.lineWidth = 2.2 - off / 30;
+      c.beginPath();
+      for (let y = Math.floor(ya / 16) * 16; y <= yb; y += 16) {
+        const x = SHORE - 3 - off + Math.sin(y * .021 + t * .8 + i) * 3 + Math.sin(y * .007 + i * 2) * 4;
+        y === Math.floor(ya / 16) * 16 ? c.moveTo(x, y) : c.lineTo(x, y);
+      }
+      c.stroke();
+    }
+    // sea sparkle
+    c.fillStyle = "rgba(255,255,255,.35)";
+    for (let i = 0; i < 70; i++) {
+      const y = ya + ((i * 97.3 + t * 3) % (yb - ya)), x = v.x0 + ((i * 53.7) % Math.max(1, SHORE - v.x0 - 30));
+      if (Math.sin(t * 2 + i) > .55) c.fillRect(x, y, 3, .8);
+    }
+    // boats
+    for (const b of boats) {
+      const y = ((b.y + t * b.v) % WL + WL) % WL;
+      if (!vis(y - 20, y + 20)) continue;
+      c.strokeStyle = "rgba(255,255,255,.5)"; c.lineWidth = 1;
+      c.beginPath(); c.moveTo(b.x - 2, y + 6 * Math.sign(b.v) * -1); c.lineTo(b.x - 5, y - 18 * Math.sign(b.v)); c.moveTo(b.x + 2, y); c.lineTo(b.x + 5, y - 18 * Math.sign(b.v)); c.stroke();
+      c.fillStyle = "#fff"; c.beginPath(); c.ellipse(b.x, y, 3 * b.s, 7 * b.s, 0, 0, 6.29); c.fill();
+      c.fillStyle = "#c9d6da"; c.fillRect(b.x - 1.3 * b.s, y - 2 * b.s, 2.6 * b.s, 3 * b.s);
+    }
+    // people in water / on sand
+    for (const p of people) {
+      if (!vis(p.y - 4, p.y + 4)) continue;
+      const dx = p.water ? Math.sin(t * .8 + p.ph) * .8 : 0;
+      if (p.water) { c.fillStyle = "rgba(255,255,255,.55)"; c.beginPath(); c.arc(p.x + dx, p.y + .6, 1.8, 0, 6.29); c.fill(); }
+      c.fillStyle = p.c; c.beginPath(); c.arc(p.x + dx, p.y, 1.1, 0, 6.29); c.fill();
+    }
+    // towels + umbrellas
+    for (const u of umbrellas) {
+      if (!vis(u.y - 8, u.y + 8)) continue;
+      c.fillStyle = "rgba(90,60,20,.18)"; c.beginPath(); c.arc(u.x + 2.5, u.y + 2, 4.5, 0, 6.29); c.fill();
+      c.fillStyle = u.c; c.beginPath(); c.arc(u.x, u.y, 4.5, 0, 6.29); c.fill();
+      c.fillStyle = u.c2; c.beginPath(); c.moveTo(u.x, u.y); c.arc(u.x, u.y, 4.5, 0, 1.05); c.closePath(); c.fill();
+      c.beginPath(); c.moveTo(u.x, u.y); c.arc(u.x, u.y, 4.5, 2.1, 3.15); c.closePath(); c.fill();
+      c.beginPath(); c.moveTo(u.x, u.y); c.arc(u.x, u.y, 4.5, 4.2, 5.25); c.closePath(); c.fill();
+    }
+
+    // jetties
+    for (const j of JETTIES) {
+      if (!vis(j.y - 40, j.y + 40)) continue;
+      const x0 = SAND_END - 6 - j.len - 70, x1 = SAND_END - 6;
+      c.fillStyle = "rgba(10,50,70,.35)"; c.fillRect(x0 + 4, j.y - 2, x1 - x0, 9);
+      c.fillStyle = "#b99c74"; c.fillRect(x0, j.y - 4, x1 - x0, 8);
+      c.fillStyle = "#a3865f";
+      for (let x = x0; x < x1; x += 5) c.fillRect(x, j.y - 4, .6, 8);
+      c.fillStyle = "#8a6f4e"; c.fillRect(x0, j.y - 4.5, x1 - x0, 1); c.fillRect(x0, j.y + 3.5, x1 - x0, 1);
+      // head
+      c.fillStyle = "rgba(10,50,70,.35)"; c.fillRect(x0 + 4, j.y - 14, 18, 30);
+      c.fillStyle = "#b99c74"; c.fillRect(x0, j.y - 16, 18, 32);
+      // people strolling + fishing
+      for (let i = 0; i < 9; i++) {
+        const px = x0 + ((i * 41 + t * (i % 2 ? 4 : -3)) % (x1 - x0) + (x1 - x0)) % (x1 - x0);
+        c.fillStyle = ["#ffd4b0", "#2f7fa8", "#ff6a48", "#ffffff"][i % 4];
+        c.beginPath(); c.arc(px, j.y + (i % 2 ? 1.5 : -1.5), 1.3, 0, 6.29); c.fill();
+      }
+      for (let i = 0; i < 5; i++) { c.fillStyle = "#2c3338"; c.beginPath(); c.arc(x0 + 3 + i * 3, j.y - 14 + (i % 2) * 28, 1.3, 0, 6.29); c.fill(); }
+    }
+
+    // ground items (lots, pools, square, park)
+    for (const o of ground) {
+      if (!vis(o.y, o.y + o.h)) continue;
+      if (o.k === "lawn" || o.k === "rect") { c.fillStyle = o.c; c.fillRect(o.x, o.y, o.w, o.h); }
+      else if (o.k === "pool") {
+        c.fillStyle = "#f1efe8"; c.fillRect(o.x - 1.5, o.y - 1.5, o.w + 3, o.h + 3);
+        c.fillStyle = "#43c0d6"; c.fillRect(o.x, o.y, o.w, o.h);
+        c.fillStyle = "rgba(255,255,255,.5)"; c.fillRect(o.x + 1, o.y + 1 + Math.sin(t * 2 + o.x) * .6 + 1, o.w * .6, .6);
+      } else if (o.k === "square") {
+        c.fillStyle = "#e8dcc4"; c.fillRect(o.x, o.y, o.w, o.h);
+        c.strokeStyle = "rgba(160,135,95,.35)"; c.lineWidth = .5;
+        for (let x = o.x; x < o.x + o.w; x += 8) { c.beginPath(); c.moveTo(x, o.y); c.lineTo(x, o.y + o.h); c.stroke(); }
+        for (let y = o.y; y < o.y + o.h; y += 8) { c.beginPath(); c.moveTo(o.x, y); c.lineTo(o.x + o.w, y); c.stroke(); }
+        c.fillStyle = "#9cb877"; c.fillRect(o.x + 10, o.y + 70, 50, 34); c.fillRect(o.x + o.w - 60, o.y + 70, 50, 34);
+        c.fillStyle = "#cfe9ee"; c.beginPath(); c.arc(o.x + o.w / 2, o.y + 88, 9, 0, 6.29); c.fill();
+      } else if (o.k === "park") {
+        c.fillStyle = "#88b35e"; c.fillRect(o.x, o.y, o.w, o.h);
+        c.strokeStyle = "rgba(255,255,255,.7)"; c.lineWidth = 1.2;
+        c.beginPath(); c.ellipse(o.x + o.w / 2, o.y + o.h / 2, o.w * .32, o.h * .4, 0, 0, 6.29); c.stroke();
+      }
+    }
+
+    // roads
+    c.fillStyle = "#5b6064";
+    for (const [a, b] of [ESP, SEAVIEW, EASTRD]) c.fillRect(a, ya, b - a, yb - ya);
+    for (const [a, b] of ew) if (vis(a, b)) c.fillRect(ESP[1], a, 1400, b - a);
+    c.fillStyle = "rgba(255,255,255,.7)";
+    for (const [a, b] of [ESP, SEAVIEW, EASTRD]) {
+      const m = (a + b) / 2 - .4;
+      for (let y = Math.floor(ya / 14) * 14; y < yb; y += 14) c.fillRect(m, y, .8, 7);
+    }
+    for (const [a, b] of [HBR, GR]) if (vis(a, b)) { const m = (a + b) / 2 - .4; for (let x = ESP[1]; x < 1600; x += 14) c.fillRect(x, m, 7, .8); }
+    // zebra crossing at the square
+    c.fillStyle = "rgba(255,255,255,.85)";
+    for (let i = 0; i < 6; i++) c.fillRect(ESP[0] + 1, 3196 + i * 3, ESP[1] - ESP[0] - 2, 1.4);
+
+    // cars
+    for (const k2 of cars) {
+      if (k2.h) {
+        const x = ESP[1] + (((k2.x - ESP[1]) + t * k2.v) % 760 + 760) % 760;
+        if (!vis(k2.y - 5, k2.y + 5)) continue;
+        c.fillStyle = "rgba(0,0,0,.25)"; c.fillRect(x - 4, k2.y - 1.5, 9, 4.5);
+        c.fillStyle = k2.c; c.fillRect(x - 4.5, k2.y - 2.5, 9, 4.5);
+        c.fillStyle = "rgba(30,40,50,.6)"; c.fillRect(x - 1, k2.y - 2, 3, 3.5);
+        continue;
+      }
+      const y = ((k2.y + t * k2.v * k2.dir) % WL + WL) % WL;
+      if (!vis(y - 6, y + 6)) continue;
+      c.fillStyle = "rgba(0,0,0,.25)"; c.fillRect(k2.x - 1.5, y - 3.5, 4.5, 9);
+      c.fillStyle = k2.c; c.fillRect(k2.x - 2.5, y - 4.5, 4.5, 9);
+      c.fillStyle = "rgba(30,40,50,.6)"; c.fillRect(k2.x - 2, y - (k2.dir > 0 ? -1 : 2), 3.5, 3);
+    }
+
+    // objects, painter's order
+    for (const o of objs) {
+      if (o.by < ya || o.by - 30 > yb) continue;
+      if (o.k === "house") {
+        const { x, y, w, h, z } = o;
+        c.fillStyle = "rgba(25,45,30,.28)"; c.fillRect(x + 2, y + 1, w + z * .6, h + 1);
+        c.fillStyle = o.wall; c.fillRect(x, y + h - z, w, z);
+        c.fillStyle = "rgba(40,50,60,.55)";
+        for (let wx = x + 3; wx < x + w - 3; wx += 6) c.fillRect(wx, y + h - z * .7, 2.2, z * .4);
+        c.fillStyle = o.roof; c.fillRect(x, y - z, w, h);
+        c.fillStyle = "rgba(255,255,255,.17)"; c.fillRect(x, y - z, w, h / 2);
+        c.fillStyle = "rgba(0,0,0,.18)"; c.fillRect(x + 2, y - z + h / 2 - .4, w - 4, .8);
+      } else if (o.k === "shop") {
+        const { x, y, w, h, z } = o;
+        c.fillStyle = "rgba(25,40,40,.28)"; c.fillRect(x + 2, y + 1, w + z * .6, h + 1);
+        c.fillStyle = o.wall; c.fillRect(x, y + h - z, w, z);
+        c.fillStyle = "rgba(40,60,70,.6)"; c.fillRect(x + 2, y + h - z * .75, w - 4, z * .45);
+        c.fillStyle = "#ece8df"; c.fillRect(x, y - z, w, h);
+        c.strokeStyle = "rgba(0,0,0,.15)"; c.lineWidth = .8; c.strokeRect(x + .4, y - z + .4, w - .8, h - .8);
+        c.fillStyle = "#b9bcbf"; c.fillRect(x + w * .3, y - z + h * .3, 4, 3); c.fillRect(x + w * .6, y - z + h * .55, 3, 3);
+        // awning on the street side
+        const ax = o.faceWest ? x - 5 : x + w;
+        for (let i = 0; i < h - 4; i += 3) { c.fillStyle = (i / 3) % 2 ? "#ffffff" : o.awn; c.fillRect(ax, y + 2 + i, 5, 3); }
+      } else if (o.k === "tree") {
+        c.fillStyle = "rgba(25,45,30,.3)"; c.beginPath(); c.ellipse(o.x + o.r * .5, o.y + 1, o.r, o.r * .6, 0, 0, 6.29); c.fill();
+        c.fillStyle = o.c; c.beginPath(); c.arc(o.x, o.y - o.r * .7, o.r, 0, 6.29); c.fill();
+        c.fillStyle = "rgba(255,255,220,.22)"; c.beginPath(); c.arc(o.x - o.r * .3, o.y - o.r * 1.0, o.r * .55, 0, 6.29); c.fill();
+      } else if (o.k === "pine") {
+        c.fillStyle = "rgba(25,45,30,.32)"; c.beginPath(); c.ellipse(o.x + o.r * .9, o.y + 1, o.r * 1.3, o.r * .55, 0, 0, 6.29); c.fill();
+        c.fillStyle = "#2f5a3a"; c.beginPath(); c.arc(o.x, o.y - o.r, o.r, 0, 6.29); c.fill();
+        c.fillStyle = "#3e7149"; c.beginPath(); c.arc(o.x - .5, o.y - o.r * 1.5, o.r * .7, 0, 6.29); c.fill();
+        c.fillStyle = "#56875a"; c.beginPath(); c.arc(o.x - 1, o.y - o.r * 1.9, o.r * .38, 0, 6.29); c.fill();
+      } else if (o.k === "brolly") {
+        c.fillStyle = "rgba(60,40,20,.2)"; c.beginPath(); c.arc(o.x + 2, o.y + 1.5, 4, 0, 6.29); c.fill();
+        c.fillStyle = o.c; c.beginPath(); c.arc(o.x, o.y - 2, 4, 0, 6.29); c.fill();
+        c.strokeStyle = "rgba(0,0,0,.15)"; c.lineWidth = .5; c.stroke();
+      }
+    }
+
+    // pins
+    PINS.forEach((p, i) => {
+      if (!vis(p.y - 40, p.y + 10)) return;
+      const on = i === activePin, bob = Math.sin(t * 3 + i) * 1.5, top = p.y - 20 + bob;
+      c.fillStyle = "rgba(0,0,0,.25)"; c.beginPath(); c.ellipse(p.x + 2, p.y + 1, 4, 1.8, 0, 0, 6.29); c.fill();
+      c.strokeStyle = "#fff"; c.lineWidth = 1.4; c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x, top); c.stroke();
+      if (on) { const pr = 7 + ((t * 18) % 12); c.strokeStyle = `rgba(255,106,72,${(1 - (pr - 7) / 12).toFixed(3)})`; c.lineWidth = 1.6; c.beginPath(); c.arc(p.x, top, pr, 0, 6.29); c.stroke(); }
+      c.fillStyle = "#fff"; c.beginPath(); c.arc(p.x, top, on ? 8 : 6.5, 0, 6.29); c.fill();
+      c.fillStyle = "#ff6a48"; c.beginPath(); c.arc(p.x, top, on ? 6 : 4.8, 0, 6.29); c.fill();
+      c.fillStyle = "#fff"; c.beginPath(); c.arc(p.x, top, on ? 2.2 : 1.7, 0, 6.29); c.fill();
+    });
+    c.setTransform(1, 0, 0, 1, 0, 0);
+  }
+
+  // tilt-shift: blur top and bottom bands, saturate, vignette
+  const blurOK = "filter" in ctx;
+  function composite() {
+    const w = cv.width, h = cv.height;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    if (blurOK) ctx.filter = "saturate(1.28) contrast(1.06)";
+    ctx.drawImage(sc, 0, 0);
+    if (blurOK) {
+      bx.setTransform(1, 0, 0, 1, 0, 0);
+      bx.globalCompositeOperation = "source-over";
+      bx.clearRect(0, 0, w, h);
+      bx.filter = `blur(${Math.max(2, Math.round(Math.min(w, h) * .011))}px)`;
+      bx.drawImage(sc, 0, 0);
+      bx.filter = "none";
+      bx.globalCompositeOperation = "destination-in";
+      const m = bx.createLinearGradient(0, 0, 0, h);
+      m.addColorStop(0, "rgba(0,0,0,1)"); m.addColorStop(.3, "rgba(0,0,0,0)");
+      m.addColorStop(.66, "rgba(0,0,0,0)"); m.addColorStop(1, "rgba(0,0,0,1)");
+      bx.fillStyle = m; bx.fillRect(0, 0, w, h);
+      bx.globalCompositeOperation = "source-over";
+      ctx.drawImage(bc, 0, 0);
+      ctx.filter = "none";
+    }
+    const vg = ctx.createRadialGradient(w / 2, h / 2, Math.min(w, h) * .35, w / 2, h / 2, Math.max(w, h) * .75);
+    vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(5,25,35,.38)");
+    ctx.fillStyle = vg; ctx.fillRect(0, 0, w, h);
+    const warm = ctx.createLinearGradient(0, 0, w, h);
+    warm.addColorStop(0, "rgba(255,210,150,.10)"); warm.addColorStop(1, "rgba(255,180,120,0)");
+    ctx.fillStyle = warm; ctx.fillRect(0, 0, w, h);
+  }
+
+  // ---------- overlays ----------
+  const $ = id => document.getElementById(id);
+  const chip = $("chip"), caption = $("caption"), card = $("card"), intro = $("intro"), end = $("end"), prog = $("prog"), scalebar = $("scalebar");
+  let activePin = -1, shownPin = -2, lastSuburb = "", lastCap = null;
+
+  function overlays(t, v) {
+    const y = camY(t);
+    const sub = SUBURBS.find(s => y >= s.from && y < s.to) || SUBURBS[0];
+    if (sub.name !== lastSuburb) { lastSuburb = sub.name; chip.innerHTML = `${sub.name} <i>SA 5022</i>`; }
+    intro.classList.toggle("hide", t > 2.8);
+    end.classList.toggle("hide", t < T_FLY_END + .3);
+    chip.style.opacity = t > T_FLY_END ? 0 : 1;
+    const cap = CAPTIONS.find(([a, b]) => t >= a && t < b);
+    if (cap !== lastCap) {
+      lastCap = cap;
+      if (cap) caption.textContent = cap[2];
+      caption.classList.toggle("off", !cap);
+    }
+    scalebar.style.width = (100 * v.s).toFixed(1) + "px";
+
+    // which ad slot is in the sweet spot
+    activePin = -1;
+    if (t > 3 && t < T_FLY_END) {
+      let best = 1e9;
+      PINS.forEach((p, i) => {
+        const syp = (p.y - v.y0) * v.s, d = Math.abs(syp - H * .5);
+        if (d < H * .26 && d < best) { best = d; activePin = i; }
+      });
+    }
+    if (activePin !== shownPin) {
+      shownPin = activePin;
+      if (activePin >= 0) {
+        const p = PINS[activePin];
+        card.querySelector(".cat").textContent = p.cat;
+        card.querySelector(".ttl").textContent = p.ttl;
+        card.querySelector(".where").textContent = p.where;
+      }
+      card.classList.toggle("on", activePin >= 0);
+    }
+    if (activePin >= 0) {
+      const p = PINS[activePin];
+      const px = (p.x - v.x0) * v.s, py = (p.y - 30 - v.y0) * v.s;
+      const cw = card.offsetWidth, ch = card.offsetHeight;
+      const left = Math.max(8, Math.min(W - cw - 8, px - cw / 2));
+      card.style.transform = `translate(${left.toFixed(1)}px, ${(py - ch - 4).toFixed(1)}px)`;
+      card.style.setProperty("--tail", Math.max(14, Math.min(cw - 14, px - left)).toFixed(1) + "px");
+    }
+    prog.style.width = (100 * Math.min(1, t / T_END)).toFixed(2) + "%";
+  }
+
+  // ---------- loop ----------
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let t = reduce ? 16.5 : 0, playing = !reduce, last = 0;
+  function frame(dt) {
+    if (!W) return;
+    if (playing) { t += dt; if (t > T_END) t = 0; }
+    const y = camY(t), v = view(t, y);
+    overlays(t, v);
+    drawScene(sx, t, v);
+    composite();
+  }
+  function tick(now) {
+    const dt = last ? Math.min(.05, (now - last) / 1000) : 0;
+    last = now;
+    frame(dt);
+    requestAnimationFrame(tick);
+  }
+
+  const playBtn = $("play");
+  function setPlaying(p) { playing = p; playBtn.textContent = p ? "Pause" : "Play"; playBtn.setAttribute("aria-label", p ? "Pause" : "Play"); }
+  setPlaying(playing);
+  playBtn.addEventListener("click", () => setPlaying(!playing));
+  $("replay").addEventListener("click", () => { t = 0; setPlaying(true); });
+  document.querySelectorAll("[data-f]").forEach(b => b.addEventListener("click", () => {
+    stage.dataset.format = b.dataset.f;
+    document.querySelectorAll("[data-f]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    shownPin = -2;
+  }));
+
+  resize();
+  requestAnimationFrame(tick);
+})();
+</script>
