@@ -1,0 +1,26 @@
+# blueprintau.com: paste at the TOP of the site's root .htaccess
+# (public_html/.htaccess). Keep a copy of the old file first.
+
+# --- Fix 1 + 2 + 3: keep off-topic pages out of Google -------------------
+# Sends "X-Robots-Tag: noindex, follow" on these folders without editing
+# the pages. Remove a line here when a page becomes a proper case study.
+SetEnvIf Request_URI "^/dating/"           BP_NOINDEX
+SetEnvIf Request_URI "^/aquawell/"         BP_NOINDEX
+SetEnvIf Request_URI "^/rhythm/"           BP_NOINDEX
+SetEnvIf Request_URI "^/brunos/"           BP_NOINDEX
+SetEnvIf Request_URI "^/projects/adtrade/" BP_NOINDEX
+<IfModule mod_headers.c>
+Header set X-Robots-Tag "noindex, follow" env=BP_NOINDEX
+</IfModule>
+
+# --- Fix 7: /folder/index.html -> /folder/ (one URL per page) ------------
+RewriteEngine On
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
+RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L]
+
+# --- Fix 5: LiteSpeed page cache (pages are static; forms POST, so safe) -
+# Only works if your host has LSCache on. Cached for 1 hour.
+<IfModule LiteSpeed>
+CacheLookup on
+RewriteRule .* - [E=Cache-Control:max-age=3600]
+</IfModule>

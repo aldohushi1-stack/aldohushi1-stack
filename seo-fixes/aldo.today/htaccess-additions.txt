@@ -1,0 +1,14 @@
+# aldo.today: paste into the root .htaccess ABOVE the rule that sends
+# requests to the PHP front controller. Keep a copy of the old file first.
+
+# --- Fix 2: /adelaide/tennyson/ -> /adelaide/tennyson --------------------
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^(.+)/$
+RewriteRule ^ %1 [R=301,L]
+
+# --- Fix 1 (speed): NOT included on purpose ------------------------------
+# Every page carries the appraisal form with a time-stamped token (_t).
+# A full-page cache would hand out stale tokens and could break the form.
+# Cache in PHP instead: build each suburb page's HTML once per data
+# refresh and serve that file, or cache the data lookups, not the page.
