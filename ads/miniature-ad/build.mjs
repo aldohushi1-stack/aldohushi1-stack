@@ -48,6 +48,13 @@ patch('ad hook', "\nconst hint=$('#hint');",
   "dispatchEvent(new Event('bait-ready'));\n" +
   "const hint=$('#hint');");
 
+// a gentler tilt-shift for the ad: less blur, a wider sharp band, a softer edge to it
+const LENS = { blur: .55, band: .04, fade: 1.25 };
+patch('lens blur', /maxBlur:\{value:([\d.]+)\*DPR\}/, (_, v) => `maxBlur:{value:${(+v * LENS.blur).toFixed(2)}*DPR}`);
+patch('lens band', /lens\.uniforms\.band\.value = w\/h<\.8 \? ([\d.]+) : ([\d.]+); lens\.uniforms\.fade\.value = w\/h<\.8 \? ([\d.]+) : ([\d.]+);/,
+  (_, bp, bl, fp, fl) => `lens.uniforms.band.value = w/h<.8 ? ${(+bp + LENS.band).toFixed(3)} : ${(+bl + LENS.band).toFixed(3)}; ` +
+    `lens.uniforms.fade.value = w/h<.8 ? ${(+fp * LENS.fade).toFixed(3)} : ${(+fl * LENS.fade).toFixed(3)};`);
+
 html = html.trimEnd() + '\n' + readFileSync(join(here, 'ad-layer.html'), 'utf8');
 writeFileSync(output, html);
 console.log(`wrote ${output} (${(html.length / 1024).toFixed(0)} KB)`);

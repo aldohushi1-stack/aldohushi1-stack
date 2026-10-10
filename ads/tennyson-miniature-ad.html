@@ -1262,7 +1262,7 @@ const RTClass=(renderer.capabilities.isWebGL2 && THREE.WebGLMultisampleRenderTar
 const rtA=new RTClass(bufSize.x, bufSize.y); if(rtA.samples!==undefined) rtA.samples=4;
 const rtB=new THREE.WebGLRenderTarget(bufSize.x, bufSize.y, {depthBuffer:false});
 const lens=new THREE.ShaderMaterial({
-  uniforms:{ tDiffuse:{value:null}, texel:{value:new THREE.Vector2(1/bufSize.x,1/bufSize.y)}, dir:{value:new THREE.Vector2(1,0)}, focusY:{value:.47}, band:{value:.07}, fade:{value:.3}, maxBlur:{value:2.1*DPR}, grade:{value:0} },
+  uniforms:{ tDiffuse:{value:null}, texel:{value:new THREE.Vector2(1/bufSize.x,1/bufSize.y)}, dir:{value:new THREE.Vector2(1,0)}, focusY:{value:.47}, band:{value:.07}, fade:{value:.3}, maxBlur:{value:1.16*DPR}, grade:{value:0} },
   vertexShader:'varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.,1.); }',
   fragmentShader:`uniform sampler2D tDiffuse; uniform vec2 texel, dir; uniform float focusY, band, fade, maxBlur, grade; varying vec2 vUv;
   void main(){ float d=abs(vUv.y-focusY); float amt=smoothstep(band, band+fade, d)*maxBlur; vec2 o=dir*texel*amt;
@@ -1405,7 +1405,7 @@ canvas.addEventListener('webglcontextlost', e=>{ e.preventDefault(); fallback('l
 const header=document.querySelector('.top .brand');
 function layoutLens(){ const w=innerWidth, h=innerHeight; const top=header.getBoundingClientRect().bottom; const pr=panel.getBoundingClientRect(); const bottom = (pr.width>w*0.6) ? pr.top : h; const vc=Math.max(h*0.3, Math.min(h*0.6, (top+bottom)/2)); const d=Math.round(h/2-vc);
   if(Math.abs(d)>2) camera.setViewOffset(w,h,0,d,w,h); else camera.clearViewOffset(); lens.uniforms.focusY.value=1-vc/h; }
-function resize(){ const w=innerWidth, h=innerHeight; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); layoutLens(); renderer.getDrawingBufferSize(bufSize); rtA.setSize(bufSize.x,bufSize.y); rtB.setSize(bufSize.x,bufSize.y); lens.uniforms.texel.value.set(1/bufSize.x,1/bufSize.y); lens.uniforms.band.value = w/h<.8 ? .085 : .09; lens.uniforms.fade.value = w/h<.8 ? .26 : .32; }
+function resize(){ const w=innerWidth, h=innerHeight; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); layoutLens(); renderer.getDrawingBufferSize(bufSize); rtA.setSize(bufSize.x,bufSize.y); rtB.setSize(bufSize.x,bufSize.y); lens.uniforms.texel.value.set(1/bufSize.x,1/bufSize.y); lens.uniforms.band.value = w/h<.8 ? 0.125 : 0.130; lens.uniforms.fade.value = w/h<.8 ? 0.325 : 0.400; }
 if(window.ResizeObserver) new ResizeObserver(()=>layoutLens()).observe(panel);
 addEventListener('resize', resize); resize();
 let last=performance.now(), clockT=0, firstFrame=true;
