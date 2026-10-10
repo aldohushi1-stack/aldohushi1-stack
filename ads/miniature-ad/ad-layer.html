@@ -1,0 +1,187 @@
+<!-- aldo.today ad layer: a scripted ad cut over any aldo.today suburb miniature.
+     build.mjs injects this before </body>. It drives the model's camera through window.__baitAd. -->
+<style>
+.ad{position:fixed;inset:0;z-index:4;pointer-events:none;font-family:var(--ui);color:var(--ink)}
+.ad[hidden]{display:none!important}
+body.ad-on .top,body.ad-on .panel,body.ad-on .hint{display:none!important}
+.ad-brand{position:absolute;left:16px;top:calc(env(safe-area-inset-top,0px) + 14px);background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:14px;padding:9px 14px 10px}
+.ad-brand b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(20px,4.6vw,28px);line-height:1.05}
+.ad-brand small{display:block;margin-top:3px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.ad-skip{position:absolute;right:16px;top:calc(env(safe-area-inset-top,0px) + 14px);pointer-events:auto;background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.ad-intro{position:absolute;inset:0;display:grid;place-content:center;text-align:center;gap:12px;padding:0 16px;transition:opacity .9s}
+.ad-intro h2{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(40px,9vw,104px);line-height:.98;text-wrap:balance;text-shadow:0 4px 30px rgba(0,0,0,.45)}
+.ad-intro p{margin:0;font-weight:600;font-size:clamp(13px,1.9vw,18px);letter-spacing:.06em;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.ad-cap{position:absolute;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 28px);max-width:20ch;font-family:var(--display);font-size:clamp(26px,5vw,58px);line-height:1.04;text-wrap:balance;text-shadow:0 3px 22px rgba(0,0,0,.55);transition:opacity .5s,transform .5s}
+.ad-cap.off{opacity:0;transform:translateY(10px)}
+.ad-cap::before{content:"";display:block;width:44px;height:4px;border-radius:2px;background:var(--gold);margin-bottom:12px}
+@media (min-width:760px){.ad-brand{left:24px}.ad-skip{right:24px}.ad-cap{left:24px;bottom:calc(env(safe-area-inset-bottom,0px) + 36px)}}
+.ad-pin{position:absolute;left:0;top:0;width:24px;height:58px;margin:-58px 0 0 -12px;transition:opacity .4s}
+.ad-pin i{position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-sizing:border-box;display:grid;place-items:center;font:800 12px/1 var(--ui);font-style:normal;color:#221a05;box-shadow:0 3px 10px rgba(0,0,0,.35)}
+.ad-pin s{position:absolute;left:11px;top:24px;bottom:0;width:2px;background:#fff;text-decoration:none}
+.ad-pin.on i{transform:scale(1.25)}
+.ad-pin.on::after{content:"";position:absolute;left:-4px;top:-4px;width:32px;height:32px;border-radius:50%;border:2px solid var(--gold);animation:adpulse 1.4s ease-out infinite}
+@keyframes adpulse{from{transform:scale(.8);opacity:1}to{transform:scale(1.9);opacity:0}}
+.ad-card{position:absolute;left:0;top:0;width:max-content;max-width:min(300px,70vw);background:#fff;color:#141b1e;border-radius:12px;padding:10px 13px 11px;box-shadow:0 14px 34px rgba(0,0,0,.35);opacity:0;transition:opacity .35s}
+.ad-card.on{opacity:1}
+.ad-card .k{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#a87a12}
+.ad-card .t{font-family:var(--display);font-size:21px;line-height:1.15;margin:2px 0 3px}
+.ad-card .w{font-size:12.5px;color:#4b5557}
+.ad-end{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(460px,calc(100vw - 32px));box-sizing:border-box;background:var(--glass);backdrop-filter:blur(14px) saturate(1.15);-webkit-backdrop-filter:blur(14px) saturate(1.15);border:1px solid var(--line);border-radius:20px;padding:22px 20px 18px;display:grid;gap:12px;text-align:center;pointer-events:auto;transition:opacity .8s}
+.ad-end h2{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(32px,6vw,48px);line-height:1.02;text-wrap:balance;color:var(--gold)}
+.ad-end p{margin:0;font-size:14.5px;line-height:1.45;color:var(--ink)}
+.ad-end p b{color:var(--gold);font-weight:600}
+.ad-end .row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.ad-end .row > *{flex:1 1 140px}
+.ad-end .fine{font-size:11px;color:var(--muted)}
+.ad .hideable{transition:opacity .6s}
+.ad .gone{opacity:0!important;pointer-events:none!important}
+.ad-replay{margin-top:4px}
+</style>
+
+<div class="ad" id="ad" hidden>
+  <div class="ad-pins" id="adPins"></div>
+  <div class="ad-card" id="adCard"><div class="k"></div><div class="t"></div><div class="w"></div></div>
+  <div class="ad-brand hideable" id="adBrand"><b>aldo.today</b><small>Your local, from above</small></div>
+  <button type="button" class="ad-skip" id="adSkip">Skip</button>
+  <div class="ad-intro hideable" id="adIntro"><h2 id="adTitle">In miniature.</h2><p id="adSub">Every street, built from real map data.</p></div>
+  <div class="ad-cap off" id="adCap"></div>
+  <div class="ad-end gone" id="adEnd" role="dialog" aria-label="About this ad">
+    <h2 id="adEndTitle">Keep it local.</h2>
+    <p><b>Agents:</b> one board in the suburb, one name on it.<br><b>Shops and trades:</b> a pin on your own street.</p>
+    <div class="row">
+      <a class="btn cta" id="adCta" href="https://aldo.today/advertise" target="_blank" rel="noopener">Put your name up</a>
+      <button type="button" id="adExplore">Explore the model</button>
+    </div>
+    <button type="button" class="quiet" id="adAgain">Watch the ad again</button>
+    <p class="fine">Pins shown are example slots, not real businesses.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const ad = $('ad'), cap = $('adCap'), intro = $('adIntro'), end = $('adEnd'), card = $('adCard'), pinsEl = $('adPins');
+  const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const CATS = [
+    ['Café', 'Your café here'], ['Trades', 'Your trade here'], ['Health', 'Your clinic here'],
+    ['Hair & beauty', 'Your salon here'], ['Bakery', 'Your bakery here'], ['Pub & bistro', 'Your venue here'],
+  ];
+  const CAPS = [
+    [4.6, 10.4, 'Every street has someone who does it best.'],
+    [10.8, 16.6, 'The coffee. The haircut. The tradie round the corner.'],
+    [17.6, 21.2, 'One board in the suburb.'],
+    [21.4, 25.2, 'One name on it.'],
+  ];
+  const T_INTRO = 4.5, T_FLY = 17, T_BOARD = 25, T_END = 25.6;
+
+  let H = null, t = 0, running = false, seg = -1, from = null, pins = [], lastCap = null, active = -2, flySpeed = 2;
+
+  function V(x, y, z){ return H.V(x, y, z); }
+  const ease = u => u < .5 ? 4*u*u*u : 1 - Math.pow(-2*u + 2, 3) / 2;
+
+  /* camera segments: each returns a pose for its local time; the first seconds blend from wherever the camera was */
+  function wide(lt){
+    const b = H.box, cx = (b[0] + b[1]) / 2, cz = (b[2] + b[3]) / 2, span = Math.max(b[1] - b[0], b[3] - b[2]);
+    const a = -.35 + lt * .012;   // from out over the water, west of the suburb
+    return { pos: V(cx - Math.cos(a) * span * .62, span * .36 - lt * 6, cz + Math.sin(a) * span * .5), tgt: V(cx + 60, 0, cz) };
+  }
+  function fly(lt){ const p = H.flyPose(lt * flySpeed); return { pos: p.pos, tgt: p.tgt }; }
+  function board(lt){
+    const p = H.boardPose(), c = H.board, a = Math.sin(lt * .22) * .14;
+    const dx = p.pos.x - c.x, dz = p.pos.z - c.z, ca = Math.cos(a), sa = Math.sin(a);
+    return { pos: V(c.x + dx*ca - dz*sa, p.pos.y + lt * 2, c.z + dx*sa + dz*ca), tgt: p.tgt };
+  }
+  function outro(lt){
+    const c = H.board, b = H.box, span = Math.max(b[1] - b[0], b[3] - b[2]), a = lt * .03;
+    return { pos: V(c.x - Math.cos(a) * span * .38, span * .24, c.z + Math.sin(a) * span * .3 + 120), tgt: V(c.x, 0, c.z) };
+  }
+  const SEGS = [[0, wide, 0], [T_INTRO, fly, 2.6], [T_FLY, board, 3], [T_BOARD, outro, 3.2]];
+
+  function pose(dt){
+    if (!running) return null;
+    t += dt;
+    let i = 0; while (i < SEGS.length - 1 && t >= SEGS[i + 1][0]) i++;
+    const [t0, fn, blend] = SEGS[i], lt = t - t0;
+    if (i !== seg) { seg = i; from = { pos: H.camera.position.clone(), tgt: H.target.clone() }; }
+    const p = fn(lt);
+    if (blend > 0 && lt < blend && from) { const u = ease(lt / blend); p.pos = from.pos.clone().lerp(p.pos, u); p.tgt = from.tgt.clone().lerp(p.tgt, u); }
+    overlays();
+    return p;
+  }
+
+  /* example slots on real named streets the fly-over passes */
+  function pickPins(){
+    const names = typeof D_NAMES !== 'undefined' ? D_NAMES : null; // a top-level const in the page, not a window property
+    const roads = ((names && names.roads) || []).filter(r => r.name && Number.isFinite(r.x) && Number.isFinite(r.z));
+    const path = []; for (let s = 0; s <= 12.4; s += .4) { const p = H.flyPose(s * flySpeed); path.push([p.tgt.x, p.tgt.z, s]); }
+    const near = roads.map(r => { let best = 1e9, when = 0; for (const [x, z, s] of path) { const d = Math.hypot(r.x - x, r.z - z); if (d < best) { best = d; when = s; } } return { r, d: best, when }; })
+      .filter(o => o.d < 260 && Math.hypot(o.r.x - H.board.x, o.r.z - H.board.z) > 90)
+      .sort((a, b) => a.when - b.when);
+    const out = [];
+    for (const o of near) { if (out.every(q => Math.abs(q.when - o.when) > 1.6 && Math.hypot(q.r.x - o.r.x, q.r.z - o.r.z) > 160)) out.push(o); if (out.length === 5) break; }
+    return out.map((o, i) => ({ x: o.r.x, z: o.r.z, cat: CATS[i % CATS.length][0], ttl: CATS[i % CATS.length][1], where: `${o.r.name} · example slot` }));
+  }
+
+  function overlays(){
+    intro.classList.toggle('gone', t > T_INTRO - .4);
+    end.classList.toggle('gone', t < T_END);
+    $('adBrand').classList.toggle('gone', t >= T_END);
+    $('adSkip').hidden = t >= T_END;
+    const c = CAPS.find(([a, b]) => t >= a && t < b) || null;
+    if (c !== lastCap) { lastCap = c; if (c) cap.textContent = c[2]; cap.classList.toggle('off', !c); }
+
+    const showPins = t > T_INTRO && t < T_FLY + 1.5;
+    let best = -1, bd = 1e9; const W = innerWidth, Hh = innerHeight;
+    pins.forEach((p, i) => {
+      const [sx, sy, sz] = H.project(p.x, 0, p.z);
+      const vis = showPins && sz < 1 && sx > -40 && sx < W + 40 && sy > 40 && sy < Hh + 40;
+      p.el.style.opacity = vis ? 1 : 0;
+      if (vis) { p.el.style.transform = `translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px)`; p.sx = sx; p.sy = sy;
+        const d = Math.hypot(sx - W / 2, sy - Hh * .52); if (d < Math.min(W, Hh) * .42 && d < bd) { bd = d; best = i; } }
+    });
+    if (best !== active) {
+      active = best;
+      pins.forEach((p, i) => p.el.classList.toggle('on', i === best));
+      if (best >= 0) { const p = pins[best]; card.querySelector('.k').textContent = p.cat; card.querySelector('.t').textContent = p.ttl; card.querySelector('.w').textContent = p.where; }
+      card.classList.toggle('on', best >= 0);
+    }
+    if (active >= 0) {
+      const p = pins[active], cw = card.offsetWidth, ch = card.offsetHeight;
+      const left = Math.max(12, Math.min(W - cw - 12, p.sx - cw / 2));
+      card.style.transform = `translate(${left.toFixed(1)}px,${Math.max(70, p.sy - 58 - ch - 10).toFixed(1)}px)`;
+    }
+  }
+
+  function play(){
+    t = 0; seg = -1; lastCap = null; active = -2; running = true;
+    ad.hidden = false; document.body.classList.add('ad-on'); dispatchEvent(new Event('resize'));
+    H.begin();
+  }
+  function stop(){
+    if (!running) return;
+    running = false; ad.hidden = true; document.body.classList.remove('ad-on'); dispatchEvent(new Event('resize'));
+    H.end();
+  }
+
+  function ready(){
+    H = window.__baitAd; if (!H) return;
+    const name = (H.plan && H.plan.name) || 'your suburb';
+    $('adTitle').innerHTML = ''; $('adTitle').append(name + ',', document.createElement('br'), 'in miniature.');
+    $('adEndTitle').textContent = `Keep it in ${name}.`;
+    flySpeed = Math.max(1.2, ((H.plan && H.plan.fly && H.plan.fly.period) || 120) / 60);
+    pins = pickPins();
+    pins.forEach((p, i) => { const el = document.createElement('div'); el.className = 'ad-pin'; el.style.opacity = 0; el.innerHTML = `<i>${i + 1}</i><s></s>`; pinsEl.appendChild(el); p.el = el; });
+    window.__adPose = dt => { if (running && H.mode() !== 'ad') { stop(); return null; } return pose(dt); };
+    window.__adSeek = s => { t = s; seg = -1; };  // for checking a shot without waiting through the ad
+    $('adSkip').onclick = stop;
+    $('adExplore').onclick = stop;
+    $('adAgain').onclick = play;
+    // a way back in from the model's own panel
+    const actions = document.getElementById('actions');
+    if (actions) { const b = document.createElement('button'); b.type = 'button'; b.className = 'quiet'; b.textContent = 'Watch the ad'; b.onclick = play; actions.appendChild(b); }
+    if (!reduce) play();
+  }
+  if (window.__baitAd) ready(); else addEventListener('bait-ready', ready, { once: true });
+})();
+</script>
