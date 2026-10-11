@@ -189,7 +189,6 @@
       "checked": "2026-10-11"
     },
     "gawler": {
-      "verified": false,
       "name": "Town of Gawler",
       "csv_council": "Gawler",
       "basis": "capital value",
@@ -207,7 +206,7 @@
       },
       "service_charge": 290,
       "rate_cap_pct": null,
-      "rate_cap_note": "On application, residential rises are capped at 10% for self-funded retirees and people on fixed government benefits, and 20% for everyone else (check the adopted 2026/27 policy).",
+      "rate_cap_note": "On application within 60 days of your first notice, Gawler rebates general rate rises above 10% for self-funded retirees and people mainly on fixed government benefits, and above 20% for other residential ratepayers (excluding the landscape levy and waste charge; eligibility rules in the Strategic Rating Policy).",
       "instalments": [
         "September",
         "December",
@@ -216,8 +215,8 @@
       ],
       "other_categories": {},
       "adopted": "22 June 2026",
-      "source_title": "Town of Gawler, Rates & Payments page (2026/27 worked example) and SA Government Gazette No. 39, 2 July 2026",
-      "source_url": "https://yourvoice.gawler.sa.gov.au/2026-2027-annual-business-plan-budget",
+      "source_title": "Town of Gawler, Rates & Payments page (2026/27 worked example, minimum rate, rate capping) and Adoption of Valuation and Declaration of Rates notice (1 July 2026)",
+      "source_url": "https://www.gawler.sa.gov.au/our-services/rates-payments",
       "source_pdf": "https://www.governmentgazette.sa.gov.au/2026/July/2026_039.pdf",
       "council_rates_url": "https://www.gawler.sa.gov.au/our-services/rates-payments",
       "council_phone": "8522 9211",

@@ -40,8 +40,8 @@
     "anomalies": "ANNUAL VALUE basis, rates already in dollars per dollar of annual value (about 3-5% of capital value). Calculator must ask for annual value, not capital value, and the suburb-median table can't be used. Rundle Mall separate rate is non-residential only. build.py skips it until it has its own page."
   },
   "gawler": {
-    "confidence": "medium-high: Aldo's screenshot of the council's worked example (data/evidence-gawler-rates-example.jpg) confirms residential 0.003331, RL levy 0.00008406 and the $290 waste charge (CV $624,500 -> $2,422.70).",
-    "anomalies": "STILL NEEDED: the 2026/27 MINIMUM RATE (expected $1,320, same rates page), ideally the year heading above the worked example, and which landscape board the levy is for. Non-residential rates are tiered (not modelled). Then delete \"verified\": false."
+    "confidence": "high for residential: council worked example (rate 0.003331, RL levy 0.00008406, waste $290; data/evidence-gawler-rates-example.jpg); minimum $1,320 quoted verbatim from the council's Rates & Payments page and its 1 July 2026 Adoption of Valuation and Declaration of Rates notice in Google results (data/evidence-gawler-minimum-search-results.jpg); rate capping 10%/20% on application from the council page (data/evidence-gawler-rate-capping.jpg).",
+    "anomalies": "Landscape board name not confirmed, so the page says 'Regional Landscape levy'. Non-residential rates are tiered by value and are not in the calculator (residential only). $290 waste service charge is included in the total (not on vacant land or some primary production land). Gawler East separate rate not modelled."
   },
   "walkerville": {
     "confidence": "high: adopted Special Council Minutes 29 June 2026 (motion CARRIED), supplied by Aldo — data/evidence-walkerville-special-council-minutes-29-june-2026.pdf",

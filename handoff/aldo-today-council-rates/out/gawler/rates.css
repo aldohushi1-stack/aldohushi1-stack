@@ -1,0 +1,6 @@
+.ratescalc { max-width: 30rem; }
+.ratescalc input, .ratescalc select { width: 100%; font: inherit; padding: 8px 12px; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); color: var(--ink); }
+.ratescalc__out { display: block; margin-top: 12px; padding: 14px 16px; border: 1px solid var(--rule); border-radius: 6px; }
+.ratescalc__out .big { font-size: 1.6rem; font-weight: 600; }
+.ratescalc__out dl { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; margin: 10px 0 0; }
+.ratescalc__out dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }

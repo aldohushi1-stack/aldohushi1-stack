@@ -250,9 +250,10 @@ def build(slug, c):
 """ if c.get("service_charge") else ""}{f"""    <li><b>Less the high-value adjustment</b> for homes (not commercial use or multiple dwellings): {"; ".join(f"{pct * 100:g}% off the rates on value {money(lo)}–{money(hi)}" if hi else f"{pct * 100:g}% off the rates on value above {money(lo)}" for lo, hi, pct in c["value_tiers"])}.</li>
 """ if c.get("value_tiers") else ""}    <li><b>Plus the {escape(levy["board"])} levy</b> — {levy_text(levy)}, collected for the state.{" " + escape(levy["note"]) if levy.get("note") else ""}</li>
   </ol>
-  <p>Business and other land pays a different rate in the dollar:
+{f"""  <p>Business and other land pays a different rate in the dollar:
     {"; ".join(f"{escape(k.lower())} {cents(v)}¢" for k, v in c["other_categories"].items() if v)}. Pick it in the calculator.</p>
-
+""" if any(c["other_categories"].values()) else """  <p>This calculator covers homes. Business and other land is rated differently — check with council.</p>
+"""}
   <h2 class="hub__h2" id="by-suburb">Rates on a typical house, by suburb</h2>
   <p>Using each suburb’s 12-month median house price as the capital value. Your capital value is set by the
     Valuer-General and may differ from a sale price — use the calculator for your own house.
