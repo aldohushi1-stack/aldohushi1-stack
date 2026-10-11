@@ -2,7 +2,7 @@
 
 **Goal:** win "charles sturt council rates calculator" and "charles sturt council rates", then the same search for all 19 councils. No official Charles Sturt calculator turned up in search. The only competing calculators are generic and don't use real council numbers.
 
-**Status (11 Oct 2026):** 12 of 19 councils are built from adopted 2026/27 budgets and ready to paste. 5 more have figures but need a 2-minute browser check (their sites blocked automated access). 2 councils still need their figures. The aldo.today site source isn't on GitHub, so nothing is live yet. Publishing happens on your PC.
+**Status (11 Oct 2026):** 12 of 19 councils are built from adopted 2026/27 budgets and ready to paste. The other 7 have their figures filled in but need a quick browser check, because their sites block automated access. The aldo.today site source isn't on GitHub, so nothing is live yet. Publishing happens on your PC.
 
 | Council | Status | Typical house → rates/yr |
 |---|---|---|
@@ -23,8 +23,8 @@
 | Prospect | 🔎 check: all figures from search snippets | — |
 | Salisbury | 🔎 check: how the high-value discount works | — |
 | Tea Tree Gully | 🔎 check: levy rate missing | — |
-| Port Adelaide Enfield | ❌ 2026/27 minimum rate not found | — |
-| Walkerville | ❌ adopted figures not readable (only the draft) | — |
+| Port Adelaide Enfield | 🔎 check: minimum $1,190 (unchanged, from the draft plan) and rates from search snippets | — |
+| Walkerville | 🔎 check: **draft** figures pre-filled; swap in the adopted ones from the 29 June 2026 minutes | — |
 
 The "To check" notes for each council, with exact links, are in `data/checks-2026-27.json`. To clear a 🔎 council: open its link in a browser, confirm or fix the figures in `data/council-rates-2026-27.json`, delete its `"verified": false` line, and run `python3 build.py`.
 
@@ -97,9 +97,8 @@ In the JSON, rates are stored in **dollars** per dollar, so divide the council's
 
 ## Finishing the last councils
 
-- **🔎 Browser checks (Campbelltown, Gawler, Prospect, Salisbury, Tea Tree Gully):** follow `data/checks-2026-27.json`. Salisbury also needs its high-value residential discount added to `rates_for()` in `build.py` and to `rates-calc.js`. The discount is 10% / 20% / 35% above $969k / $1.065m / $1.205m; check whether it applies to the whole rate or only the slice of value in each band.
-- **❌ Port Adelaide Enfield:** find the 2026/27 minimum in the adopted budget PDF, or call 8405 6600. The other figures are in checks.
-- **❌ Walkerville:** take the adopted figures from Gazette No. 41 (9 July 2026), p. 2231.
+- **🔎 Browser checks (Campbelltown, Gawler, Port Adelaide Enfield, Prospect, Salisbury, Tea Tree Gully, Walkerville):** follow `data/checks-2026-27.json`. Salisbury also needs its high-value residential discount added to `rates_for()` in `build.py` and to `rates-calc.js`. The discount is 10% / 20% / 35% above $969k / $1.065m / $1.205m; check whether it applies to the whole rate or only the slice of value in each band.
+- **Port Adelaide Enfield and Walkerville:** their figures are filled in. PAE only needs a check against its rates page. Walkerville's are the **draft** figures, so replace them with the adopted ones from the 29 June 2026 Special Council Minutes. Links and steps are in `checks-2026-27.json`.
 - **New-year refresh (each July):**
   - add a 2027/28 JSON;
   - run `merge_results.py` to load researched figures. It rejects rates that look like cents instead of dollars, so a forgotten ÷100 gets caught.

@@ -442,7 +442,43 @@
       "council_phone": "8256 0333",
       "checked": "2026-10-11"
     },
-    "port-adelaide-enfield": null,
+    "port-adelaide-enfield": {
+      "verified": false,
+      "name": "City of Port Adelaide Enfield",
+      "csv_council": "Port Adelaide Enfield",
+      "basis": "capital value",
+      "residential_rate": 0.0016365,
+      "residential_rate_prev": null,
+      "minimum_rate": 1190,
+      "minimum_rate_prev": 1190,
+      "fixed_charge": null,
+      "share_on_minimum_pct": null,
+      "average_residential_rate": 1440,
+      "average_residential_increase_pct": 5.8,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": 5.85e-05
+      },
+      "rate_cap_pct": null,
+      "rate_cap_note": "No general rate-capping rebate in Port Adelaide Enfield’s 2026–27 rating policy — only the standard and discretionary rebates. Ask council about hardship options if your rates jump.",
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Commercial, industrial and other": 0.0043291,
+        "Vacant land": 0.0043291
+      },
+      "adopted": "9 June 2026",
+      "source_title": "City of Port Adelaide Enfield, Annual Business Plan 2026–27 (rates section and Appendix 7 Valuation and Rating Policy) and council rates page (rates adopted 9 June 2026)",
+      "source_url": "https://participate.cityofpae.sa.gov.au/annual-business-plan",
+      "source_pdf": "https://www.cityofpae.sa.gov.au/__data/assets/pdf_file/0024/2001669/PAE-annual-business-plan-2026-27.pdf",
+      "council_rates_url": "https://www.cityofpae.sa.gov.au/about/rates",
+      "council_phone": "8405 6600",
+      "checked": "2026-10-11"
+    },
     "prospect": {
       "verified": false,
       "name": "City of Prospect",
@@ -593,7 +629,43 @@
       "council_phone": "8372 5111",
       "checked": "2026-10-11"
     },
-    "walkerville": null,
+    "walkerville": {
+      "verified": false,
+      "name": "Town of Walkerville",
+      "csv_council": "Walkerville",
+      "basis": "capital value",
+      "residential_rate": 0.00156083,
+      "residential_rate_prev": 0.00161989,
+      "minimum_rate": 1560,
+      "minimum_rate_prev": 1487,
+      "fixed_charge": null,
+      "share_on_minimum_pct": 31.6,
+      "average_residential_rate": null,
+      "average_residential_increase_pct": null,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": 6e-05
+      },
+      "rate_cap_pct": null,
+      "rate_cap_note": null,
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Commercial and other": 0.00257537,
+        "Vacant land": 0.00304362
+      },
+      "adopted": "29 June 2026",
+      "source_title": "Town of Walkerville, Special Council Minutes 29 June 2026 (declaration of rates 2026/27)",
+      "source_url": "https://www.walkerville.sa.gov.au/council/council/agendas/council-agendas-and-minutes",
+      "source_pdf": "https://www.walkerville.sa.gov.au/__data/assets/file/0022/2007490/Special-Council-Minutes-29-June-2026.pdf",
+      "council_rates_url": "https://www.walkerville.sa.gov.au/council/rates",
+      "council_phone": "8342 7100",
+      "checked": "2026-10-11"
+    },
     "west-torrens": {
       "name": "City of West Torrens",
       "csv_council": "West Torrens",
