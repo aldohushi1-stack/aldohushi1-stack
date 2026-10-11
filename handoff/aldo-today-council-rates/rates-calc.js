@@ -31,7 +31,7 @@
     var byValue = cv * rate;
     var onMin = byValue < cfg.minimum;
     var general = Math.max(byValue, cfg.minimum) + cfg.fixed;
-    var levy = cv * cfg.levy;
+    var levy = cv * cfg.levy + (cfg.levyFixed || 0);
     var total = general + levy;
     var html = '<div class="big">' + fmt.format(total) + ' a year</div>' +
       '<div>about ' + fmt.format(total / 4) + ' a quarter</div><dl>' +
@@ -39,8 +39,8 @@
       row(cfg.levyName, fmt.format(levy)) + '</dl>';
     if (onMin) html += '<p class="fine">' + fmt.format(cv) + ' × ' + +(rate * 100).toFixed(9) + '¢ = ' + fmt.format(byValue) +
       ', under the ' + fmt.format(cfg.minimum) + ' minimum, so you pay the minimum.</p>';
-    var last = amount(form.elements.last.value);
-    if (last > 0 && use.selectedIndex === 0) {
+    var last = form.elements.last ? amount(form.elements.last.value) : 0;
+    if (cfg.cap && last > 0 && use.selectedIndex === 0) {
       var capped = last * (1 + cfg.cap / 100);
       html += general > capped
         ? '<p><b>Up ' + Math.round((general / last - 1) * 100) + '% on last year.</b> You may get a rate-capping rebate of about ' +

@@ -35,9 +35,25 @@ def cents(rate):
 
 def rates_for(cv, c, rate=None):
     rate = c["residential_rate"] if rate is None else rate
-    general = max(cv * rate, c["minimum_rate"]) + (c["fixed_charge"] or 0)
-    levy = cv * c["landscape_levy"]["rate"]
+    general = max(cv * rate, c["minimum_rate"] or 0) + (c["fixed_charge"] or 0)
+    lv = c["landscape_levy"]
+    levy = cv * lv["rate"] if lv.get("rate") else lv.get("fixed") or 0
     return general, levy, general + levy
+
+
+def levy_text(lv):
+    if lv.get("rate"):
+        return f"{cents(lv['rate'])} cents in the dollar ({money(1_000_000 * lv['rate'])} per $1m of value)"
+    return f"a flat {money(lv.get('fixed') or 0)}"
+
+
+def floor_text(c):
+    # The part of the bill that doesn't depend on value: a minimum or a fixed charge.
+    if c["minimum_rate"]:
+        return f"{money(c['minimum_rate'])} minimum"
+    if c["fixed_charge"]:
+        return f"{money(c['fixed_charge'])} fixed charge"
+    return "no minimum"
 
 
 def weighted_median(rows):
@@ -71,7 +87,9 @@ def build(slug, c):
     name, short = c["name"], c["csv_council"]
     typical = weighted_median(subs)
     t_general, t_levy, t_total = rates_for(typical, c)
-    min_below = c["minimum_rate"] / c["residential_rate"]
+    min_below = (c["minimum_rate"] or 0) / c["residential_rate"]
+    cap = c.get("rate_cap_pct")
+    prev, avg, inc = c.get("residential_rate_prev"), c.get("average_residential_rate"), c.get("average_residential_increase_pct")
     levy = c["landscape_levy"]
     page_url = f"{SITE}/councils/{slug}/rates"
     cheap, dear = subs[0], subs[-1]
@@ -80,16 +98,25 @@ def build(slug, c):
         (f"How much are council rates in {short}?",
          f"For 2026/27, a house valued at {money(typical)} — about the typical house sale in the {name} — "
          f"pays about {money(t_general)} in general rates plus {money(t_levy)} {levy['board']} levy, "
-         f"so about {money(t_total)} a year, or {money(t_total / 4)} a quarter. "
-         f"Council’s own average residential rate is {money(c['average_residential_rate'])}."),
+         f"so about {money(t_total)} a year, or {money(t_total / 4)} a quarter."
+         + (f" Council’s own average residential rate is {money(avg)}." if avg else "")),
         (f"What is the {short} council rate in the dollar for 2026/27?",
-         f"{cents(c['residential_rate'])} cents in the dollar of capital value for residential land, "
-         f"down from {cents(c['residential_rate_prev'])} in 2025/26. Property values rose, so the rate in the dollar fell; "
-         f"the average residential rate still rose {c['average_residential_increase_pct']:.2f}%."),
-        (f"What is the minimum rate in {short}?",
-         f"{money(c['minimum_rate'])} for 2026/27 (was {money(c['minimum_rate_prev'])}). "
-         f"Any residential property with a capital value under about {money(min_below)} pays the minimum — "
-         f"{c['share_on_minimum_pct']:.0f}% of rateable properties."),
+         f"{cents(c['residential_rate'])} cents in the dollar of capital value for residential land"
+         + (f", {'down' if prev > c['residential_rate'] else 'up'} from {cents(prev)} in 2025/26" if prev else "") + "."
+         + (" Property values rose, so the rate in the dollar fell" if prev and prev > c["residential_rate"] else "")
+         + (f"{'; ' if prev and prev > c['residential_rate'] else ' '}the average residential rate rose {inc:.2f}%." if inc
+            else ("." if prev and prev > c["residential_rate"] else ""))),
+    ]
+    if c["minimum_rate"]:
+        was = f" (was {money(c['minimum_rate_prev'])})" if c.get("minimum_rate_prev") else ""
+        share = f" — {c['share_on_minimum_pct']:.0f}% of rateable properties" if c.get("share_on_minimum_pct") else ""
+        faq.append((f"What is the minimum rate in {short}?",
+                    f"{money(c['minimum_rate'])} for 2026/27{was}. Any residential property with a capital value "
+                    f"under about {money(min_below)} pays the minimum{share}."))
+    if c["fixed_charge"]:
+        faq.append((f"Is there a fixed charge on {short} rates?",
+                    f"Yes: every property pays a {money(c['fixed_charge'])} fixed charge on top of capital value × the rate in the dollar."))
+    faq += [
         (f"When are {short} council rates due?",
          f"In four instalments, in {', '.join(c['instalments'][:-1])} and {c['instalments'][-1]}. "
          f"The exact dates are on your rates notice; you can also pay the year in one go."),
@@ -100,7 +127,7 @@ def build(slug, c):
          "Object to the Valuer-General in writing within 60 days of receiving your first rates notice for the year — there is no fee. "
          "Objecting does not change the due date — keep paying while it is reviewed."),
         (f"Is there a cap on {short} rate rises?",
-         c["rate_cap_note"]),
+         c.get("rate_cap_note") or "Not one we could find in the 2026/27 rating policy — ask council about hardship options."),
     ]
 
     rows_html = []
@@ -117,9 +144,10 @@ def build(slug, c):
         "council": name,
         "residential": c["residential_rate"],
         "categories": c["other_categories"],
-        "minimum": c["minimum_rate"],
+        "minimum": c["minimum_rate"] or 0,
         "fixed": c["fixed_charge"] or 0,
-        "levy": levy["rate"],
+        "levy": levy.get("rate") or 0,
+        "levyFixed": 0 if levy.get("rate") else (levy.get("fixed") or 0),
         "levyName": levy["board"] + " levy",
         "cap": c["rate_cap_pct"],
         "typical": typical,
@@ -138,9 +166,9 @@ def build(slug, c):
       <input id="rc-cv" name="cv" inputmode="decimal" autocomplete="off" placeholder="{typical:,}" value="{typical:,}"></p>
     <p><label for="rc-use">Land use</label><br>
       <select id="rc-use" name="use"></select></p>
-    <p><label for="rc-last">Last year’s general rates <span class="fine">(optional, to check the {c["rate_cap_pct"]:g}% cap)</span></label><br>
+{f"""    <p><label for="rc-last">Last year’s general rates <span class="fine">(optional, to check the {cap:g}% cap)</span></label><br>
       <input id="rc-last" name="last" inputmode="decimal" autocomplete="off" placeholder="e.g. 1,800"></p>
-    <output class="ratescalc__out" for="rc-cv rc-use rc-last" aria-live="polite"></output>
+""" if cap else ""}    <output class="ratescalc__out" for="rc-cv rc-use rc-last" aria-live="polite"></output>
   </form>
   <script type="application/json" id="rates-cfg">{json.dumps(cfg)}</script>
 
@@ -148,13 +176,13 @@ def build(slug, c):
   <ol>
     <li><b>Capital value × rate in the dollar.</b> Residential: {cents(c["residential_rate"])} cents per dollar of the
       Valuer-General’s capital value. $1,000,000 × {c["residential_rate"]:.11f} = {money(1_000_000 * c["residential_rate"])}.</li>
-    <li><b>Minimum rate {money(c["minimum_rate"])}.</b> If step 1 comes to less, you pay the minimum. That happens
+{f"""    <li><b>Minimum rate {money(c["minimum_rate"])}.</b> If step 1 comes to less, you pay the minimum. That happens
       below a capital value of about {money(min_below)}.</li>
-    <li><b>Plus the {escape(levy["board"])} levy</b> — {cents(levy["rate"])} cents in the dollar, collected for the state
-      ({money(1_000_000 * levy["rate"])} per $1m of value).</li>
+""" if c["minimum_rate"] else ""}{f"""    <li><b>Plus a fixed charge of {money(c["fixed_charge"])}</b>, the same for every property.</li>
+""" if c["fixed_charge"] else ""}    <li><b>Plus the {escape(levy["board"])} levy</b> — {levy_text(levy)}, collected for the state.</li>
   </ol>
-  <p>Business and other land pays a different rate in the dollar: commercial {cents(c["other_categories"]["Commercial (shop, office and other)"])}¢,
-    vacant land {cents(c["other_categories"]["Vacant land"])}¢. Pick it in the calculator.</p>
+  <p>Business and other land pays a different rate in the dollar:
+    {"; ".join(f"{escape(k.lower())} {cents(v)}¢" for k, v in c["other_categories"].items() if v)}. Pick it in the calculator.</p>
 
   <h2 class="hub__h2" id="by-suburb">Rates on a typical house, by suburb</h2>
   <p>Using each suburb’s 12-month median house price as the capital value. Your capital value is set by the
@@ -173,8 +201,8 @@ def build(slug, c):
       </tbody>
     </table>
   </div>
-  <p class="fine">“minimum” = the suburb median is under the minimum-rate threshold, so a typical house there pays {money(c["minimum_rate"])} general rates.</p>
-
+{f"""  <p class="fine">“minimum” = the suburb median is under the minimum-rate threshold, so a typical house there pays {money(c["minimum_rate"])} general rates.</p>
+""" if c["minimum_rate"] else ""}
   <h2 class="hub__h2">Paying and getting help</h2>
   <ul class="plain">
     <li><b>Pay or check your notice:</b> <a href="{escape(c["council_rates_url"])}" rel="noopener">{escape(name)} rates page</a> (BPAY, online, direct debit, in person) or call {escape(c["council_phone"])}.</li>
@@ -200,7 +228,7 @@ def build(slug, c):
 
     title = f"{short} council rates 2026/27 — calculator and rates by suburb"
     desc = (f"Estimate your {name} council rates for 2026/27: {cents(c['residential_rate'])}¢ in the dollar, "
-            f"{money(c['minimum_rate'])} minimum, plus {levy['board']} levy. A {money(typical)} house pays about "
+            f"{floor_text(c)}, plus {levy['board']} levy. A {money(typical)} house pays about "
             f"{money(t_total)} a year. Working shown.")
     ld = {
         "@context": "https://schema.org",
@@ -228,10 +256,10 @@ def build(slug, c):
     block = f'''<!-- 1. In "Owning a home in the {name}", replace the "Council rates" <li> with: -->
     <li><b>Council rates:</b> about {money(t_total)} a year on a {money(typical)} house in 2026/27 —
       <a href="/councils/{slug}/rates">{escape(short)} rates calculator and rates by suburb</a>
-      ({cents(c["residential_rate"])}¢ in the dollar, {money(c["minimum_rate"])} minimum).</li>
+      ({cents(c["residential_rate"])}¢ in the dollar, {floor_text(c)}).</li>
 
 <!-- 2. Replace the answer to "How are council rates worked out in the {name}?" (HTML and FAQPage JSON-LD) with: -->
-{escape(faq[0][1])} Residential rates are {cents(c["residential_rate"])} cents per dollar of the Valuer-General’s capital value, with a {money(c["minimum_rate"])} minimum, plus the {levy["board"]} levy. Work out your own on the {short} rates calculator: {page_url}
+{escape(faq[0][1])} Residential rates are {cents(c["residential_rate"])} cents per dollar of the Valuer-General’s capital value, with a {floor_text(c)}, plus the {levy["board"]} levy. Work out your own on the {short} rates calculator: {page_url}
 
 <!-- 3. Each Charles Sturt suburb page: one line under its price, e.g. for a suburb with median M:
      "Council rates on a house at this price: about $X a year — /councils/{slug}/rates#by-suburb"
@@ -267,6 +295,10 @@ def main():
     for slug, c in data["councils"].items():
         if c is None:
             todo.append(slug)
+            continue
+        if c.get("basis", "capital value") != "capital value":
+            # The calculator and suburb table assume capital value (e.g. City of Adelaide rates on annual value).
+            print(f"skipped {slug}: rated on {c['basis']}, needs its own page")
             continue
         name, typical, total = build(slug, c)
         print(f"built {slug}: {name}, typical {money(typical)} -> {money(total)}/yr")
