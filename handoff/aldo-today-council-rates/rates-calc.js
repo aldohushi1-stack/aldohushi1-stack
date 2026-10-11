@@ -32,11 +32,12 @@
     var onMin = byValue < cfg.minimum;
     var general = Math.max(byValue, cfg.minimum) + cfg.fixed;
     var levy = cv * cfg.levy + (cfg.levyFixed || 0);
-    var total = general + levy;
+    var total = general + levy + (cfg.service || 0);
     var html = '<div class="big">' + fmt.format(total) + ' a year</div>' +
       '<div>about ' + fmt.format(total / 4) + ' a quarter</div><dl>' +
       row('General rates' + (onMin ? ' (minimum)' : ''), fmt.format(general)) +
-      row(cfg.levyName, fmt.format(levy)) + '</dl>';
+      row(cfg.levyName, fmt.format(levy)) +
+      (cfg.service ? row('Waste service charge', fmt.format(cfg.service)) : '') + '</dl>';
     if (onMin) html += '<p class="fine">' + fmt.format(cv) + ' × ' + +(rate * 100).toFixed(9) + '¢ = ' + fmt.format(byValue) +
       ', under the ' + fmt.format(cfg.minimum) + ' minimum, so you pay the minimum.</p>';
     var last = form.elements.last ? amount(form.elements.last.value) : 0;

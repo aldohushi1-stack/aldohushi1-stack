@@ -1,0 +1,74 @@
+{
+  "burnside": {
+    "confidence": "high (rate, minimum, levy match budget pp.41-42 and council rates page)",
+    "anomalies": "Budget Attachment G (p.74) still shows draft figures 0.0016322 / avg $2,613; used pp.41-42 figures and left average blank. Rate-cap threshold not stated for 2026/27."
+  },
+  "unley": {
+    "confidence": "high for rate and minimum; medium for levy (council declaration page only)",
+    "anomalies": "Short-stay rentals rated at commercial-other. Business-precinct separate rates (Unley Rd, Goodwood Rd, King William Rd, Fullarton Rd) hit commercial land only."
+  },
+  "norwood-payneham-and-st-peters": {
+    "confidence": "high for minimum, average, cap; medium-high for rate in the dollar (council rates page; consistent with adopted 130%/120% differentials)",
+    "anomalies": "Budget PDF prints no rate in the dollar. The Parade Precinct separate rate applies to non-residential only."
+  },
+  "holdfast-bay": {
+    "confidence": "high for minimum, levy, cap; medium-high for the rate (Rating Policy PDF only)",
+    "anomalies": "Jetty Road Mainstreet and Patawalonga Marina separate rates (commercial/marina only). 6.6% is total rate revenue, not average residential, so left blank."
+  },
+  "campbelltown": {
+    "confidence": "medium-low: rate and minimum from search-engine text of the Gazette only; sites returned 403",
+    "anomalies": "TO CHECK IN A BROWSER: Green Adelaide levy rate (missing), rate cap, instalment months, and confirm 0.00205820 / $1,239 in the Gazette PDF. Single general rate for all land uses (no differentials)."
+  },
+  "prospect": {
+    "confidence": "medium: all figures from search-engine text of council's own rates page (two queries agree); site returned 403",
+    "anomalies": "TO CHECK IN A BROWSER: confirm rate/minimum/levy on the rates page, adoption date, whether there is a rate cap. Two vacant-land rates by zone."
+  },
+  "west-torrens": {
+    "confidence": "high (adopted minutes verbatim, matches council rates pages)",
+    "anomalies": "none"
+  },
+  "marion": {
+    "confidence": "high (declaration report, council rates page and Rating Policy agree)",
+    "anomalies": "Rate-cap rebate is limited to $200, so rate_cap_pct left null to stop the calculator overstating it; explained in the note."
+  },
+  "playford": {
+    "confidence": "high (adopted minutes verbatim, matches rates FAQ)",
+    "anomalies": "Fixed charge $1,304.30 (was $1,248.50) instead of a minimum rate."
+  },
+  "adelaide": {
+    "confidence": "high (carried resolution in public minutes, matches budget table)",
+    "anomalies": "ANNUAL VALUE basis, rates already in dollars per dollar of annual value (about 3-5% of capital value). Calculator must ask for annual value, not capital value, and the suburb-median table can't be used. Rundle Mall separate rate is non-residential only. build.py skips it until it has its own page."
+  },
+  "gawler": {
+    "confidence": "low-medium: figures from search-engine text of the council's rates page (worked example adds up); site and Gazette returned 403",
+    "anomalies": "TO CHECK IN A BROWSER: rate 0.003331, minimum $1,320, levy 0.00008406 and its board name (Northern and Yorke?), non-residential rates (tiered), Gawler East separate rate. $290 waste service charge on most properties: build.py adds service_charge to the total."
+  },
+  "walkerville": {
+    "confidence": "none: adopted figures not readable (council site and Gazette 403)",
+    "anomalies": "TO DO IN A BROWSER: Gazette No. 41, 9 July 2026, p. 2231 (https://www.governmentgazette.sa.gov.au/2026/July/2026_041.pdf) or https://www.walkerville.sa.gov.au/council/rates. Draft (not adopted) was residential 0.00156083, minimum $1,560, Green Adelaide levy 0.000060; 2025/26 was 0.00161989 and $1,487. Adopted valuations differ from the draft, so the final rate will too."
+  },
+  "onkaparinga": {
+    "confidence": "high (adopted budget table and Rating Policy agree)",
+    "anomalies": "Fixed charge $820 (was $790), no minimum. Two levy zones: Hills and Fleurieu used by default (council's own median example), Green Adelaide in the north. CWMS properties pay a $1,232.55 effluent service charge (not included). 10% cap only on the value-based part."
+  },
+  "salisbury": {
+    "confidence": "high for the figures (adopted ABP and minutes agree)",
+    "anomalies": "TO CHECK BEFORE PUBLISHING: high-value residential adjustment (s158) cuts general rates 10% for value $969,001-$1,065,000, 20% for $1,065,001-$1,205,000, 35% above $1,205,000. Confirm whether the cut is on the whole rate or only the slice of value in each band (see ABP pp.124-127), then add it to rates_for() in build.py and rates-calc.js. Without it the calculator overstates rates on homes over $969k."
+  },
+  "port-adelaide-enfield": {
+    "confidence": "low: council site and Gazette blocked; figures from search snippets only",
+    "anomalies": "TO DO IN A BROWSER: the 2026/27 MINIMUM RATE (not found; 2025/26 was $1,190). Snippets of cityofpae.sa.gov.au/about/rates (adopted 9 June 2026): residential 0.0016365 per dollar, commercial/industrial/other and vacant 0.0043291, Green Adelaide levy 0.0000585, New Haven Village separate rate 0.0012988 (62 lots at North Haven only). Confirm all in the adopted ABP: https://www.cityofpae.sa.gov.au/__data/assets/pdf_file/0024/2001669/PAE-annual-business-plan-2026-27.pdf. Also check rate cap and instalments. Phone 8405 6600."
+  },
+  "mitcham": {
+    "confidence": "high (adopted minutes verbatim, cross-checked with ABP)",
+    "anomalies": "Instalments due on the 15th. Average $2,506 covers residential + primary production + other, so left blank."
+  },
+  "adelaide-hills": {
+    "confidence": "high (adopted minutes verbatim, matches ABP and media release)",
+    "anomalies": "Fixed charge $940 (was $880), no minimum. CWMS service charge in seven townships ($770 occupied / $360 vacant) not included. Stirling business separate rate non-residential only."
+  },
+  "tea-tree-gully": {
+    "confidence": "medium: rate and minimum agree across four search results quoting the council page and adopted ABP; site returned 403",
+    "anomalies": "TO CHECK IN A BROWSER: Green Adelaide levy rate (missing), rate cap, confirm 0.0025880 / $1,573 in the 30 June 2026 minutes: https://www.teatreegully.sa.gov.au/__data/assets/pdf_file/0021/2008290/Council-Meeting-Minutes-30-June-2026.pdf"
+  }
+}

@@ -2,7 +2,31 @@
 
 **Goal:** win "charles sturt council rates calculator" and "charles sturt council rates", then the same search for all 19 councils. No official Charles Sturt calculator turned up in search. The only competing calculators are generic and don't use real council numbers.
 
-**Status (11 Oct 2026):** Charles Sturt is built, tested, and ready to paste. The other 18 councils need their 2026/27 numbers (about 10 min each). The aldo.today site source isn't on GitHub, so nothing is live yet. Publishing happens on your PC.
+**Status (11 Oct 2026):** 11 of 19 councils are built from adopted 2026/27 budgets and ready to paste. 5 more have figures but need a 2-minute browser check (their sites blocked automated access). 2 councils still need their figures, and the City of Adelaide needs its own calculator. The aldo.today site source isn't on GitHub, so nothing is live yet. Publishing happens on your PC.
+
+| Council | Status | Typical house → rates/yr |
+|---|---|---|
+| Charles Sturt | ✅ built | $1,196,500 → $2,116 |
+| Adelaide Hills | ✅ built ($940 fixed charge, Hills & Fleurieu levy) | $1,060,000 → $3,106 |
+| Burnside | ✅ built | $1,970,000 → $3,326 |
+| Holdfast Bay | ✅ built | $1,525,000 → $2,848 |
+| Marion | ✅ built | $1,002,500 → $2,196 |
+| Mitcham | ✅ built | $1,319,000 → $2,841 |
+| Norwood Payneham & St Peters | ✅ built | $1,530,000 → $2,890 |
+| Onkaparinga | ✅ built ($820 fixed charge, two levy zones) | $870,000 → $2,319 |
+| Playford | ✅ built ($1,304.30 fixed charge) | $718,500 → $2,255 |
+| Unley | ✅ built | $1,780,000 → $3,047 |
+| West Torrens | ✅ built | $1,180,000 → $2,091 |
+| Campbelltown | 🔎 check: levy rate missing | — |
+| Gawler | 🔎 check: all figures from search snippets; $290 waste charge | — |
+| Prospect | 🔎 check: all figures from search snippets | — |
+| Salisbury | 🔎 check: how the high-value discount works | — |
+| Tea Tree Gully | 🔎 check: levy rate missing | — |
+| Port Adelaide Enfield | ❌ 2026/27 minimum rate not found | — |
+| Walkerville | ❌ adopted figures not readable (only the draft) | — |
+| Adelaide (city) | ⏸ figures done, but rated on **annual value**: needs its own calculator | — |
+
+The "To check" notes for each council, with exact links, are in `data/checks-2026-27.json`. To clear a 🔎 council: open its link in a browser, confirm or fix the figures in `data/council-rates-2026-27.json`, delete its `"verified": false` line, and run `python3 build.py`.
 
 ## On your PC
 
@@ -11,7 +35,7 @@ git clone https://github.com/aldohushi1-stack/aldohushi1-stack   # or: git fetch
 cd aldohushi1-stack && git checkout ccr-a27e7e84-rr0yti
 cd handoff/aldo-today-council-rates
 python3 build.py                                  # regenerates out/ (stdlib only)
-python3 -m http.server -d out/charles-sturt 8000  # then open http://localhost:8000/preview.html
+python3 -m http.server -d out 8000  # then open http://localhost:8000/<council>/preview.html
 ```
 
 ## What's here
@@ -20,7 +44,9 @@ python3 -m http.server -d out/charles-sturt 8000  # then open http://localhost:8
 |---|---|
 | `data/council-rates-2026-27.json` | Rates figures. Charles Sturt is filled in from the adopted 2026/27 budget; the other 18 are `null`. |
 | `data/adelaide.csv` | Copy of aldo.today/adelaide.csv, used for suburb medians. Replace it with the latest file before a rebuild. |
-| `build.py` | Generates every page below for each council with data. |
+| `build.py` | Generates every page below for each council with data (skips unverified ones). |
+| `merge_results.py` | Loads researched figures into the JSON and catches cents-vs-dollars mistakes. |
+| `data/checks-2026-27.json` | Confidence and to-check notes for every council. |
 | `rates-calc.js` | Calculator (vanilla JS, about 60 lines). `build.py` inlines it into each page. |
 | `out/charles-sturt/rates-page.html` | Page body for the new URL **/councils/charles-sturt/rates** |
 | `out/charles-sturt/rates-head.html` | `<title>`, meta description, canonical, and WebPage + Breadcrumb + FAQPage JSON-LD |
@@ -28,7 +54,7 @@ python3 -m http.server -d out/charles-sturt 8000  # then open http://localhost:8
 | `out/charles-sturt/council-page-block.html` | The edits to the **existing** /councils/charles-sturt page |
 | `out/charles-sturt/preview.html` | Standalone preview using the live journal.css |
 
-## Publishing Charles Sturt (about 30 min)
+## Publishing (Charles Sturt first, then each built council; about 30 min the first time)
 
 1. **New page `/councils/charles-sturt/rates`.** Use your normal page template with the head from `rates-head.html` and the body from `rates-page.html`. Add `rates.css` to journal.css and bump the `?v=`.
    - Better: port `build.py` into the site generator so the page rebuilds whenever adelaide.csv refreshes. Its logic is about 40 lines; the rest is the HTML template.
@@ -69,17 +95,16 @@ In the JSON, rates are stored in **dollars** per dollar, so divide the council's
 - It links to the council's own payment page.
 - It explains that a suburb median sale price is not the Valuer-General's capital value. That's why the $2,116 "typical house" figure is above the council's own $1,847 average.
 
-## Rolling out the other 18 councils
+## Finishing the last councils
 
-For each council, search for "<council> annual business plan 2026/27 rating policy" and open the **adopted** version, not the draft. Then copy the `charles-sturt` block in the JSON and change every field. Watch for these differences:
-- **Fixed charge instead of a minimum rate.** Some councils use one. Set `fixed_charge` and set `minimum_rate` to 0.
-- **Rate cap.** It differs per council, or there may be none. Set `rate_cap_pct` and `rate_cap_note`, and edit the cap wording in `build.py` if there's no cap.
-- **Separate rates.** Some councils add these, e.g. for a precinct or a waste service. Note them on the page.
-- **Landscape levy.** Councils outside the Green Adelaide area pay a different board's levy, e.g. Adelaide Hills pays Hills and Fleurieu. Set `landscape_levy.board`.
-
-Then run `python3 build.py`.
-
-**Suggested order (biggest councils first):** Port Adelaide Enfield, Onkaparinga, Salisbury, West Torrens, Marion, Playford, Tea Tree Gully, then the rest. Once all 19 are done, add a "/councils ranked by rates" page next to "councils by house price".
+- **🔎 Browser checks (Campbelltown, Gawler, Prospect, Salisbury, Tea Tree Gully):** follow `data/checks-2026-27.json`. Salisbury also needs its high-value residential discount added to `rates_for()` in `build.py` and to `rates-calc.js`. The discount is 10% / 20% / 35% above $969k / $1.065m / $1.205m; check whether it applies to the whole rate or only the slice of value in each band.
+- **❌ Port Adelaide Enfield:** find the 2026/27 minimum in the adopted budget PDF, or call 8405 6600. The other figures are in checks.
+- **❌ Walkerville:** take the adopted figures from Gazette No. 41 (9 July 2026), p. 2231.
+- **⏸ City of Adelaide:** its figures are in the JSON. It needs a calculator that asks for **annual value** (on the rates notice, about 3–5% of capital value) and no suburb-median table. Until then, `build.py` skips it.
+- **New-year refresh (each July):**
+  - add a 2027/28 JSON;
+  - run `merge_results.py` to load researched figures. It rejects rates that look like cents instead of dollars, so a forgotten ÷100 gets caught.
+- **Once all are live:** add a "councils ranked by rates" page next to "councils by house price".
 
 ## Other searches worth winning (next)
 
@@ -90,4 +115,4 @@ Then run `python3 build.py`.
 
 ## Prompt to paste into Claude Code on your PC
 
-> In the aldo.today site repo: read handoff/aldo-today-council-rates/HANDOFF.md from the aldohushi1-stack repo (branch ccr-a27e7e84-rr0yti). Port build.py into the site generator so /councils/<slug>/rates is generated for every council in council-rates-2026-27.json that isn't null. Use the existing page template, add rates.css to journal.css, apply the council-page-block edits to the council page template, and add the new URLs to the sitemap. Build, check /councils/charles-sturt/rates shows $2,116 for a 1,196,500 capital value, then show me the diff before deploying.
+> In the aldo.today site repo: read handoff/aldo-today-council-rates/HANDOFF.md from the aldohushi1-stack repo (branch ccr-a27e7e84-rr0yti). Port build.py into the site generator so /councils/<slug>/rates is generated for every council in council-rates-2026-27.json that is filled in, verified, and rated on capital value (the same rules as build.py). Use the existing page template, add rates.css to journal.css, apply the council-page-block edits to the council page template, and add the new URLs to the sitemap. Build, check /councils/charles-sturt/rates shows $2,116 for a 1,196,500 capital value, then show me the diff before deploying.

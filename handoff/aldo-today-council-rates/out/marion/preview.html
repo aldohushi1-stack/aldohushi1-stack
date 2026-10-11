@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marion council rates 2026/27 — calculator and rates by suburb</title>
+<meta name="description" content="Estimate your City of Marion council rates for 2026/27: 0.213061¢ in the dollar, $1,322 minimum, plus Green Adelaide levy. A $1,002,500 house pays about $2,196 a year. Working shown.">
+<link rel="canonical" href="https://aldo.today/councils/marion/rates">
+<meta property="og:title" content="Marion council rates 2026/27 — calculator and rates by suburb">
+<meta property="og:description" content="Estimate your City of Marion council rates for 2026/27: 0.213061¢ in the dollar, $1,322 minimum, plus Green Adelaide levy. A $1,002,500 house pays about $2,196 a year. Working shown.">
+<meta property="og:url" content="https://aldo.today/councils/marion/rates">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://aldo.today/councils/marion/rates", "url": "https://aldo.today/councils/marion/rates", "name": "Marion council rates 2026/27 — calculator and rates by suburb", "description": "Estimate your City of Marion council rates for 2026/27: 0.213061¢ in the dollar, $1,322 minimum, plus Green Adelaide levy. A $1,002,500 house pays about $2,196 a year. Working shown.", "inLanguage": "en-AU", "isPartOf": {"@type": "WebSite", "name": "aldo.today", "url": "https://aldo.today/"}, "publisher": {"@id": "https://aldo.today/#org"}, "dateModified": "2026-10-11", "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Councils", "item": "https://aldo.today/councils"}, {"@type": "ListItem", "position": 2, "name": "City of Marion", "item": "https://aldo.today/councils/marion"}, {"@type": "ListItem", "position": 3, "name": "Council rates", "item": "https://aldo.today/councils/marion/rates"}]}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much are council rates in Marion?", "acceptedAnswer": {"@type": "Answer", "text": "For 2026/27, a house valued at $1,002,500 — about the typical house sale in the City of Marion — pays about $2,136 in general rates plus $60 Green Adelaide levy, so about $2,196 a year, or $549 a quarter."}}, {"@type": "Question", "name": "What is the Marion council rate in the dollar for 2026/27?", "acceptedAnswer": {"@type": "Answer", "text": "0.213061 cents in the dollar of capital value for residential land, down from 0.224988 in 2025/26. Property values rose, so the rate in the dollar fell; the average residential rate rose 4.80%."}}, {"@type": "Question", "name": "What is the minimum rate in Marion?", "acceptedAnswer": {"@type": "Answer", "text": "$1,322 for 2026/27 (was $1,261). Any residential property with a capital value under about $620,480 pays the minimum."}}, {"@type": "Question", "name": "When are Marion council rates due?", "acceptedAnswer": {"@type": "Answer", "text": "In four instalments, in September, December, March and June. The exact dates are on your rates notice; you can also pay the year in one go."}}, {"@type": "Question", "name": "Does my rates notice include the Emergency Services Levy?", "acceptedAnswer": {"@type": "Answer", "text": "No. The ESL is a state levy billed separately by RevenueSA. The Green Adelaide landscape levy is on your council notice, but council only collects it for the state."}}, {"@type": "Question", "name": "What if I think my valuation is too high?", "acceptedAnswer": {"@type": "Answer", "text": "Object to the Valuer-General in writing within 60 days of receiving your first rates notice for the year — there is no fee. Objecting does not change the due date — keep paying while it is reviewed."}}, {"@type": "Question", "name": "Is there a cap on Marion rate rises?", "acceptedAnswer": {"@type": "Answer", "text": "Marion’s Residential Rate Rebate pays back general rate rises above 10% on a principal place of residence — at least $20 and at most $200 — unless the property had over $20,000 of improvements, a zoning or land-use change, or was sold since 1 January last year."}}]}]}</script>
+<link rel="stylesheet" href="https://aldo.today/assets/journal.css?v=3.39.0">
+<style>.ratescalc { max-width: 30rem; }
+.ratescalc input, .ratescalc select { width: 100%; font: inherit; padding: 8px 12px; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); color: var(--ink); }
+.ratescalc__out { display: block; margin-top: 12px; padding: 14px 16px; border: 1px solid var(--rule); border-radius: 6px; }
+.ratescalc__out .big { font-size: 1.6rem; font-weight: 600; }
+.ratescalc__out dl { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; margin: 10px 0 0; }
+.ratescalc__out dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+</style></head>
+<body><main>
+<article class="rates">
+  <h1 class="title" id="r-h">Marion council rates 2026/27</h1>
+  <p class="lede">A house valued at $1,002,500 — about the typical house sale in the City of Marion — pays about
+    <b>$2,196 a year</b> in council rates ($549 a quarter). Put in your own capital value below.</p>
+  <p class="fine">Unofficial estimate by aldo.today, not the City of Marion. Your rates notice is the bill. Figures from the
+    council’s adopted 2026/27 budget, checked 2026-10-11.</p>
+
+  <h2 class="hub__h2" id="calc">Rates calculator</h2>
+  <form class="ratescalc" data-rates-calc onsubmit="return false">
+    <p><label for="rc-cv">Capital value <span class="fine">(on your rates notice or Valuer-General notice)</span></label><br>
+      <input id="rc-cv" name="cv" inputmode="decimal" autocomplete="off" placeholder="1,002,500" value="1,002,500"></p>
+    <p><label for="rc-use">Land use</label><br>
+      <select id="rc-use" name="use"></select></p>
+    <output class="ratescalc__out" for="rc-cv rc-use rc-last" aria-live="polite"></output>
+  </form>
+  <script type="application/json" id="rates-cfg">{"council": "City of Marion", "residential": 0.00213061, "categories": {"Commercial and industrial": 0.00564611, "Vacant land": 0.00468734, "Primary production and other": 0.00213061}, "minimum": 1322, "fixed": 0, "levy": 5.944e-05, "levyFixed": 0, "levyName": "Green Adelaide levy", "service": 0, "cap": null, "typical": 1002500}</script>
+
+  <h2 class="hub__h2">How Marion works out your rates</h2>
+  <ol>
+    <li><b>Capital value × rate in the dollar.</b> Residential: 0.213061 cents per dollar of the
+      Valuer-General’s capital value. $1,000,000 × 0.00213061000 = $2,131.</li>
+    <li><b>Minimum rate $1,322.</b> If step 1 comes to less, you pay the minimum. That happens
+      below a capital value of about $620,480.</li>
+    <li><b>Plus the Green Adelaide levy</b> — 0.005944 cents in the dollar ($59 per $1m of value), collected for the state.</li>
+  </ol>
+  <p>Business and other land pays a different rate in the dollar:
+    commercial and industrial 0.564611¢; vacant land 0.468734¢; primary production and other 0.213061¢. Pick it in the calculator.</p>
+
+  <h2 class="hub__h2" id="by-suburb">Rates on a typical house, by suburb</h2>
+  <p>Using each suburb’s 12-month median house price as the capital value. Your capital value is set by the
+    Valuer-General and may differ from a sale price — use the calculator for your own house.
+    Cheapest: Tonsley (about $1,763); dearest:
+    Glengowrie (about $3,099).</p>
+  <div class="tablewrap">
+    <table class="suburbs" data-sortable>
+      <thead><tr><th><button type="button" data-sort="text">Suburb</button></th>
+        <th class="num"><button type="button" data-sort="num">Median house</button></th>
+        <th class="num"><button type="button" data-sort="num">General rates</button></th>
+        <th class="num"><button type="button" data-sort="num">Levy</button></th>
+        <th class="num"><button type="button" data-sort="num">Total a year</button></th></tr></thead>
+      <tbody>
+      <tr><th><a href="/adelaide/tonsley">Tonsley</a></th><td class="num">$804,875</td><td class="num">$1,715</td><td class="num">$48</td><td class="num"><b>$1,763</b></td></tr>
+      <tr><th><a href="/adelaide/trott-park">Trott Park</a></th><td class="num">$885,000</td><td class="num">$1,886</td><td class="num">$53</td><td class="num"><b>$1,938</b></td></tr>
+      <tr><th><a href="/adelaide/sturt">Sturt</a></th><td class="num">$920,000</td><td class="num">$1,960</td><td class="num">$55</td><td class="num"><b>$2,015</b></td></tr>
+      <tr><th><a href="/adelaide/sheidow-park">Sheidow Park</a></th><td class="num">$940,000</td><td class="num">$2,003</td><td class="num">$56</td><td class="num"><b>$2,059</b></td></tr>
+      <tr><th><a href="/adelaide/seacombe-gardens">Seacombe Gardens</a></th><td class="num">$976,944</td><td class="num">$2,081</td><td class="num">$58</td><td class="num"><b>$2,140</b></td></tr>
+      <tr><th><a href="/adelaide/clovelly-park">Clovelly Park</a></th><td class="num">$978,000</td><td class="num">$2,084</td><td class="num">$58</td><td class="num"><b>$2,142</b></td></tr>
+      <tr><th><a href="/adelaide/oaklands-park">Oaklands Park</a></th><td class="num">$983,000</td><td class="num">$2,094</td><td class="num">$58</td><td class="num"><b>$2,153</b></td></tr>
+      <tr><th><a href="/adelaide/mitchell-park">Mitchell Park</a></th><td class="num">$991,800</td><td class="num">$2,113</td><td class="num">$59</td><td class="num"><b>$2,172</b></td></tr>
+      <tr><th><a href="/adelaide/hallett-cove">Hallett Cove</a></th><td class="num">$1,000,000</td><td class="num">$2,131</td><td class="num">$59</td><td class="num"><b>$2,190</b></td></tr>
+      <tr><th><a href="/adelaide/edwardstown">Edwardstown</a></th><td class="num">$1,002,500</td><td class="num">$2,136</td><td class="num">$60</td><td class="num"><b>$2,196</b></td></tr>
+      <tr><th><a href="/adelaide/ascot-park">Ascot Park</a></th><td class="num">$1,036,000</td><td class="num">$2,207</td><td class="num">$62</td><td class="num"><b>$2,269</b></td></tr>
+      <tr><th><a href="/adelaide/dover-gardens">Dover Gardens</a></th><td class="num">$1,050,000</td><td class="num">$2,237</td><td class="num">$62</td><td class="num"><b>$2,300</b></td></tr>
+      <tr><th><a href="/adelaide/seacombe-heights">Seacombe Heights</a></th><td class="num">$1,050,000</td><td class="num">$2,237</td><td class="num">$62</td><td class="num"><b>$2,300</b></td></tr>
+      <tr><th><a href="/adelaide/park-holme">Park Holme</a></th><td class="num">$1,059,500</td><td class="num">$2,257</td><td class="num">$63</td><td class="num"><b>$2,320</b></td></tr>
+      <tr><th><a href="/adelaide/marion">Marion</a></th><td class="num">$1,075,000</td><td class="num">$2,290</td><td class="num">$64</td><td class="num"><b>$2,354</b></td></tr>
+      <tr><th><a href="/adelaide/morphettville">Morphettville</a></th><td class="num">$1,076,250</td><td class="num">$2,293</td><td class="num">$64</td><td class="num"><b>$2,357</b></td></tr>
+      <tr><th><a href="/adelaide/seaview-downs">Seaview Downs</a></th><td class="num">$1,133,000</td><td class="num">$2,414</td><td class="num">$67</td><td class="num"><b>$2,481</b></td></tr>
+      <tr><th><a href="/adelaide/south-plympton">South Plympton</a></th><td class="num">$1,235,000</td><td class="num">$2,631</td><td class="num">$73</td><td class="num"><b>$2,705</b></td></tr>
+      <tr><th><a href="/adelaide/plympton-park">Plympton Park</a></th><td class="num">$1,250,000</td><td class="num">$2,663</td><td class="num">$74</td><td class="num"><b>$2,738</b></td></tr>
+      <tr><th><a href="/adelaide/marino">Marino</a></th><td class="num">$1,343,000</td><td class="num">$2,861</td><td class="num">$80</td><td class="num"><b>$2,941</b></td></tr>
+      <tr><th><a href="/adelaide/warradale">Warradale</a></th><td class="num">$1,355,000</td><td class="num">$2,887</td><td class="num">$81</td><td class="num"><b>$2,968</b></td></tr>
+      <tr><th><a href="/adelaide/glengowrie">Glengowrie</a></th><td class="num">$1,415,000</td><td class="num">$3,015</td><td class="num">$84</td><td class="num"><b>$3,099</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="fine">“minimum” = the suburb median is under the minimum-rate threshold, so a typical house there pays $1,322 general rates.</p>
+
+  <h2 class="hub__h2">Paying and getting help</h2>
+  <ul class="plain">
+    <li><b>Pay or check your notice:</b> <a href="https://www.marion.sa.gov.au/services-we-offer/rates/general-rate-information" rel="noopener">City of Marion rates page</a> (BPAY, online, direct debit, in person) or call 8375 6600.</li>
+    <li><b>Struggling to pay:</b> council offers hardship arrangements, and seniors can postpone rates above $500.</li>
+    <li><b>Concessions:</b> the state Cost of Living Concession (ConcessionsSA 1800 307 758) can go toward rates.</li>
+    <li><b>Valuation looks wrong:</b> <a href="https://www.valuergeneral.sa.gov.au/valuation/objecting-to-a-valuation" rel="noopener">object to the Valuer-General</a> within 60 days.</li>
+    <li><b>Emergency Services Levy:</b> billed separately — <a href="https://www.revenuesa.sa.gov.au/ESL/emergency-services-levy-home-page" rel="noopener">how the ESL works</a>.</li>
+  </ul>
+
+  <h2 id="rqa-h">Questions about Marion council rates</h2>
+  <h3>How much are council rates in Marion?</h3>
+  <p>For 2026/27, a house valued at $1,002,500 — about the typical house sale in the City of Marion — pays about $2,136 in general rates plus $60 Green Adelaide levy, so about $2,196 a year, or $549 a quarter.</p>
+  <h3>What is the Marion council rate in the dollar for 2026/27?</h3>
+  <p>0.213061 cents in the dollar of capital value for residential land, down from 0.224988 in 2025/26. Property values rose, so the rate in the dollar fell; the average residential rate rose 4.80%.</p>
+  <h3>What is the minimum rate in Marion?</h3>
+  <p>$1,322 for 2026/27 (was $1,261). Any residential property with a capital value under about $620,480 pays the minimum.</p>
+  <h3>When are Marion council rates due?</h3>
+  <p>In four instalments, in September, December, March and June. The exact dates are on your rates notice; you can also pay the year in one go.</p>
+  <h3>Does my rates notice include the Emergency Services Levy?</h3>
+  <p>No. The ESL is a state levy billed separately by RevenueSA. The Green Adelaide landscape levy is on your council notice, but council only collects it for the state.</p>
+  <h3>What if I think my valuation is too high?</h3>
+  <p>Object to the Valuer-General in writing within 60 days of receiving your first rates notice for the year — there is no fee. Objecting does not change the due date — keep paying while it is reviewed.</p>
+  <h3>Is there a cap on Marion rate rises?</h3>
+  <p>Marion’s Residential Rate Rebate pays back general rate rises above 10% on a principal place of residence — at least $20 and at most $200 — unless the property had over $20,000 of improvements, a zoning or land-use change, or was sold since 1 January last year.</p>
+
+  <h2 class="hub__h2">Thinking of selling or splitting?</h2>
+  <p>Rates follow value. <a href="/councils/marion">House prices across the City of Marion</a>,
+    <a href="/split-check">check if your block can be split</a>, or ask for a free appraisal.</p>
+
+  <p class="fine">Source: <a href="https://www.marion.sa.gov.au/about-council/publications/annual-business-plan" rel="noopener">City of Marion, General Council 23 June 2026, item 12.3 Rates Declaration 2026-2027</a>, adopted
+    23 June 2026. Suburb medians: SA Valuer-General via Data.SA. Not a rates notice, valuation or financial advice.</p>
+</article>
+<script>
+// Council rates calculator for aldo.today. No dependencies.
+// Reads its numbers from <script type="application/json" id="rates-cfg">.
+(function () {
+  var form = document.querySelector('[data-rates-calc]');
+  var cfgEl = document.getElementById('rates-cfg');
+  if (!form || !cfgEl) return;
+  var cfg = JSON.parse(cfgEl.textContent);
+  var out = form.querySelector('output');
+  var use = form.elements.use;
+  var fmt = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 });
+
+  var opts = [['Residential', cfg.residential]].concat(Object.entries(cfg.categories));
+  opts.forEach(function (o) { use.add(new Option(o[0], o[1])); });
+
+  // Accepts "1,100,000", "$1.1m", "850k".
+  function amount(s) {
+    s = String(s || '').toLowerCase().replace(/[$,\s]/g, '');
+    var m = s.match(/^(\d*\.?\d+)(m|k)?$/);
+    if (!m) return NaN;
+    return parseFloat(m[1]) * (m[2] === 'm' ? 1e6 : m[2] === 'k' ? 1e3 : 1);
+  }
+
+  function row(label, value) {
+    return '<dt>' + label + '</dt><dd>' + value + '</dd>';
+  }
+
+  function render() {
+    var cv = amount(form.elements.cv.value);
+    if (!(cv > 0)) { out.innerHTML = '<span class="fine">Enter a capital value, like 950,000 or 1.2m.</span>'; return; }
+    var rate = parseFloat(use.value);
+    var byValue = cv * rate;
+    var onMin = byValue < cfg.minimum;
+    var general = Math.max(byValue, cfg.minimum) + cfg.fixed;
+    var levy = cv * cfg.levy + (cfg.levyFixed || 0);
+    var total = general + levy + (cfg.service || 0);
+    var html = '<div class="big">' + fmt.format(total) + ' a year</div>' +
+      '<div>about ' + fmt.format(total / 4) + ' a quarter</div><dl>' +
+      row('General rates' + (onMin ? ' (minimum)' : ''), fmt.format(general)) +
+      row(cfg.levyName, fmt.format(levy)) +
+      (cfg.service ? row('Waste service charge', fmt.format(cfg.service)) : '') + '</dl>';
+    if (onMin) html += '<p class="fine">' + fmt.format(cv) + ' × ' + +(rate * 100).toFixed(9) + '¢ = ' + fmt.format(byValue) +
+      ', under the ' + fmt.format(cfg.minimum) + ' minimum, so you pay the minimum.</p>';
+    var last = form.elements.last ? amount(form.elements.last.value) : 0;
+    if (cfg.cap && last > 0 && use.selectedIndex === 0) {
+      var capped = last * (1 + cfg.cap / 100);
+      html += general > capped
+        ? '<p><b>Up ' + Math.round((general / last - 1) * 100) + '% on last year.</b> You may get a rate-capping rebate of about ' +
+          fmt.format(general - capped) + ', bringing general rates to ' + fmt.format(capped) + '. Ask council.</p>'
+        : '<p class="fine">Change on last year: ' + ((general / last - 1) * 100).toFixed(1) + '% — under the ' + cfg.cap + '% cap.</p>';
+    }
+    html += '<p class="fine">Estimate only. Excludes the Emergency Services Levy (billed by RevenueSA) and any rebate or concession.</p>';
+    out.innerHTML = html;
+  }
+
+  form.addEventListener('input', render);
+  render();
+})();
+</script>
+</main></body></html>

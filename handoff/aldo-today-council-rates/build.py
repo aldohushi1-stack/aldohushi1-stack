@@ -38,7 +38,8 @@ def rates_for(cv, c, rate=None):
     general = max(cv * rate, c["minimum_rate"] or 0) + (c["fixed_charge"] or 0)
     lv = c["landscape_levy"]
     levy = cv * lv["rate"] if lv.get("rate") else lv.get("fixed") or 0
-    return general, levy, general + levy
+    # A service charge (e.g. Gawler's waste charge) sits on the notice but isn't a general rate.
+    return general, levy, general + levy + (c.get("service_charge") or 0)
 
 
 def levy_text(lv):
@@ -97,7 +98,8 @@ def build(slug, c):
     faq = [
         (f"How much are council rates in {short}?",
          f"For 2026/27, a house valued at {money(typical)} — about the typical house sale in the {name} — "
-         f"pays about {money(t_general)} in general rates plus {money(t_levy)} {levy['board']} levy, "
+         f"pays about {money(t_general)} in general rates plus {money(t_levy)} {levy['board']} levy"
+         + (f" and a {money(c['service_charge'])} waste service charge" if c.get("service_charge") else "") + ", "
          f"so about {money(t_total)} a year, or {money(t_total / 4)} a quarter."
          + (f" Council’s own average residential rate is {money(avg)}." if avg else "")),
         (f"What is the {short} council rate in the dollar for 2026/27?",
@@ -149,6 +151,7 @@ def build(slug, c):
         "levy": levy.get("rate") or 0,
         "levyFixed": 0 if levy.get("rate") else (levy.get("fixed") or 0),
         "levyName": levy["board"] + " levy",
+        "service": c.get("service_charge") or 0,
         "cap": c["rate_cap_pct"],
         "typical": typical,
     }
@@ -179,7 +182,8 @@ def build(slug, c):
 {f"""    <li><b>Minimum rate {money(c["minimum_rate"])}.</b> If step 1 comes to less, you pay the minimum. That happens
       below a capital value of about {money(min_below)}.</li>
 """ if c["minimum_rate"] else ""}{f"""    <li><b>Plus a fixed charge of {money(c["fixed_charge"])}</b>, the same for every property.</li>
-""" if c["fixed_charge"] else ""}    <li><b>Plus the {escape(levy["board"])} levy</b> — {levy_text(levy)}, collected for the state.</li>
+""" if c["fixed_charge"] else ""}{f"""    <li><b>Plus a {money(c["service_charge"])} waste service charge</b> on most properties with a building.</li>
+""" if c.get("service_charge") else ""}    <li><b>Plus the {escape(levy["board"])} levy</b> — {levy_text(levy)}, collected for the state.{" " + escape(levy["note"]) if levy.get("note") else ""}</li>
   </ol>
   <p>Business and other land pays a different rate in the dollar:
     {"; ".join(f"{escape(k.lower())} {cents(v)}¢" for k, v in c["other_categories"].items() if v)}. Pick it in the calculator.</p>
@@ -291,10 +295,14 @@ def build(slug, c):
 
 def main():
     data = json.loads((HERE / "data" / "council-rates-2026-27.json").read_text())
-    todo = []
+    todo, unverified = [], []
     for slug, c in data["councils"].items():
         if c is None:
             todo.append(slug)
+            continue
+        if c.get("verified") is False:
+            # Figures came from search snippets, not a document we read: check in a browser, then delete "verified".
+            unverified.append(slug)
             continue
         if c.get("basis", "capital value") != "capital value":
             # The calculator and suburb table assume capital value (e.g. City of Adelaide rates on annual value).
@@ -302,7 +310,8 @@ def main():
             continue
         name, typical, total = build(slug, c)
         print(f"built {slug}: {name}, typical {money(typical)} -> {money(total)}/yr")
-    print(f"still to fill in ({len(todo)}): {', '.join(todo)}")
+    print(f"needs a browser check ({len(unverified)}): {', '.join(unverified) or 'none'}")
+    print(f"still to fill in ({len(todo)}): {', '.join(todo) or 'none'}")
 
 
 if __name__ == "__main__":

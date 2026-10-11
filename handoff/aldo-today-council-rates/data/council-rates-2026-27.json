@@ -13,20 +13,25 @@
       "fixed_charge": null,
       "share_on_minimum_pct": 34.21,
       "average_residential_rate": 1847.01,
-      "average_residential_increase_pct": 4.50,
+      "average_residential_increase_pct": 4.5,
       "landscape_levy": {
         "board": "Green Adelaide",
-        "rate": 0.0000588
+        "rate": 5.88e-05
       },
       "rate_cap_pct": 12.5,
       "rate_cap_note": "Rate-capping rebate: if your general rates rise more than 12.5% on 2025/26, Council rebates the excess. Not for commercial, industrial, primary production, vacant or other land, or where the rise comes from more than $20,000 of improvements.",
-      "instalments": ["September", "December", "March", "June"],
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
       "other_categories": {
-        "Commercial (shop, office and other)": 0.006447867390,
-        "Industry (light and other)": 0.006533230370,
-        "Primary production": 0.005503389830,
+        "Commercial (shop, office and other)": 0.00644786739,
+        "Industry (light and other)": 0.00653323037,
+        "Primary production": 0.00550338983,
         "Vacant land": 0.00530469271,
-        "Other": 0.003287773770
+        "Other": 0.00328777377
       },
       "adopted": "22 June 2026",
       "source_title": "City of Charles Sturt, Annual Business Plan and Budget 2026/27 (adopted), Appendix F Rating Policy and Table 9",
@@ -36,23 +41,593 @@
       "council_phone": "8408 1111",
       "checked": "2026-10-11"
     },
-    "adelaide": null,
-    "adelaide-hills": null,
-    "burnside": null,
-    "campbelltown": null,
-    "gawler": null,
-    "holdfast-bay": null,
-    "marion": null,
-    "mitcham": null,
-    "norwood-payneham-and-st-peters": null,
-    "onkaparinga": null,
-    "playford": null,
+    "adelaide": {
+      "name": "City of Adelaide",
+      "csv_council": "Adelaide",
+      "basis": "annual value",
+      "residential_rate": 0.11967651,
+      "residential_rate_prev": 0.115205,
+      "minimum_rate": 415,
+      "minimum_rate_prev": 400,
+      "fixed_charge": null,
+      "share_on_minimum_pct": null,
+      "average_residential_rate": 2387,
+      "average_residential_increase_pct": 5.6,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": 0.00154198
+      },
+      "rate_cap_pct": 10,
+      "rate_cap_note": "Increases in general rates are capped at 10% a year, applied automatically (not where the rise comes from improvements, or a change of land use, ownership or occupancy). Pensioners get a $100 rebate.",
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Non-residential (commercial, industrial, primary production, other)": 0.14660372,
+        "Vacant land": 0.23935301
+      },
+      "adopted": "23 June 2026",
+      "source_title": "City of Adelaide, Council meeting 23 June 2026, item 15.1 2026/27 Rates: Policy Review, Valuation & Declaration; Business Plan & Budget 2026/27 pp. 90-92",
+      "source_url": "https://ouradelaide.sa.gov.au/draft-202627-business-plan-and-budget",
+      "source_pdf": "https://meetings.cityofadelaide.com.au/documents/s35036/202627%20Rates%20Policy%20Review%20Valuation%20Declaration.pdf",
+      "council_rates_url": "https://www.cityofadelaide.com.au/resident/home-management/rates/",
+      "council_phone": "8203 7203",
+      "checked": "2026-10-11"
+    },
+    "adelaide-hills": {
+      "name": "Adelaide Hills Council",
+      "csv_council": "Adelaide Hills",
+      "basis": "capital value",
+      "residential_rate": 0.001955,
+      "residential_rate_prev": null,
+      "minimum_rate": 0,
+      "minimum_rate_prev": null,
+      "fixed_charge": 940,
+      "share_on_minimum_pct": null,
+      "average_residential_rate": 3006,
+      "average_residential_increase_pct": 6.8,
+      "landscape_levy": {
+        "board": "Hills and Fleurieu",
+        "rate": 8.8e-05
+      },
+      "rate_cap_pct": 15,
+      "rate_cap_note": "Residential and primary production general rate rises of 15% or more are capped at 15% by an automatic rebate (not for new development, a land-use change, a non-family change of owner, or a newly applied fixed charge).",
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Commercial and light industry": 0.002658,
+        "Other industry": 0.00315,
+        "Primary production": 0.001958,
+        "Vacant land (neighbourhood zone)": 0.00256,
+        "Vacant land (other zones)": 0.002166,
+        "Other": 0.001969
+      },
+      "adopted": "14 July 2026",
+      "source_title": "Adelaide Hills Council, Ordinary Council Minutes 14 July 2026, item 12.1 (resolution 260/26), and Annual Business Plan and Budget 2026-2027",
+      "source_url": "https://www.ahc.sa.gov.au/assets/downloads/council/Plans/Annual-Business-Plan/2026-27-Annual-Business-Plan.pdf",
+      "source_pdf": "https://www.ahc.sa.gov.au/assets/meetings/2026/07-July/ordinary-council-meeting-14-jul-2026/minutes/260714-Council-Minutes-Public.pdf",
+      "council_rates_url": "https://www.ahc.sa.gov.au/council/rates",
+      "council_phone": "8408 0400",
+      "checked": "2026-10-11"
+    },
+    "burnside": {
+      "name": "City of Burnside",
+      "csv_council": "Burnside",
+      "basis": "capital value",
+      "residential_rate": 0.0016292,
+      "residential_rate_prev": 0.0016855,
+      "minimum_rate": 1189,
+      "minimum_rate_prev": 1125,
+      "fixed_charge": null,
+      "share_on_minimum_pct": 17.8,
+      "average_residential_rate": null,
+      "average_residential_increase_pct": null,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": 5.892e-05
+      },
+      "rate_cap_pct": null,
+      "rate_cap_note": "Burnside applies a residential rate-cap rebate automatically on the first instalment notice (not for rises from improvements or a change of land use or ownership); the 2026/27 budget doesn't state the threshold, so ask council.",
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Commercial, industrial, primary production and other": 0.0016292,
+        "Vacant land": 0.004073,
+        "Contiguous land": 0.004073
+      },
+      "adopted": "16 June 2026",
+      "source_title": "City of Burnside, 2026/27 Annual Business Plan and Budget (adopted), rating summary pp. 41-42",
+      "source_url": "https://www.burnside.sa.gov.au/About-Council/Policies-Plans-Reports/Annual-Business-Plan-Budget/202627-Annual-Business-Plan-and-Budget",
+      "source_pdf": "https://www.burnside.sa.gov.au/files/assets/public/v/1/about-council/policies-plans-amp-reports/annual-business-plan-amp-budget/adopted-annual-business-plan-amp-budgets/2026-27-annual-business-plan-and-budget.pdf",
+      "council_rates_url": "https://www.burnside.sa.gov.au/About-Council/Rates/Rate-Information",
+      "council_phone": "8366 4200",
+      "checked": "2026-10-11"
+    },
+    "campbelltown": {
+      "verified": false,
+      "name": "Campbelltown City Council",
+      "csv_council": "Campbelltown",
+      "basis": "capital value",
+      "residential_rate": 0.0020582,
+      "residential_rate_prev": 0.00217122,
+      "minimum_rate": 1239,
+      "minimum_rate_prev": 1200,
+      "fixed_charge": null,
+      "share_on_minimum_pct": null,
+      "average_residential_rate": null,
+      "average_residential_increase_pct": null,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": null
+      },
+      "rate_cap_pct": null,
+      "rate_cap_note": null,
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {},
+      "adopted": "7 July 2026",
+      "source_title": "SA Government Gazette, 16 July 2026: Campbelltown City Council declaration of rates (resolution 7 July 2026)",
+      "source_url": "https://www.campbelltown.sa.gov.au/council/financial-information/budget",
+      "source_pdf": "https://www.sa.gov.au/__data/assets/pdf_file/0016/1020733/Gaz-Not-PP-26_0025-16-Jul-2026.pdf",
+      "council_rates_url": "https://www.campbelltown.sa.gov.au/residents/rates/rates-information",
+      "council_phone": "8366 9222",
+      "checked": "2026-10-11"
+    },
+    "gawler": {
+      "verified": false,
+      "name": "Town of Gawler",
+      "csv_council": "Gawler",
+      "basis": "capital value",
+      "residential_rate": 0.003331,
+      "residential_rate_prev": 0.003517,
+      "minimum_rate": 1320,
+      "minimum_rate_prev": 1266,
+      "fixed_charge": null,
+      "share_on_minimum_pct": null,
+      "average_residential_rate": null,
+      "average_residential_increase_pct": null,
+      "landscape_levy": {
+        "board": "Landscape SA",
+        "rate": 8.406e-05
+      },
+      "service_charge": 290,
+      "rate_cap_pct": null,
+      "rate_cap_note": "On application, residential rises are capped at 10% for self-funded retirees and people on fixed government benefits, and 20% for everyone else (check the adopted 2026/27 policy).",
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {},
+      "adopted": "22 June 2026",
+      "source_title": "Town of Gawler, Rates & Payments page (2026/27 worked example) and SA Government Gazette No. 39, 2 July 2026",
+      "source_url": "https://yourvoice.gawler.sa.gov.au/2026-2027-annual-business-plan-budget",
+      "source_pdf": "https://www.governmentgazette.sa.gov.au/2026/July/2026_039.pdf",
+      "council_rates_url": "https://www.gawler.sa.gov.au/our-services/rates-payments",
+      "council_phone": "8522 9211",
+      "checked": "2026-10-11"
+    },
+    "holdfast-bay": {
+      "name": "City of Holdfast Bay",
+      "csv_council": "Holdfast Bay",
+      "basis": "capital value",
+      "residential_rate": 0.001807032,
+      "residential_rate_prev": 0.00183,
+      "minimum_rate": 1380,
+      "minimum_rate_prev": 1295,
+      "fixed_charge": null,
+      "share_on_minimum_pct": 26.22,
+      "average_residential_rate": null,
+      "average_residential_increase_pct": null,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": 6.0478e-05
+      },
+      "rate_cap_pct": 10,
+      "rate_cap_note": "On application, rises on your principal place of residence are capped at 10% (not after more than $50,000 of improvements in the past two years, a change of land use, zoning or owner).",
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Commercial, industrial and vacant land": 0.0030221
+      },
+      "adopted": "23 June 2026",
+      "source_title": "City of Holdfast Bay, Rating Policy 2026/27 s4.16.3 Rate Declaration, and Annual Business Plan 2026-27 p. 59",
+      "source_url": "https://www.yourholdfast.com/abp26-27",
+      "source_pdf": "https://www.holdfast.sa.gov.au/assets/general-downloads/Council/Policies-and-procedures/Rating-Policy-2026-2027.pdf",
+      "council_rates_url": "https://www.holdfast.sa.gov.au/rates",
+      "council_phone": "8229 9999",
+      "checked": "2026-10-11"
+    },
+    "marion": {
+      "name": "City of Marion",
+      "csv_council": "Marion",
+      "basis": "capital value",
+      "residential_rate": 0.00213061,
+      "residential_rate_prev": 0.00224988,
+      "minimum_rate": 1322,
+      "minimum_rate_prev": 1261,
+      "fixed_charge": null,
+      "share_on_minimum_pct": null,
+      "average_residential_rate": null,
+      "average_residential_increase_pct": 4.8,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": 5.944e-05
+      },
+      "rate_cap_pct": null,
+      "rate_cap_note": "Marion’s Residential Rate Rebate pays back general rate rises above 10% on a principal place of residence — at least $20 and at most $200 — unless the property had over $20,000 of improvements, a zoning or land-use change, or was sold since 1 January last year.",
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Commercial and industrial": 0.00564611,
+        "Vacant land": 0.00468734,
+        "Primary production and other": 0.00213061
+      },
+      "adopted": "23 June 2026",
+      "source_title": "City of Marion, General Council 23 June 2026, item 12.3 Rates Declaration 2026-2027",
+      "source_url": "https://www.marion.sa.gov.au/about-council/publications/annual-business-plan",
+      "source_pdf": "https://www.marion.sa.gov.au/assets/meetings/agendas/GC260623-Final-Agenda.pdf",
+      "council_rates_url": "https://www.marion.sa.gov.au/services-we-offer/rates/general-rate-information",
+      "council_phone": "8375 6600",
+      "checked": "2026-10-11"
+    },
+    "mitcham": {
+      "name": "City of Mitcham",
+      "csv_council": "Mitcham",
+      "basis": "capital value",
+      "residential_rate": 0.002094,
+      "residential_rate_prev": 0.00216367,
+      "minimum_rate": 1536,
+      "minimum_rate_prev": 1444,
+      "fixed_charge": null,
+      "share_on_minimum_pct": 13.8,
+      "average_residential_rate": null,
+      "average_residential_increase_pct": 6.38,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": 5.988e-05
+      },
+      "rate_cap_pct": 12.5,
+      "rate_cap_note": "General rate rises over 12.5% on a principal place of residence are capped, except after more than $25,000 of improvements, a land-use change, a change of owner since 1 July 2025, or newly divided vacant land. Pay in full by 15 September for a 1% discount.",
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Commercial, industrial and vacant land": 0.00523291,
+        "Primary production and other": 0.002094
+      },
+      "adopted": "7 July 2026",
+      "source_title": "City of Mitcham, Special Full Council Minutes 7 July 2026, item 4.1 Declaration of Rates 2026/27, and 2026/27 Annual Business Plan Appendix 3 Rating Policy",
+      "source_url": "https://yoursay.mitchamcouncil.sa.gov.au/2026-27-ABP-Budget",
+      "source_pdf": "https://yoursay.mitchamcouncil.sa.gov.au/download_file/1187/666",
+      "council_rates_url": "https://www.mitchamcouncil.sa.gov.au/Our-city-and-council/rates-and-how-to-pay-them/how-are-council-rates-related-to-my-property-valuation",
+      "council_phone": "1300 133 466",
+      "checked": "2026-10-11"
+    },
+    "norwood-payneham-and-st-peters": {
+      "name": "City of Norwood Payneham & St Peters",
+      "csv_council": "Norwood Payneham & St Peters",
+      "basis": "capital value",
+      "residential_rate": 0.0018287,
+      "residential_rate_prev": null,
+      "minimum_rate": 1386,
+      "minimum_rate_prev": 1386,
+      "fixed_charge": null,
+      "share_on_minimum_pct": 27.07,
+      "average_residential_rate": 2356,
+      "average_residential_increase_pct": 5.37,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": 6.035e-05
+      },
+      "rate_cap_pct": 15.8,
+      "rate_cap_note": "Rises above 15.8% are capped automatically for a principal place of residence (not where the rise comes from improvements, or a change of ownership, land use or zoning).",
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Commercial, industrial and vacant land": 0.0023773,
+        "Primary production and other": 0.0021944
+      },
+      "adopted": "7 July 2026",
+      "source_title": "City of Norwood Payneham & St Peters, Annual Business Plan 2026-2027 (adopted), Rating section pp. 23-24 and Appendix 5 Rating Policy",
+      "source_url": "https://www.npsp.sa.gov.au/about_council/council_rates/how_rates_are_calculated",
+      "source_pdf": "https://www.npsp.sa.gov.au/files/39615_annual_business_plan_2026-2027.pdf",
+      "council_rates_url": "https://www.npsp.sa.gov.au/about_council/council_rates/how_rates_are_calculated",
+      "council_phone": "8366 4555",
+      "checked": "2026-10-11"
+    },
+    "onkaparinga": {
+      "name": "City of Onkaparinga",
+      "csv_council": "Onkaparinga",
+      "basis": "capital value",
+      "residential_rate": 0.00162861,
+      "residential_rate_prev": null,
+      "minimum_rate": 0,
+      "minimum_rate_prev": 0,
+      "fixed_charge": 820,
+      "share_on_minimum_pct": null,
+      "average_residential_rate": 2045,
+      "average_residential_increase_pct": 4.9,
+      "landscape_levy": {
+        "board": "Hills and Fleurieu",
+        "rate": 9.432057e-05,
+        "note": "Properties in the northern, metropolitan part of the council pay the Green Adelaide levy instead (0.006050451¢ in the dollar), about $34 less per $1m."
+      },
+      "rate_cap_pct": 10,
+      "rate_cap_note": "Residential rises in the value-based part of the rate are capped at 10% (apply by 31 August 2026); not for rises from improvements, a land-use change, or a change of owner in the past two years, and not on the fixed charge.",
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Commercial and industrial": 0.00289584,
+        "Primary production": 0.00245596,
+        "Vacant land": 0.00185698,
+        "Other": 0.0014763
+      },
+      "adopted": "25 June 2026",
+      "source_title": "City of Onkaparinga, Annual Business Plan and Budget 2026-27 (adopted 25 June 2026), Statement on Expected Rate Revenue and Appendix 10 Rating Policy s5.2-5.5",
+      "source_url": "https://www.onkaparingacity.com/Council/Documents/Annual-Business-Plan",
+      "source_pdf": "https://www.onkaparingacity.com/files/assets/public/v/3/documents/business-plans-key-documents/annual-business-plan-abp/annual-business-plan-and-budget-2026-27.pdf",
+      "council_rates_url": "https://www.onkaparingacity.com/rates",
+      "council_phone": "8384 0666",
+      "checked": "2026-10-11"
+    },
+    "playford": {
+      "name": "City of Playford",
+      "csv_council": "Playford",
+      "basis": "capital value",
+      "residential_rate": 0.00126763,
+      "residential_rate_prev": 0.00134944,
+      "minimum_rate": 0,
+      "minimum_rate_prev": 0,
+      "fixed_charge": 1304.3,
+      "share_on_minimum_pct": null,
+      "average_residential_rate": null,
+      "average_residential_increase_pct": null,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": 5.579e-05
+      },
+      "rate_cap_pct": null,
+      "rate_cap_note": "No. Playford resolved not to cap rate rises on principal places of residence for 2026/27.",
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Commercial and industrial": 0.01034459,
+        "Primary production, vacant and other": 0.00126763
+      },
+      "adopted": "16 June 2026",
+      "source_title": "City of Playford, Ordinary Council Minutes 16 June 2026, item 14.4 (Resolution 6626)",
+      "source_url": "https://www.playford.sa.gov.au/explore/playford-news/council-adopts-sustainable-budget-supporting-services-infrastructure-and-growth",
+      "source_pdf": "https://cdn.playford.sa.gov.au/agendas-minutes/minutes/06-16-June-2026-Ordinary-Council-Meeting-Minutes.pdf",
+      "council_rates_url": "https://www.playford.sa.gov.au/live/home-and-property/rates/rates-faq",
+      "council_phone": "8256 0333",
+      "checked": "2026-10-11"
+    },
     "port-adelaide-enfield": null,
-    "prospect": null,
-    "salisbury": null,
-    "tea-tree-gully": null,
-    "unley": null,
+    "prospect": {
+      "verified": false,
+      "name": "City of Prospect",
+      "csv_council": "Prospect",
+      "basis": "capital value",
+      "residential_rate": 0.00194523,
+      "residential_rate_prev": null,
+      "minimum_rate": 1610,
+      "minimum_rate_prev": null,
+      "fixed_charge": null,
+      "share_on_minimum_pct": null,
+      "average_residential_rate": null,
+      "average_residential_increase_pct": null,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": 5.722e-05
+      },
+      "rate_cap_pct": null,
+      "rate_cap_note": null,
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Non-residential": 0.00533351,
+        "Vacant land (residential zone)": 0.0058357,
+        "Vacant land (non-residential zone)": 0.01733392
+      },
+      "adopted": null,
+      "source_title": "City of Prospect, Annual Business Plan, Budget and Long-Term Financial Plan 2026-2027, Appendix 5 Rating Policy",
+      "source_url": "https://www.prospect.sa.gov.au/council/council-documents/business-plans-budgets",
+      "source_pdf": "https://www.prospect.sa.gov.au/__data/assets/pdf_file/0017/2009510/COP-ABPB-and-LTFP-2026-27-V1-Pages.pdf",
+      "council_rates_url": "https://www.prospect.sa.gov.au/live/residents/rates",
+      "council_phone": "8269 5355",
+      "checked": "2026-10-11"
+    },
+    "salisbury": {
+      "verified": false,
+      "name": "City of Salisbury",
+      "csv_council": "Salisbury",
+      "basis": "capital value",
+      "residential_rate": 0.002636,
+      "residential_rate_prev": 0.002744,
+      "minimum_rate": 1340,
+      "minimum_rate_prev": 1280,
+      "fixed_charge": null,
+      "share_on_minimum_pct": 14.5,
+      "average_residential_rate": 1843,
+      "average_residential_increase_pct": 4.7,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": 5.867e-05
+      },
+      "rate_cap_pct": 12.5,
+      "rate_cap_note": "On application, general rates on a principal place of residence owned by a person are capped at a 12.5% rise on 2025/26 where the rise comes from valuation changes (not improvements, land-use or zoning changes, or a change of owner).",
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Commercial, industrial and marina berth": 0.004527,
+        "Vacant land": 0.003427,
+        "Primary production and other": 0.002636
+      },
+      "adopted": "22 June 2026",
+      "source_title": "City of Salisbury, 2026/27 Long Term Financial Plan and Annual Business Plan (adopted 22 June 2026), pp. 124-127 and 135; Council Minutes 22 June 2026 items GB2 and GB5",
+      "source_url": "https://www.salisbury.sa.gov.au/council/council-plans-and-registers/city-management-plans/council-endorses-2026-27-annual-business-plan",
+      "source_pdf": "https://www.salisbury.sa.gov.au/assets/downloads/Council/2026/Long-Term-Financial-Plan-202627/000.-2026.27-LTFP-ABP-Final-26.06.2026.pdf",
+      "council_rates_url": "https://www.salisbury.sa.gov.au/services/rates",
+      "council_phone": "8406 8222",
+      "checked": "2026-10-11"
+    },
+    "tea-tree-gully": {
+      "verified": false,
+      "name": "City of Tea Tree Gully",
+      "csv_council": "Tea Tree Gully",
+      "basis": "capital value",
+      "residential_rate": 0.002588,
+      "residential_rate_prev": null,
+      "minimum_rate": 1573,
+      "minimum_rate_prev": null,
+      "fixed_charge": null,
+      "share_on_minimum_pct": null,
+      "average_residential_rate": null,
+      "average_residential_increase_pct": null,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": null
+      },
+      "rate_cap_pct": null,
+      "rate_cap_note": null,
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Commercial and industrial": 0.0056418,
+        "Vacant land": 0.005176,
+        "Primary production and other": 0.002588
+      },
+      "adopted": "30 June 2026",
+      "source_title": "City of Tea Tree Gully, Annual Business Plan + Budget 2026-2027 (adopted), Rates section",
+      "source_url": "https://yoursay.cttg.sa.gov.au/abp-26-27",
+      "source_pdf": "https://www.teatreegully.sa.gov.au/__data/assets/pdf_file/0022/2009515/Annual-Business-Plan-2026-2027.pdf",
+      "council_rates_url": "https://www.teatreegully.sa.gov.au/services/council-rates",
+      "council_phone": "8397 7444",
+      "checked": "2026-10-11"
+    },
+    "unley": {
+      "name": "City of Unley",
+      "csv_council": "Unley",
+      "basis": "capital value",
+      "residential_rate": 0.0016495,
+      "residential_rate_prev": 0.00165,
+      "minimum_rate": 1063,
+      "minimum_rate_prev": 1024,
+      "fixed_charge": null,
+      "share_on_minimum_pct": null,
+      "average_residential_rate": null,
+      "average_residential_increase_pct": null,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": 6.217e-05
+      },
+      "rate_cap_pct": null,
+      "rate_cap_note": "No residential rate-cap rebate in Unley’s 2026/27 rates declaration — ask council about hardship options if your rates jump.",
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Commercial shop, industry, primary production, vacant and other": 0.00396,
+        "Commercial office and commercial other": 0.004639
+      },
+      "adopted": "22 June 2026",
+      "source_title": "City of Unley, 2026-27 Annual Business Plan and Budget Summary (adopted), Rate Schedule, and rates declaration of 22 June 2026",
+      "source_url": "https://www.unley.sa.gov.au/Council/About-the-Council/Annual-plan-budgets-reports",
+      "source_pdf": "https://www.unley.sa.gov.au/files/assets/public/v/2/council/about-the-council/cou-abpb-summary-26-27.pdf",
+      "council_rates_url": "https://www.unley.sa.gov.au/Council/Rates/Rates-information",
+      "council_phone": "8372 5111",
+      "checked": "2026-10-11"
+    },
     "walkerville": null,
-    "west-torrens": null
+    "west-torrens": {
+      "name": "City of West Torrens",
+      "csv_council": "West Torrens",
+      "basis": "capital value",
+      "residential_rate": 0.00171528,
+      "residential_rate_prev": 0.00186838,
+      "minimum_rate": 1258,
+      "minimum_rate_prev": 1206,
+      "fixed_charge": null,
+      "share_on_minimum_pct": null,
+      "average_residential_rate": null,
+      "average_residential_increase_pct": null,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": 5.691e-05
+      },
+      "rate_cap_pct": null,
+      "rate_cap_note": "No. West Torrens resolved not to cap rate rises on principal places of residence for 2026/27 — ask council about hardship options if yours jumps.",
+      "instalments": [
+        "September",
+        "December",
+        "March",
+        "June"
+      ],
+      "other_categories": {
+        "Commercial, industrial, primary production, vacant and other": 0.00497435
+      },
+      "adopted": "7 July 2026",
+      "source_title": "City of West Torrens, Special Council Minutes 7 July 2026, item 6.1 Declaration of Rates 2026-27",
+      "source_url": "https://yoursay.westtorrens.sa.gov.au/budget26-27",
+      "source_pdf": "https://www.westtorrens.sa.gov.au/files/sharedassets/public/v/1/objective-digitalmeetings/2026/minutes-2026/special-council-minutes-7-july-2026.pdf",
+      "council_rates_url": "https://www.westtorrens.sa.gov.au/Council/Rates-and-charges/About-your-rates",
+      "council_phone": "8416 6333",
+      "checked": "2026-10-11"
+    }
   }
 }

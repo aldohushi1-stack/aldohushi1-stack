@@ -1,0 +1,174 @@
+<article class="rates">
+  <h1 class="title" id="r-h">Onkaparinga council rates 2026/27</h1>
+  <p class="lede">A house valued at $870,000 — about the typical house sale in the City of Onkaparinga — pays about
+    <b>$2,319 a year</b> in council rates ($580 a quarter). Put in your own capital value below.</p>
+  <p class="fine">Unofficial estimate by aldo.today, not the City of Onkaparinga. Your rates notice is the bill. Figures from the
+    council’s adopted 2026/27 budget, checked 2026-10-11.</p>
+
+  <h2 class="hub__h2" id="calc">Rates calculator</h2>
+  <form class="ratescalc" data-rates-calc onsubmit="return false">
+    <p><label for="rc-cv">Capital value <span class="fine">(on your rates notice or Valuer-General notice)</span></label><br>
+      <input id="rc-cv" name="cv" inputmode="decimal" autocomplete="off" placeholder="870,000" value="870,000"></p>
+    <p><label for="rc-use">Land use</label><br>
+      <select id="rc-use" name="use"></select></p>
+    <p><label for="rc-last">Last year’s general rates <span class="fine">(optional, to check the 10% cap)</span></label><br>
+      <input id="rc-last" name="last" inputmode="decimal" autocomplete="off" placeholder="e.g. 1,800"></p>
+    <output class="ratescalc__out" for="rc-cv rc-use rc-last" aria-live="polite"></output>
+  </form>
+  <script type="application/json" id="rates-cfg">{"council": "City of Onkaparinga", "residential": 0.00162861, "categories": {"Commercial and industrial": 0.00289584, "Primary production": 0.00245596, "Vacant land": 0.00185698, "Other": 0.0014763}, "minimum": 0, "fixed": 820, "levy": 9.432057e-05, "levyFixed": 0, "levyName": "Hills and Fleurieu levy", "service": 0, "cap": 10, "typical": 870000}</script>
+
+  <h2 class="hub__h2">How Onkaparinga works out your rates</h2>
+  <ol>
+    <li><b>Capital value × rate in the dollar.</b> Residential: 0.162861 cents per dollar of the
+      Valuer-General’s capital value. $1,000,000 × 0.00162861000 = $1,629.</li>
+    <li><b>Plus a fixed charge of $820</b>, the same for every property.</li>
+    <li><b>Plus the Hills and Fleurieu levy</b> — 0.009432057 cents in the dollar ($94 per $1m of value), collected for the state. Properties in the northern, metropolitan part of the council pay the Green Adelaide levy instead (0.006050451¢ in the dollar), about $34 less per $1m.</li>
+  </ol>
+  <p>Business and other land pays a different rate in the dollar:
+    commercial and industrial 0.289584¢; primary production 0.245596¢; vacant land 0.185698¢; other 0.14763¢. Pick it in the calculator.</p>
+
+  <h2 class="hub__h2" id="by-suburb">Rates on a typical house, by suburb</h2>
+  <p>Using each suburb’s 12-month median house price as the capital value. Your capital value is set by the
+    Valuer-General and may differ from a sale price — use the calculator for your own house.
+    Cheapest: Huntfield Heights (about $2,087); dearest:
+    Coromandel Valley (about $2,801).</p>
+  <div class="tablewrap">
+    <table class="suburbs" data-sortable>
+      <thead><tr><th><button type="button" data-sort="text">Suburb</button></th>
+        <th class="num"><button type="button" data-sort="num">Median house</button></th>
+        <th class="num"><button type="button" data-sort="num">General rates</button></th>
+        <th class="num"><button type="button" data-sort="num">Levy</button></th>
+        <th class="num"><button type="button" data-sort="num">Total a year</button></th></tr></thead>
+      <tbody>
+      <tr><th><a href="/adelaide/huntfield-heights">Huntfield Heights</a></th><td class="num">$735,275</td><td class="num">$2,017</td><td class="num">$69</td><td class="num"><b>$2,087</b></td></tr>
+      <tr><th><a href="/adelaide/hackham">Hackham</a></th><td class="num">$750,000</td><td class="num">$2,041</td><td class="num">$71</td><td class="num"><b>$2,112</b></td></tr>
+      <tr><th><a href="/adelaide/hackham-west">Hackham West</a></th><td class="num">$755,500</td><td class="num">$2,050</td><td class="num">$71</td><td class="num"><b>$2,122</b></td></tr>
+      <tr><th><a href="/adelaide/noarlunga-downs">Noarlunga Downs</a></th><td class="num">$770,000</td><td class="num">$2,074</td><td class="num">$73</td><td class="num"><b>$2,147</b></td></tr>
+      <tr><th><a href="/adelaide/christie-downs">Christie Downs</a></th><td class="num">$771,000</td><td class="num">$2,076</td><td class="num">$73</td><td class="num"><b>$2,148</b></td></tr>
+      <tr><th><a href="/adelaide/osullivan-beach">O&#x27;Sullivan Beach</a></th><td class="num">$780,000</td><td class="num">$2,090</td><td class="num">$74</td><td class="num"><b>$2,164</b></td></tr>
+      <tr><th><a href="/adelaide/morphett-vale">Morphett Vale</a></th><td class="num">$793,000</td><td class="num">$2,111</td><td class="num">$75</td><td class="num"><b>$2,186</b></td></tr>
+      <tr><th><a href="/adelaide/reynella-east">Reynella East</a></th><td class="num">$805,000</td><td class="num">$2,131</td><td class="num">$76</td><td class="num"><b>$2,207</b></td></tr>
+      <tr><th><a href="/adelaide/old-reynella">Old Reynella</a></th><td class="num">$810,000</td><td class="num">$2,139</td><td class="num">$76</td><td class="num"><b>$2,216</b></td></tr>
+      <tr><th><a href="/adelaide/seaford-meadows">Seaford Meadows</a></th><td class="num">$830,500</td><td class="num">$2,173</td><td class="num">$78</td><td class="num"><b>$2,251</b></td></tr>
+      <tr><th><a href="/adelaide/reynella">Reynella</a></th><td class="num">$837,500</td><td class="num">$2,184</td><td class="num">$79</td><td class="num"><b>$2,263</b></td></tr>
+      <tr><th><a href="/adelaide/aldinga-beach">Aldinga Beach</a></th><td class="num">$840,000</td><td class="num">$2,188</td><td class="num">$79</td><td class="num"><b>$2,267</b></td></tr>
+      <tr><th><a href="/adelaide/port-noarlunga">Port Noarlunga</a></th><td class="num">$861,856</td><td class="num">$2,224</td><td class="num">$81</td><td class="num"><b>$2,305</b></td></tr>
+      <tr><th><a href="/adelaide/onkaparinga-heights">Onkaparinga Heights</a></th><td class="num">$867,500</td><td class="num">$2,233</td><td class="num">$82</td><td class="num"><b>$2,315</b></td></tr>
+      <tr><th><a href="/adelaide/seaford-rise">Seaford Rise</a></th><td class="num">$870,000</td><td class="num">$2,237</td><td class="num">$82</td><td class="num"><b>$2,319</b></td></tr>
+      <tr><th><a href="/adelaide/sellicks-beach">Sellicks Beach</a></th><td class="num">$872,000</td><td class="num">$2,240</td><td class="num">$82</td><td class="num"><b>$2,322</b></td></tr>
+      <tr><th><a href="/adelaide/seaford-heights">Seaford Heights</a></th><td class="num">$873,500</td><td class="num">$2,243</td><td class="num">$82</td><td class="num"><b>$2,325</b></td></tr>
+      <tr><th><a href="/adelaide/ohalloran-hill">O&#x27;Halloran Hill</a></th><td class="num">$875,500</td><td class="num">$2,246</td><td class="num">$83</td><td class="num"><b>$2,328</b></td></tr>
+      <tr><th><a href="/adelaide/aldinga">Aldinga</a></th><td class="num">$879,800</td><td class="num">$2,253</td><td class="num">$83</td><td class="num"><b>$2,336</b></td></tr>
+      <tr><th><a href="/adelaide/happy-valley">Happy Valley</a></th><td class="num">$895,500</td><td class="num">$2,278</td><td class="num">$84</td><td class="num"><b>$2,363</b></td></tr>
+      <tr><th><a href="/adelaide/seaford">Seaford</a></th><td class="num">$896,860</td><td class="num">$2,281</td><td class="num">$85</td><td class="num"><b>$2,365</b></td></tr>
+      <tr><th><a href="/adelaide/old-noarlunga">Old Noarlunga</a></th><td class="num">$899,000</td><td class="num">$2,284</td><td class="num">$85</td><td class="num"><b>$2,369</b></td></tr>
+      <tr><th><a href="/adelaide/port-noarlunga-south">Port Noarlunga South</a></th><td class="num">$899,000</td><td class="num">$2,284</td><td class="num">$85</td><td class="num"><b>$2,369</b></td></tr>
+      <tr><th><a href="/adelaide/woodcroft">Woodcroft</a></th><td class="num">$905,000</td><td class="num">$2,294</td><td class="num">$85</td><td class="num"><b>$2,379</b></td></tr>
+      <tr><th><a href="/adelaide/christies-beach">Christies Beach</a></th><td class="num">$920,000</td><td class="num">$2,318</td><td class="num">$87</td><td class="num"><b>$2,405</b></td></tr>
+      <tr><th><a href="/adelaide/mclaren-flat">Mclaren Flat</a></th><td class="num">$935,000</td><td class="num">$2,343</td><td class="num">$88</td><td class="num"><b>$2,431</b></td></tr>
+      <tr><th><a href="/adelaide/aberfoyle-park">Aberfoyle Park</a></th><td class="num">$940,000</td><td class="num">$2,351</td><td class="num">$89</td><td class="num"><b>$2,440</b></td></tr>
+      <tr><th><a href="/adelaide/maslin-beach">Maslin Beach</a></th><td class="num">$952,200</td><td class="num">$2,371</td><td class="num">$90</td><td class="num"><b>$2,461</b></td></tr>
+      <tr><th><a href="/adelaide/mclaren-vale">Mclaren Vale</a></th><td class="num">$989,000</td><td class="num">$2,431</td><td class="num">$93</td><td class="num"><b>$2,524</b></td></tr>
+      <tr><th><a href="/adelaide/onkaparinga-hills">Onkaparinga Hills</a></th><td class="num">$996,750</td><td class="num">$2,443</td><td class="num">$94</td><td class="num"><b>$2,537</b></td></tr>
+      <tr><th><a href="/adelaide/darlington">Darlington</a></th><td class="num">$1,000,000</td><td class="num">$2,449</td><td class="num">$94</td><td class="num"><b>$2,543</b></td></tr>
+      <tr><th><a href="/adelaide/port-willunga">Port Willunga</a></th><td class="num">$1,025,000</td><td class="num">$2,489</td><td class="num">$97</td><td class="num"><b>$2,586</b></td></tr>
+      <tr><th><a href="/adelaide/willunga">Willunga</a></th><td class="num">$1,038,625</td><td class="num">$2,512</td><td class="num">$98</td><td class="num"><b>$2,609</b></td></tr>
+      <tr><th><a href="/adelaide/flagstaff-hill">Flagstaff Hill</a></th><td class="num">$1,066,000</td><td class="num">$2,556</td><td class="num">$101</td><td class="num"><b>$2,657</b></td></tr>
+      <tr><th><a href="/adelaide/moana">Moana</a></th><td class="num">$1,100,000</td><td class="num">$2,611</td><td class="num">$104</td><td class="num"><b>$2,715</b></td></tr>
+      <tr><th><a href="/adelaide/chandlers-hill">Chandlers Hill</a></th><td class="num">$1,130,000</td><td class="num">$2,660</td><td class="num">$107</td><td class="num"><b>$2,767</b></td></tr>
+      <tr><th><a href="/adelaide/coromandel-valley">Coromandel Valley</a></th><td class="num">$1,150,000</td><td class="num">$2,693</td><td class="num">$108</td><td class="num"><b>$2,801</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="hub__h2">Paying and getting help</h2>
+  <ul class="plain">
+    <li><b>Pay or check your notice:</b> <a href="https://www.onkaparingacity.com/rates" rel="noopener">City of Onkaparinga rates page</a> (BPAY, online, direct debit, in person) or call 8384 0666.</li>
+    <li><b>Struggling to pay:</b> council offers hardship arrangements, and seniors can postpone rates above $500.</li>
+    <li><b>Concessions:</b> the state Cost of Living Concession (ConcessionsSA 1800 307 758) can go toward rates.</li>
+    <li><b>Valuation looks wrong:</b> <a href="https://www.valuergeneral.sa.gov.au/valuation/objecting-to-a-valuation" rel="noopener">object to the Valuer-General</a> within 60 days.</li>
+    <li><b>Emergency Services Levy:</b> billed separately — <a href="https://www.revenuesa.sa.gov.au/ESL/emergency-services-levy-home-page" rel="noopener">how the ESL works</a>.</li>
+  </ul>
+
+  <h2 id="rqa-h">Questions about Onkaparinga council rates</h2>
+  <h3>How much are council rates in Onkaparinga?</h3>
+  <p>For 2026/27, a house valued at $870,000 — about the typical house sale in the City of Onkaparinga — pays about $2,237 in general rates plus $82 Hills and Fleurieu levy, so about $2,319 a year, or $580 a quarter. Council’s own average residential rate is $2,045.</p>
+  <h3>What is the Onkaparinga council rate in the dollar for 2026/27?</h3>
+  <p>0.162861 cents in the dollar of capital value for residential land. the average residential rate rose 4.90%.</p>
+  <h3>Is there a fixed charge on Onkaparinga rates?</h3>
+  <p>Yes: every property pays a $820 fixed charge on top of capital value × the rate in the dollar.</p>
+  <h3>When are Onkaparinga council rates due?</h3>
+  <p>In four instalments, in September, December, March and June. The exact dates are on your rates notice; you can also pay the year in one go.</p>
+  <h3>Does my rates notice include the Emergency Services Levy?</h3>
+  <p>No. The ESL is a state levy billed separately by RevenueSA. The Hills and Fleurieu landscape levy is on your council notice, but council only collects it for the state.</p>
+  <h3>What if I think my valuation is too high?</h3>
+  <p>Object to the Valuer-General in writing within 60 days of receiving your first rates notice for the year — there is no fee. Objecting does not change the due date — keep paying while it is reviewed.</p>
+  <h3>Is there a cap on Onkaparinga rate rises?</h3>
+  <p>Residential rises in the value-based part of the rate are capped at 10% (apply by 31 August 2026); not for rises from improvements, a land-use change, or a change of owner in the past two years, and not on the fixed charge.</p>
+
+  <h2 class="hub__h2">Thinking of selling or splitting?</h2>
+  <p>Rates follow value. <a href="/councils/onkaparinga">House prices across the City of Onkaparinga</a>,
+    <a href="/split-check">check if your block can be split</a>, or ask for a free appraisal.</p>
+
+  <p class="fine">Source: <a href="https://www.onkaparingacity.com/Council/Documents/Annual-Business-Plan" rel="noopener">City of Onkaparinga, Annual Business Plan and Budget 2026-27 (adopted 25 June 2026), Statement on Expected Rate Revenue and Appendix 10 Rating Policy s5.2-5.5</a>, adopted
+    25 June 2026. Suburb medians: SA Valuer-General via Data.SA. Not a rates notice, valuation or financial advice.</p>
+</article>
+<script>
+// Council rates calculator for aldo.today. No dependencies.
+// Reads its numbers from <script type="application/json" id="rates-cfg">.
+(function () {
+  var form = document.querySelector('[data-rates-calc]');
+  var cfgEl = document.getElementById('rates-cfg');
+  if (!form || !cfgEl) return;
+  var cfg = JSON.parse(cfgEl.textContent);
+  var out = form.querySelector('output');
+  var use = form.elements.use;
+  var fmt = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 });
+
+  var opts = [['Residential', cfg.residential]].concat(Object.entries(cfg.categories));
+  opts.forEach(function (o) { use.add(new Option(o[0], o[1])); });
+
+  // Accepts "1,100,000", "$1.1m", "850k".
+  function amount(s) {
+    s = String(s || '').toLowerCase().replace(/[$,\s]/g, '');
+    var m = s.match(/^(\d*\.?\d+)(m|k)?$/);
+    if (!m) return NaN;
+    return parseFloat(m[1]) * (m[2] === 'm' ? 1e6 : m[2] === 'k' ? 1e3 : 1);
+  }
+
+  function row(label, value) {
+    return '<dt>' + label + '</dt><dd>' + value + '</dd>';
+  }
+
+  function render() {
+    var cv = amount(form.elements.cv.value);
+    if (!(cv > 0)) { out.innerHTML = '<span class="fine">Enter a capital value, like 950,000 or 1.2m.</span>'; return; }
+    var rate = parseFloat(use.value);
+    var byValue = cv * rate;
+    var onMin = byValue < cfg.minimum;
+    var general = Math.max(byValue, cfg.minimum) + cfg.fixed;
+    var levy = cv * cfg.levy + (cfg.levyFixed || 0);
+    var total = general + levy + (cfg.service || 0);
+    var html = '<div class="big">' + fmt.format(total) + ' a year</div>' +
+      '<div>about ' + fmt.format(total / 4) + ' a quarter</div><dl>' +
+      row('General rates' + (onMin ? ' (minimum)' : ''), fmt.format(general)) +
+      row(cfg.levyName, fmt.format(levy)) +
+      (cfg.service ? row('Waste service charge', fmt.format(cfg.service)) : '') + '</dl>';
+    if (onMin) html += '<p class="fine">' + fmt.format(cv) + ' × ' + +(rate * 100).toFixed(9) + '¢ = ' + fmt.format(byValue) +
+      ', under the ' + fmt.format(cfg.minimum) + ' minimum, so you pay the minimum.</p>';
+    var last = form.elements.last ? amount(form.elements.last.value) : 0;
+    if (cfg.cap && last > 0 && use.selectedIndex === 0) {
+      var capped = last * (1 + cfg.cap / 100);
+      html += general > capped
+        ? '<p><b>Up ' + Math.round((general / last - 1) * 100) + '% on last year.</b> You may get a rate-capping rebate of about ' +
+          fmt.format(general - capped) + ', bringing general rates to ' + fmt.format(capped) + '. Ask council.</p>'
+        : '<p class="fine">Change on last year: ' + ((general / last - 1) * 100).toFixed(1) + '% — under the ' + cfg.cap + '% cap.</p>';
+    }
+    html += '<p class="fine">Estimate only. Excludes the Emergency Services Levy (billed by RevenueSA) and any rebate or concession.</p>';
+    out.innerHTML = html;
+  }
+
+  form.addEventListener('input', render);
+  render();
+})();
+</script>
