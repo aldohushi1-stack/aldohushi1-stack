@@ -1,0 +1,58 @@
+{
+  "year": "2026/27",
+  "note": "Rates in the dollar are stored as DOLLARS per dollar of capital value (councils publish 'cents in the dollar': divide their figure by 100). Fill a council in by copying the charles-sturt block and changing every field; leave a council as null until its adopted budget is checked.",
+  "councils": {
+    "charles-sturt": {
+      "name": "City of Charles Sturt",
+      "csv_council": "Charles Sturt",
+      "basis": "capital value",
+      "residential_rate": 0.00170947733,
+      "residential_rate_prev": 0.00181141064,
+      "minimum_rate": 1410,
+      "minimum_rate_prev": 1350,
+      "fixed_charge": null,
+      "share_on_minimum_pct": 34.21,
+      "average_residential_rate": 1847.01,
+      "average_residential_increase_pct": 4.50,
+      "landscape_levy": {
+        "board": "Green Adelaide",
+        "rate": 0.0000588
+      },
+      "rate_cap_pct": 12.5,
+      "rate_cap_note": "Rate-capping rebate: if your general rates rise more than 12.5% on 2025/26, Council rebates the excess. Not for commercial, industrial, primary production, vacant or other land, or where the rise comes from more than $20,000 of improvements.",
+      "instalments": ["September", "December", "March", "June"],
+      "other_categories": {
+        "Commercial (shop, office and other)": 0.006447867390,
+        "Industry (light and other)": 0.006533230370,
+        "Primary production": 0.005503389830,
+        "Vacant land": 0.00530469271,
+        "Other": 0.003287773770
+      },
+      "adopted": "22 June 2026",
+      "source_title": "City of Charles Sturt, Annual Business Plan and Budget 2026/27 (adopted), Appendix F Rating Policy and Table 9",
+      "source_url": "https://www.yoursaycharlessturt.com.au/abp-26-27",
+      "source_pdf": "https://hdp-au-prod-app-ccs-yoursay-files.s3.ap-southeast-2.amazonaws.com/3117/8279/8811/Annual_Business_Plan_and_Budget_2026_27.pdf",
+      "council_rates_url": "https://www.charlessturt.sa.gov.au/services/home-and-property/council-rates",
+      "council_phone": "8408 1111",
+      "checked": "2026-10-11"
+    },
+    "adelaide": null,
+    "adelaide-hills": null,
+    "burnside": null,
+    "campbelltown": null,
+    "gawler": null,
+    "holdfast-bay": null,
+    "marion": null,
+    "mitcham": null,
+    "norwood-payneham-and-st-peters": null,
+    "onkaparinga": null,
+    "playford": null,
+    "port-adelaide-enfield": null,
+    "prospect": null,
+    "salisbury": null,
+    "tea-tree-gully": null,
+    "unley": null,
+    "walkerville": null,
+    "west-torrens": null
+  }
+}
