@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 // Turn a saved aldo.today suburb miniature page into the ad cut:
-//   node ads/miniature-ad/build.mjs <saved-miniature.html> <out.html>
+//   node ads/miniature-ad/build.mjs <saved-miniature.html> <out.html>          (artifact cut)
+//   node ads/miniature-ad/build.mjs --site <saved-miniature.html> <out.html>   (to host on aldo.today at /adelaide/<suburb>/ad)
 // Save the page first, e.g. curl -sSL -o tennyson.html https://aldo.today/adelaide/tennyson/miniature
 //
-// What it changes, and nothing else:
+// What it changes, and nothing else (--site keeps the page's own head, fonts, three.js and links,
+// and only points the preview tags at the /ad address):
 //  - head lines the artifact host supplies itself (doctype, charset, viewport, og tags) are dropped
 //  - self-hosted fonts and three.js r128 point at Google Fonts and the public CDNs
 //  - site-relative links point at https://aldo.today, and the view beacon is switched off
@@ -13,8 +15,9 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const [, , input, output] = process.argv;
-if (!input || !output) { console.error('usage: build.mjs <saved-miniature.html> <out.html>'); process.exit(1); }
+const args = process.argv.slice(2), site = args[0] === '--site';
+const [input, output] = site ? args.slice(1) : args;
+if (!input || !output) { console.error('usage: build.mjs [--site] <saved-miniature.html> <out.html>'); process.exit(1); }
 const here = dirname(fileURLToPath(import.meta.url));
 const SITE = 'https://aldo.today';
 let html = readFileSync(input, 'utf8');
@@ -25,16 +28,22 @@ function patch(name, from, to) {
   html = typeof from === 'string' ? html.split(from).join(to) : html.replace(from, to);
 }
 
-patch('head', /^<!doctype html>\s*<html[^>]*>\s*(?:<meta[^>]*>\s*)+(<title>[^<]*<\/title>)\s*<meta name="viewport"[^>]*>\s*/i, '$1\n');
-patch('fonts', /<style>@font-face[^<]*<\/style>/,
-  '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
-  '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;800&family=Young+Serif&display=swap">');
-patch('three', '"/assets/vendor/three-r128.min.js","/assets/vendor/three-r128-mapcontrols.js"',
-  '"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js","https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"');
-patch('static links', /href="\/(?!\/)/g, `href="${SITE}/`);
-patch('runtime links', 'function setLink(a, href){', `function setLink(a, href){ if (/^\\/(?!\\/)/.test(href)) href = '${SITE}' + href;`);
-patch('board tap', "function ask(href){ beacon('ask'); location.assign(href); }",
-  `function ask(href){ const a=document.createElement('a'); a.href=/^\\/(?!\\/)/.test(href) ? '${SITE}'+href : href; a.target='_blank'; a.rel='noopener'; document.body.appendChild(a); a.click(); a.remove(); }`);
+if (site) {
+  patch('preview url', /(<meta property="og:url" content="https:\/\/aldo\.today\/adelaide\/[a-z0-9-]+)\/miniature"/, '$1/ad"');
+  patch('preview text', /(<meta (?:property="og:description"|name="description") content=")([^"]*?), SA (\d{4}),[^"]*"/g,
+    (_, a, name, pc) => `${a}A 30-second flyover of ${name}, SA ${pc}, built from real map data. One board in the suburb, one name on it."`);
+} else {
+  patch('head', /^<!doctype html>\s*<html[^>]*>\s*(?:<meta[^>]*>\s*)+(<title>[^<]*<\/title>)\s*<meta name="viewport"[^>]*>\s*/i, '$1\n');
+  patch('fonts', /<style>@font-face[^<]*<\/style>/,
+    '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
+    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;800&family=Young+Serif&display=swap">');
+  patch('three', '"/assets/vendor/three-r128.min.js","/assets/vendor/three-r128-mapcontrols.js"',
+    '"https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js","https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"');
+  patch('static links', /href="\/(?!\/)/g, `href="${SITE}/`);
+  patch('runtime links', 'function setLink(a, href){', `function setLink(a, href){ if (/^\\/(?!\\/)/.test(href)) href = '${SITE}' + href;`);
+  patch('board tap', "function ask(href){ beacon('ask'); location.assign(href); }",
+    `function ask(href){ const a=document.createElement('a'); a.href=/^\\/(?!\\/)/.test(href) ? '${SITE}'+href : href; a.target='_blank'; a.rel='noopener'; document.body.appendChild(a); a.click(); a.remove(); }`);
+}
 patch('beacon off', 'if (TEST || !SLOT.beacon) return;', 'return; /* no view beacon from the ad cut */');
 patch('ad camera mode', "else if(mode==='test'){ camera.lookAt(controls.target); }",
   "else if(mode==='test'){ camera.lookAt(controls.target); }\n" +
@@ -56,5 +65,7 @@ patch('lens band', /lens\.uniforms\.band\.value = w\/h<\.8 \? ([\d.]+) : ([\d.]+
     `lens.uniforms.fade.value = w/h<.8 ? ${(+fp * LENS.fade).toFixed(3)} : ${(+fl * LENS.fade).toFixed(3)};`);
 
 html = html.trimEnd() + '\n' + readFileSync(join(here, 'ad-layer.html'), 'utf8');
+// on aldo.today itself the end card's button stays in the same tab
+if (site) patch('site cta', 'href="https://aldo.today/advertise" target="_blank" rel="noopener"', 'href="/advertise"');
 writeFileSync(output, html);
 console.log(`wrote ${output} (${(html.length / 1024).toFixed(0)} KB)`);
