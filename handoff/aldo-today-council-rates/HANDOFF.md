@@ -2,11 +2,12 @@
 
 **Goal:** win "charles sturt council rates calculator" and "charles sturt council rates", then the same search for all 19 councils. No official Charles Sturt calculator turned up in search. The only competing calculators are generic and don't use real council numbers.
 
-**Status (11 Oct 2026):** 11 of 19 councils are built from adopted 2026/27 budgets and ready to paste. 5 more have figures but need a 2-minute browser check (their sites blocked automated access). 2 councils still need their figures, and the City of Adelaide needs its own calculator. The aldo.today site source isn't on GitHub, so nothing is live yet. Publishing happens on your PC.
+**Status (11 Oct 2026):** 12 of 19 councils are built from adopted 2026/27 budgets and ready to paste. 5 more have figures but need a 2-minute browser check (their sites blocked automated access). 2 councils still need their figures. The aldo.today site source isn't on GitHub, so nothing is live yet. Publishing happens on your PC.
 
 | Council | Status | Typical house → rates/yr |
 |---|---|---|
 | Charles Sturt | ✅ built | $1,196,500 → $2,116 |
+| Adelaide (city) | ✅ built: rated on **annual value** (75% of a year's rent); calculator takes annual value or weekly rent | avg home → $2,387 general rates |
 | Adelaide Hills | ✅ built ($940 fixed charge, Hills & Fleurieu levy) | $1,060,000 → $3,106 |
 | Burnside | ✅ built | $1,970,000 → $3,326 |
 | Holdfast Bay | ✅ built | $1,525,000 → $2,848 |
@@ -24,7 +25,6 @@
 | Tea Tree Gully | 🔎 check: levy rate missing | — |
 | Port Adelaide Enfield | ❌ 2026/27 minimum rate not found | — |
 | Walkerville | ❌ adopted figures not readable (only the draft) | — |
-| Adelaide (city) | ⏸ figures done, but rated on **annual value**: needs its own calculator | — |
 
 The "To check" notes for each council, with exact links, are in `data/checks-2026-27.json`. To clear a 🔎 council: open its link in a browser, confirm or fix the figures in `data/council-rates-2026-27.json`, delete its `"verified": false` line, and run `python3 build.py`.
 
@@ -100,7 +100,6 @@ In the JSON, rates are stored in **dollars** per dollar, so divide the council's
 - **🔎 Browser checks (Campbelltown, Gawler, Prospect, Salisbury, Tea Tree Gully):** follow `data/checks-2026-27.json`. Salisbury also needs its high-value residential discount added to `rates_for()` in `build.py` and to `rates-calc.js`. The discount is 10% / 20% / 35% above $969k / $1.065m / $1.205m; check whether it applies to the whole rate or only the slice of value in each band.
 - **❌ Port Adelaide Enfield:** find the 2026/27 minimum in the adopted budget PDF, or call 8405 6600. The other figures are in checks.
 - **❌ Walkerville:** take the adopted figures from Gazette No. 41 (9 July 2026), p. 2231.
-- **⏸ City of Adelaide:** its figures are in the JSON. It needs a calculator that asks for **annual value** (on the rates notice, about 3–5% of capital value) and no suburb-median table. Until then, `build.py` skips it.
 - **New-year refresh (each July):**
   - add a 2027/28 JSON;
   - run `merge_results.py` to load researched figures. It rejects rates that look like cents instead of dollars, so a forgotten ÷100 gets caught.

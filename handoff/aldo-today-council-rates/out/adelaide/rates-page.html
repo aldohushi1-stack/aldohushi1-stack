@@ -1,0 +1,154 @@
+<article class="rates">
+  <h1 class="title" id="r-h">City of Adelaide council rates 2026/27</h1>
+  <p class="lede">The City of Adelaide charges rates on <b>annual value</b> — what your property could rent for — not on what it’s worth.
+    The average home pays about <b>$2,387 a year</b> in general rates. Put in your annual value, or a weekly rent, below.</p>
+  <p class="fine">Unofficial estimate by aldo.today, not the City of Adelaide. Your rates notice is the bill. Figures from the
+    council’s rates declaration of 23 June 2026, checked 2026-10-11.</p>
+
+  <h2 class="hub__h2" id="calc">Rates calculator</h2>
+  <form class="ratescalc" data-rates-calc onsubmit="return false">
+    <p><label for="rc-cv">Annual value <span class="fine">(on your rates notice)</span></label><br>
+      <input id="rc-cv" name="cv" inputmode="decimal" autocomplete="off" placeholder="19,900" value="19,900"></p>
+    <p><label for="rc-rent">Don’t know it? Weekly rent <span class="fine">(we use 75% of a year’s rent)</span></label><br>
+      <input id="rc-rent" name="rent" inputmode="decimal" autocomplete="off" placeholder="e.g. 600"></p>
+    <p><label for="rc-use">Land use</label><br>
+      <select id="rc-use" name="use"></select></p>
+    <p><label for="rc-last">Last year’s general rates <span class="fine">(optional, to check the 10% cap)</span></label><br>
+      <input id="rc-last" name="last" inputmode="decimal" autocomplete="off" placeholder="e.g. 2,200"></p>
+    <output class="ratescalc__out" for="rc-cv rc-rent rc-use rc-last" aria-live="polite"></output>
+  </form>
+  <script type="application/json" id="rates-cfg">{"council": "City of Adelaide", "residential": 0.11967651, "categories": {"Non-residential (commercial, industrial, primary production, other)": 0.14660372, "Vacant land": 0.23935301}, "minimum": 415, "fixed": 0, "levy": 0.00154198, "levyFixed": 0, "levyName": "Green Adelaide levy", "service": 0, "cap": 10, "example": "20,000"}</script>
+
+  <h2 class="hub__h2">How the City of Adelaide works out your rates</h2>
+  <ol>
+    <li><b>Annual value.</b> The Valuer-General sets it at 75% of the yearly rent your property could earn (landlord paying
+      rates, taxes and insurance), whether you rent it out or live in it. A home that would rent for $600 a week has an annual value of about $23,400.</li>
+    <li><b>Annual value × rate in the dollar.</b> Residential: 11.967651 cents per dollar.
+      $20,000 × 0.11967651 = $2,394.</li>
+    <li><b>Minimum rate $415</b> — paid if step 2 comes to less (an annual value under about $3,468).</li>
+    <li><b>Plus the Green Adelaide levy</b> — 0.154198 cents per dollar of annual value, collected for the state.</li>
+    <li><b>Less any rebate:</b> the automatic 10% cap on rises, and $100 off for eligible pensioners.</li>
+  </ol>
+  <p>Business land pays 14.660372¢ and vacant land
+    23.935301¢ per dollar of annual value. Shops in the Rundle Mall precinct also pay the Rundle Mall separate rate.
+    Short-stay rentals are rated as business.</p>
+
+  <h2 class="hub__h2" id="by-suburb">Rates on a typical rental, by suburb</h2>
+  <p>Using each suburb’s median weekly rent from new bonds lodged, turned into an annual value the way the Valuer-General does.
+    Your actual annual value is on your notice and may differ.</p>
+  <div class="tablewrap">
+    <table class="suburbs" data-sortable>
+      <thead><tr><th><button type="button" data-sort="text">Suburb</button></th>
+        <th class="num"><button type="button" data-sort="num">Rent a week</button></th>
+        <th class="num"><button type="button" data-sort="num">Annual value</button></th>
+        <th class="num"><button type="button" data-sort="num">General rates</button></th>
+        <th class="num"><button type="button" data-sort="num">Levy</button></th>
+        <th class="num"><button type="button" data-sort="num">Total a year</button></th></tr></thead>
+      <tbody>
+      <tr><th><a href="/adelaide/adelaide">Adelaide</a> <small>house</small></th><td class="num">$630</td><td class="num">$24,570</td><td class="num">$2,940</td><td class="num">$38</td><td class="num"><b>$2,978</b></td></tr>
+      <tr><th><a href="/adelaide/adelaide">Adelaide</a> <small>unit or apartment</small></th><td class="num">$524</td><td class="num">$20,436</td><td class="num">$2,446</td><td class="num">$32</td><td class="num"><b>$2,477</b></td></tr>
+      <tr><th><a href="/adelaide/north-adelaide">North Adelaide</a> <small>house</small></th><td class="num">$850</td><td class="num">$33,150</td><td class="num">$3,967</td><td class="num">$51</td><td class="num"><b>$4,018</b></td></tr>
+      <tr><th><a href="/adelaide/north-adelaide">North Adelaide</a> <small>unit or apartment</small></th><td class="num">$550</td><td class="num">$21,450</td><td class="num">$2,567</td><td class="num">$33</td><td class="num"><b>$2,600</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="fine">Before any cap or pensioner rebate. Rents: Private Rent Report, SA Housing Trust, via Data.SA.</p>
+
+  <h2 class="hub__h2">Paying and getting help</h2>
+  <ul class="plain">
+    <li><b>Pay or check your notice:</b> <a href="https://www.cityofadelaide.com.au/resident/home-management/rates/" rel="noopener">City of Adelaide rates page</a> or call 8203 7203.</li>
+    <li><b>Pensioners:</b> a $100 rebate per household, plus the state Cost of Living Concession (ConcessionsSA 1800 307 758).</li>
+    <li><b>Valuation looks wrong:</b> <a href="https://www.valuergeneral.sa.gov.au/valuation/objecting-to-a-valuation" rel="noopener">object to the Valuer-General</a> within 60 days.</li>
+    <li><b>Emergency Services Levy:</b> billed separately — <a href="https://www.revenuesa.sa.gov.au/ESL/emergency-services-levy-home-page" rel="noopener">how the ESL works</a>.</li>
+  </ul>
+
+  <h2 id="rqa-h">Questions about City of Adelaide council rates</h2>
+  <h3>How much are council rates in the City of Adelaide?</h3>
+  <p>Council’s own figure for the average home in 2026/27 is $2,387 in general rates, up 5.6%. That matches an annual value of about $19,945 — a home that would rent for about $511 a week. The Green Adelaide levy adds about $31.</p>
+  <h3>Why are City of Adelaide rates based on rent, not property value?</h3>
+  <p>The City of Adelaide is the only South Australian council that rates on annual value instead of capital value. Annual value is set by the Valuer-General as 75% of the yearly rent the property could earn, with the landlord paying rates, taxes and insurance — whether or not the owner lives there.</p>
+  <h3>What is the City of Adelaide rate in the dollar for 2026/27?</h3>
+  <p>11.967651 cents per dollar of annual value for residential land (was 11.5205 in 2025/26), so a home with an annual value of $20,000 pays $2,394. Non-residential land pays 14.660372 cents and vacant land 23.935301 cents.</p>
+  <h3>What is the minimum rate in the City of Adelaide?</h3>
+  <p>$415 for 2026/27 (was $400), paid by any property with an annual value under about $3,468.</p>
+  <h3>Is there a cap on City of Adelaide rate rises?</h3>
+  <p>Increases in general rates are capped at 10% a year, applied automatically (not where the rise comes from improvements, or a change of land use, ownership or occupancy). Pensioners get a $100 rebate.</p>
+  <h3>When are City of Adelaide rates due?</h3>
+  <p>In four instalments: 1 September 2026, 1 December 2026, 1 March 2027 and 1 June 2027.</p>
+  <h3>Does my rates notice include the Emergency Services Levy?</h3>
+  <p>No. The ESL is billed separately by RevenueSA. The Green Adelaide levy is on your council notice, but council only collects it for the state.</p>
+  <h3>What if I think my annual value is too high?</h3>
+  <p>Object to the Valuer-General in writing within 60 days of receiving your first rates notice for the year — there is no fee. Keep paying while it is reviewed.</p>
+
+  <h2 class="hub__h2">Thinking of selling or renting out?</h2>
+  <p><a href="/councils/adelaide">House prices in the City of Adelaide</a>, or ask for a free appraisal.</p>
+
+  <p class="fine">Source: <a href="https://meetings.cityofadelaide.com.au/documents/s35036/202627%20Rates%20Policy%20Review%20Valuation%20Declaration.pdf" rel="noopener">City of Adelaide, Council meeting 23 June 2026, item 15.1 2026/27 Rates: Policy Review, Valuation &amp; Declaration; Business Plan &amp; Budget 2026/27 pp. 90-92</a>. Annual value: Valuation of Land Act 1971 (SA), s 5.
+    Not a rates notice, valuation or financial advice.</p>
+</article>
+<script>
+// Council rates calculator for aldo.today. No dependencies.
+// Reads its numbers from <script type="application/json" id="rates-cfg">.
+(function () {
+  var form = document.querySelector('[data-rates-calc]');
+  var cfgEl = document.getElementById('rates-cfg');
+  if (!form || !cfgEl) return;
+  var cfg = JSON.parse(cfgEl.textContent);
+  var out = form.querySelector('output');
+  var use = form.elements.use;
+  var fmt = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 });
+
+  var opts = [['Residential', cfg.residential]].concat(Object.entries(cfg.categories));
+  opts.forEach(function (o) { use.add(new Option(o[0], o[1])); });
+
+  // Accepts "1,100,000", "$1.1m", "850k".
+  function amount(s) {
+    s = String(s || '').toLowerCase().replace(/[$,\s]/g, '');
+    var m = s.match(/^(\d*\.?\d+)(m|k)?$/);
+    if (!m) return NaN;
+    return parseFloat(m[1]) * (m[2] === 'm' ? 1e6 : m[2] === 'k' ? 1e3 : 1);
+  }
+
+  function row(label, value) {
+    return '<dt>' + label + '</dt><dd>' + value + '</dd>';
+  }
+
+  function render() {
+    var cv = amount(form.elements.cv.value);
+    if (!(cv > 0)) { out.innerHTML = '<span class="fine">Enter a value, like ' + (cfg.example || '950,000 or 1.2m') + '.</span>'; return; }
+    var rate = parseFloat(use.value);
+    var byValue = cv * rate;
+    var onMin = byValue < cfg.minimum;
+    var general = Math.max(byValue, cfg.minimum) + cfg.fixed;
+    var levy = cv * cfg.levy + (cfg.levyFixed || 0);
+    var total = general + levy + (cfg.service || 0);
+    var html = '<div class="big">' + fmt.format(total) + ' a year</div>' +
+      '<div>about ' + fmt.format(total / 4) + ' a quarter</div><dl>' +
+      row('General rates' + (onMin ? ' (minimum)' : ''), fmt.format(general)) +
+      row(cfg.levyName, fmt.format(levy)) +
+      (cfg.service ? row('Waste service charge', fmt.format(cfg.service)) : '') + '</dl>';
+    if (onMin) html += '<p class="fine">' + fmt.format(cv) + ' × ' + +(rate * 100).toFixed(9) + '¢ = ' + fmt.format(byValue) +
+      ', under the ' + fmt.format(cfg.minimum) + ' minimum, so you pay the minimum.</p>';
+    var last = form.elements.last ? amount(form.elements.last.value) : 0;
+    if (cfg.cap && last > 0 && use.selectedIndex === 0) {
+      var capped = last * (1 + cfg.cap / 100);
+      html += general > capped
+        ? '<p><b>Up ' + Math.round((general / last - 1) * 100) + '% on last year.</b> You may get a rate-capping rebate of about ' +
+          fmt.format(general - capped) + ', bringing general rates to ' + fmt.format(capped) + '. Ask council.</p>'
+        : '<p class="fine">Change on last year: ' + ((general / last - 1) * 100).toFixed(1) + '% — under the ' + cfg.cap + '% cap.</p>';
+    }
+    html += '<p class="fine">Estimate only. Excludes the Emergency Services Levy (billed by RevenueSA) and any rebate or concession.</p>';
+    out.innerHTML = html;
+  }
+
+  // City of Adelaide: annual value is 75% of a year's rent, so a weekly rent can fill it in.
+  var rent = form.elements.rent;
+  if (rent) rent.addEventListener('input', function () {
+    var r = amount(rent.value);
+    if (r > 0) form.elements.cv.value = Math.round(r * 52 * 0.75).toLocaleString('en-AU');
+  });
+
+  form.addEventListener('input', render);
+  render();
+})();
+</script>

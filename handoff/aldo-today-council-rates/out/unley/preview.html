@@ -138,7 +138,7 @@
 
   function render() {
     var cv = amount(form.elements.cv.value);
-    if (!(cv > 0)) { out.innerHTML = '<span class="fine">Enter a capital value, like 950,000 or 1.2m.</span>'; return; }
+    if (!(cv > 0)) { out.innerHTML = '<span class="fine">Enter a value, like ' + (cfg.example || '950,000 or 1.2m') + '.</span>'; return; }
     var rate = parseFloat(use.value);
     var byValue = cv * rate;
     var onMin = byValue < cfg.minimum;
@@ -163,6 +163,13 @@
     html += '<p class="fine">Estimate only. Excludes the Emergency Services Levy (billed by RevenueSA) and any rebate or concession.</p>';
     out.innerHTML = html;
   }
+
+  // City of Adelaide: annual value is 75% of a year's rent, so a weekly rent can fill it in.
+  var rent = form.elements.rent;
+  if (rent) rent.addEventListener('input', function () {
+    var r = amount(rent.value);
+    if (r > 0) form.elements.cv.value = Math.round(r * 52 * 0.75).toLocaleString('en-AU');
+  });
 
   form.addEventListener('input', render);
   render();

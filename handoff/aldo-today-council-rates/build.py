@@ -83,6 +83,57 @@ def load_suburbs(csv_council):
     return sorted(rows, key=lambda r: r["median"])
 
 
+CSS = '''.ratescalc { max-width: 30rem; }
+.ratescalc input, .ratescalc select { width: 100%; font: inherit; padding: 8px 12px; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); color: var(--ink); }
+.ratescalc__out { display: block; margin-top: 12px; padding: 14px 16px; border: 1px solid var(--rule); border-radius: 6px; }
+.ratescalc__out .big { font-size: 1.6rem; font-weight: 600; }
+.ratescalc__out dl { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; margin: 10px 0 0; }
+.ratescalc__out dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+'''
+
+
+def head_for(slug, c, title, desc, faq):
+    page_url = f"{SITE}/councils/{slug}/rates"
+    ld = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "WebPage", "@id": page_url, "url": page_url, "name": title, "description": desc,
+             "inLanguage": "en-AU", "isPartOf": {"@type": "WebSite", "name": "aldo.today", "url": SITE + "/"},
+             "publisher": {"@id": SITE + "/#org"}, "dateModified": c["checked"],
+             "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [
+                 {"@type": "ListItem", "position": 1, "name": "Councils", "item": SITE + "/councils"},
+                 {"@type": "ListItem", "position": 2, "name": c["name"], "item": f"{SITE}/councils/{slug}"},
+                 {"@type": "ListItem", "position": 3, "name": "Council rates", "item": page_url}]}},
+            {"@type": "FAQPage", "mainEntity": [
+                {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq]},
+        ],
+    }
+    return f'''<title>{escape(title)}</title>
+<meta name="description" content="{escape(desc)}">
+<link rel="canonical" href="{page_url}">
+<meta property="og:title" content="{escape(title)}">
+<meta property="og:description" content="{escape(desc)}">
+<meta property="og:url" content="{page_url}">
+<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
+'''
+
+
+def write_out(slug, body, head, block):
+    out = HERE / "out" / slug
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "rates-page.html").write_text(body)
+    (out / "rates-head.html").write_text(head)
+    (out / "council-page-block.html").write_text(block)
+    (out / "rates.css").write_text(CSS)
+    (out / "preview.html").write_text(f'''<!doctype html>
+<html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+{head}<link rel="stylesheet" href="{SITE}/assets/journal.css?v=3.39.0">
+<style>{CSS}</style></head>
+<body><main>
+{body}</main></body></html>
+''')
+
+
 def build(slug, c):
     subs = load_suburbs(c["csv_council"])
     name, short = c["name"], c["csv_council"]
@@ -234,28 +285,7 @@ def build(slug, c):
     desc = (f"Estimate your {name} council rates for 2026/27: {cents(c['residential_rate'])}¢ in the dollar, "
             f"{floor_text(c)}, plus {levy['board']} levy. A {money(typical)} house pays about "
             f"{money(t_total)} a year. Working shown.")
-    ld = {
-        "@context": "https://schema.org",
-        "@graph": [
-            {"@type": "WebPage", "@id": page_url, "url": page_url, "name": title, "description": desc,
-             "inLanguage": "en-AU", "isPartOf": {"@type": "WebSite", "name": "aldo.today", "url": SITE + "/"},
-             "publisher": {"@id": SITE + "/#org"}, "dateModified": c["checked"],
-             "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [
-                 {"@type": "ListItem", "position": 1, "name": "Councils", "item": SITE + "/councils"},
-                 {"@type": "ListItem", "position": 2, "name": name, "item": f"{SITE}/councils/{slug}"},
-                 {"@type": "ListItem", "position": 3, "name": "Council rates", "item": page_url}]}},
-            {"@type": "FAQPage", "mainEntity": [
-                {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq]},
-        ],
-    }
-    head = f'''<title>{escape(title)}</title>
-<meta name="description" content="{escape(desc)}">
-<link rel="canonical" href="{page_url}">
-<meta property="og:title" content="{escape(title)}">
-<meta property="og:description" content="{escape(desc)}">
-<meta property="og:url" content="{page_url}">
-<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
-'''
+    head = head_for(slug, c, title, desc, faq)
 
     block = f'''<!-- 1. In "Owning a home in the {name}", replace the "Council rates" <li> with: -->
     <li><b>Council rates:</b> about {money(t_total)} a year on a {money(typical)} house in 2026/27 —
@@ -270,27 +300,156 @@ def build(slug, c):
      The per-suburb figures are in the table in rates-page.html. -->
 '''
 
-    css = '''.ratescalc { max-width: 30rem; }
-.ratescalc input, .ratescalc select { width: 100%; font: inherit; padding: 8px 12px; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); color: var(--ink); }
-.ratescalc__out { display: block; margin-top: 12px; padding: 14px 16px; border: 1px solid var(--rule); border-radius: 6px; }
-.ratescalc__out .big { font-size: 1.6rem; font-weight: 600; }
-.ratescalc__out dl { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; margin: 10px 0 0; }
-.ratescalc__out dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
-'''
-    out = HERE / "out" / slug
-    out.mkdir(parents=True, exist_ok=True)
-    (out / "rates-page.html").write_text(body)
-    (out / "rates-head.html").write_text(head)
-    (out / "council-page-block.html").write_text(block)
-    (out / "rates.css").write_text(css)
-    (out / "preview.html").write_text(f'''<!doctype html>
-<html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-{head}<link rel="stylesheet" href="{SITE}/assets/journal.css?v=3.39.0">
-<style>{css}</style></head>
-<body><main>
-{body}</main></body></html>
-''')
+    write_out(slug, body, head, block)
     return name, typical, t_total
+
+
+def build_annual(slug, c):
+    """City of Adelaide: rates on annual value (75% of a year's rent), not capital value."""
+    name, short = c["name"], c["csv_council"]
+    levy, cap = c["landscape_levy"], c.get("rate_cap_pct")
+    page_url = f"{SITE}/councils/{slug}/rates"
+    avg = c["average_residential_rate"]
+    avg_av = avg / c["residential_rate"]
+    min_below = c["minimum_rate"] / c["residential_rate"]
+
+    def av_from_rent(week):
+        return week * 52 * 0.75
+
+    rows, examples = [], []
+    with open(HERE / "data" / "adelaide.csv", newline="") as f:
+        for r in csv.DictReader(f):
+            if r["council"] != c["csv_council"]:
+                continue
+            for kind, col in (("House", "house_rent_week"), ("Unit or apartment", "unit_rent_week")):
+                if not r[col]:
+                    continue
+                week = int(r[col]); av = av_from_rent(week)
+                g, l, t = rates_for(av, c)
+                examples.append((r["suburb"], kind, week, t))
+                rows.append(
+                    f'      <tr><th><a href="{escape(r["url"].replace(SITE, ""))}">{escape(r["suburb"])}</a> <small>{kind.lower()}</small></th>'
+                    f'<td class="num">${week:,}</td><td class="num">{money(av)}</td><td class="num">{money(g)}</td>'
+                    f'<td class="num">{money(l)}</td><td class="num"><b>{money(t)}</b></td></tr>')
+
+    faq = [
+        (f"How much are council rates in the City of Adelaide?",
+         f"Council’s own figure for the average home in 2026/27 is {money(avg)} in general rates, up {c['average_residential_increase_pct']:g}%. "
+         f"That matches an annual value of about {money(avg_av)} — a home that would rent for about {money(avg_av / 0.75 / 52)} a week. "
+         f"The {levy['board']} levy adds about {money(avg_av * levy['rate'])}."),
+        ("Why are City of Adelaide rates based on rent, not property value?",
+         "The City of Adelaide is the only South Australian council that rates on annual value instead of capital value. "
+         "Annual value is set by the Valuer-General as 75% of the yearly rent the property could earn, with the landlord paying rates, taxes and insurance — whether or not the owner lives there."),
+        ("What is the City of Adelaide rate in the dollar for 2026/27?",
+         f"{c['residential_rate'] * 100:.6f} cents per dollar of annual value for residential land (was {c['residential_rate_prev'] * 100:.4f} in 2025/26), "
+         f"so a home with an annual value of $20,000 pays {money(20000 * c['residential_rate'])}. "
+         f"Non-residential land pays {c['other_categories']['Non-residential (commercial, industrial, primary production, other)'] * 100:.6f} cents and vacant land "
+         f"{c['other_categories']['Vacant land'] * 100:.6f} cents."),
+        ("What is the minimum rate in the City of Adelaide?",
+         f"{money(c['minimum_rate'])} for 2026/27 (was {money(c['minimum_rate_prev'])}), paid by any property with an annual value under about {money(min_below)}."),
+        ("Is there a cap on City of Adelaide rate rises?", c["rate_cap_note"]),
+        ("When are City of Adelaide rates due?",
+         "In four instalments: 1 September 2026, 1 December 2026, 1 March 2027 and 1 June 2027."),
+        ("Does my rates notice include the Emergency Services Levy?",
+         f"No. The ESL is billed separately by RevenueSA. The {levy['board']} levy is on your council notice, but council only collects it for the state."),
+        ("What if I think my annual value is too high?",
+         "Object to the Valuer-General in writing within 60 days of receiving your first rates notice for the year — there is no fee. Keep paying while it is reviewed."),
+    ]
+
+    cfg = {
+        "council": name, "residential": c["residential_rate"], "categories": c["other_categories"],
+        "minimum": c["minimum_rate"], "fixed": 0, "levy": levy["rate"], "levyFixed": 0,
+        "levyName": levy["board"] + " levy", "service": 0, "cap": cap, "example": "20,000",
+    }
+    start = round(avg_av, -2)
+
+    body = f'''<article class="rates">
+  <h1 class="title" id="r-h">City of Adelaide council rates 2026/27</h1>
+  <p class="lede">The City of Adelaide charges rates on <b>annual value</b> — what your property could rent for — not on what it’s worth.
+    The average home pays about <b>{money(avg)} a year</b> in general rates. Put in your annual value, or a weekly rent, below.</p>
+  <p class="fine">Unofficial estimate by aldo.today, not the City of Adelaide. Your rates notice is the bill. Figures from the
+    council’s rates declaration of {escape(c["adopted"])}, checked {escape(c["checked"])}.</p>
+
+  <h2 class="hub__h2" id="calc">Rates calculator</h2>
+  <form class="ratescalc" data-rates-calc onsubmit="return false">
+    <p><label for="rc-cv">Annual value <span class="fine">(on your rates notice)</span></label><br>
+      <input id="rc-cv" name="cv" inputmode="decimal" autocomplete="off" placeholder="{start:,.0f}" value="{start:,.0f}"></p>
+    <p><label for="rc-rent">Don’t know it? Weekly rent <span class="fine">(we use 75% of a year’s rent)</span></label><br>
+      <input id="rc-rent" name="rent" inputmode="decimal" autocomplete="off" placeholder="e.g. 600"></p>
+    <p><label for="rc-use">Land use</label><br>
+      <select id="rc-use" name="use"></select></p>
+    <p><label for="rc-last">Last year’s general rates <span class="fine">(optional, to check the {cap:g}% cap)</span></label><br>
+      <input id="rc-last" name="last" inputmode="decimal" autocomplete="off" placeholder="e.g. 2,200"></p>
+    <output class="ratescalc__out" for="rc-cv rc-rent rc-use rc-last" aria-live="polite"></output>
+  </form>
+  <script type="application/json" id="rates-cfg">{json.dumps(cfg)}</script>
+
+  <h2 class="hub__h2">How the City of Adelaide works out your rates</h2>
+  <ol>
+    <li><b>Annual value.</b> The Valuer-General sets it at 75% of the yearly rent your property could earn (landlord paying
+      rates, taxes and insurance), whether you rent it out or live in it. A home that would rent for $600 a week has an annual value of about {money(av_from_rent(600))}.</li>
+    <li><b>Annual value × rate in the dollar.</b> Residential: {c["residential_rate"] * 100:.6f} cents per dollar.
+      $20,000 × {c["residential_rate"]:.8f} = {money(20000 * c["residential_rate"])}.</li>
+    <li><b>Minimum rate {money(c["minimum_rate"])}</b> — paid if step 2 comes to less (an annual value under about {money(min_below)}).</li>
+    <li><b>Plus the {escape(levy["board"])} levy</b> — {levy["rate"] * 100:.6f} cents per dollar of annual value, collected for the state.</li>
+    <li><b>Less any rebate:</b> the automatic {cap:g}% cap on rises, and $100 off for eligible pensioners.</li>
+  </ol>
+  <p>Business land pays {c["other_categories"]["Non-residential (commercial, industrial, primary production, other)"] * 100:.6f}¢ and vacant land
+    {c["other_categories"]["Vacant land"] * 100:.6f}¢ per dollar of annual value. Shops in the Rundle Mall precinct also pay the Rundle Mall separate rate.
+    Short-stay rentals are rated as business.</p>
+
+  <h2 class="hub__h2" id="by-suburb">Rates on a typical rental, by suburb</h2>
+  <p>Using each suburb’s median weekly rent from new bonds lodged, turned into an annual value the way the Valuer-General does.
+    Your actual annual value is on your notice and may differ.</p>
+  <div class="tablewrap">
+    <table class="suburbs" data-sortable>
+      <thead><tr><th><button type="button" data-sort="text">Suburb</button></th>
+        <th class="num"><button type="button" data-sort="num">Rent a week</button></th>
+        <th class="num"><button type="button" data-sort="num">Annual value</button></th>
+        <th class="num"><button type="button" data-sort="num">General rates</button></th>
+        <th class="num"><button type="button" data-sort="num">Levy</button></th>
+        <th class="num"><button type="button" data-sort="num">Total a year</button></th></tr></thead>
+      <tbody>
+{chr(10).join(rows)}
+      </tbody>
+    </table>
+  </div>
+  <p class="fine">Before any cap or pensioner rebate. Rents: Private Rent Report, SA Housing Trust, via Data.SA.</p>
+
+  <h2 class="hub__h2">Paying and getting help</h2>
+  <ul class="plain">
+    <li><b>Pay or check your notice:</b> <a href="{escape(c["council_rates_url"])}" rel="noopener">City of Adelaide rates page</a> or call {escape(c["council_phone"])}.</li>
+    <li><b>Pensioners:</b> a $100 rebate per household, plus the state Cost of Living Concession (ConcessionsSA 1800 307 758).</li>
+    <li><b>Valuation looks wrong:</b> <a href="{VG_OBJECTION_URL}" rel="noopener">object to the Valuer-General</a> within 60 days.</li>
+    <li><b>Emergency Services Levy:</b> billed separately — <a href="{ESL_URL}" rel="noopener">how the ESL works</a>.</li>
+  </ul>
+
+  <h2 id="rqa-h">Questions about City of Adelaide council rates</h2>
+{chr(10).join(f"  <h3>{escape(q)}</h3>{chr(10)}  <p>{escape(a)}</p>" for q, a in faq)}
+
+  <h2 class="hub__h2">Thinking of selling or renting out?</h2>
+  <p><a href="/councils/{slug}">House prices in the City of Adelaide</a>, or ask for a free appraisal.</p>
+
+  <p class="fine">Source: <a href="{escape(c["source_pdf"])}" rel="noopener">{escape(c["source_title"])}</a>. Annual value: Valuation of Land Act 1971 (SA), s 5.
+    Not a rates notice, valuation or financial advice.</p>
+</article>
+<script>
+{CALC_JS}</script>
+'''
+
+    title = "City of Adelaide council rates 2026/27 — calculator by annual value or rent"
+    desc = (f"Estimate your City of Adelaide council rates for 2026/27. Rates are on annual value (75% of a year’s rent): "
+            f"{c['residential_rate'] * 100:.4f}¢ in the dollar, {money(c['minimum_rate'])} minimum. The average home pays about {money(avg)}.")
+    head = head_for(slug, c, title, desc, faq)
+    block = f'''<!-- 1. In "Owning a home in the {name}", replace the "Council rates" <li> with: -->
+    <li><b>Council rates:</b> the City of Adelaide rates on annual value (75% of a year’s rent), not capital value. The average home pays about {money(avg)} a year —
+      <a href="/councils/{slug}/rates">City of Adelaide rates calculator</a>.</li>
+
+<!-- 2. Replace the answer to "How are council rates worked out in the {name}?" (HTML and FAQPage JSON-LD) with: -->
+{escape(faq[1][1])} {escape(faq[0][1])} Work out your own on the City of Adelaide rates calculator: {page_url}
+'''
+    write_out(slug, body, head, block)
+    return name, avg_av, rates_for(avg_av, c)[2]
 
 
 def main():
@@ -304,8 +463,11 @@ def main():
             # Figures came from search snippets, not a document we read: check in a browser, then delete "verified".
             unverified.append(slug)
             continue
+        if c.get("basis", "capital value") == "annual value":
+            name, av, total = build_annual(slug, c)
+            print(f"built {slug}: {name}, average annual value {money(av)} -> {money(total)}/yr")
+            continue
         if c.get("basis", "capital value") != "capital value":
-            # The calculator and suburb table assume capital value (e.g. City of Adelaide rates on annual value).
             print(f"skipped {slug}: rated on {c['basis']}, needs its own page")
             continue
         name, typical, total = build(slug, c)
