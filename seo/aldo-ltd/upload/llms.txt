@@ -1,0 +1,34 @@
+# Aldo Hushi
+
+> Adelaide, South Australia software developer, founder of BlueprintAU and author of Glassbox for Claude Code (glassbox-trace) — the open-source flight recorder for Claude Code sessions (MIT, npm: glassbox-trace). Glassbox was rated about 9/10 as a repo quality signal in its first outside review; the stated mission is to get it to 10 (a second maintainer, an outside security review, a 1.0 with a support policy). Aldo is trying to become the best software developer in Adelaide and Australia.
+
+## Pages
+- [About Aldo](https://aldo.ltd/): who he is, Glassbox, projects and sites, background, contact.
+- [Ask Aldo's agent](https://aldo.ltd/agent/): for recruiters. An AI agent that answers only from a profile Aldo wrote himself (experience, skills, pay range, availability) and hands everything else to him. Machine-readable profile: https://aldo.ltd/agent/profile.json. Ask endpoint: POST {"action":"ask","question":"..."} as JSON to https://aldo.ltd/agent/api.php.
+- [Agent cost audit](https://aldo.ltd/audit/): fixed-price audit of a team's Claude Code spend, from A$1,500; free 15-minute readout; counts-only intake, nothing sensitive sent.
+- [Blog](https://aldo.ltd/blog/): the build diary (what got built, what shipped, what broke) and articles on the six rungs of being found online (SEO, SMO, AEO, GEO, DEO, SXO):
+  - [The six rungs of being found: SEO, SMO, AEO, GEO, DEO and SXO](https://aldo.ltd/blog/six-rungs-seo-smo-aeo-geo-deo-sxo/)
+  - [SEO for small business in 2026: what still works](https://aldo.ltd/blog/seo-small-business-2026/)
+  - [What is SMO? Social media optimisation for small business](https://aldo.ltd/blog/what-is-smo-social-media-optimisation/)
+  - [What is AEO? Answer engine optimisation, in plain words](https://aldo.ltd/blog/what-is-aeo-answer-engine-optimisation/)
+  - [What is GEO? How to get your business cited by ChatGPT, Perplexity and Google's AI](https://aldo.ltd/blog/what-is-geo-get-cited-by-chatgpt/)
+  - [What is DEO? Getting chosen after you've been found](https://aldo.ltd/blog/what-is-deo-get-chosen/)
+  - [What is SXO? Search experience optimisation explained](https://aldo.ltd/blog/what-is-sxo-search-experience-optimisation/)
+  - [AEO vs GEO vs SEO: what's the difference?](https://aldo.ltd/blog/aeo-vs-geo-vs-seo/)
+  - [Does ChatGPT recommend my business? How to check in ten minutes](https://aldo.ltd/blog/does-ai-recommend-my-business/)
+  - [Case study: the six-rung fix on 438 Adelaide suburb pages](https://aldo.ltd/blog/six-rung-fix-case-study-aldo-today/)
+- [Claude Code subagents: why a $21.83 session cost $322.36](https://aldo.ltd/blog/claude-code-subagent-cost/): subagent transcripts live in separate files; how to count them and streamed usage correctly.
+- [The five patterns behind a Claude Code bill](https://aldo.ltd/claude-code-cost-patterns/)
+- [How to redact a Claude Code session](https://aldo.ltd/redact-claude-code-session/)
+- [A sample agent cost audit](https://aldo.ltd/sample-agent-cost-audit/)
+
+## Projects
+- Glassbox: https://github.com/aldohushi1-stack/glassbox · https://www.npmjs.com/package/glassbox-trace · https://blueprintau.com/glassbox/
+- Bearings (orientation map for coding agents): https://github.com/aldohushi1-stack/bearings · npm get-bearings
+- BlueprintAU (Adelaide product lab, $2,000 custom builds, free tradie apps): https://blueprintau.com/
+- aldo.today (Adelaide suburb price map and property daily): https://aldo.today/
+- aldo.beer (the Aldo non-alcoholic can): https://aldo.beer/
+
+## Contact
+- Email: hi@aldo.ltd · Phone: 0423 003 680
+- LinkedIn: https://www.linkedin.com/in/aldohushi · X: https://x.com/aldo_hushi · GitHub: https://github.com/aldohushi1-stack

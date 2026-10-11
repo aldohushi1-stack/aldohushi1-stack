@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Aldo Hushi — build diary</title>
+  <link>https://aldo.ltd/blog/</link>
+  <atom:link href="https://aldo.ltd/blog/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>What got built, what shipped, what broke — and articles on the six rungs of being found online.</description>
+  <language>en-AU</language>
+  <item>
+    <title>Claude Code subagents: why a $21.83 session cost $322.36</title>
+    <link>https://aldo.ltd/blog/claude-code-subagent-cost/</link>
+    <guid isPermaLink="true">https://aldo.ltd/blog/claude-code-subagent-cost/</guid>
+    <pubDate>Sun, 11 Oct 2026 09:00:00 +1030</pubDate>
+    <category>Claude Code costs</category>
+    <description>Claude Code writes each subagent to its own transcript file. Read only the main one and the cost looks tiny. Where the files live and how to count them.</description>
+  </item>
+  <item>
+    <title>The six rungs of being found: SEO, SMO, AEO, GEO, DEO and SXO</title>
+    <link>https://aldo.ltd/blog/six-rungs-seo-smo-aeo-geo-deo-sxo/</link>
+    <guid isPermaLink="true">https://aldo.ltd/blog/six-rungs-seo-smo-aeo-geo-deo-sxo/</guid>
+    <pubDate>Wed, 23 Sep 2026 09:30:00 +0930</pubDate>
+    <category>The six rungs</category>
+    <description>Six ways a customer finds you, trusts you and calls you in 2026: SEO, SMO, AEO, GEO, DEO and SXO, explained in plain words by an Adelaide developer.</description>
+  </item>
+  <item>
+    <title>SEO for small business in 2026: what still works</title>
+    <link>https://aldo.ltd/blog/seo-small-business-2026/</link>
+    <guid isPermaLink="true">https://aldo.ltd/blog/seo-small-business-2026/</guid>
+    <pubDate>Wed, 23 Sep 2026 09:29:00 +0930</pubDate>
+    <category>The six rungs</category>
+    <description>Plain-English SEO for a small Australian business in 2026: what Google still rewards, what AI Overviews changed, and the nine checks that matter most.</description>
+  </item>
+  <item>
+    <title>What is SMO? Social media optimisation for small business</title>
+    <link>https://aldo.ltd/blog/what-is-smo-social-media-optimisation/</link>
+    <guid isPermaLink="true">https://aldo.ltd/blog/what-is-smo-social-media-optimisation/</guid>
+    <pubDate>Wed, 23 Sep 2026 09:28:00 +0930</pubDate>
+    <category>The six rungs</category>
+    <description>SMO is making your pages look right and get found when they&#x27;re shared. The tags, the 1200×630 card and the profile links that do it, with the checks.</description>
+  </item>
+  <item>
+    <title>What is AEO? Answer engine optimisation, in plain words</title>
+    <link>https://aldo.ltd/blog/what-is-aeo-answer-engine-optimisation/</link>
+    <guid isPermaLink="true">https://aldo.ltd/blog/what-is-aeo-answer-engine-optimisation/</guid>
+    <pubDate>Wed, 23 Sep 2026 09:27:00 +0930</pubDate>
+    <category>The six rungs</category>
+    <description>AEO means writing a page so Google&#x27;s AI Overviews, AI Mode and ChatGPT can lift the answer straight out of it, and name you when they do. How to do it.</description>
+  </item>
+  <item>
+    <title>What is GEO? How to get your business cited by ChatGPT, Perplexity and Google&#x27;s AI</title>
+    <link>https://aldo.ltd/blog/what-is-geo-get-cited-by-chatgpt/</link>
+    <guid isPermaLink="true">https://aldo.ltd/blog/what-is-geo-get-cited-by-chatgpt/</guid>
+    <pubDate>Wed, 23 Sep 2026 09:26:00 +0930</pubDate>
+    <category>The six rungs</category>
+    <description>GEO, generative engine optimisation, is getting AI answers to cite your site as a source. The research, the crawler settings and the fixes that work.</description>
+  </item>
+  <item>
+    <title>What is DEO? Getting chosen after you&#x27;ve been found</title>
+    <link>https://aldo.ltd/blog/what-is-deo-get-chosen/</link>
+    <guid isPermaLink="true">https://aldo.ltd/blog/what-is-deo-get-chosen/</guid>
+    <pubDate>Wed, 23 Sep 2026 09:25:00 +0930</pubDate>
+    <category>The six rungs</category>
+    <description>DEO isn&#x27;t a settled term. It&#x27;s used for Google Discover optimisation, and on the six-rung ladder for getting chosen: reviews, licences, prices and proof.</description>
+  </item>
+  <item>
+    <title>What is SXO? Search experience optimisation explained</title>
+    <link>https://aldo.ltd/blog/what-is-sxo-search-experience-optimisation/</link>
+    <guid isPermaLink="true">https://aldo.ltd/blog/what-is-sxo-search-experience-optimisation/</guid>
+    <pubDate>Wed, 23 Sep 2026 09:24:00 +0930</pubDate>
+    <category>The six rungs</category>
+    <description>SXO is SEO plus what happens after the click: the answer and the main action on the first screen, click-to-call, short forms and a fast page. The checks.</description>
+  </item>
+  <item>
+    <title>AEO vs GEO vs SEO: what&#x27;s the difference?</title>
+    <link>https://aldo.ltd/blog/aeo-vs-geo-vs-seo/</link>
+    <guid isPermaLink="true">https://aldo.ltd/blog/aeo-vs-geo-vs-seo/</guid>
+    <pubDate>Wed, 23 Sep 2026 09:23:00 +0930</pubDate>
+    <category>The six rungs</category>
+    <description>SEO gets you ranked, AEO gets you quoted, GEO gets you cited as a source. How they differ, where they overlap, and which one to work on first.</description>
+  </item>
+  <item>
+    <title>Does ChatGPT recommend my business? How to check in ten minutes</title>
+    <link>https://aldo.ltd/blog/does-ai-recommend-my-business/</link>
+    <guid isPermaLink="true">https://aldo.ltd/blog/does-ai-recommend-my-business/</guid>
+    <pubDate>Wed, 23 Sep 2026 09:22:00 +0930</pubDate>
+    <category>The six rungs</category>
+    <description>A ten-minute test to see whether ChatGPT, Google AI Mode and Perplexity recommend your business, what to write down, and what to fix when they don&#x27;t.</description>
+  </item>
+  <item>
+    <title>Case study: the six-rung fix on 438 Adelaide suburb pages</title>
+    <link>https://aldo.ltd/blog/six-rung-fix-case-study-aldo-today/</link>
+    <guid isPermaLink="true">https://aldo.ltd/blog/six-rung-fix-case-study-aldo-today/</guid>
+    <pubDate>Wed, 23 Sep 2026 09:21:00 +0930</pubDate>
+    <category>The six rungs</category>
+    <description>What I changed on aldo.today&#x27;s 438 suburb pages for each of the six rungs, why, and how I&#x27;ll know if it worked. The research, the changes and the tests.</description>
+  </item>
+  <item>
+    <title>Three things shipped today</title>
+    <link>https://aldo.ltd/blog/2026-09-22/</link>
+    <guid isPermaLink="true">https://aldo.ltd/blog/2026-09-22/</guid>
+    <pubDate>Tue, 22 Sep 2026 21:00:00 +0930</pubDate>
+    <description>A seat-view demo with a QR code for walk-ins, a site that says what it is in plain words to people and AI search, and a board that now reaches the desk by itself.</description>
+    <content:encoded><![CDATA[<p>Three things shipped today.</p>
+<p>The seat-view demo went live on blueprintau.com this morning. You pick a seat and see the view from it, and there's a QR code for walk-ins to scan at the counter.</p>
+<p>Tonight the site learned to say what it is in plain words, to people and to AI search: who builds it, where, and what for. It also got a new preview card for when a link is shared. The first two uploads bounced because my home IP had fallen off the host's allowlist. Fixed, re-sent, live.</p>
+<p>Then the desk. The Office bots keep their own board of 82 trade shops. Until now, getting it onto this desk meant a browser upload. Now the board goes straight to the server and the desk picks it up by itself. It has 101 tests, and all of them pass.</p>]]></content:encoded>
+  </item>
+  <item>
+    <title>Week one: starting the diary</title>
+    <link>https://aldo.ltd/blog/2026-09-20/</link>
+    <guid isPermaLink="true">https://aldo.ltd/blog/2026-09-20/</guid>
+    <pubDate>Sun, 20 Sep 2026 21:00:00 +0930</pubDate>
+    <description>The first page of a working diary: five Glassbox releases, a playable ad that pours a beer, two tools for my own bench, the AI Answer Monitor, and a new site.</description>
+    <content:encoded><![CDATA[<p>This is the first page of a working diary. From here on it's one short entry a night: what got built, what shipped, what broke.</p>
+<p>This week needs a catch-up, so here it is.</p>
+<p><strong>Glassbox</strong> had five releases between Tuesday and Thursday. It's my open-source tool for seeing what AI coding agents actually do. "collect" rolls every machine's report into one fleet view. "fence" finds secrets (keys, tokens, passwords) that ended up in session transcripts and can shred them in place. "adhere" reads a project's CLAUDE.md and checks, line by line, whether the agent followed it. Its first run scored the session that built it at 22%. Then 0.9.1 added a loop guard that stops an agent repeating a tool call that has already failed twice.</p>
+<p><strong>Pour</strong> is the second "ad for the ad". It's a 30-second playable: hold to pour a beer, let go at the line. Then it turns out to be an ad for BlueprintAU builds.</p>
+<p>Two tools for my own bench. <strong>Aldo Motion</strong> is a motion-graphics editor that runs in the browser and exports MP4, GIF and live HTML. <strong>SFTP Deploy</strong> pushes a site to the host, shows what will change first, and backs up anything it overwrites.</p>
+<p>The <strong>AI Answer Monitor</strong> is designed. It's the paid follow-on to the Six-Rung Check: every week it asks AI the ten questions a customer would ask about a trade in their area, then reports who got named.</p>
+<p>And this site. aldo.today went from a domain sitting unused to live today: this diary out front, and a private desk behind it for the day's list, follow-ups and money.</p>
+<p>Tomorrow's entry will be shorter.</p>]]></content:encoded>
+  </item>
+</channel>
+</rss>

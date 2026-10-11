@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claude Code subagents: why a $21.83 session cost $322.36 · Aldo Hushi</title>
+<meta name="description" content="Claude Code writes each subagent to its own transcript file. Read only the main one and the cost looks tiny. Where the files live and how to count them.">
+<meta name="author" content="Aldo Hushi">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://aldo.ltd/blog/claude-code-subagent-cost/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aldo Hushi">
+<meta property="og:title" content="Claude Code subagents: why a $21.83 session cost $322.36">
+<meta property="og:description" content="Claude Code writes each subagent to its own transcript file. Read only the main one and the cost looks tiny. Where the files live and how to count them.">
+<meta property="og:url" content="https://aldo.ltd/blog/claude-code-subagent-cost/">
+<meta property="og:image" content="https://aldo.ltd/media/og-blog-claude-code-subagent-cost.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Claude Code subagents: why a $21.83 session cost $322.36">
+<meta property="og:locale" content="en_AU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@aldo_hushi">
+<meta name="twitter:title" content="Claude Code subagents: why a $21.83 session cost $322.36">
+<meta name="twitter:description" content="Claude Code writes each subagent to its own transcript file. Read only the main one and the cost looks tiny. Where the files live and how to count them.">
+<meta name="twitter:image" content="https://aldo.ltd/media/og-blog-claude-code-subagent-cost.png">
+<meta name="theme-color" content="#F7EFE3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#16110C" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="alternate" type="application/rss+xml" title="Aldo Hushi — blog" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<link rel="stylesheet" href="/assets/aldo.css?v=1">
+<link rel="stylesheet" href="/assets/post.css?v=1">
+<script data-goatcounter="https://aldoltd.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<meta property="article:published_time" content="2026-10-11">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://aldo.ltd/#aldo", "name": "Aldo Hushi", "givenName": "Aldo", "familyName": "Hushi", "url": "https://aldo.ltd/", "image": "https://aldo.ltd/media/aldo-692.jpg", "email": "mailto:hi@aldo.ltd", "telephone": "+61423003680", "jobTitle": "Software developer", "description": "Adelaide software developer, founder of BlueprintAU and author of Glassbox (npm: glassbox-trace), the open-source flight recorder and cost audit tool for Claude Code sessions.", "address": {"@type": "PostalAddress", "addressLocality": "Adelaide", "addressRegion": "SA", "addressCountry": "AU"}, "worksFor": {"@type": "Organization", "@id": "https://blueprintau.com/#org", "name": "BlueprintAU", "url": "https://blueprintau.com/"}, "alumniOf": {"@type": "CollegeOrUniversity", "name": "Schiller International University, Paris"}, "knowsLanguage": ["en", "de", "fr", "hu"], "knowsAbout": ["Claude Code", "AI agent cost optimisation", "LLM observability", "Node.js", "Custom software for small business", "SEO", "Generative engine optimisation"], "sameAs": ["https://www.linkedin.com/in/aldohushi", "https://github.com/aldohushi1-stack", "https://x.com/aldo_hushi", "https://www.facebook.com/profile.php?id=61593482654519", "https://www.npmjs.com/~aldoh", "https://blueprintau.com/#aldo"]}, {"@type": "BlogPosting", "@id": "https://aldo.ltd/blog/claude-code-subagent-cost/#post", "headline": "Claude Code subagents: why a $21.83 session cost $322.36", "description": "Claude Code writes each subagent to its own transcript file. Read only the main one and the cost looks tiny. Where the files live and how to count them.", "url": "https://aldo.ltd/blog/claude-code-subagent-cost/", "mainEntityOfPage": "https://aldo.ltd/blog/claude-code-subagent-cost/", "image": "https://aldo.ltd/media/og-blog-claude-code-subagent-cost.png", "datePublished": "2026-10-11", "dateModified": "2026-10-11", "inLanguage": "en-AU", "articleSection": "Claude Code costs", "about": [{"@type": "Thing", "name": "Claude Code"}, {"@type": "Thing", "name": "Subagents"}, {"@type": "Thing", "name": "LLM cost optimisation"}], "mentions": {"@id": "https://aldo.ltd/#glassbox"}, "author": {"@id": "https://aldo.ltd/#aldo"}, "isPartOf": {"@type": "Blog", "name": "Aldo Hushi — blog", "url": "https://aldo.ltd/blog/"}}, {"@type": "SoftwareApplication", "@id": "https://aldo.ltd/#glassbox", "name": "Glassbox for Claude Code", "alternateName": "glassbox-trace", "applicationCategory": "DeveloperApplication", "url": "https://github.com/aldohushi1-stack/glassbox"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "aldo.ltd", "item": "https://aldo.ltd/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://aldo.ltd/blog/"}, {"@type": "ListItem", "position": 3, "name": "Claude Code subagents: why a $21.83 session cost $322.36", "item": "https://aldo.ltd/blog/claude-code-subagent-cost/"}]}]}</script>
+<script>try{var t=localStorage.getItem('aldo-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav" aria-label="Main">
+  <div class="wrap nav-in">
+    <a class="wordmark" href="/">Aldo <span>Hushi</span></a>
+    <ul>
+      <li><a href="/#glassbox">Glassbox</a></li>
+      <li class="hide-s"><a href="/#places">Projects</a></li>
+      <li><a href="/blog/" aria-current="page">Blog</a></li>
+      <li><a href="/audit/">Audit</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main">
+<article class="sheet post" aria-labelledby="entry-title">
+  <p class="date"><time datetime="2026-10-11">Sunday 11 October 2026</time><span>Claude Code costs · Subagents</span></p>
+  <h1 id="entry-title">Claude Code subagents: why a $21.83 session cost $322.36</h1>
+  <p class="lede">Claude Code writes every subagent to its own transcript file, next to the main one. A cost report that reads only the main <code>.jsonl</code> sees only the main agent. One of my own sessions reported $21.83 that way. Counting its 36 subagent transcripts and the streamed usage properly, it cost $322.36.</p>
+  <p class="byline"><span>By Aldo Hushi, Adelaide</span><span>6 min read</span><span>Numbers from my own published audit</span></p>
+  <p class="try">Check your own: <code>npx glassbox-trace</code> opens your newest session with every subagent counted. Free, MIT, nothing leaves your machine.</p>
+  <div class="body">
+<p class="big">If a Claude Code bill looks far higher than your session reports add up to, look for subagents first. They are the most common reason a per-session number comes out low, and the gap can be fifteen times.</p>
+
+<h2 id="the-night"><span class="no">What happened</span>How did a $21.83 session cost $322.36?</h2>
+<p>It was an eight-hour build that ran from evening to before dawn: six messages from me, 36 subagents, 2,182 model requests and 2,289 tool calls. The tool I was using then read the main transcript and said $21.83. That figure was right for the main agent. It just wasn't the session.</p>
+<div class="tablewrap">
+  <table>
+    <caption>Session bf7b9a17, from the <a href="/sample-agent-cost-audit/">published sample audit</a></caption>
+    <thead><tr><th>Measure</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Cost reported from the main transcript</td><td>$21.83</td></tr>
+      <tr><td>Cost with all 36 subagent transcripts and streamed usage counted</td><td>$322.36</td></tr>
+      <tr><td>Wall time · human turns</td><td>8.4 h · 6</td></tr>
+      <tr><td>Model requests · tool calls</td><td>2,182 · 2,289</td></tr>
+      <tr><td>Requests above 120,000 tokens of context</td><td>76%</td></tr>
+      <tr><td>Peak context</td><td>450,753 tokens</td></tr>
+      <tr><td>Share of the month's $607.04 bill</td><td>53%</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="where"><span class="no">The files</span>Where does Claude Code store subagent transcripts?</h2>
+<p>Each session is a <code>.jsonl</code> file under your home folder. Subagents don't write into it. They get a folder of their own, named after the session:</p>
+<pre><code>~/.claude/projects/&lt;project&gt;/&lt;session-id&gt;.jsonl                      the main agent
+~/.claude/projects/&lt;project&gt;/&lt;session-id&gt;/subagents/agent-*.jsonl     one file per subagent
+~/.claude/projects/&lt;project&gt;/&lt;session-id&gt;/subagents/workflows/&lt;runId&gt;/  Workflow agents</code></pre>
+<p>Every subagent is a full model conversation with its own context, billed request by request like the main one. A tool that opens only <code>&lt;session-id&gt;.jsonl</code> misses all of them.</p>
+<p>To see how many a session had, count the files:</p>
+<pre><code>ls ~/.claude/projects/*/&lt;session-id&gt;/subagents/agent-*.jsonl | wc -l</code></pre>
+
+<h2 id="streamed"><span class="no">The second gap</span>Why do streamed tokens get miscounted?</h2>
+<p>Even inside one transcript, the usage numbers are easy to read wrong. Claude Code writes one assistant response as several records, one per content block (thinking, text, each tool call). Each record carries a copy of the usage, and <code>output_tokens</code> is a running count while the response streams.</p>
+<ul>
+  <li><strong>Add the records up</strong> and you count the same response several times.</li>
+  <li><strong>Take the first record</strong> and you get the count from before most of the output was written.</li>
+  <li><strong>Take the largest <code>output_tokens</code> across the response's records</strong>, once per response. That is the rule Glassbox uses, and <a href="https://github.com/aldohushi1-stack/glassbox/blob/main/test/core.test.mjs" rel="noopener">its test</a> shows a response whose records read 4, 4 and 1,800: the answer is 1,800.</li>
+</ul>
+<div class="note auditor"><span class="lbl">Still a floor</span><p>In recent Claude Code versions (from about 2.1.278), some subagent responses never get their final record written: every record has <code>stop_reason</code> null and a partial output count. No reader can recover the true number from the file. Glassbox counts those responses, labels the session cost a floor, and estimates the gap from the session's own complete responses when it has at least five to go on.</p></div>
+
+<h2 id="why-costly"><span class="no">The bill</span>Why do subagents cost so much?</h2>
+<p>Subagents are meant to save money: noisy work such as test runs and log searches stays in their context, and only a summary comes back. They cost money when they each rebuild the same context from scratch. In that session:</p>
+<ul>
+  <li>One architecture document was read by 22 agents, each copy billed in that agent's context on every request it made afterwards.</li>
+  <li>A second shared file was read across 13 agents.</li>
+  <li>The main context was never given a size, so it grew to 450,753 tokens, and $257.60 of the session (80%) was spent on requests above 120,000.</li>
+</ul>
+<p>One session, three patterns, one cause: nobody set a size on the working set.</p>
+
+<h2 id="check"><span class="no">Do this</span>How do I check my own sessions?</h2>
+<ol class="steps">
+  <li><b>Open the session with subagents included.</b> <code>npx glassbox-trace</code> opens your newest session; <code>glassbox list --last 10</code> lists recent ones and <code>glassbox open &lt;id&gt;</code> opens one. The timeline shows every subagent as its own lane, with its tokens and cost.</li>
+  <li><b>Compare the total with what you were told.</b> If the main agent is a small share of the total, the subagents are the bill.</li>
+  <li><b>Look for shared reads.</b> Glassbox flags a file read by several agents (rule <code>duplicate-subagent-read</code>). Give subagents the excerpt or a short summary they need, not the whole document.</li>
+  <li><b>Cap the main context.</b> Clear or start a new session with a summary when the task changes shape. <a href="/claude-code-cost-patterns/">The five cost patterns</a> has the arithmetic.</li>
+</ol>
+
+<h2 id="faq"><span class="no">Questions</span>Common questions</h2>
+    <div class="faq">
+      <details><summary>Are Claude Code subagents billed separately?</summary><p>Each subagent makes its own model requests with its own context, and each request is billed like the main agent's. They appear on the same bill or usage limit, but in separate transcript files.</p></details>
+      <details><summary>Why does my session cost look lower than my bill?</summary><p>The most common reason is that subagent transcripts weren't counted. The next is streamed usage read from the wrong record. Count both before looking for anything else.</p></details>
+      <details><summary>Should I stop using subagents?</summary><p>No. They keep noisy work out of the main context, which saves money. The cost comes from many subagents each reading the same large files. Hand them what they need instead.</p></details>
+      <details><summary>Does this matter on a Pro or Max plan?</summary><p>Yes. You don't see dollars, but subagent tokens count against the same usage limit, so the same waste brings the limit closer.</p></details>
+    </div>
+
+<h2 id="sources"><span class="no">Sources</span>Where these facts come from</h2>
+<ol>
+  <li><a href="/sample-agent-cost-audit/">A sample agent cost audit: $607 across 35 Claude Code sessions</a>, report prepared 12 September 2026 (the session figures).</li>
+  <li>Glassbox <a href="https://github.com/aldohushi1-stack/glassbox#why" rel="noopener">README</a> (transcript locations) and <a href="https://github.com/aldohushi1-stack/glassbox/tree/main/test" rel="noopener">test suite</a> (streamed usage and the usage floor).</li>
+  <li>Claude Code docs, <a href="https://code.claude.com/docs/en/costs" rel="noopener">Manage costs effectively</a>.</li>
+</ol>
+  </div>
+  <aside class="endcta" aria-label="Next step">
+    <p class="eyebrow">Free · 15 minutes</p>
+    <h2>Is your team's bill hiding the same thing?</h2>
+    <p>Bring one developer's counts-only file or last month's bill. I'll tell you what I see and whether a full audit is worth it.</p>
+    <div class="btns"><a class="go" href="https://cal.com/aldohushi/readout" rel="noopener" data-gc="aldo-blog-subagent-readout">Book the free readout</a><a class="alt" href="/audit/" data-gc="aldo-blog-subagent-audit">How the audit works</a></div>
+  </aside>
+</article>
+<nav class="turn" aria-label="More entries"><a rel="prev" href="/blog/six-rung-fix-case-study-aldo-today/">← Case study</a><a href="/blog/">All entries</a><a rel="next" href="/claude-code-cost-patterns/">Five cost patterns →</a></nav>
+<section class="readnext" aria-labelledby="readnext-h">
+  <h2 id="readnext-h">Read next</h2>
+  <ul><li><a href="/claude-code-cost-patterns/"><b>The five patterns behind a Claude Code bill</b><span>Oversized context, failing tools, expired caches, shared reads, huge results: how to spot and fix each.</span></a></li><li><a href="/sample-agent-cost-audit/"><b>A sample agent cost audit: $607 across 35 Claude Code sessions</b><span>My own month, section by section, with the $322.36 session in full.</span></a></li><li><a href="/redact-claude-code-session/"><b>How to redact a Claude Code session before you share it</b><span>One command, what survives, and the planted-secret test.</span></a></li></ul>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><a class="wordmark" href="/">Aldo <span>Hushi</span></a><p style="margin:8px 0 0;max-width:420px">Adelaide software developer, trying to become the best software developer in Adelaide and Australia.</p></div>
+      <ul>
+        <li><a href="/">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/blog/feed.xml">RSS</a></li>
+        <li><a href="/audit/">Agent cost audit</a></li>
+        <li><a href="https://blueprintau.com/check/" rel="noopener">Free Six-Rung Check</a></li>
+        <li><a href="mailto:hi@aldo.ltd">hi@aldo.ltd</a></li>
+        <li><button type="button" class="theme-btn" id="theme">Dark / light</button></li>
+      </ul>
+    </div>
+    <p class="fine">© 2026 Aldo Hushi, Adelaide SA. Claude and Claude Code are trademarks of Anthropic; Glassbox and the audit are independent and not affiliated with Anthropic.</p>
+  </div>
+</footer>
+<script>
+(function(){var tb=document.getElementById('theme');if(tb)tb.addEventListener('click',function(){var r=document.documentElement,cur=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),nx=cur==='dark'?'light':'dark';r.setAttribute('data-theme',nx);try{localStorage.setItem('aldo-theme',nx)}catch(e){}})})();
+</script>
+
+<script src="/assets/article.js" defer></script>
+</body>
+</html>
