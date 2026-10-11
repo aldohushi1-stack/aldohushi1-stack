@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta name="robots" content="noindex, follow">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bruno's Little Winery — How Wine Is Made</title>
+<style>
+  :root{
+    --ink:#5b4132;
+    --paper:#fdf6e3;
+    --paper2:#f7ecd2;
+    --grape:#7d5ba6;
+    --grape-dk:#5e4383;
+    --leaf:#7fa65a;
+    --leaf-dk:#5d7f3f;
+    --juice:#a34f6f;
+    --wood:#c98d5a;
+    --wood-dk:#a06a3d;
+    --sky:#cfe6e8;
+    --sun:#f2c14e;
+    --red:#d97862;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    font-family:"Comic Sans MS","Comic Neue","Chalkboard SE","Segoe Print","Bradley Hand",cursive;
+    background:var(--paper);
+    color:var(--ink);
+    display:flex; flex-direction:column; align-items:center;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  /* soft paper texture */
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:radial-gradient(#e9dcc0 1px, transparent 1.4px);
+    background-size:26px 26px; opacity:.45;
+  }
+  header{
+    width:100%; max-width:980px; z-index:2;
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:10px 16px 4px;
+  }
+  .logo{font-size:clamp(15px,2.6vw,22px); font-weight:bold; letter-spacing:.5px;}
+  .logo span{color:var(--grape);}
+  .hdr-btns{display:flex; gap:8px;}
+  button{
+    font-family:inherit; color:var(--ink); cursor:pointer;
+    border:3px solid var(--ink); border-radius:18px 22px 18px 20px/20px 18px 22px 18px;
+    background:#fff8ea; padding:8px 16px; font-size:16px; font-weight:bold;
+    box-shadow:0 3px 0 rgba(91,65,50,.35);
+    transition:transform .08s;
+  }
+  button:active{transform:translateY(3px); box-shadow:none;}
+  .btn-big{font-size:clamp(18px,3vw,26px); padding:14px 30px; background:var(--sun);}
+  .btn-green{background:#cfe3ae;}
+  .btn-guide{background:#f6d9e2;}
+
+  /* progress trail */
+  .trail{
+    display:flex; gap:6px; align-items:center; z-index:2;
+    padding:2px 10px; flex-wrap:wrap; justify-content:center;
+  }
+  .paw{
+    width:34px; height:34px; border-radius:50%;
+    border:3px solid var(--ink); background:var(--paper2);
+    display:flex; align-items:center; justify-content:center;
+    font-size:15px; font-weight:bold; position:relative; color:#b7a58e;
+  }
+  .paw.done{background:var(--sun); color:var(--ink);}
+  .paw.now{background:#cfe3ae; color:var(--ink); transform:scale(1.15);}
+  .paw.done::after{
+    content:"★"; position:absolute; top:-12px; right:-7px; font-size:14px; color:#e0a41c;
+    text-shadow:0 0 2px #fff;
+  }
+
+  main{width:100%; max-width:980px; padding:6px 12px; z-index:1;}
+  .board{
+    position:relative;
+    border:4px solid var(--ink);
+    border-radius:26px 34px 28px 36px/34px 26px 36px 28px;
+    background:linear-gradient(#eef6f0, #fdf6e3 70%);
+    box-shadow:0 6px 0 rgba(91,65,50,.25);
+    overflow:hidden;
+  }
+  .scene{display:none; width:100%;}
+  .scene.on{display:block; animation:fadein .5s;}
+  @keyframes fadein{from{opacity:0; transform:translateY(8px);} to{opacity:1;}}
+  .scene svg{display:block; width:100%; height:auto;}
+
+  .caption{
+    max-width:980px; width:100%; z-index:2;
+    display:flex; align-items:center; gap:12px;
+    padding:10px 16px 6px;
+  }
+  .bubble{
+    flex:1; background:#fff; border:3px solid var(--ink);
+    border-radius:22px 26px 24px 26px/26px 22px 26px 24px;
+    padding:10px 16px; font-size:clamp(15px,2.6vw,21px); line-height:1.35;
+    min-height:56px; display:flex; align-items:center;
+    box-shadow:0 3px 0 rgba(91,65,50,.2);
+  }
+  .bubble b{color:var(--grape);}
+  #nextBtn{display:none; background:var(--sun); font-size:20px; white-space:nowrap;}
+  #nextBtn.show{display:block; animation:wiggle 1s infinite;}
+  @keyframes wiggle{0%,100%{transform:rotate(-2deg);}50%{transform:rotate(2deg) translateY(-2px);}}
+
+  .counter{
+    position:absolute; top:12px; right:14px; z-index:3;
+    background:#fff; border:3px solid var(--ink); border-radius:999px;
+    padding:6px 14px; font-size:18px; font-weight:bold;
+    box-shadow:0 3px 0 rgba(91,65,50,.2);
+  }
+
+  footer{padding:8px 10px 16px; font-size:13px; color:#9b8468; text-align:center; z-index:2;}
+
+  /* clickable svg things */
+  .tap{cursor:pointer;}
+  .tap:hover{filter:brightness(1.06);}
+  .pop{animation:pop .35s forwards;}
+  @keyframes pop{40%{transform:scale(1.25);}100%{transform:scale(0); opacity:0;}}
+  .bob{animation:bob 3s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+  .sway{animation:sway 4s ease-in-out infinite; transform-origin:center bottom;}
+  @keyframes sway{0%,100%{transform:rotate(-1.5deg);}50%{transform:rotate(1.5deg);}}
+  .spin-slow{animation:spinslow 30s linear infinite; transform-origin:center;}
+  @keyframes spinslow{to{transform:rotate(360deg);}}
+  .float-up{animation:floatup 1.4s ease-out forwards;}
+  @keyframes floatup{to{transform:translateY(-90px); opacity:0;}}
+
+  /* professor's karaoke reader */
+  .reader{max-width:980px; width:100%; z-index:2; padding:8px 16px 0;}
+  .reader-box{
+    background:#fffdf4; border:4px solid var(--ink);
+    border-radius:22px 28px 24px 30px/28px 22px 30px 24px;
+    box-shadow:0 4px 0 rgba(91,65,50,.22);
+    padding:10px 16px 14px;
+  }
+  .reader-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:6px;}
+  .btn-read{background:var(--sun); font-size:19px; padding:9px 20px;}
+  .btn-pause{background:#f6d9e2; font-size:19px; padding:9px 20px;}
+  .btn-restart{background:#e8eef7; font-size:19px; padding:9px 14px;}
+  .reader-note{font-size:13px; color:#8a7258; line-height:1.3;}
+  .ktext{
+    font-size:clamp(21px,3.2vw,30px); line-height:1.75;
+    max-height:190px; overflow-y:auto; padding:4px 6px;
+    scroll-behavior:smooth;
+  }
+  .kw{
+    cursor:pointer; border-radius:9px; padding:0 3px; display:inline-block;
+    transition:transform .09s, background .12s, box-shadow .09s;
+  }
+  .kw:hover{background:var(--paper2);}
+  .kw.now{background:var(--sun); transform:scale(1.07); box-shadow:0 2px 0 rgba(91,65,50,.35);}
+  .kw.pressed{transform:translateY(4px) scale(.95); background:#cfe3ae; box-shadow:none;}
+
+  /* easier reading on phones */
+  @media (max-width: 640px){
+    .ktext{
+      font-size:28px; line-height:2.05;
+      max-height:45vh; padding:6px 4px;
+      word-spacing:4px;
+    }
+    .kw{padding:2px 7px; margin:2px 0; border-radius:11px;}
+    .btn-read, .btn-pause{font-size:22px; padding:12px 24px;}
+    .btn-restart{font-size:22px; padding:12px 18px;}
+    .reader{padding:8px 8px 0;}
+    .reader-box{padding:10px 10px 12px;}
+    .reader-note{font-size:14px; width:100%; order:2;}
+    .bubble{font-size:19px; line-height:1.5;}
+    .caption{padding:10px 8px 6px;}
+    #nextBtn{font-size:22px; padding:12px 22px;}
+    main{padding:6px 6px;}
+    header{padding:8px 10px 2px; flex-wrap:wrap; justify-content:center;}
+    .logo{width:100%; text-align:center;}
+    .gstep .txt{font-size:17px; line-height:1.55;}
+    .gloss, .grownup{font-size:16px; line-height:1.6;}
+    .book h2{font-size:24px;}
+  }
+
+  /* guide overlay */
+  .overlay{
+    position:fixed; inset:0; z-index:10; display:none;
+    background:rgba(91,65,50,.45);
+    align-items:center; justify-content:center; padding:14px;
+  }
+  .overlay.on{display:flex;}
+  .book{
+    background:var(--paper); border:4px solid var(--ink);
+    border-radius:24px 30px 26px 32px/30px 24px 32px 26px;
+    max-width:760px; width:100%; max-height:90vh; overflow-y:auto;
+    padding:18px 22px 26px; position:relative;
+    box-shadow:0 10px 0 rgba(60,40,25,.35);
+  }
+  .book h2{margin:4px 40px 2px 0; font-size:clamp(20px,4vw,30px); color:var(--grape-dk);}
+  .book .sub{margin:0 0 14px; font-size:15px; color:#8a7258;}
+  .closeX{
+    position:absolute; top:12px; right:12px; width:44px; height:44px;
+    border-radius:50%; font-size:20px; padding:0; background:var(--red); color:#fff;
+    border-color:var(--ink);
+  }
+  .gstep{
+    display:flex; gap:14px; align-items:center;
+    background:#fffdf4; border:3px solid var(--ink);
+    border-radius:18px 24px 20px 24px/24px 18px 24px 20px;
+    padding:10px 14px; margin:10px 0;
+  }
+  .gstep svg{width:92px; height:76px; flex:none;}
+  .gstep .txt{font-size:clamp(14px,2.4vw,18px); line-height:1.4;}
+  .gstep .txt b{color:var(--grape-dk);}
+  .gnum{
+    flex:none; width:38px; height:38px; border-radius:50%;
+    background:var(--sun); border:3px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:bold; font-size:18px;
+  }
+  .gloss{
+    background:#eef3e2; border:3px dashed var(--leaf-dk); border-radius:16px;
+    padding:10px 16px; margin-top:14px; font-size:15px; line-height:1.5;
+  }
+  .gloss b{color:var(--leaf-dk);}
+  .grownup{
+    background:#fdeef2; border:3px dashed var(--juice); border-radius:16px;
+    padding:10px 16px; margin-top:10px; font-size:15px; line-height:1.5;
+  }
+
+  /* confetti */
+  .confetti{position:fixed; top:-20px; z-index:9; font-size:0; width:12px; height:12px;
+    border:2px solid var(--ink); border-radius:3px; animation:fall linear forwards;}
+  @keyframes fall{to{transform:translateY(110vh) rotate(720deg);}}
+</style>
+<script data-goatcounter="https://blueprintau.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script></head>
+<body>
+
+<header>
+  <div class="logo">Bruno's <span>Little Winery</span></div>
+  <div class="trail" id="trail"></div>
+  <div class="hdr-btns">
+    <button class="btn-guide" id="guideBtn" title="Play guide">Guide</button>
+    <button id="soundBtn" title="Sound on/off">Sound: On</button>
+  </div>
+</header>
+
+<!-- shared hand-drawn symbols -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="wob" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5"/>
+    </filter>
+
+    <symbol id="sym-grapes" viewBox="0 0 60 74">
+      <path d="M30 14 Q31 6 36 2" fill="none" stroke="#5b4132" stroke-width="3" stroke-linecap="round"/>
+      <path d="M30 12 Q14 4 8 14 Q18 22 30 12 Z" fill="#7fa65a" stroke="#5b4132" stroke-width="2.5" stroke-linejoin="round"/>
+      <g fill="#7d5ba6" stroke="#5b4132" stroke-width="2.5">
+        <circle cx="19" cy="26" r="8"/><circle cx="41" cy="26" r="8"/><circle cx="30" cy="24" r="8"/>
+        <circle cx="24" cy="38" r="8"/><circle cx="36" cy="38" r="8"/>
+        <circle cx="30" cy="51" r="8"/>
+      </g>
+      <circle cx="27" cy="22" r="2" fill="#cbb6e2" stroke="none"/>
+      <circle cx="21" cy="36" r="2" fill="#cbb6e2" stroke="none"/>
+    </symbol>
+
+    <symbol id="sym-bear" viewBox="0 0 130 160">
+      <g stroke="#5b4132" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+        <!-- arms behind body: left raised waving, right down -->
+        <path d="M42 100 Q20 84 16 62" fill="none" stroke="#b9855c" stroke-width="13"/>
+        <path d="M42 100 Q20 84 16 62" fill="none" stroke="#5b4132" stroke-width="3" opacity="0"/>
+        <circle cx="15" cy="59" r="9" fill="#b9855c"/>
+        <path d="M90 102 Q108 114 110 128" fill="none" stroke="#b9855c" stroke-width="13"/>
+        <circle cx="111" cy="130" r="9" fill="#b9855c"/>
+        <!-- feet -->
+        <ellipse cx="48" cy="150" rx="13" ry="8" fill="#a06a3d"/>
+        <ellipse cx="82" cy="150" rx="13" ry="8" fill="#a06a3d"/>
+        <!-- body -->
+        <ellipse cx="65" cy="114" rx="32" ry="36" fill="#b9855c"/>
+        <!-- overalls -->
+        <path d="M38 106 Q65 96 92 106 L92 138 Q65 152 38 138 Z" fill="#7f9ec7"/>
+        <path d="M44 106 L48 88 M86 106 L82 88" fill="none" stroke="#7f9ec7" stroke-width="7"/>
+        <rect x="55" y="112" width="20" height="14" rx="4" fill="#9db8d8"/>
+        <!-- ears -->
+        <circle cx="42" cy="26" r="14" fill="#b9855c"/>
+        <circle cx="88" cy="26" r="14" fill="#b9855c"/>
+        <circle cx="42" cy="26" r="6.5" fill="#e8c79b" stroke="none"/>
+        <circle cx="88" cy="26" r="6.5" fill="#e8c79b" stroke="none"/>
+        <!-- head -->
+        <circle cx="65" cy="48" r="31" fill="#b9855c"/>
+        <ellipse cx="65" cy="60" rx="15" ry="11.5" fill="#e8c79b"/>
+        <ellipse cx="65" cy="54" rx="6" ry="4.5" fill="#5b4132" stroke="none"/>
+        <path d="M57 64 Q65 71 73 64" fill="none" stroke-width="3"/>
+        <circle cx="51" cy="43" r="3.6" fill="#5b4132" stroke="none"/>
+        <circle cx="79" cy="43" r="3.6" fill="#5b4132" stroke="none"/>
+        <circle cx="52.5" cy="41.5" r="1.2" fill="#fff" stroke="none"/>
+        <circle cx="80.5" cy="41.5" r="1.2" fill="#fff" stroke="none"/>
+        <path d="M44 36 Q47 33 50 35 M80 35 Q83 33 86 36" fill="none" stroke-width="2.5"/>
+      </g>
+    </symbol>
+
+    <symbol id="sym-basket" viewBox="0 0 130 90">
+      <path d="M10 30 Q65 8 120 30" fill="none" stroke="#5b4132" stroke-width="4" stroke-linecap="round"/>
+      <path d="M14 32 L26 82 Q65 92 104 82 L116 32 Q65 46 14 32 Z" fill="#c98d5a" stroke="#5b4132" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M22 46 Q65 58 108 46 M27 62 Q65 73 103 62" fill="none" stroke="#a06a3d" stroke-width="3"/>
+      <path d="M14 32 Q65 46 116 32" fill="none" stroke="#5b4132" stroke-width="3.5"/>
+    </symbol>
+
+    <symbol id="sym-jug" viewBox="0 0 80 100">
+      <path d="M30 12 L50 12 L52 26 Q72 38 70 66 Q69 92 40 92 Q11 92 10 66 Q8 38 28 26 Z"
+            fill="#e8dbc0" stroke="#5b4132" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M50 16 Q62 14 62 24 Q62 30 54 30" fill="none" stroke="#5b4132" stroke-width="3.5"/>
+      <path d="M16 60 Q40 70 64 60 L64 66 Q63 88 40 88 Q17 88 16 66 Z" fill="#a34f6f" stroke="none" opacity=".9"/>
+      <path d="M28 12 L52 12" stroke="#5b4132" stroke-width="3.5" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="sym-tank" viewBox="0 0 200 260">
+      <g stroke="#5b4132" stroke-width="4" stroke-linejoin="round">
+        <!-- legs -->
+        <path d="M45 218 L35 252 M155 218 L165 252 M100 222 L100 252" stroke-width="6" stroke-linecap="round"/>
+        <!-- body -->
+        <path d="M30 60 Q30 22 100 22 Q170 22 170 60 L170 190 Q170 224 100 224 Q30 224 30 190 Z" fill="#cfd8de"/>
+        <path d="M30 70 Q100 88 170 70 M30 180 Q100 198 170 180" fill="none" stroke="#9fb0ba" stroke-width="3.5"/>
+        <!-- hatch + airlock -->
+        <rect x="82" y="6" width="36" height="18" rx="8" fill="#9fb0ba"/>
+        <path d="M128 12 Q128 -6 146 -6 Q160 -6 160 6" fill="none" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="160" cy="8" r="9" fill="#cfe6e8"/>
+        <!-- porthole -->
+        <circle cx="100" cy="130" r="46" fill="#f4efe2"/>
+        <circle cx="100" cy="130" r="46" fill="none" stroke-width="5"/>
+        <clipPath id="portClip"><circle cx="100" cy="130" r="43"/></clipPath>
+      </g>
+    </symbol>
+
+    <symbol id="sym-barrel" viewBox="0 0 220 150">
+      <g stroke="#5b4132" stroke-width="4" stroke-linejoin="round">
+        <path d="M40 20 Q110 4 180 20 Q198 75 180 130 Q110 146 40 130 Q22 75 40 20 Z" fill="#c98d5a"/>
+        <path d="M40 20 Q52 75 40 130 M180 20 Q168 75 180 130" fill="none"/>
+        <path d="M78 12 Q64 75 78 138 M142 12 Q156 75 142 138" fill="none" stroke="#8a5a30" stroke-width="6"/>
+        <ellipse cx="40" cy="75" rx="12" ry="55" fill="#a06a3d"/>
+        <circle cx="40" cy="75" r="7" fill="#5b4132" stroke="none"/>
+      </g>
+    </symbol>
+
+    <symbol id="sym-bottle" viewBox="0 0 60 150">
+      <path d="M24 6 L36 6 L36 44 Q50 56 50 80 L50 132 Q50 144 30 144 Q10 144 10 132 L10 80 Q10 56 24 44 Z"
+            fill="#7d9c6d" fill-opacity=".55" stroke="#5b4132" stroke-width="3.5" stroke-linejoin="round"/>
+      <rect x="22" y="2" width="16" height="8" rx="3" fill="#e8c79b" stroke="#5b4132" stroke-width="3"/>
+    </symbol>
+
+    <symbol id="sym-sun" viewBox="0 0 120 120">
+      <g stroke="#5b4132" stroke-width="3">
+        <g class="spin-slow">
+          <path d="M60 6 L60 22 M60 98 L60 114 M6 60 L22 60 M98 60 L114 60 M22 22 L33 33 M87 87 L98 98 M98 22 L87 33 M33 87 L22 98" stroke="#e0a41c" stroke-width="5" stroke-linecap="round"/>
+        </g>
+        <circle cx="60" cy="60" r="26" fill="#f2c14e"/>
+        <circle cx="52" cy="57" r="2.5" fill="#5b4132" stroke="none"/>
+        <circle cx="68" cy="57" r="2.5" fill="#5b4132" stroke="none"/>
+        <path d="M53 65 Q60 71 67 65" fill="none" stroke-linecap="round"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<main>
+  <div class="board" id="board">
+    <div class="counter" id="counter" style="display:none"></div>
+<!-- SCENE 0 : TITLE -->
+<section class="scene" id="s0" style="position:relative">
+  <svg viewBox="0 0 900 480">
+    <g filter="url(#wob)">
+      <path d="M-10 340 Q200 290 420 330 T910 320 L910 490 L-10 490 Z" fill="#dfe9c8" stroke="#5b4132" stroke-width="3"/>
+      <path d="M-10 400 Q300 370 620 400 T910 390 L910 490 L-10 490 Z" fill="#e7e0ba" stroke="#5b4132" stroke-width="3"/>
+      <use href="#sym-sun" x="40" y="30" width="120" height="120"/>
+      <!-- clouds -->
+      <path d="M640 70 Q650 48 675 52 Q682 34 706 40 Q730 30 738 52 Q762 52 758 72 Z" fill="#fff" stroke="#5b4132" stroke-width="3"/>
+      <path d="M770 130 Q778 114 796 118 Q804 104 822 110 Q840 106 842 124 Q856 126 851 140 Z" fill="#fff" stroke="#5b4132" stroke-width="3"/>
+      <!-- vine row -->
+      <g class="sway">
+        <path d="M120 340 L120 250 M330 335 L330 245 M540 330 L540 240" stroke="#8a5a30" stroke-width="8" stroke-linecap="round"/>
+        <path d="M80 265 Q330 240 580 255" stroke="#8a5a30" stroke-width="4" fill="none"/>
+        <path d="M110 262 Q104 240 122 232 Q134 250 110 262 Z M300 252 Q294 230 312 222 Q324 240 300 252 Z M500 250 Q494 228 512 220 Q524 238 500 250 Z" fill="#7fa65a" stroke="#5b4132" stroke-width="2.5"/>
+        <use href="#sym-grapes" x="140" y="262" width="52" height="64"/>
+        <use href="#sym-grapes" x="360" y="252" width="52" height="64"/>
+        <use href="#sym-grapes" x="470" y="256" width="46" height="57"/>
+      </g>
+      <g class="bob"><use href="#sym-bear" x="620" y="180" width="190" height="234"/></g>
+      <text x="450" y="105" text-anchor="middle" font-size="52" font-weight="bold" fill="#5e4383" stroke="#fff" stroke-width="8" paint-order="stroke" font-family="inherit">Bruno's Little Winery</text>
+      <text x="450" y="150" text-anchor="middle" font-size="24" fill="#5b4132" stroke="#fff" stroke-width="6" paint-order="stroke" font-family="inherit">A storybook game about how wine is made</text>
+    </g>
+  </svg>
+  <div style="position:absolute;left:0;right:0;bottom:7%;display:flex;justify-content:center;gap:16px;">
+    <button class="btn-big" id="playBtn">&#9654; Play</button>
+    <button class="btn-big btn-guide" id="guideBtn2">Play Guide</button>
+  </div>
+</section>
+
+<!-- SCENE 1 : PICK -->
+<section class="scene" id="s1">
+  <svg viewBox="0 0 900 480">
+    <g filter="url(#wob)">
+      <path d="M-10 380 Q300 350 620 380 T910 370 L910 490 L-10 490 Z" fill="#e7e0ba" stroke="#5b4132" stroke-width="3"/>
+      <use href="#sym-sun" x="770" y="20" width="100" height="100"/>
+      <!-- trellis -->
+      <path d="M90 400 L90 130 M370 400 L370 125 M650 400 L650 130" stroke="#8a5a30" stroke-width="10" stroke-linecap="round"/>
+      <path d="M60 160 Q370 135 680 160 M60 250 Q370 225 680 250" stroke="#8a5a30" stroke-width="5" fill="none"/>
+      <g fill="#7fa65a" stroke="#5b4132" stroke-width="2.5">
+        <path d="M150 150 Q142 126 162 118 Q176 138 150 150 Z"/>
+        <path d="M300 142 Q292 118 312 110 Q326 130 300 142 Z"/>
+        <path d="M450 148 Q442 124 462 116 Q476 136 450 148 Z"/>
+        <path d="M580 144 Q572 120 592 112 Q606 132 580 144 Z"/>
+        <path d="M220 240 Q212 216 232 208 Q246 228 220 240 Z"/>
+        <path d="M520 236 Q512 212 532 204 Q546 224 520 236 Z"/>
+      </g>
+    </g>
+    <!-- grapes to pick (no wobble filter so clicks feel snappy) -->
+    <g id="pickField">
+      <g class="tap grape-pick" transform="translate(120,158)"><use href="#sym-grapes" width="64" height="79"/></g>
+      <g class="tap grape-pick" transform="translate(255,150)"><use href="#sym-grapes" width="64" height="79"/></g>
+      <g class="tap grape-pick" transform="translate(405,155)"><use href="#sym-grapes" width="64" height="79"/></g>
+      <g class="tap grape-pick" transform="translate(545,150)"><use href="#sym-grapes" width="64" height="79"/></g>
+      <g class="tap grape-pick" transform="translate(185,248)"><use href="#sym-grapes" width="64" height="79"/></g>
+      <g class="tap grape-pick" transform="translate(480,244)"><use href="#sym-grapes" width="64" height="79"/></g>
+    </g>
+    <g filter="url(#wob)">
+      <use href="#sym-bear" x="710" y="200" width="160" height="197"/>
+      <use id="pickBasket" href="#sym-basket" x="690" y="390" width="150" height="104"/>
+      <g id="basketGrapes"></g>
+    </g>
+  </svg>
+</section>
+
+<!-- SCENE 2 : CRUSH -->
+<section class="scene" id="s2">
+  <svg viewBox="0 0 900 480">
+    <g filter="url(#wob)">
+      <path d="M-10 400 Q300 375 620 400 T910 390 L910 490 L-10 490 Z" fill="#e7e0ba" stroke="#5b4132" stroke-width="3"/>
+      <use href="#sym-sun" x="60" y="24" width="100" height="100"/>
+    </g>
+    <!-- bear in tub -->
+    <g id="bearJump" style="transition:transform .12s">
+      <use href="#sym-bear" x="330" y="90" width="180" height="221"/>
+    </g>
+    <!-- splash layer -->
+    <g id="splashes"></g>
+    <!-- tub front -->
+    <g filter="url(#wob)">
+      <path d="M255 255 L285 430 Q420 452 555 430 L585 255 Q420 285 255 255 Z" fill="#c98d5a" stroke="#5b4132" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M255 255 Q420 285 585 255" fill="none" stroke="#5b4132" stroke-width="4"/>
+      <path d="M270 300 Q420 328 570 300 M282 360 Q420 386 558 360" stroke="#a06a3d" stroke-width="5" fill="none"/>
+      <path d="M330 262 L322 424 M420 272 L420 434 M510 262 L518 424" stroke="#a06a3d" stroke-width="3" fill="none"/>
+      <!-- grapes peeking at tub rim -->
+      <g fill="#7d5ba6" stroke="#5b4132" stroke-width="2.5">
+        <circle cx="300" cy="262" r="9"/><circle cx="330" cy="268" r="9"/><circle cx="500" cy="270" r="9"/><circle cx="535" cy="264" r="9"/>
+      </g>
+    </g>
+    <rect id="tubTap" class="tap" x="240" y="80" width="360" height="370" fill="transparent"/>
+    <!-- juice jar meter -->
+    <g filter="url(#wob)">
+      <path d="M650 300 L650 430 Q650 444 664 444 L756 444 Q770 444 770 430 L770 300" fill="#f4efe2" stroke="#5b4132" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M640 300 L780 300" stroke="#5b4132" stroke-width="4" stroke-linecap="round"/>
+      <text x="710" y="285" text-anchor="middle" font-size="19" fill="#5b4132" font-family="inherit">juice jar</text>
+    </g>
+    <rect id="crushJuice" x="654" y="440" width="112" height="0" fill="#a34f6f" opacity=".9"/>
+    <path d="M650 300 L650 430 Q650 444 664 444 L756 444 Q770 444 770 430 L770 300" fill="none" stroke="#5b4132" stroke-width="4" stroke-linejoin="round"/>
+  </svg>
+</section>
+
+<!-- SCENE 3 : PRESS -->
+<section class="scene" id="s3">
+  <svg viewBox="0 0 900 480">
+    <g filter="url(#wob)">
+      <path d="M-10 410 Q300 388 620 410 T910 400 L910 490 L-10 490 Z" fill="#e7e0ba" stroke="#5b4132" stroke-width="3"/>
+      <!-- press frame -->
+      <path d="M300 420 L300 90 M600 420 L600 90" stroke="#8a5a30" stroke-width="14" stroke-linecap="round"/>
+      <path d="M285 90 L615 90" stroke="#8a5a30" stroke-width="16" stroke-linecap="round"/>
+    </g>
+    <!-- screw + handle -->
+    <g id="screwGroup">
+      <rect id="screwShaft" x="442" y="98" width="16" height="100" fill="#9fb0ba" stroke="#5b4132" stroke-width="3"/>
+      <path id="threads" d="M442 110 L458 116 M442 128 L458 134 M442 146 L458 152 M442 164 L458 170 M442 182 L458 188" stroke="#5b4132" stroke-width="2.5"/>
+      <g id="handle" class="tap" style="transform-origin:450px 104px; transition:transform .18s">
+        <rect x="360" y="96" width="180" height="14" rx="7" fill="#c98d5a" stroke="#5b4132" stroke-width="3.5"/>
+        <circle cx="360" cy="103" r="11" fill="#d97862" stroke="#5b4132" stroke-width="3.5"/>
+        <circle cx="540" cy="103" r="11" fill="#d97862" stroke="#5b4132" stroke-width="3.5"/>
+      </g>
+      <rect id="plate" x="365" y="198" width="170" height="16" rx="5" fill="#a06a3d" stroke="#5b4132" stroke-width="3.5" style="transition:transform .25s"/>
+    </g>
+    <g filter="url(#wob)">
+      <!-- slatted basket of grapes -->
+      <path d="M360 214 L360 350 L540 350 L540 214" fill="#e3c493" stroke="#5b4132" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M392 216 L392 348 M424 216 L424 348 M456 216 L456 348 M488 216 L488 348 M516 216 L516 348" stroke="#a06a3d" stroke-width="4"/>
+      <path d="M352 240 L548 240 M352 300 L548 300" stroke="#8a5a30" stroke-width="6"/>
+      <!-- tray + spout -->
+      <path d="M330 350 L570 350 L560 378 L340 378 Z" fill="#c98d5a" stroke="#5b4132" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M560 362 L600 362 L600 374 L560 374" fill="#c98d5a" stroke="#5b4132" stroke-width="3.5"/>
+      <use href="#sym-bear" x="130" y="230" width="150" height="185"/>
+    </g>
+    <!-- drops layer -->
+    <g id="drops"></g>
+    <!-- jug catching juice -->
+    <g transform="translate(575,368)">
+      <clipPath id="jugClip"><path d="M14 30 Q4 44 5 66 Q6 90 40 90 Q74 90 75 66 Q76 44 66 30 Z"/></clipPath>
+      <g clip-path="url(#jugClip)"><rect id="jugJuice" x="0" y="90" width="80" height="0" fill="#a34f6f" opacity=".92"/></g>
+      <path d="M28 8 L52 8 L54 26 Q76 40 75 66 Q74 92 40 92 Q6 92 5 66 Q4 40 26 26 Z" fill="#e8dbc0" fill-opacity=".5" stroke="#5b4132" stroke-width="3.5" stroke-linejoin="round"/>
+    </g>
+  </svg>
+</section>
+
+<!-- SCENE 4 : FERMENT -->
+<section class="scene" id="s4">
+  <svg viewBox="0 0 900 480">
+    <g filter="url(#wob)">
+      <path d="M-10 420 L910 420 L910 490 L-10 490 Z" fill="#d8cba8" stroke="#5b4132" stroke-width="3"/>
+      <path d="M40 420 L40 40 M860 420 L860 40" stroke="#e0d4b4" stroke-width="20"/>
+      <text x="450" y="462" text-anchor="middle" font-size="22" fill="#8a7258" font-family="inherit">~ the winery shed ~</text>
+    </g>
+    <!-- tank drawn inline -->
+    <g id="tankG">
+      <g stroke="#5b4132" stroke-width="4.5" stroke-linejoin="round">
+        <path d="M310 390 L295 435 M530 390 L545 435 M420 396 L420 435" stroke-width="7" stroke-linecap="round"/>
+        <path d="M290 130 Q290 75 420 75 Q550 75 550 130 L550 340 Q550 398 420 398 Q290 398 290 340 Z" fill="#cfd8de"/>
+        <path d="M290 145 Q420 168 550 145 M290 330 Q420 353 550 330" fill="none" stroke="#9fb0ba" stroke-width="4"/>
+        <rect x="388" y="52" width="64" height="26" rx="10" fill="#9fb0ba"/>
+        <path d="M462 62 Q462 30 494 30 Q518 30 518 48" fill="none" stroke-width="6" stroke-linecap="round"/>
+        <circle id="airlockBulb" cx="519" cy="52" r="13" fill="#cfe6e8"/>
+      </g>
+      <!-- porthole -->
+      <clipPath id="portClip2"><circle cx="420" cy="245" r="62"/></clipPath>
+      <circle cx="420" cy="245" r="66" fill="#f4efe2" stroke="#5b4132" stroke-width="5"/>
+      <g clip-path="url(#portClip2)">
+        <rect id="tankJuice" x="350" y="311" width="140" height="0" fill="#a34f6f" opacity=".92"/>
+        <g id="bubbles"></g>
+      </g>
+      <circle cx="420" cy="245" r="66" fill="none" stroke="#5b4132" stroke-width="5"/>
+    </g>
+    <!-- jug to pour -->
+    <g id="pourJug" class="tap">
+      <g filter="url(#wob)">
+        <path d="M620 400 L740 400 L732 440 L628 440 Z" fill="#c98d5a" stroke="#5b4132" stroke-width="4"/>
+        <use href="#sym-jug" x="640" y="305" width="80" height="100"/>
+      </g>
+      <text x="682" y="290" text-anchor="middle" font-size="19" fill="#5e4383" font-weight="bold" font-family="inherit" class="bob" style="display:inline-block">tap me!</text>
+    </g>
+    <g filter="url(#wob)">
+      <use href="#sym-bear" x="120" y="230" width="150" height="185"/>
+    </g>
+  </svg>
+</section>
+
+<!-- SCENE 5 : BARREL NAP -->
+<section class="scene" id="s5">
+  <svg viewBox="0 0 900 480">
+    <g filter="url(#wob)">
+      <rect x="-10" y="-10" width="920" height="500" fill="#e9ddc4"/>
+      <!-- stone arch -->
+      <path d="M60 480 L60 190 Q450 40 840 190 L840 480" fill="none" stroke="#b7a58e" stroke-width="26"/>
+      <path d="M-10 440 L910 440 L910 490 L-10 490 Z" fill="#d8cba8" stroke="#5b4132" stroke-width="3"/>
+      <!-- moon window -->
+      <circle cx="450" cy="130" r="52" fill="#3f4d6b" stroke="#5b4132" stroke-width="5"/>
+      <path d="M470 100 Q446 130 470 160 Q436 152 436 130 Q436 108 470 100 Z" fill="#f2e6b8" stroke="none"/>
+      <circle cx="425" cy="118" r="3" fill="#f2e6b8"/><circle cx="478" cy="140" r="2.5" fill="#f2e6b8"/>
+      <!-- rack -->
+      <path d="M260 440 L330 360 M400 440 L330 360 M530 440 L600 360 M670 440 L600 360" stroke="#8a5a30" stroke-width="10" stroke-linecap="round"/>
+    </g>
+    <g id="barrelTap" class="tap">
+      <use href="#sym-barrel" x="290" y="250" width="350" height="238" filter="url(#wob)"/>
+    </g>
+    <!-- season badge -->
+    <g id="seasonBadge" transform="translate(720,90)">
+      <circle r="46" cx="0" cy="0" fill="#fffdf4" stroke="#5b4132" stroke-width="4"/>
+      <g id="sea0"><path d="M0 -20 Q12 -10 6 2 Q18 0 16 14 Q4 20 0 10 Q-4 20 -16 14 Q-18 0 -6 2 Q-12 -10 0 -20 Z" fill="#f2a7c3" stroke="#5b4132" stroke-width="3"/><circle cx="0" cy="0" r="7" fill="#f2c14e" stroke="#5b4132" stroke-width="2.5"/><text y="36" text-anchor="middle" font-size="14" fill="#5b4132" font-family="inherit">spring</text></g>
+      <g id="sea1" style="display:none"><circle r="14" fill="#f2c14e" stroke="#5b4132" stroke-width="3"/><path d="M0 -30 L0 -20 M0 20 L0 30 M-30 0 L-20 0 M20 0 L30 0 M-21 -21 L-14 -14 M14 14 L21 21 M21 -21 L14 -14 M-14 14 L-21 21" stroke="#e0a41c" stroke-width="4" stroke-linecap="round"/><text y="36" text-anchor="middle" font-size="14" fill="#5b4132" font-family="inherit">summer</text></g>
+      <g id="sea2" style="display:none"><path d="M0 -22 Q16 -12 14 6 Q8 20 0 22 Q-8 20 -14 6 Q-16 -12 0 -22 Z" fill="#e08f4f" stroke="#5b4132" stroke-width="3"/><path d="M0 -18 L0 18 M0 -4 L9 -12 M0 4 L-9 -4" stroke="#8a5a30" stroke-width="2.5"/><text y="36" text-anchor="middle" font-size="14" fill="#5b4132" font-family="inherit">autumn</text></g>
+      <g id="sea3" style="display:none"><path d="M0 -22 L0 22 M-19 -11 L19 11 M19 -11 L-19 11 M0 -22 L-5 -15 M0 -22 L5 -15 M0 22 L-5 15 M0 22 L5 15" stroke="#7fb2c9" stroke-width="4" stroke-linecap="round"/><text y="36" text-anchor="middle" font-size="14" fill="#5b4132" font-family="inherit">winter</text></g>
+    </g>
+    <g id="zzz"></g>
+    <g filter="url(#wob)">
+      <use href="#sym-bear" x="110" y="240" width="150" height="185"/>
+    </g>
+  </svg>
+</section>
+
+<!-- SCENE 6 : BOTTLE -->
+<section class="scene" id="s6">
+  <svg viewBox="0 0 900 480">
+    <g filter="url(#wob)">
+      <path d="M-10 420 L910 420 L910 490 L-10 490 Z" fill="#d8cba8" stroke="#5b4132" stroke-width="3"/>
+      <!-- small tank with spigot -->
+      <path d="M90 380 L80 425 M230 380 L240 425" stroke="#5b4132" stroke-width="7" stroke-linecap="round"/>
+      <path d="M75 160 Q75 120 160 120 Q245 120 245 160 L245 340 Q245 388 160 388 Q75 388 75 340 Z" fill="#cfd8de" stroke="#5b4132" stroke-width="4.5"/>
+      <path d="M245 250 L285 250 L285 268 L262 268" fill="#9fb0ba" stroke="#5b4132" stroke-width="4"/>
+      <circle cx="285" cy="240" r="9" fill="#d97862" stroke="#5b4132" stroke-width="3.5"/>
+      <!-- bear behind the table -->
+      <use href="#sym-bear" x="755" y="248" width="130" height="160"/>
+      <!-- table -->
+      <path d="M320 400 L860 400 L850 425 L330 425 Z" fill="#c98d5a" stroke="#5b4132" stroke-width="4"/>
+      <path d="M350 425 L350 470 M830 425 L830 470" stroke="#8a5a30" stroke-width="10" stroke-linecap="round"/>
+    </g>
+    <clipPath id="bclip"><path d="M24 8 L36 8 L36 44 Q50 56 50 80 L50 132 Q50 142 30 142 Q10 142 10 80 Q10 56 24 44 Z"/></clipPath>
+    <g id="bottleRow"></g>
+  </svg>
+</section>
+
+<!-- SCENE 7 : HOORAY -->
+<section class="scene" id="s7" style="position:relative">
+  <svg viewBox="0 0 900 480">
+    <g filter="url(#wob)">
+      <path d="M-10 360 Q300 330 620 360 T910 350 L910 490 L-10 490 Z" fill="#e7e0ba" stroke="#5b4132" stroke-width="3"/>
+      <use href="#sym-sun" x="60" y="26" width="110" height="110"/>
+      <text x="450" y="100" text-anchor="middle" font-size="46" font-weight="bold" fill="#5e4383" stroke="#fff" stroke-width="8" paint-order="stroke" font-family="inherit">Hooray! You made wine!</text>
+      <text x="450" y="142" text-anchor="middle" font-size="22" fill="#5b4132" stroke="#fff" stroke-width="6" paint-order="stroke" font-family="inherit">(Wine is for grown-ups. Bruno gets grape juice!)</text>
+      <g class="bob"><use href="#sym-bear" x="380" y="170" width="180" height="221"/></g>
+      <use href="#sym-bottle" x="300" y="250" width="54" height="135"/>
+      <use href="#sym-bottle" x="248" y="262" width="48" height="120"/>
+      <!-- juice cup -->
+      <path d="M600 320 L648 320 L640 380 L608 380 Z" fill="#c9a0dc" stroke="#5b4132" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M604 334 L644 334" stroke="#a34f6f" stroke-width="8"/>
+      <path d="M636 316 Q640 296 626 292" fill="none" stroke="#5b4132" stroke-width="3.5"/>
+      <g fill="#f2c14e" stroke="#5b4132" stroke-width="2.5">
+        <path d="M200 180 L207 196 L224 198 L211 209 L215 226 L200 216 L185 226 L189 209 L176 198 L193 196 Z"/>
+        <path d="M700 190 L707 206 L724 208 L711 219 L715 236 L700 226 L685 236 L689 219 L676 208 L693 206 Z"/>
+        <path d="M760 300 L765 312 L778 313 L768 322 L771 335 L760 327 L749 335 L752 322 L742 313 L755 312 Z"/>
+      </g>
+    </g>
+  </svg>
+  <div style="position:absolute;left:0;right:0;bottom:6%;display:flex;justify-content:center;gap:16px;">
+    <button class="btn-big btn-green" id="againBtn">Play again</button>
+    <button class="btn-big btn-guide" id="guideBtn3">Play Guide</button>
+  </div>
+</section>
+  </div>
+</main>
+
+<div class="reader">
+  <div class="reader-box">
+    <div class="reader-head">
+      <button class="btn-read" id="readBtn">&#9654; Read to me</button>
+      <button class="btn-pause" id="pauseBtn" style="display:none">&#10073;&#10073; Pause</button>
+      <button class="btn-restart" id="restartBtn" title="Read again from the start">&#8634;</button>
+      <div class="reader-note"><b>Professor Bruno reads aloud.</b><br>Follow the glowing words &mdash; or tap any word to play it, like a piano key!</div>
+    </div>
+    <div class="ktext" id="ktext"></div>
+  </div>
+</div>
+
+<div class="caption">
+  <div class="bubble"><span id="bubble"></span></div>
+  <button id="nextBtn">Next &rarr;</button>
+</div>
+
+<footer>A hand-drawn storybook game about how grown-ups make wine from grapes. Little bears drink grape juice!</footer>
+
+<div class="overlay" id="guideOverlay">
+  <div class="book">
+    <button class="closeX" id="closeGuide">&times;</button>
+    <h2>Bruno's Play Guide</h2>
+    <p class="sub">How grapes become wine, in six little steps. This is how to play, too!</p>
+
+    <div class="gstep">
+      <div class="gnum">1</div>
+      <svg viewBox="0 0 120 100"><use href="#sym-grapes" x="10" y="8" width="55" height="68"/><use href="#sym-basket" x="55" y="45" width="60" height="42"/></svg>
+      <div class="txt"><b>Pick the grapes.</b> Grapes grow on vines in the sunshine. When they are sweet and ripe, tap every bunch to pop it into the basket.</div>
+    </div>
+
+    <div class="gstep">
+      <div class="gnum">2</div>
+      <svg viewBox="0 0 120 100"><path d="M20 40 L30 88 Q60 96 90 88 L100 40 Q60 52 20 40 Z" fill="#c98d5a" stroke="#5b4132" stroke-width="3"/><g fill="#7d5ba6" stroke="#5b4132" stroke-width="2"><circle cx="45" cy="42" r="6"/><circle cx="60" cy="45" r="6"/><circle cx="76" cy="42" r="6"/></g><path d="M50 20 Q60 8 70 20 M40 28 Q38 20 44 16 M80 28 Q82 20 76 16" fill="none" stroke="#a34f6f" stroke-width="3" stroke-linecap="round"/></svg>
+      <div class="txt"><b>Squish, squish!</b> Tap the big tub and Bruno stomps the grapes into mushy juice. Winemakers call this juicy mush the <b>must</b>.</div>
+    </div>
+
+    <div class="gstep">
+      <div class="gnum">3</div>
+      <svg viewBox="0 0 120 100"><path d="M30 90 L30 15 M90 90 L90 15 M25 15 L95 15" stroke="#8a5a30" stroke-width="6" stroke-linecap="round" fill="none"/><rect x="55" y="18" width="10" height="25" fill="#9fb0ba" stroke="#5b4132" stroke-width="2"/><rect x="38" y="43" width="44" height="8" fill="#a06a3d" stroke="#5b4132" stroke-width="2"/><path d="M38 51 L38 80 L82 80 L82 51" fill="#e3c493" stroke="#5b4132" stroke-width="3"/><path d="M50 52 L50 79 M62 52 L62 79 M74 52 L74 79" stroke="#a06a3d" stroke-width="2.5"/></svg>
+      <div class="txt"><b>Press it.</b> Turn the handle and the <b>press</b> gives the grapes a big gentle hug, so every last drop of juice runs out into the jug.</div>
+    </div>
+
+    <div class="gstep">
+      <div class="gnum">4</div>
+      <svg viewBox="0 0 120 100"><use href="#sym-tank" x="25" y="8" width="70" height="91"/><circle cx="60" cy="52" r="15" fill="#a34f6f" opacity=".85"/><circle cx="55" cy="48" r="3" fill="#fff" opacity=".8"/><circle cx="64" cy="55" r="2.5" fill="#fff" opacity=".8"/></svg>
+      <div class="txt"><b>Bubble time!</b> The juice rests in a big <b>tank</b>. Tiny helpers called <b>yeast</b> eat the sugar and burp little bubbles. Slowly, the juice turns into wine. Pop the bubbles as they rise!</div>
+    </div>
+
+    <div class="gstep">
+      <div class="gnum">5</div>
+      <svg viewBox="0 0 120 100"><use href="#sym-barrel" x="10" y="18" width="100" height="68"/><text x="88" y="24" font-size="16" fill="#7d5ba6" font-weight="bold">z</text><text x="98" y="16" font-size="20" fill="#7d5ba6" font-weight="bold">Z</text></svg>
+      <div class="txt"><b>A long nap.</b> The young wine sleeps in wooden <b>barrels</b> in a cool <b>cellar</b> — through spring, summer, autumn and winter. Pat the barrel once for each season. Shhh!</div>
+    </div>
+
+    <div class="gstep">
+      <div class="gnum">6</div>
+      <svg viewBox="0 0 120 100"><use href="#sym-bottle" x="20" y="8" width="34" height="85"/><use href="#sym-bottle" x="55" y="8" width="34" height="85"/><path d="M95 20 L99 30 L109 31 L101 38 L104 48 L95 42 L86 48 L89 38 L81 31 L91 30 Z" fill="#f2c14e" stroke="#5b4132" stroke-width="2"/></svg>
+      <div class="txt"><b>Pop the corks in!</b> Tap each <b>bottle</b> to fill it and push in a cork. All done — you are a little winemaker!</div>
+    </div>
+
+    <div class="grownup"><b>For little bears:</b> wine is a special drink for grown-ups only. Bruno celebrates with a big cup of grape juice — it is made from the very same grapes!</div>
+
+    <div class="gloss"><b>Words to know</b><br>
+      <b>Must</b> — squished grapes and juice, all mushy together.<br>
+      <b>Press</b> — a machine that hugs the grapes to squeeze out juice.<br>
+      <b>Yeast</b> — tiny helpers, too small to see, that turn sweet juice into wine.<br>
+      <b>Ferment</b> — the bubbly magic the yeast does inside the tank.<br>
+      <b>Cellar</b> — a cool, quiet room where wine naps in barrels.<br>
+      <b>Cork</b> — the little stopper that keeps the wine safe in its bottle.
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var SVG = "http://www.w3.org/2000/svg";
+  var $ = function(id){ return document.getElementById(id); };
+  var muted = false, audioCtx = null;
+
+  // tiny hand-made sounds
+  function beep(freq, dur, type, vol){
+    if(muted) return;
+    try{
+      audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)();
+      var o = audioCtx.createOscillator(), g = audioCtx.createGain();
+      o.type = type||"sine"; o.frequency.value = freq;
+      g.gain.setValueAtTime(vol||0.12, audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime+(dur||0.15));
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(); o.stop(audioCtx.currentTime+(dur||0.15));
+    }catch(e){}
+  }
+  function chime(){ [523,659,784].forEach(function(f,i){ setTimeout(function(){beep(f,0.25,"triangle",0.14);}, i*140); }); }
+
+  // extra keyframes
+  var st = document.createElement("style");
+  st.textContent = "@keyframes dropfall{to{transform:translateY(46px);opacity:.15}}"+
+    "@keyframes bubbleup{to{transform:translateY(-100px)}}"+
+    "@keyframes zfloat{to{transform:translateY(-70px);opacity:0}}";
+  document.head.appendChild(st);
+
+  // ---- trail ----
+  var stepNames = ["Pick","Squish","Press","Bubble","Nap","Bottle"];
+  var trail = $("trail");
+  stepNames.forEach(function(n,i){
+    var d = document.createElement("div");
+    d.className = "paw"; d.id = "paw"+(i+1); d.textContent = (i+1); d.title = n;
+    trail.appendChild(d);
+  });
+
+  var narr = {
+    0:"Hello! I am <b>Bruno</b>. Today we are making wine from grapes, step by step. Press <b>Play</b>!",
+    1:"Autumn is here and the grapes are <b>ripe</b>! Tap every bunch of grapes to pick them into the basket.",
+    2:"Squish, squish! Tap the <b>tub</b> again and again to help Bruno stomp the grapes into mushy <b>must</b>.",
+    3:"Now the <b>press</b> hugs the grapes. Tap the <b>handle</b> to squeeze the juice into the jug!",
+    4:"Carry the juice to the big <b>tank</b>. Tap the jug to pour it in!",
+    5:"Shhh... the young wine is <b>napping</b> in its barrel. Pat the barrel once for each season.",
+    6:"Nearly done! Tap each <b>bottle</b> to fill it up and pop in a cork.",
+    7:"You did every step! Bruno is so proud. Cheers — with grape juice!"
+  };
+  var praise = {
+    1:"What a good picker! The basket is full of sweet grapes.",
+    2:"Squishy work, well done! The tub is full of grape must.",
+    3:"All squeezed! Look at that lovely jug of juice.",
+    4:"Pop pop pop! The yeast turned the juice into young wine.",
+    5:"A whole year of napping — the wine is ready!",
+    6:"Four bottles, corked and done!"
+  };
+
+  var cur = 0, busy = false;
+  function setBubble(html){ $("bubble").innerHTML = html; }
+  function setCounter(txt){ var c=$("counter"); if(txt===null){c.style.display="none";} else {c.style.display="block"; c.textContent=txt;} }
+  function show(n){
+    cur = n; busy = false;
+    for(var i=0;i<=7;i++){ var s=$("s"+i); if(s) s.classList.toggle("on", i===n); }
+    $("nextBtn").classList.remove("show");
+    setBubble(narr[n]); setCounter(null);
+    loadScript(n);
+    stepNames.forEach(function(_,i){
+      var p = $("paw"+(i+1));
+      p.classList.toggle("now", n===i+1);
+      p.classList.toggle("done", n>i+1 || (n===7));
+    });
+    if(n===1) initPick();
+    if(n===2) initCrush();
+    if(n===3) initPress();
+    if(n===4) initFerment();
+    if(n===5) initBarrel();
+    if(n===6) initBottle();
+    if(n===7) celebrate();
+  }
+  function done(step){
+    $("paw"+step).classList.add("done");
+    setBubble(praise[step]+" Press <b>Next</b>!");
+    $("nextBtn").classList.add("show");
+    chime();
+  }
+  $("nextBtn").addEventListener("click", function(){ show(cur+1); });
+
+  // ---- scene 1: pick ----
+  var pickInit = false;
+  function initPick(){
+    setCounter("0 / 6");
+    if(pickInit) return; pickInit = true;
+    var picked = 0;
+    var clusters = document.querySelectorAll("#pickField .grape-pick");
+    clusters.forEach(function(c){
+      c.addEventListener("click", function(){
+        if(c.dataset.got) return;
+        c.dataset.got = "1";
+        c.classList.add("pop");
+        picked++;
+        setCounter(picked+" / 6");
+        beep(600+picked*60, 0.12, "sine");
+        var u = document.createElementNS(SVG,"use");
+        u.setAttribute("href","#sym-grapes");
+        u.setAttribute("x", 700+((picked-1)%3)*36);
+        u.setAttribute("y", 380 - Math.floor((picked-1)/3)*14);
+        u.setAttribute("width","40"); u.setAttribute("height","49");
+        $("basketGrapes").appendChild(u);
+        if(picked===6) setTimeout(function(){ done(1); }, 500);
+      });
+    });
+  }
+
+  // ---- scene 2: crush ----
+  var crushInit = false;
+  function initCrush(){
+    setCounter("0 / 8");
+    if(crushInit) return; crushInit = true;
+    var taps = 0, NEED = 8;
+    $("tubTap").addEventListener("click", function(evt){
+      if(taps>=NEED) return;
+      taps++;
+      setCounter(Math.min(taps,NEED)+" / "+NEED);
+      var b = $("bearJump");
+      b.style.transform = "translateY(-26px)";
+      setTimeout(function(){ b.style.transform = "translateY(0)"; }, 130);
+      beep(200+Math.random()*80, 0.1, "square", 0.08);
+      // splashes
+      for(var i=0;i<5;i++){
+        var c = document.createElementNS(SVG,"circle");
+        c.setAttribute("cx", 330+Math.random()*180);
+        c.setAttribute("cy", 250+Math.random()*15);
+        c.setAttribute("r", 4+Math.random()*5);
+        c.setAttribute("fill", "#a34f6f");
+        c.style.animation = "floatup "+(0.6+Math.random()*0.5)+"s ease-out forwards";
+        $("splashes").appendChild(c);
+        (function(cc){ setTimeout(function(){ cc.remove(); }, 1200); })(c);
+      }
+      var h = Math.round(136*taps/NEED);
+      var j = $("crushJuice");
+      j.setAttribute("y", 440-h); j.setAttribute("height", h);
+      if(taps===NEED) setTimeout(function(){ done(2); }, 500);
+    });
+  }
+
+  // ---- scene 3: press ----
+  var pressInit = false;
+  function initPress(){
+    setCounter("0 / 6");
+    if(pressInit) return; pressInit = true;
+    var taps = 0, NEED = 6;
+    $("handle").addEventListener("click", function(){
+      if(taps>=NEED) return;
+      taps++;
+      setCounter(taps+" / "+NEED);
+      beep(320, 0.12, "triangle");
+      var hd = $("handle");
+      hd.style.transform = "rotate("+(taps%2? -14 : 14)+"deg)";
+      setTimeout(function(){ hd.style.transform = "rotate(0deg)"; }, 170);
+      $("plate").style.transform = "translateY("+(taps*9)+"px)";
+      $("screwShaft").setAttribute("height", 100+taps*9);
+      // drops from spout into jug
+      for(var i=0;i<3;i++){
+        var c = document.createElementNS(SVG,"circle");
+        c.setAttribute("cx", 596+Math.random()*10);
+        c.setAttribute("cy", 378);
+        c.setAttribute("r", 4);
+        c.setAttribute("fill", "#a34f6f");
+        c.style.animation = "dropfall "+(0.35+i*0.12)+"s ease-in forwards";
+        $("drops").appendChild(c);
+        (function(cc){ setTimeout(function(){ cc.remove(); }, 800); })(c);
+      }
+      var h = Math.round(58*taps/NEED);
+      var j = $("jugJuice");
+      j.setAttribute("y", 90-h); j.setAttribute("height", h);
+      if(taps===NEED) setTimeout(function(){ done(3); }, 600);
+    });
+  }
+
+  // ---- scene 4: ferment ----
+  var fermentInit = false, bubbleTimer = null;
+  function initFerment(){
+    setCounter(null);
+    if(fermentInit) return; fermentInit = true;
+    var popped = 0, NEED = 8, poured = false;
+    $("pourJug").addEventListener("click", function(){
+      if(poured) return; poured = true;
+      beep(500,0.2,"sine"); beep(400,0.3,"sine");
+      $("pourJug").style.display = "none";
+      // fill tank porthole
+      var t = 0, tj = $("tankJuice");
+      var iv = setInterval(function(){
+        t += 0.05;
+        var h = Math.round(100*Math.min(t,1));
+        tj.setAttribute("y", 311-h); tj.setAttribute("height", h);
+        if(t>=1){
+          clearInterval(iv);
+          setBubble("Tiny <b>yeast</b> helpers are eating the sugar and burping bubbles! <b>Pop 8 bubbles!</b>");
+          setCounter("0 / "+NEED);
+          startBubbles();
+        }
+      }, 60);
+    });
+    function startBubbles(){
+      bubbleTimer = setInterval(function(){
+        if(cur!==4){ clearInterval(bubbleTimer); return; }
+        var c = document.createElementNS(SVG,"circle");
+        c.setAttribute("cx", 378+Math.random()*84);
+        c.setAttribute("cy", 300);
+        c.setAttribute("r", 6+Math.random()*6);
+        c.setAttribute("fill", "#ecd6e2");
+        c.setAttribute("stroke", "#5b4132");
+        c.setAttribute("stroke-width", "2.5");
+        c.setAttribute("class", "tap");
+        c.style.animation = "bubbleup "+(2.6+Math.random()*1.2)+"s linear forwards";
+        c.addEventListener("click", function(){
+          if(c.dataset.gone) return; c.dataset.gone="1";
+          beep(700+Math.random()*300, 0.09, "sine", 0.15);
+          c.remove();
+          popped++;
+          setCounter(Math.min(popped,NEED)+" / "+NEED);
+          if(popped===NEED){
+            clearInterval(bubbleTimer);
+            document.querySelectorAll("#bubbles circle").forEach(function(b){ b.remove(); });
+            setTimeout(function(){ done(4); }, 400);
+          }
+        });
+        $("bubbles").appendChild(c);
+        (function(cc){ setTimeout(function(){ if(!cc.dataset.gone) cc.remove(); }, 4200); })(c);
+        // airlock blip
+        var a = $("airlockBulb");
+        a.setAttribute("fill", "#f0e2f0");
+        setTimeout(function(){ a.setAttribute("fill", "#cfe6e8"); }, 300);
+      }, 750);
+    }
+  }
+
+  // ---- scene 5: barrel ----
+  var barrelInit = false;
+  function initBarrel(){
+    setCounter("0 / 4 seasons");
+    if(barrelInit) return; barrelInit = true;
+    var taps = 0, NEED = 4;
+    $("barrelTap").addEventListener("click", function(){
+      if(taps>=NEED) return;
+      taps++;
+      setCounter(taps+" / "+NEED+" seasons");
+      beep(180, 0.2, "sine", 0.1);
+      // wiggle
+      var bt = $("barrelTap");
+      bt.style.transition = "transform .15s";
+      bt.style.transform = "rotate(1.5deg)";
+      setTimeout(function(){ bt.style.transform = "rotate(0)"; }, 160);
+      // Zzz
+      var t = document.createElementNS(SVG,"text");
+      t.textContent = "Z z z";
+      t.setAttribute("x", 400+Math.random()*120);
+      t.setAttribute("y", 250);
+      t.setAttribute("font-size", "26");
+      t.setAttribute("fill", "#7d5ba6");
+      t.setAttribute("font-weight", "bold");
+      t.setAttribute("font-family", "inherit");
+      t.style.animation = "zfloat 1.4s ease-out forwards";
+      $("zzz").appendChild(t);
+      setTimeout(function(){ t.remove(); }, 1500);
+      // season badge
+      for(var i=0;i<4;i++) $("sea"+i).style.display = (i===Math.min(taps,3))? "" : "none";
+      if(taps===NEED) setTimeout(function(){ done(5); }, 700);
+    });
+  }
+
+  // ---- scene 6: bottles ----
+  var bottleInit = false;
+  function initBottle(){
+    setCounter("0 / 4");
+    if(bottleInit) return; bottleInit = true;
+    var filled = 0, NEED = 4;
+    var row = $("bottleRow");
+    var xs = [370, 480, 590, 700];
+    xs.forEach(function(x){
+      var g = document.createElementNS(SVG,"g");
+      g.setAttribute("transform", "translate("+x+",256)");
+      g.setAttribute("class", "tap");
+      g.innerHTML =
+        '<g clip-path="url(#bclip)"><rect class="bj" x="8" y="142" width="44" height="0" fill="#a34f6f" opacity=".92"/></g>'+
+        '<path d="M24 8 L36 8 L36 44 Q50 56 50 80 L50 132 Q50 142 30 142 Q10 142 10 80 Q10 56 24 44 Z" fill="#7d9c6d" fill-opacity=".45" stroke="#5b4132" stroke-width="3.5" stroke-linejoin="round"/>'+
+        '<rect class="ck" x="22" y="0" width="16" height="12" rx="3" fill="#e8c79b" stroke="#5b4132" stroke-width="3" style="display:none"/>';
+      row.appendChild(g);
+      g.addEventListener("click", function(){
+        if(g.dataset.full) return; g.dataset.full = "1";
+        beep(440,0.15,"sine"); setTimeout(function(){ beep(660,0.15,"sine"); }, 140);
+        var r = g.querySelector(".bj");
+        var t = 0;
+        var iv = setInterval(function(){
+          t += 0.08;
+          var h = Math.round(92*Math.min(t,1));
+          r.setAttribute("y", 142-h); r.setAttribute("height", h);
+          if(t>=1){
+            clearInterval(iv);
+            g.querySelector(".ck").style.display = "";
+            beep(880,0.12,"triangle",0.16);
+            filled++;
+            setCounter(filled+" / "+NEED);
+            if(filled===NEED) setTimeout(function(){ done(6); }, 500);
+          }
+        }, 50);
+      });
+    });
+  }
+
+  // ---- celebrate ----
+  function celebrate(){
+    chime(); setTimeout(chime, 500);
+    var colors = ["#f2c14e","#7d5ba6","#7fa65a","#d97862","#7f9ec7"];
+    for(var i=0;i<40;i++){
+      var d = document.createElement("div");
+      d.className = "confetti";
+      d.style.left = (Math.random()*100)+"vw";
+      d.style.background = colors[i%colors.length];
+      d.style.animationDuration = (2+Math.random()*2.5)+"s";
+      d.style.animationDelay = (Math.random()*1.2)+"s";
+      document.body.appendChild(d);
+      (function(dd){ setTimeout(function(){ dd.remove(); }, 6000); })(d);
+    }
+  }
+
+  // ---- guide + buttons ----
+  function openGuide(){ $("guideOverlay").classList.add("on"); }
+  $("guideBtn").addEventListener("click", openGuide);
+  $("guideBtn2").addEventListener("click", openGuide);
+  $("guideBtn3").addEventListener("click", openGuide);
+  $("closeGuide").addEventListener("click", function(){ $("guideOverlay").classList.remove("on"); });
+  $("guideOverlay").addEventListener("click", function(e){ if(e.target===this) this.classList.remove("on"); });
+  $("playBtn").addEventListener("click", function(){ beep(523,0.15,"triangle"); show(1); });
+  $("againBtn").addEventListener("click", function(){ location.reload(); });
+  $("soundBtn").addEventListener("click", function(){
+    muted = !muted;
+    this.textContent = muted? "Sound: Off" : "Sound: On";
+    if(!muted) beep(660,0.12,"sine");
+  });
+
+  // ================= Professor Bruno's karaoke reader =================
+  var SCRIPTS = {
+    0:"Good afternoon, dear friend. I am Professor Bruno: bear of letters, scholar of grapes, and your guide for today. Together we shall discover how humble grapes become wine, by way of a craft older than castles. Roll up your sleeves, keep your paws clean, and press Play. Onwards!",
+    1:"Behold the vineyard, resplendent in the autumn sunshine. Each grape is a tiny parcel of sweetness, ripened to absolute perfection. The discerning winemaker, which is to say you, picks only the very finest bunches. This grand gathering has a rather elegant name: the harvest. Tap each bunch smartly, and into the basket it goes.",
+    2:"Now for a most undignified yet entirely essential business: the crushing. We tread upon the grapes until they surrender their juice, producing a splendid purple mush the experts call must. A curious word, must. Do remember it, for it shall impress absolutely everyone at dinner. Tap the tub with vigour!",
+    3:"Ah, the press: a marvellous contraption of screw and sturdy timber. Turn the handle, and it embraces the grapes most firmly, persuading every last drop of juice to depart. Nothing whatsoever is wasted. Efficiency, my dear, is the hallmark of a truly civilised winery. To the handle!",
+    4:"And now, the science! Within this gleaming tank live invisible little chaps called yeast, who devour the sugar and, if you will kindly pardon them, burp bubbles of gas. This magnificent transformation is called fermentation, the very heart of winemaking. Pour in the juice, then pop the bubbles as they rise. Marvellous!",
+    5:"Patience now, for genius simply cannot be hurried. The young wine retires to an oak barrel in the cool, dark cellar, where it naps through spring, summer, autumn and winter, growing smoother and wiser with every season. Rather like myself, I daresay. Pat the barrel gently, once for each season. Shhh.",
+    6:"The grand finale! We pour our creation into bottles and seal each one with a cork. Pop! Properly bottled, a fine wine may slumber peacefully for decades. Tap each bottle, if you please, and do mind the corks; they are notoriously enthusiastic little fellows.",
+    7:"Bravo! Positively magnificent! You have mastered the six noble steps of winemaking: harvest, crush, press, fermentation, barrel and bottle. I hereby declare you an honorary winemaker, with full ceremonial honours. And remember: wine is strictly for the grown-ups. We scholars celebrate with grape juice. Cheers!"
+  };
+
+  var synth = window.speechSynthesis || null;
+  var gbVoice = null;
+  function pickVoice(){
+    if(!synth) return;
+    var vs = synth.getVoices() || [];
+    var prefer = ["Daniel","George","Arthur","UK English Male","Google UK English Male","Ryan","Thomas"];
+    gbVoice = null;
+    for(var i=0;i<prefer.length && !gbVoice;i++){
+      vs.forEach(function(v){ if(!gbVoice && v.name.indexOf(prefer[i])>-1 && (v.lang||"").indexOf("en")===0) gbVoice = v; });
+    }
+    if(!gbVoice) vs.forEach(function(v){ if(!gbVoice && (v.lang||"").replace("_","-").toLowerCase()==="en-gb") gbVoice = v; });
+    if(!gbVoice) vs.forEach(function(v){ if(!gbVoice && (v.lang||"").indexOf("en")===0) gbVoice = v; });
+  }
+  if(synth){ pickVoice(); if(synth.onvoiceschanged!==undefined) synth.onvoiceschanged = pickVoice; }
+  function hasVoice(){ if(!synth) return false; if(!gbVoice) pickVoice(); return !!gbVoice; }
+
+  // ===== Pre-recorded narration: Professor Bruno speaks with the same
+  // neural British voice on every device (files in brunos-audio/).
+  var AUDIO = {0:{src:"p1-0.mp3",dur:19.3,starts:[0.0, 0.27, 1.08, 1.36, 2.28, 2.38, 2.55, 3.09, 3.96, 4.23, 4.39, 5.1, 5.53, 5.69, 6.34, 6.56, 6.83, 7.15, 7.37, 8.24, 8.73, 8.89, 9.21, 9.7, 9.92, 10.3, 10.68, 11.06, 11.6, 11.76, 11.98, 12.14, 12.25, 12.57, 12.9, 13.17, 14.15, 14.42, 14.58, 14.85, 15.56, 15.83, 16.1, 16.37, 16.97, 17.18, 17.51, 18.32]},1:{src:"p1-1.mp3",dur:23.18,starts:[0.0, 0.4, 0.63, 1.44, 2.13, 2.31, 2.54, 2.94, 4.04, 4.33, 4.67, 4.84, 4.96, 5.25, 5.65, 5.82, 6.69, 7.15, 7.32, 7.84, 9.05, 9.29, 9.92, 10.78, 11.13, 11.3, 11.48, 11.71, 12.23, 12.57, 12.86, 13.09, 13.38, 13.78, 14.82, 15.11, 15.46, 16.03, 16.26, 16.38, 16.78, 17.24, 18.11, 18.34, 19.38, 19.61, 19.9, 20.24, 20.99, 21.22, 21.51, 21.74, 22.15, 22.32]},2:{src:"p1-2.mp3",dur:20.92,starts:[0.0, 0.23, 0.45, 0.57, 0.85, 1.53, 1.75, 2.26, 2.83, 3.9, 4.13, 5.2, 5.37, 5.71, 5.99, 6.22, 6.61, 6.95, 7.24, 7.8, 8.14, 8.76, 9.33, 9.44, 9.95, 10.34, 10.63, 10.85, 11.31, 11.59, 12.44, 12.55, 13.0, 13.57, 14.42, 14.58, 15.09, 15.55, 15.77, 15.94, 16.28, 16.73, 17.35, 17.86, 18.03, 18.99, 19.22, 19.45, 19.67, 19.95]},3:{src:"p1-3.mp3",dur:19.48,starts:[0.0, 0.44, 0.65, 1.53, 1.64, 2.24, 2.89, 3.06, 3.38, 3.6, 3.98, 4.91, 5.18, 5.4, 6.06, 6.27, 6.44, 6.93, 7.15, 7.53, 7.8, 8.46, 9.06, 9.38, 9.66, 9.93, 10.09, 10.42, 10.58, 11.51, 11.95, 12.55, 12.71, 13.64, 14.51, 14.68, 15.22, 15.38, 15.6, 16.09, 16.26, 16.37, 16.69, 17.24, 18.17, 18.33, 18.55]},4:{src:"p1-4.mp3",dur:22.39,starts:[0.0, 0.23, 0.75, 0.98, 2.01, 2.41, 2.7, 3.22, 3.5, 3.79, 4.36, 4.77, 5.11, 5.51, 6.14, 6.37, 6.78, 7.0, 7.35, 7.87, 8.04, 8.27, 8.55, 8.96, 9.36, 9.93, 10.22, 10.68, 10.85, 11.66, 11.94, 12.63, 13.49, 13.66, 14.07, 15.1, 15.33, 15.62, 15.96, 16.13, 17.34, 17.63, 17.8, 18.03, 18.66, 18.95, 19.18, 19.41, 19.87, 20.04, 20.33, 21.19]},5:{src:"p1-5.mp3",dur:21.64,starts:[0.0, 0.51, 1.03, 1.26, 1.66, 2.06, 2.45, 2.63, 3.65, 3.88, 4.22, 4.51, 4.97, 5.14, 5.31, 5.54, 5.94, 6.11, 6.34, 6.91, 7.19, 7.88, 8.22, 8.39, 8.68, 9.13, 9.82, 10.5, 10.9, 11.13, 11.82, 12.27, 12.79, 13.02, 13.36, 13.64, 13.99, 14.96, 15.36, 15.64, 16.33, 16.44, 17.47, 17.7, 17.93, 18.32, 19.01, 19.3, 19.52, 19.81, 20.78]},6:{src:"p1-6.mp3",dur:18.86,starts:[0.0, 0.23, 0.58, 1.57, 1.74, 2.03, 2.26, 2.79, 3.08, 3.54, 3.77, 4.06, 4.35, 4.59, 4.88, 4.99, 5.86, 6.67, 7.2, 7.95, 8.07, 8.36, 8.65, 8.88, 9.34, 9.98, 10.22, 11.26, 11.49, 11.78, 12.48, 12.65, 12.89, 13.58, 13.81, 13.99, 14.28, 14.51, 15.44, 15.73, 15.96, 16.66, 17.41, 17.82]},7:{src:"p1-7.mp3",dur:21.67,starts:[0.0, 0.84, 1.42, 2.57, 2.78, 3.04, 3.52, 3.73, 3.94, 4.25, 4.57, 4.72, 5.82, 6.51, 7.08, 7.66, 8.61, 8.97, 9.18, 10.08, 10.18, 10.55, 10.97, 11.18, 11.33, 11.81, 12.59, 12.86, 13.12, 13.7, 14.64, 14.85, 15.85, 16.11, 16.27, 16.74, 16.95, 17.16, 18.21, 18.37, 18.84, 19.36, 19.63, 19.94, 20.78]}};
+  var AUDIO_BASE = "brunos-audio/";
+  var player = new Audio(); player.preload = "none";
+  var syncTimer = null, curScript = 0, wordStopTimer = null;
+  function audioAvailable(){ return !!AUDIO[curScript]; }
+  function ensureSrc(){ var a = AUDIO[curScript]; if(player.getAttribute("data-src") !== a.src){ player.src = AUDIO_BASE + a.src; player.setAttribute("data-src", a.src); } }
+
+  var kt = $("ktext");
+  var kWords = [], sentStarts = [], kIdx = 0;
+  var speaking = false, cancelFlag = false, autoRead = false, readTimer = null;
+
+  // piano key sound (used for tapped words)
+  // 42-note solfege arc: do rises do-re-mi... three octaves (C4->B6),
+  // then steps back down to B3, then starts again at do. Word 1 = do, always.
+  var SCALE = [261.63, 293.66, 329.63, 349.23, 392.0, 440.0, 493.88, 523.26, 587.32, 659.26, 698.46, 784.0, 880.0, 987.76, 1046.52, 1174.64, 1318.52, 1396.92, 1568.0, 1760.0, 1975.52, 1760.0, 1568.0, 1396.92, 1318.52, 1174.64, 1046.52, 987.76, 880.0, 784.0, 698.46, 659.26, 587.32, 523.26, 493.88, 440.0, 392.0, 349.23, 329.63, 293.66, 261.63, 246.94];
+  function plink(i){
+    if(muted) return;
+    try{
+      audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)();
+      var f = SCALE[i % SCALE.length];
+      [[f,"sine",0.16],[f*2,"triangle",0.05],[f*3,"sine",0.02]].forEach(function(h){
+        var o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        o.type = h[1]; o.frequency.value = h[0];
+        g.gain.setValueAtTime(h[2], audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime+0.7);
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(); o.stop(audioCtx.currentTime+0.7);
+      });
+    }catch(e){}
+  }
+
+  function unmark(){ var n = kt.querySelector(".kw.now"); if(n) n.classList.remove("now"); }
+  function mark(i){
+    unmark();
+    var el = kWords[i] && kWords[i].el;
+    if(el){ el.classList.add("now"); try{ el.scrollIntoView({block:"nearest"}); }catch(e){} }
+  }
+  function updateBtns(){
+    $("readBtn").style.display = speaking ? "none" : "";
+    $("pauseBtn").style.display = speaking ? "" : "none";
+    $("readBtn").innerHTML = (kIdx>0 && kIdx<kWords.length) ? "&#9654; Resume" : "&#9654; Read to me";
+  }
+  function pauseRead(){
+    cancelFlag = true;
+    try{ player.pause(); }catch(e){}
+    if(syncTimer){ clearInterval(syncTimer); syncTimer = null; }
+    if(wordStopTimer){ clearTimeout(wordStopTimer); wordStopTimer = null; }
+    if(synth){ try{ synth.cancel(); }catch(e){} }
+    if(readTimer){ clearInterval(readTimer); readTimer = null; }
+    speaking = false;
+    updateBtns();
+  }
+  function speakWordOnly(i){
+    if(!hasVoice()) return;
+    var w = kWords[i].w.replace(/[^A-Za-z'’-]/g, "");
+    if(!w) return;
+    var u = new SpeechSynthesisUtterance(w);
+    u.voice = gbVoice; u.lang = "en-GB"; u.pitch = 0.75; u.rate = 0.85;
+    try{ synth.speak(u); }catch(e){}
+  }
+  function wordClick(i){
+    pauseRead();
+    kIdx = i;
+    mark(i);
+    var el = kWords[i].el;
+    el.classList.add("pressed");
+    setTimeout(function(){ el.classList.remove("pressed"); }, 200);
+    plink(i);
+    if(audioAvailable()){
+      var a = AUDIO[curScript];
+      ensureSrc();
+      player.currentTime = a.starts[i] || 0;
+      var stopAt = (i+1 < a.starts.length) ? a.starts[i+1] : a.dur;
+      wordStopTimer = setTimeout(function(){ if(!speaking){ try{ player.pause(); }catch(e){} } }, Math.max(220, (stopAt - (a.starts[i]||0)) * 1000));
+      player.play()["catch"](function(){ speakWordOnly(i); });
+    } else {
+      speakWordOnly(i);
+    }
+    updateBtns();
+  }
+  function loadScript(n){
+    pauseRead();
+    curScript = n;
+    var text = SCRIPTS[n] || "";
+    kt.innerHTML = "";
+    kWords = []; sentStarts = [0]; kIdx = 0;
+    text.split(/\s+/).filter(Boolean).forEach(function(w, i){
+      var s = document.createElement("span");
+      s.className = "kw"; s.textContent = w;
+      s.addEventListener("click", function(){ wordClick(i); });
+      kt.appendChild(s);
+      kt.appendChild(document.createTextNode(" "));
+      kWords.push({w:w, el:s});
+      if(/[.!?:]$/.test(w) && i+1) sentStarts.push(i+1);
+    });
+    kt.scrollTop = 0;
+    updateBtns();
+    if(autoRead && n>0) setTimeout(startRead, 500);
+  }
+  function sentenceOf(i){
+    var s = 0;
+    for(var k=0;k<sentStarts.length;k++){ if(i>=sentStarts[k]) s = k; }
+    return s;
+  }
+  function speakChunk(startIdx, s){
+    var endIdx = (s+1 < sentStarts.length) ? sentStarts[s+1] : kWords.length;
+    if(endIdx<=startIdx){ endIdx = kWords.length; }
+    var words = kWords.slice(startIdx, endIdx).map(function(t){ return t.w; });
+    var offs = [], p = 0;
+    words.forEach(function(w){ offs.push(p); p += w.length+1; });
+    var u = new SpeechSynthesisUtterance(words.join(" "));
+    u.voice = gbVoice; u.lang = "en-GB"; u.pitch = 0.75; u.rate = 0.92;
+    u.onboundary = function(e){
+      if(e.name && e.name !== "word") return;
+      var j = 0;
+      for(var k=0;k<offs.length;k++){ if(e.charIndex >= offs[k]) j = k; }
+      kIdx = startIdx + j;
+      mark(kIdx);
+    };
+    u.onend = function(){
+      if(cancelFlag) return;
+      if(endIdx < kWords.length){ kIdx = endIdx; mark(kIdx); speakChunk(endIdx, s+1); }
+      else { speaking = false; kIdx = 0; unmark(); updateBtns(); }
+    };
+    u.onerror = function(){ if(!cancelFlag){ speaking = false; updateBtns(); } };
+    try{ synth.speak(u); }catch(e){ speaking = false; updateBtns(); }
+  }
+  function timerRead(){
+    readTimer = setInterval(function(){
+      if(kIdx >= kWords.length){
+        clearInterval(readTimer); readTimer = null;
+        speaking = false; kIdx = 0; unmark(); updateBtns();
+        return;
+      }
+      mark(kIdx); kIdx++;
+    }, 340);
+  }
+  function startRead(){
+    if(speaking || !kWords.length) return;
+    if(audioAvailable()){
+      var a = AUDIO[curScript];
+      autoRead = true; cancelFlag = false; speaking = true;
+      if(kIdx >= kWords.length) kIdx = 0;
+      updateBtns();
+      ensureSrc();
+      player.currentTime = a.starts[kIdx] || 0;
+      mark(kIdx);
+      player.onended = function(){
+        if(syncTimer){ clearInterval(syncTimer); syncTimer = null; }
+        speaking = false; kIdx = 0; unmark(); updateBtns();
+      };
+      player.play().then(function(){
+        if(syncTimer) clearInterval(syncTimer);
+        syncTimer = setInterval(function(){
+          var t = player.currentTime, s = a.starts, j = 0;
+          while(j+1 < s.length && t >= s[j+1]) j++;
+          if(j !== kIdx){ kIdx = j; mark(j); }
+        }, 80);
+      })["catch"](function(){
+        speaking = false;
+        startReadTTS();
+      });
+      return;
+    }
+    startReadTTS();
+  }
+  function startReadTTS(){
+    if(speaking || !kWords.length) return;
+    autoRead = true;
+    cancelFlag = false;
+    speaking = true;
+    if(kIdx >= kWords.length) kIdx = 0;
+    updateBtns();
+    if(hasVoice()){ try{ synth.cancel(); }catch(e){} speakChunk(kIdx, sentenceOf(kIdx)); }
+    else timerRead();
+  }
+  $("readBtn").addEventListener("click", startRead);
+  $("pauseBtn").addEventListener("click", function(){ pauseRead(); autoRead = false; });
+  $("restartBtn").addEventListener("click", function(){ pauseRead(); kIdx = 0; unmark(); startRead(); });
+
+  show(0);
+})();
+</script>
+<script>
+(function () {
+  if (window.__bpEvents) return;          // never bind twice
+  window.__bpEvents = true;
+
+  /* ---- which page are we on? lets you read "call/foreman" vs "call/home" -- */
+  var page = location.pathname
+    .replace(/\/index\.html$/, '/')
+    .replace(/^\/|\/$/g, '')
+    .replace(/\.html$/, '')
+    .replace(/[^a-z0-9/-]/gi, '')
+    .toLowerCase() || 'home';
+
+  /* ---- fire one event -------------------------------------------------- */
+  function hit(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: name, title: name, event: true });
+      return;
+    }
+    // count.js not loaded yet (async) — beacon it directly so nothing is lost.
+    try {
+      new Image().src = 'https://blueprintau.goatcounter.com/count'
+        + '?e=true&p=' + encodeURIComponent(name)
+        + '&t=' + encodeURIComponent(name)
+        + '&rnd=' + Math.random().toString(36).slice(2);
+    } catch (e) {}
+  }
+
+  /* ---- map a clicked link to an event name, or null to ignore ---------- */
+  var TOOLS = /^\/(foreman|takeoff|ledger|roster|catalogue|glassbox)\/?$/;
+
+  function nameFor(a) {
+    var raw = a.getAttribute('href') || '';
+    if (!raw || raw.charAt(0) === '#') {
+      // in-page anchors: only the booking jump is worth counting
+      return /#book/i.test(raw) ? 'cta/book-the-hour/' + page : null;
+    }
+    if (/^tel:/i.test(raw))    return 'call/' + page;
+    if (/^mailto:/i.test(raw)) return 'email/' + page;
+
+    var url;
+    try { url = new URL(a.href, location.href); } catch (e) { return null; }
+    if (!/^https?:$/.test(url.protocol)) return null;
+
+    // outbound
+    if (url.hostname.replace(/^www\./, '') !== location.hostname.replace(/^www\./, '')) {
+      return 'outbound/' + url.hostname.replace(/^www\./, '');
+    }
+
+    var path = url.pathname.replace(/index\.html$/, '');
+    var tool = path.match(TOOLS);
+    if (tool) return 'tool-open/' + tool[1] + '/' + page;
+    if (/^\/build\/?$/.test(path))  return 'cta/build/' + page;
+    if (/^\/intake\/?$/.test(path)) return 'cta/intake/' + page;
+    return null;
+  }
+
+  document.addEventListener('click', function (ev) {
+    // ev.target may be a <span> inside the <a>
+    var a = ev.target && ev.target.closest && ev.target.closest('a[href]');
+    if (!a) return;
+    // let a page opt a link out with data-gc-ignore, or override with data-gc
+    if (a.hasAttribute('data-gc-ignore')) return;
+    var name = a.getAttribute('data-gc') || nameFor(a);
+    if (name) hit(name);
+  }, true);
+
+  /* ---- scroll depth: did anyone actually reach the booking form? ------- */
+  var seen = {};
+  function depth() {
+    var h = document.documentElement;
+    var max = (h.scrollHeight - h.clientHeight);
+    if (max < 400) return;                       // short page, not meaningful
+    var pct = (h.scrollTop || document.body.scrollTop) / max * 100;
+    [50, 90].forEach(function (mark) {
+      if (pct >= mark && !seen[mark]) { seen[mark] = 1; hit('depth/' + mark + '/' + page); }
+    });
+    if (seen[90]) window.removeEventListener('scroll', throttled);
+  }
+  var ticking = false;
+  function throttled() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { depth(); ticking = false; });
+  }
+  window.addEventListener('scroll', throttled, { passive: true });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+# --- BlueprintAU: paste near the TOP of public_html/.htaccess (back it up first) ---
+# Redirect /build/index.html -> /build/ (same for every folder), so Google sees one URL per page.
+RewriteEngine On
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
+RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L]
+
+# Check after uploading:
+#   curl -sI https://blueprintau.com/build/index.html | head -3   -> 301, Location: /build/
+#   curl -sI https://blueprintau.com/build/ | head -1              -> 200

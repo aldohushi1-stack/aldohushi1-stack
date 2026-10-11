@@ -1,0 +1,2498 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head><meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foreman — Free Quoting &amp; Invoicing App for Australian Tradies</title>
+<meta name="description" content="Free quoting, job tracking, crew scheduling and GST tax invoices for Australian tradies. No subscription, no lock-in, runs in your browser. From BlueprintAU.">
+<link rel="canonical" href="https://blueprintau.com/foreman/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BlueprintAU">
+<meta property="og:title" content="Foreman — Free Quoting &amp; Invoicing App for Australian Tradies">
+<meta property="og:description" content="Quote it, crew it, invoice it — GST handled. Free forever for Australian trades, from BlueprintAU in Adelaide.">
+<meta property="og:url" content="https://blueprintau.com/foreman/">
+<meta property="og:image" content="https://blueprintau.com/assets/foreman-og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Foreman — Free Quoting &amp; Invoicing App for Australian Tradies">
+<meta name="twitter:description" content="Quote it, crew it, invoice it — GST handled. Free forever for Australian trades, from BlueprintAU in Adelaide.">
+<meta name="twitter:image" content="https://blueprintau.com/assets/foreman-og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Foreman", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "description": "Free quoting, job tracking, crew scheduling and GST tax invoices for Australian tradies. No subscription, no lock-in, runs in your browser. From BlueprintAU.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "AUD", "availability": "https://schema.org/InStock"}, "publisher": {"@type": "Organization", "name": "BlueprintAU", "url": "https://blueprintau.com/", "address": {"@type": "PostalAddress", "addressLocality": "Adelaide", "addressRegion": "SA", "addressCountry": "AU"}}, "url": "https://blueprintau.com/foreman/", "image": "https://blueprintau.com/assets/foreman-og.png", "isAccessibleForFree": true, "areaServed": {"@type": "Country", "name": "Australia"}, "audience": {"@type": "BusinessAudience", "audienceType": "Australian trade businesses and sole traders"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Foreman really free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Foreman is free forever, with no user limits, no quote or invoice caps, and no card required. There's an optional tip jar if you want to shout the lab a beer."}}, {"@type": "Question", "name": "Does Foreman handle GST and produce a valid Australian tax invoice?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Prices are entered ex GST, GST is calculated at 10%, and every invoice carries the words 'Tax invoice', your business name and ABN, the date, an itemised description, and the GST amount and inc-GST total — the elements the ATO requires."}}, {"@type": "Question", "name": "Where is my data stored?", "acceptedAnswer": {"@type": "Answer", "text": "In your own browser on your own device. Nothing is uploaded to a server. Export the workspace to Excel to back it up or move it to another computer, and import it back with the same file."}}, {"@type": "Question", "name": "Can I bring in my existing clients and price list?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Download the Excel template from the welcome screen, fill in clients, crew, price book, jobs and invoices, and import the .xlsx or .csv. You can also start from the loaded demo business to see how it all fits together."}}, {"@type": "Question", "name": "Does it work on a phone or tablet?", "acceptedAnswer": {"@type": "Answer", "text": "Foreman is a web app and runs in any modern browser on desktop, tablet or phone. It's laid out for a screen at least the size of a tablet, where the quote builder and schedule are easiest to use."}}, {"@type": "Question", "name": "What trades is Foreman for?", "acceptedAnswer": {"@type": "Answer", "text": "Any Australian trade that quotes, schedules and invoices: electrical, plumbing, carpentry, tiling, painting, landscaping, fencing, air conditioning, roofing, concreting and general building maintenance."}}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script data-goatcounter="https://blueprintau.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<style>
+  :root{
+    --canvas:#F3F1EC;
+    --surface:#FFFFFF;
+    --surface-2:#FAF9F7;
+    --border:#E7E4DD;
+    --border-soft:rgba(28,24,16,0.06);
+    --ink:#2B2E31;
+    --ink-strong:#141619;
+    --ink-2:#7D7A74;
+    --ink-3:#ABA79F;
+    --brass:#A8814B;
+    --brass-soft:#C9A76C;
+    --pale-red:#FBEAE9; --red-t:#9C3330;
+    --pale-blue:#E4F1FA; --blue-t:#22668F;
+    --pale-green:#E9F1E8; --green-t:#3A6440;
+    --pale-yellow:#F9F1DC; --yellow-t:#8F6510;
+    --chart:#3E749E;
+    --chart-hi:#5D92BC;
+    --chart-soft:#C4D5E2;
+    --sans:'Instrument Sans','SF Pro Display','Helvetica Neue',Helvetica,Arial,sans-serif;
+    --serif:'Instrument Serif','Lyon Text',Georgia,'Times New Roman',serif;
+    --mono:'JetBrains Mono','SF Mono',ui-monospace,Menlo,monospace;
+    --shadow-1:0 1px 2px rgba(24,20,12,0.03), 0 4px 16px rgba(24,20,12,0.03);
+    --shadow-2:0 1px 2px rgba(24,20,12,0.04), 0 6px 18px rgba(24,20,12,0.05), 0 20px 44px rgba(24,20,12,0.06);
+    --shadow-3:0 2px 4px rgba(24,20,12,0.05), 0 12px 32px rgba(24,20,12,0.08), 0 32px 72px rgba(24,20,12,0.10);
+    --ease:cubic-bezier(0.16,1,0.3,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  body{
+    font-family:var(--sans);
+    background:var(--canvas);
+    color:var(--ink);
+    line-height:1.6;
+    font-size:14px;
+    min-height:100vh;
+  }
+  ::selection{background:rgba(168,129,75,0.22);}
+  button{font-family:inherit;cursor:pointer;}
+  input,select,textarea{font-family:inherit;font-size:13px;color:var(--ink);}
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-thumb{background:rgba(28,24,16,0.14);border-radius:8px;border:3px solid var(--canvas);}
+  ::-webkit-scrollbar-track{background:transparent;}
+
+  /* ---------- Ambient depth layer ---------- */
+  .ambient{
+    position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(52% 42% at 12% -6%, rgba(168,129,75,0.075), transparent 62%),
+      radial-gradient(46% 38% at 96% 4%, rgba(62,116,158,0.065), transparent 60%),
+      radial-gradient(60% 50% at 50% 112%, rgba(168,129,75,0.05), transparent 62%);
+    animation:ambientdrift 36s ease-in-out infinite alternate;
+  }
+  .ambient::after{
+    content:"";position:absolute;inset:0;opacity:0.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.09 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  @keyframes ambientdrift{
+    from{transform:translate3d(0,0,0) scale(1);}
+    to{transform:translate3d(0,-2.5%,0) scale(1.045);}
+  }
+
+  /* ---------- App frame ---------- */
+  .app{display:grid;grid-template-columns:228px 1fr;min-height:100vh;position:relative;z-index:1;}
+  .sidebar{
+    background:rgba(255,255,255,0.72);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-right:1px solid var(--border);
+    padding:30px 16px 24px;
+    display:flex;flex-direction:column;gap:3px;
+    position:sticky;top:0;height:100vh;
+  }
+  .brand{padding:0 10px 24px;display:flex;align-items:center;gap:11px;}
+  .brand .mark{
+    width:34px;height:34px;flex:none;border-radius:9px;
+    background:linear-gradient(145deg,#23262A,#111316 58%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.12), 0 6px 16px rgba(20,22,25,0.28);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .brand .mark svg{width:17px;height:17px;}
+  .brand .wordmark{
+    font-family:var(--serif);
+    font-size:24px;letter-spacing:-0.01em;color:var(--ink-strong);
+    line-height:1;
+  }
+  .brand .tagline{
+    font-family:var(--mono);font-size:9px;color:var(--ink-3);
+    letter-spacing:0.14em;text-transform:uppercase;margin-top:5px;
+  }
+  .nav-label{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:0.12em;
+    text-transform:uppercase;color:var(--ink-3);
+    padding:14px 12px 7px;
+  }
+  .nav-item{
+    display:flex;align-items:center;gap:11px;
+    padding:8.5px 12px;border-radius:8px;border:1px solid transparent;
+    background:none;color:var(--ink);font-size:13.5px;width:100%;
+    text-align:left;position:relative;
+    transition:background 180ms var(--ease), color 180ms var(--ease);
+  }
+  .nav-item svg{width:15px;height:15px;flex:none;color:var(--ink-2);transition:color 180ms;}
+  .nav-item:hover{background:rgba(28,24,16,0.045);}
+  .nav-item.active{
+    background:var(--surface);border-color:var(--border);
+    color:var(--ink-strong);font-weight:600;
+    box-shadow:var(--shadow-1);
+  }
+  .nav-item.active::before{
+    content:"";position:absolute;left:-1px;top:22%;bottom:22%;width:2.5px;border-radius:3px;
+    background:linear-gradient(180deg,var(--brass-soft),var(--brass));
+  }
+  .nav-item.active svg{color:var(--brass);}
+  .nav-item .count{
+    margin-left:auto;font-family:var(--mono);font-size:9.5px;color:var(--ink-2);
+    background:rgba(28,24,16,0.05);border-radius:9999px;
+    min-width:19px;height:17px;display:inline-flex;align-items:center;justify-content:center;
+    padding:0 5px;
+  }
+  .nav-item.active .count{background:var(--pale-yellow);color:var(--yellow-t);}
+  .sidebar-foot{
+    margin-top:auto;padding:16px 12px 0;border-top:1px solid var(--border);
+  }
+  .sidebar-foot .biz{font-size:12.5px;font-weight:600;color:var(--ink-strong);letter-spacing:-0.01em;}
+  .sidebar-foot .abn{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);margin-top:3px;letter-spacing:0.02em;}
+
+  /* ---------- Main ---------- */
+  .main{padding:40px 48px 80px;max-width:1220px;width:100%;min-width:0;}
+  .page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:30px;flex-wrap:wrap;}
+  .page-head h1{
+    font-family:var(--serif);font-weight:400;
+    font-size:40px;letter-spacing:-0.015em;line-height:1.05;color:var(--ink-strong);
+  }
+  .page-head .sub{color:var(--ink-2);font-size:13px;margin-top:9px;}
+  .head-actions{display:flex;gap:10px;align-items:center;}
+
+  .btn{
+    border:1px solid var(--border);background:var(--surface);color:var(--ink);
+    padding:8.5px 15px;border-radius:8px;font-size:13px;font-weight:500;
+    box-shadow:0 1px 2px rgba(24,20,12,0.04);
+    transition:background 180ms var(--ease), transform 130ms var(--ease), box-shadow 180ms var(--ease), border-color 180ms;
+  }
+  .btn:hover{background:var(--surface-2);border-color:#DBD7CE;box-shadow:var(--shadow-1);}
+  .btn:active{transform:scale(0.97);}
+  .btn.primary{
+    background:linear-gradient(180deg,#26292D,#131518);
+    border-color:#131518;color:#F5F3EE;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.10), 0 2px 6px rgba(20,22,25,0.22), 0 10px 24px rgba(20,22,25,0.16);
+  }
+  .btn.primary:hover{background:linear-gradient(180deg,#31353A,#1B1E22);box-shadow:inset 0 1px 0 rgba(255,255,255,0.12), 0 4px 10px rgba(20,22,25,0.26), 0 14px 30px rgba(20,22,25,0.20);}
+  .btn.small{padding:5px 11px;font-size:12px;border-radius:6px;}
+  .btn.ghost{border-color:transparent;background:none;color:var(--ink-2);box-shadow:none;}
+  .btn.ghost:hover{background:rgba(28,24,16,0.05);color:var(--ink);box-shadow:none;}
+  .btn.danger{color:var(--red-t);}
+  .btn:disabled{cursor:default;}
+
+  /* ---------- Cards & grids ---------- */
+  .card{
+    background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    box-shadow:var(--shadow-1);
+    transition:box-shadow 260ms var(--ease), transform 260ms var(--ease), border-color 260ms;
+  }
+  .card:hover{box-shadow:var(--shadow-2);border-color:#DFDBD2;}
+  .card .card-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:17px 22px;border-bottom:1px solid var(--border);
+  }
+  .card .card-head h3{font-size:13.5px;font-weight:600;color:var(--ink-strong);letter-spacing:-0.01em;}
+  .card .card-head .meta{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);letter-spacing:0.1em;}
+  .card .card-body{padding:22px;}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px;}
+  .stat{
+    background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    padding:20px 22px 18px;position:relative;overflow:hidden;
+    box-shadow:var(--shadow-1);
+    transition:box-shadow 260ms var(--ease), transform 260ms var(--ease);
+  }
+  .stat::before{
+    content:"";position:absolute;top:0;left:22px;right:22px;height:2px;border-radius:0 0 3px 3px;
+    background:linear-gradient(90deg,transparent,var(--brass-soft),transparent);
+    opacity:0;transition:opacity 300ms var(--ease);
+  }
+  .stat:hover{box-shadow:var(--shadow-2);transform:translateY(-2px);}
+  .stat:hover::before{opacity:0.9;}
+  .stat .label{font-family:var(--mono);font-size:9.5px;letter-spacing:0.11em;text-transform:uppercase;color:var(--ink-2);}
+  .stat .value{
+    font-family:var(--serif);font-size:34px;letter-spacing:-0.01em;
+    color:var(--ink-strong);line-height:1.15;margin-top:9px;
+    font-variant-numeric:tabular-nums;
+  }
+  .stat .delta{font-size:11.5px;color:var(--ink-2);margin-top:5px;}
+  .stat .delta strong{color:var(--green-t);font-weight:600;}
+  .stat .delta strong.down{color:var(--red-t);}
+
+  .dash-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:16px;align-items:start;}
+  .dash-col{display:flex;flex-direction:column;gap:16px;}
+
+  /* ---------- Badges ---------- */
+  .badge{
+    display:inline-flex;align-items:center;align-self:center;gap:5px;
+    border-radius:9999px;padding:2.5px 10px;
+    font-size:9.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;
+    white-space:nowrap;box-shadow:inset 0 0 0 1px rgba(28,24,16,0.04);
+  }
+  .badge.draft{background:var(--surface-2);color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--border);}
+  .badge.sent{background:var(--pale-blue);color:var(--blue-t);}
+  .badge.accepted{background:var(--pale-green);color:var(--green-t);}
+  .badge.declined{background:var(--pale-red);color:var(--red-t);}
+  .badge.scheduled{background:var(--pale-blue);color:var(--blue-t);}
+  .badge.progress{background:var(--pale-yellow);color:var(--yellow-t);}
+  .badge.signoff{background:var(--pale-yellow);color:var(--yellow-t);}
+  .badge.invoiced{background:var(--pale-green);color:var(--green-t);}
+  .badge.paid{background:var(--pale-green);color:var(--green-t);}
+  .badge.awaiting{background:var(--pale-blue);color:var(--blue-t);}
+  .badge.overdue{background:var(--pale-red);color:var(--red-t);}
+  .badge .dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex:none;}
+  .badge.progress .dot,.badge.overdue .dot{animation:pulse 1.9s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.35;transform:scale(0.75);}}
+
+  /* ---------- Tables ---------- */
+  table.data{width:100%;border-collapse:collapse;}
+  table.data th{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--ink-3);font-weight:500;text-align:left;
+    padding:11px 22px;border-bottom:1px solid var(--border);
+    background:var(--surface-2);
+  }
+  table.data th:first-child{border-top-left-radius:0;}
+  table.data td{
+    padding:14px 22px;border-bottom:1px solid var(--border);
+    font-size:13px;vertical-align:middle;
+  }
+  table.data tr:last-child td{border-bottom:none;}
+  table.data tr.rowlink{cursor:pointer;transition:background 160ms var(--ease), box-shadow 160ms;}
+  table.data tr.rowlink:hover{background:linear-gradient(90deg,rgba(168,129,75,0.045),rgba(28,24,16,0.02) 30%);}
+  table.data tr.rowlink:hover td:first-child{box-shadow:inset 2.5px 0 0 var(--brass-soft);}
+  td.num, th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  .mono{font-family:var(--mono);font-size:11px;color:var(--ink-2);letter-spacing:0.01em;}
+  .cell-main{font-weight:600;color:var(--ink-strong);letter-spacing:-0.01em;}
+  .cell-sub{font-size:11.5px;color:var(--ink-2);margin-top:1px;font-weight:400;}
+
+  /* ---------- Pipeline board ---------- */
+  .board{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start;}
+  .board-col .col-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 6px 11px;
+  }
+  .board-col .col-head h4{
+    font-family:var(--mono);font-size:10px;letter-spacing:0.1em;
+    text-transform:uppercase;color:var(--ink-2);font-weight:600;
+  }
+  .board-col .col-head .n{font-family:var(--mono);font-size:10px;color:var(--ink-3);}
+  .job-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:15px 17px;margin-bottom:11px;position:relative;overflow:hidden;
+    box-shadow:var(--shadow-1);
+    transition:box-shadow 240ms var(--ease), transform 240ms var(--ease);
+  }
+  .job-card::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:linear-gradient(180deg,var(--brass-soft),var(--brass));opacity:0.55;
+  }
+  .job-card:hover{box-shadow:var(--shadow-2);transform:translateY(-2px);}
+  .job-card .jc-title{font-weight:600;color:var(--ink-strong);font-size:13px;line-height:1.35;letter-spacing:-0.01em;}
+  .job-card .jc-client{font-size:11.5px;color:var(--ink-2);margin-top:2px;}
+  .job-card .jc-meta{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-top:11px;padding-top:11px;border-top:1px solid var(--border);
+  }
+  .job-card .jc-value{font-family:var(--mono);font-size:11.5px;color:var(--ink);}
+  .job-card .jc-crew{display:flex;}
+  .avatar{
+    width:24px;height:24px;border-radius:50%;
+    background:linear-gradient(150deg,#F2EFE8,#E4E0D6);
+    box-shadow:inset 0 0 0 1px rgba(28,24,16,0.08), 0 1px 2px rgba(24,20,12,0.08);
+    border:1.5px solid var(--surface);
+    font-family:var(--mono);font-size:8px;font-weight:700;color:#6B6760;
+    display:inline-flex;align-items:center;justify-content:center;
+    margin-left:-7px;
+  }
+  .avatar:first-child{margin-left:0;}
+  .job-card .jc-actions{display:flex;gap:6px;margin-top:11px;}
+  .job-card .jc-actions .btn{flex:1;text-align:center;}
+
+  /* ---------- Schedule ---------- */
+  .sched{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-1);}
+  .sched-grid{display:grid;grid-template-columns:128px repeat(6,1fr);}
+  .sched-grid > div{border-bottom:1px solid var(--border);border-right:1px solid var(--border);min-height:54px;}
+  .sched-grid > div:nth-child(7n){border-right:none;}
+  .sched-head{
+    background:var(--surface-2);padding:10px 13px;min-height:0 !important;
+  }
+  .sched-head .d{font-size:12px;font-weight:700;color:var(--ink-strong);letter-spacing:-0.01em;}
+  .sched-head .dt{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);}
+  .sched-head.today{background:linear-gradient(180deg,rgba(168,129,75,0.10),rgba(168,129,75,0.04));}
+  .sched-head.today .d{color:var(--brass);}
+  .sched-crew{
+    padding:12px 14px;display:flex;flex-direction:column;justify-content:center;
+    background:var(--surface-2);
+  }
+  .sched-crew .nm{font-size:12.5px;font-weight:600;color:var(--ink-strong);letter-spacing:-0.01em;}
+  .sched-crew .rl{font-family:var(--mono);font-size:9px;color:var(--ink-3);letter-spacing:0.03em;}
+  .sched-cell{padding:5px;}
+  .sched-block{
+    border-radius:7px;padding:6px 9px;font-size:11px;line-height:1.35;
+    margin-bottom:4px;cursor:default;position:relative;
+    box-shadow:inset 0 0 0 1px rgba(28,24,16,0.045);
+    transition:transform 180ms var(--ease), box-shadow 180ms var(--ease);
+  }
+  .sched-block:hover{transform:translateY(-1px);box-shadow:inset 0 0 0 1px rgba(28,24,16,0.06), 0 4px 12px rgba(24,20,12,0.10);}
+  .sched-block .sb-t{font-weight:700;letter-spacing:-0.01em;}
+  .sched-block .sb-s{opacity:0.75;font-size:10px;}
+  .sched-block.b-blue{background:var(--pale-blue);color:var(--blue-t);}
+  .sched-block.b-green{background:var(--pale-green);color:var(--green-t);}
+  .sched-block.b-yellow{background:var(--pale-yellow);color:var(--yellow-t);}
+  .sched-block.b-red{background:var(--pale-red);color:var(--red-t);}
+
+  /* ---------- Quote / invoice builder ---------- */
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field label{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:0.11em;
+    text-transform:uppercase;color:var(--ink-2);
+  }
+  .field input,.field select,.field textarea{
+    border:1px solid var(--border);border-radius:8px;background:var(--surface);
+    padding:9px 12px;outline:none;
+    transition:border-color 180ms, box-shadow 180ms;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{
+    border-color:var(--brass-soft);box-shadow:0 0 0 3px rgba(168,129,75,0.13);
+  }
+  .lines th{padding:11px 13px !important;}
+  .lines td{padding:6px 13px !important;}
+  .lines input,.lines select{
+    width:100%;border:1px solid transparent;border-radius:6px;background:none;
+    padding:7px 8px;outline:none;transition:border-color 160ms, box-shadow 160ms, background 160ms;
+  }
+  .lines input:hover,.lines select:hover{border-color:var(--border);}
+  .lines input:focus,.lines select:focus{border-color:var(--brass-soft);background:var(--surface);box-shadow:0 0 0 3px rgba(168,129,75,0.11);}
+  .lines input.num{text-align:right;font-variant-numeric:tabular-nums;}
+  .totals{max-width:340px;margin-left:auto;}
+  .totals .trow{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:7px 0;font-size:13px;font-variant-numeric:tabular-nums;}
+  .totals .trow.grand{
+    border-top:1px solid var(--border);margin-top:6px;padding-top:13px;
+    font-size:17px;font-weight:600;color:var(--ink-strong);
+  }
+  .totals .trow.grand span:last-child{font-family:var(--serif);font-size:21px;letter-spacing:-0.01em;}
+  .totals .trow .lab{color:var(--ink-2);}
+  .totals .trow.grand .lab{color:var(--ink-strong);font-family:var(--sans);font-size:13.5px;}
+
+  /* ---------- Invoice doc ---------- */
+  .doc{
+    background:var(--surface);border:1px solid var(--border);border-radius:16px;
+    padding:52px 56px;max-width:780px;position:relative;overflow:hidden;
+    box-shadow:var(--shadow-3);
+  }
+  .doc::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--brass),var(--brass-soft) 40%,transparent 85%);
+  }
+  .doc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;}
+  .doc h2{font-family:var(--serif);font-size:36px;letter-spacing:-0.015em;color:var(--ink-strong);line-height:1.05;font-weight:400;}
+  .doc .doc-num{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);margin-top:8px;letter-spacing:0.03em;}
+  .doc-parties{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:36px;}
+  .doc-parties .p-label{font-family:var(--mono);font-size:9.5px;letter-spacing:0.11em;text-transform:uppercase;color:var(--ink-3);margin-bottom:7px;}
+  .doc-parties .p-name{font-weight:600;color:var(--ink-strong);letter-spacing:-0.01em;}
+  .doc-parties .p-line{font-size:12.5px;color:var(--ink-2);}
+  .doc-foot{
+    margin-top:36px;padding-top:22px;border-top:1px solid var(--border);
+    display:flex;justify-content:space-between;gap:24px;font-size:12px;color:var(--ink-2);
+  }
+  .doc-foot .mono{font-size:10.5px;}
+  .doc .badge{font-size:10px;padding:4px 12px;}
+  .doc-credit{
+    margin-top:26px;text-align:center;
+    font-family:var(--mono);font-size:9px;letter-spacing:0.09em;text-transform:uppercase;
+    color:var(--ink-3);
+  }
+  .stamp{
+    position:absolute;top:110px;right:52px;transform:rotate(-10deg);
+    font-family:var(--mono);font-size:15px;font-weight:700;letter-spacing:0.34em;text-indent:0.34em;
+    color:var(--green-t);border:2.5px solid var(--green-t);border-radius:9px;
+    padding:7px 16px;opacity:0;pointer-events:none;
+    animation:stampin 480ms cubic-bezier(0.2,1.4,0.4,1) 260ms both;
+  }
+  @keyframes stampin{
+    from{opacity:0;transform:rotate(-10deg) scale(1.9);}
+    to{opacity:0.5;transform:rotate(-10deg) scale(1);}
+  }
+
+  /* ---------- Misc ---------- */
+  .empty{
+    padding:48px 20px;text-align:center;color:var(--ink-2);font-size:13px;
+  }
+  .empty .e-title{font-family:var(--serif);font-size:21px;color:var(--ink);margin-bottom:4px;}
+  .feed-item{
+    display:flex;gap:12px;padding:13px 22px;border-bottom:1px solid var(--border);
+    font-size:12.5px;transition:background 160ms;
+  }
+  .feed-item:hover{background:var(--surface-2);}
+  .feed-item:last-child{border-bottom:none;}
+  .feed-item .f-dot{
+    width:7px;height:7px;border-radius:50%;margin-top:6px;flex:none;
+    box-shadow:0 0 0 3px rgba(28,24,16,0.04);
+  }
+  .feed-item .f-time{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);margin-top:2px;letter-spacing:0.02em;}
+  .filter-row{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
+  .chip{
+    border:1px solid var(--border);background:var(--surface);border-radius:9999px;
+    padding:5.5px 14px;font-size:12px;font-weight:500;color:var(--ink-2);
+    box-shadow:0 1px 2px rgba(24,20,12,0.03);
+    transition:all 170ms var(--ease);
+  }
+  .chip:hover{color:var(--ink);border-color:#DBD7CE;}
+  .chip.demo{
+    background:var(--pale-yellow);color:var(--yellow-t);border-color:transparent;
+    font-weight:600;display:inline-flex;align-items:center;gap:7px;
+  }
+  .chip.demo .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+  .chip.demo:hover{color:var(--ink-strong);}
+  .chip.active{
+    background:linear-gradient(180deg,#26292D,#131518);
+    border-color:#131518;color:#F5F3EE;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.10), 0 3px 8px rgba(20,22,25,0.22);
+  }
+  .toast{
+    position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(10px) scale(0.97);
+    background:rgba(19,21,24,0.86);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    color:#F5F3EE;border-radius:11px;border:1px solid rgba(255,255,255,0.09);
+    padding:11px 20px;font-size:13px;opacity:0;pointer-events:none;
+    box-shadow:0 12px 40px rgba(20,22,25,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+    transition:opacity 280ms var(--ease), transform 280ms var(--ease);
+    z-index:95;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0) scale(1);}
+  .back{
+    display:inline-flex;align-items:center;gap:6px;
+    background:none;border:none;color:var(--ink-2);font-size:12.5px;
+    padding:0;margin-bottom:16px;transition:color 160ms, transform 160ms var(--ease);
+  }
+  .back:hover{color:var(--ink);transform:translateX(-2px);}
+
+  /* chart */
+  .chart-wrap{position:relative;}
+  .rev-bar{transform-box:fill-box;transform-origin:center bottom;animation:barrise 800ms var(--ease) both;animation-delay:calc(var(--i,0) * 70ms);}
+  @keyframes barrise{from{transform:scaleY(0);}to{transform:scaleY(1);}}
+  .chart-fadein{animation:fadein 900ms ease both;animation-delay:500ms;}
+  @keyframes fadein{from{opacity:0;}to{opacity:1;}}
+  .chart-tip{
+    position:absolute;background:rgba(19,21,24,0.92);color:#F5F3EE;border-radius:8px;
+    border:1px solid rgba(255,255,255,0.09);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    padding:7px 11px;font-size:11.5px;pointer-events:none;opacity:0;
+    box-shadow:0 8px 24px rgba(20,22,25,0.3);
+    transition:opacity 150ms ease;white-space:nowrap;z-index:5;
+    font-variant-numeric:tabular-nums;
+  }
+  .chart-tip .tt-l{font-family:var(--mono);font-size:9px;opacity:0.65;text-transform:uppercase;letter-spacing:0.08em;}
+
+  /* ---------- Modals ---------- */
+  .modal-scrim{
+    position:fixed;inset:0;z-index:90;
+    background:rgba(24,21,15,0.42);
+    -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
+    display:flex;align-items:center;justify-content:center;padding:20px;
+    opacity:0;pointer-events:none;transition:opacity 240ms var(--ease);
+  }
+  .modal-scrim.open{opacity:1;pointer-events:auto;}
+  .modal{
+    background:var(--surface);border:1px solid var(--border);border-radius:16px;
+    box-shadow:var(--shadow-3);
+    width:min(460px, 100%);max-height:calc(100vh - 60px);overflow-y:auto;
+    padding:28px 30px 26px;position:relative;
+    transform:translateY(14px) scale(0.97);transition:transform 280ms var(--ease);
+  }
+  .modal-scrim.open .modal{transform:none;}
+  .modal h3{font-family:var(--serif);font-size:24px;font-weight:400;letter-spacing:-0.01em;color:var(--ink-strong);line-height:1.15;}
+  .modal .m-sub{font-size:12.5px;color:var(--ink-2);margin-top:5px;margin-bottom:18px;}
+  .modal .m-body{display:flex;flex-direction:column;gap:13px;}
+  .modal .m-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:22px;}
+  .modal .m-x{
+    position:absolute;top:16px;right:16px;width:28px;height:28px;border-radius:7px;
+    border:none;background:none;color:var(--ink-3);font-size:17px;line-height:1;
+    display:flex;align-items:center;justify-content:center;transition:background 150ms,color 150ms;
+  }
+  .modal .m-x:hover{background:rgba(28,24,16,0.06);color:var(--ink);}
+  .m-list{border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+  .m-list .m-row{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:10px 14px;border-bottom:1px solid var(--border);font-size:12.5px;
+  }
+  .m-list .m-row:last-child{border-bottom:none;}
+  .m-list .m-row .t{font-weight:600;color:var(--ink-strong);}
+  .m-list .m-row .s{font-size:11px;color:var(--ink-2);}
+
+  /* ---------- Welcome ---------- */
+  .welcome{
+    position:fixed;inset:0;z-index:80;
+    background:rgba(28,24,16,0.34);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    display:flex;align-items:center;justify-content:center;padding:22px;
+    transition:opacity 380ms var(--ease);
+  }
+  .welcome.hidden{opacity:0;pointer-events:none;}
+  .w-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:20px;
+    box-shadow:var(--shadow-3);
+    width:min(620px,100%);padding:44px 46px 38px;position:relative;overflow:hidden;
+    animation:fadeup 640ms var(--ease) both;
+  }
+  .w-card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--brass),var(--brass-soft) 45%,transparent 90%);
+  }
+  .w-brand{display:flex;align-items:center;gap:13px;margin-bottom:14px;}
+  .w-card h2{font-family:var(--serif);font-size:34px;font-weight:400;letter-spacing:-0.015em;color:var(--ink-strong);line-height:1.05;}
+  .w-card .w-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3);margin-top:6px;}
+  .w-card p{font-size:13.5px;color:var(--ink-2);margin-bottom:24px;max-width:46ch;}
+  .w-opts{display:flex;flex-direction:column;gap:11px;}
+  .w-opt{
+    display:flex;align-items:center;gap:16px;text-align:left;width:100%;
+    background:var(--surface);border:1px solid var(--border);border-radius:13px;
+    padding:16px 18px;
+    transition:box-shadow 220ms var(--ease), transform 220ms var(--ease), border-color 220ms;
+  }
+  .w-opt:hover{box-shadow:var(--shadow-2);transform:translateY(-2px);border-color:#D9D4C9;}
+  .w-opt .w-ic{
+    width:38px;height:38px;flex:none;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--border);
+  }
+  .w-opt .w-ic svg{width:17px;height:17px;color:var(--brass);}
+  .w-opt .w-t{font-weight:600;font-size:14px;color:var(--ink-strong);letter-spacing:-0.01em;}
+  .w-opt .w-s{font-size:12px;color:var(--ink-2);margin-top:1px;}
+  .w-opt .w-go{margin-left:auto;color:var(--ink-3);font-size:15px;transition:transform 200ms var(--ease),color 200ms;}
+  .w-opt:hover .w-go{transform:translateX(3px);color:var(--brass);}
+  .w-email{display:flex;gap:8px;margin-top:22px;}
+  .w-email input{
+    flex:1;border:1px solid var(--border);border-radius:8px;background:var(--surface);
+    padding:9px 12px;outline:none;font-size:13px;
+    transition:border-color 180ms, box-shadow 180ms;
+  }
+  .w-email input:focus{border-color:var(--brass-soft);box-shadow:0 0 0 3px rgba(168,129,75,0.13);}
+  .w-email-note{font-size:11px;color:var(--ink-3);margin-top:7px;}
+  .w-foot{margin-top:20px;font-size:11.5px;color:var(--ink-3);text-align:center;}
+  .w-foot button{background:none;border:none;color:var(--ink-2);font-size:11.5px;text-decoration:underline;text-underline-offset:2px;padding:0;}
+  .w-foot button:hover{color:var(--ink);}
+
+  /* ---------- Sidebar tools ---------- */
+  .sb-tools{display:flex;gap:2px;margin-top:11px;}
+  .sb-tools button{
+    flex:1;border:none;background:none;border-radius:6px;
+    font-family:var(--mono);font-size:9px;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--ink-3);padding:5px 2px;transition:background 150ms,color 150ms;
+  }
+  .sb-tools button:hover{background:rgba(28,24,16,0.05);color:var(--ink);}
+  .sb-credit{
+    display:block;margin-top:10px;
+    font-family:var(--mono);font-size:8.5px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--ink-3);text-decoration:none;transition:color 150ms;
+  }
+  .sb-credit:hover{color:var(--brass);}
+  .sb-beer{color:var(--brass);margin-top:5px;}
+  .sb-beer:hover{color:var(--ink-strong);}
+
+  .sched-cell{cursor:pointer;transition:background 150ms;}
+  .sched-cell:hover{background:rgba(168,129,75,0.05);}
+  .cell-add{
+    opacity:0;font-family:var(--mono);font-size:10px;color:var(--ink-3);
+    text-align:center;padding:3px 0;transition:opacity 150ms;
+  }
+  .sched-cell:hover .cell-add{opacity:1;}
+
+  /* ---------- Entry motion ---------- */
+  .fade > *{animation:fadeup 640ms var(--ease) both;}
+  .fade > *:nth-child(1){animation-delay:0ms;}
+  .fade > *:nth-child(2){animation-delay:60ms;}
+  .fade > *:nth-child(3){animation-delay:120ms;}
+  .fade > *:nth-child(4){animation-delay:180ms;}
+  .fade > *:nth-child(5){animation-delay:240ms;}
+  .fade > *:nth-child(6){animation-delay:300ms;}
+  .stat-grid .stat{animation:fadeup 640ms var(--ease) both;}
+  .stat-grid .stat:nth-child(1){animation-delay:40ms;}
+  .stat-grid .stat:nth-child(2){animation-delay:110ms;}
+  .stat-grid .stat:nth-child(3){animation-delay:180ms;}
+  .stat-grid .stat:nth-child(4){animation-delay:250ms;}
+  .board .job-card{animation:fadeup 560ms var(--ease) both;}
+  .board .job-card:nth-child(2){animation-delay:60ms;}
+  .board .job-card:nth-child(3){animation-delay:120ms;}
+  .board .job-card:nth-child(4){animation-delay:180ms;}
+  @keyframes fadeup{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:0.01ms !important;animation-delay:0ms !important;transition-duration:0.01ms !important;}
+  }
+
+  @media(max-width:1040px){
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+    .dash-grid{grid-template-columns:1fr;}
+    .board{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:760px){
+    .app{grid-template-columns:1fr;}
+    .sidebar{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;gap:2px;padding:14px 12px;}
+    .sidebar .nav-label{display:none;}
+    .sidebar-foot{margin:0 0 0 auto;padding:0;border-top:none;display:flex;align-items:center;}
+    .sidebar-foot .biz,.sidebar-foot .abn,.sidebar-foot a.sb-credit:not(.sb-beer){display:none;}
+    .sidebar-foot .sb-beer{display:inline-block;margin:0;font-size:9px;white-space:nowrap;}
+    .sb-tools{margin:0;gap:4px;}
+    .sb-tools button{padding:6px 8px;}
+    .brand{padding:0 8px 0;width:100%;}
+    .nav-item{width:auto;padding:6px 10px;font-size:12.5px;}
+    .nav-item.active::before{display:none;}
+    .main{padding:24px 18px 60px;}
+    .board{grid-template-columns:1fr;}
+    .form-grid{grid-template-columns:1fr;}
+    .card{overflow-x:auto;}
+    .sched-grid{grid-template-columns:90px repeat(6,minmax(90px,1fr));width:max-content;min-width:100%;}
+    .sched{overflow-x:auto;}
+    .doc{padding:28px 22px;overflow-x:auto;}
+    .page-head h1{font-size:30px;}
+  }
+  @media print{
+    .sidebar,.head-actions,.back,.toast,.ambient{display:none !important;}
+    .app{grid-template-columns:1fr;}
+    body{background:#fff;}
+    .doc{border:none;max-width:none;padding:0;box-shadow:none;}
+    .doc::before{display:none;}
+    .main{padding:0;max-width:none;}
+    .page-head{display:none;}
+  }
+
+  /* ---------- About / SEO copy (collapsible) ---------- */
+  .welcome{align-items:flex-start;overflow-y:auto;}
+  .w-card{margin:auto;}
+  .w-card h1{font-family:var(--serif);font-size:34px;font-weight:400;letter-spacing:-0.015em;color:var(--ink-strong);line-height:1.05;}
+  .w-about{margin-top:22px;border-top:1px solid var(--border);padding-top:14px;}
+  .w-about summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600;color:var(--ink);}
+  .w-about summary::-webkit-details-marker{display:none;}
+  .w-about summary::before{content:"+";font-family:var(--mono);color:var(--brass);font-size:15px;width:16px;text-align:center;}
+  .w-about[open] summary::before{content:"\2013";}
+  .w-about summary:hover{color:var(--brass);}
+  .w-about-body{margin-top:14px;font-size:13.5px;line-height:1.6;color:var(--ink-2);}
+  .w-about-body h3{font-size:14.5px;font-weight:600;color:var(--ink-strong);margin:16px 0 6px;}
+  .w-about-body h3:first-child{margin-top:0;}
+  .w-about-body p{margin:0 0 10px;max-width:none;font-size:13.5px;}
+  .w-about-body a{color:var(--brass);font-weight:600;text-decoration:none;}
+  .w-about-body a:hover{text-decoration:underline;}
+  .w-faq{margin-top:16px;border-top:1px dashed var(--border);padding-top:12px;}
+  .w-faq dt{font-weight:600;color:var(--ink-strong);margin-top:10px;font-size:13.5px;}
+  .w-faq dd{margin:3px 0 0;font-size:13px;color:var(--ink-2);}
+</style>
+<style>
+/* tap-to-call for the trade. The sidebar collapses to a bar at <=760px and
+   hides .sb-credit links; this keeps the phone number visible there, which
+   is the one place it matters most. */
+.sidebar-foot a.sb-call{color:var(--brass);}
+@media(max-width:760px){.sidebar-foot{flex-wrap:wrap;row-gap:6px;max-width:100%;}.sidebar-foot a.sb-credit.sb-call{display:inline-flex;align-items:center;margin:0 0 0 10px;font-size:10px;white-space:nowrap;padding:8px 11px;min-height:38px;border:1px solid var(--brass);border-radius:999px;color:var(--brass);}}
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">
+        <svg viewBox="0 0 17 17" fill="none">
+          <path d="M2.5 14.5V2.5h12" stroke="#C9A76C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6.5 14.5V6.5h8" stroke="#F5F3EE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+        </svg>
+      </div>
+      <div>
+        <div class="wordmark">Foreman</div>
+        <div class="tagline">Trade operations</div>
+      </div>
+    </div>
+    <div class="nav-label">Workspace</div>
+    <button class="nav-item" data-view="dashboard">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 1h6v6H1V1zm8 0h6v4H9V1zM1 9h6v6H1V9zm8-2h6v8H9V7z" opacity="0.85"/></svg>
+      Dashboard
+    </button>
+    <button class="nav-item" data-view="quotes">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 1h7l3 3v11H3V1zm7 1v3h3M5 8h6M5 11h6" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>
+      Quotes <span class="count" id="nav-quotes"></span>
+    </button>
+    <button class="nav-item" data-view="jobs">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1.5" y="4.5" width="13" height="9" rx="1"/><path d="M5.5 4.5V3a1 1 0 011-1h3a1 1 0 011 1v1.5M1.5 8h13"/></svg>
+      Jobs <span class="count" id="nav-jobs"></span>
+    </button>
+    <button class="nav-item" data-view="schedule">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1.5" y="2.5" width="13" height="12" rx="1"/><path d="M1.5 6h13M5 1v3M11 1v3"/></svg>
+      Schedule
+    </button>
+    <button class="nav-item" data-view="invoices">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 1.5h10v13l-2-1.2-2 1.2-2-1.2-2 1.2-2-1.2V1.5z"/><path d="M5.5 5h5M5.5 8h5"/></svg>
+      Invoices <span class="count" id="nav-invoices"></span>
+    </button>
+    <button class="nav-item" data-view="clients">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="5.5" cy="5" r="2.5"/><path d="M1.5 14c0-2.5 1.8-4 4-4s4 1.5 4 4"/><circle cx="11.5" cy="5.5" r="2"/><path d="M11 10.2c2 .2 3.5 1.6 3.5 3.8"/></svg>
+      Clients
+    </button>
+    <div class="sidebar-foot">
+      <div class="biz" id="sb-biz">Kestrel Electrical Pty Ltd</div>
+      <div class="abn" id="sb-abn">ABN 47 118 220 356 · Adelaide SA</div>
+      <div class="sb-tools">
+        <button id="sb-import" title="Import workspace from Excel or CSV">Import</button>
+        <button id="sb-export" title="Export workspace to Excel">Export</button>
+        <button id="sb-updates" title="Get product updates by email">Updates</button>
+        <button id="sb-reset" title="Start over">Reset</button>
+      </div>
+      <a class="sb-credit" href="https://blueprintau.com" target="_blank" rel="noopener" title="See all BlueprintAU products">Built by BlueprintAU &nearr;</a>
+      <a class="sb-credit sb-beer" href="https://ko-fi.com/blueprintau" target="_blank" rel="noopener" title="Free forever — but a beer a month keeps us shipping">Shout us a beer &nearr;</a>
+      <a class="sb-credit sb-call" href="tel:+61423003680" title="Talk to Aldo about a custom build — Adelaide">Call 0423 003 680 &nearr;</a>
+    </div>
+  </aside>
+  <main class="main" id="main"></main>
+</div>
+<div class="toast" id="toast"></div>
+<div class="modal-scrim" id="modal-scrim"></div>
+<input type="file" id="file-import" accept=".xlsx,.xls,.csv" hidden>
+<div class="welcome" id="welcome">
+  <div class="w-card">
+    <div class="w-brand">
+      <div class="mark" aria-hidden="true" style="width:40px;height:40px;border-radius:11px;background:linear-gradient(145deg,#23262A,#111316 58%);box-shadow:inset 0 1px 0 rgba(255,255,255,0.12), 0 8px 20px rgba(20,22,25,0.3);display:flex;align-items:center;justify-content:center;">
+        <svg viewBox="0 0 17 17" fill="none" style="width:19px;height:19px">
+          <path d="M2.5 14.5V2.5h12" stroke="#C9A76C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6.5 14.5V6.5h8" stroke="#F5F3EE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Foreman</h1>
+        <div class="w-tag">Quotes · Jobs · Crew · Invoices</div>
+      </div>
+    </div>
+    <p>The operations console for trade businesses. Quote it, crew it, invoice it — GST handled, nothing lost between the ute and the office.</p>
+    <div class="w-opts">
+      <button class="w-opt" id="w-demo">
+        <span class="w-ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2.5l10.5 5.5L3 13.5V2.5z" stroke-linejoin="round"/></svg></span>
+        <span><span class="w-t">Explore the demo</span><br><span class="w-s">A working Adelaide electrical contractor, fully loaded</span></span>
+        <span class="w-go">&rarr;</span>
+      </button>
+      <button class="w-opt" id="w-fresh">
+        <span class="w-ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3v10M3 8h10" stroke-linecap="round"/></svg></span>
+        <span><span class="w-t">Start fresh</span><br><span class="w-s">A clean workspace under your own business name</span></span>
+        <span class="w-go">&rarr;</span>
+      </button>
+      <button class="w-opt" id="w-import">
+        <span class="w-ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8m0 0l-3-3m3 3l3-3M2.5 13.5h11" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span><span class="w-t">Import from Excel</span><br><span class="w-s">Bring clients, crew, price book, jobs &amp; invoices from .xlsx or .csv</span></span>
+        <span class="w-go">&rarr;</span>
+      </button>
+    </div>
+    <div class="w-email">
+      <input id="w-email-input" type="email" placeholder="you@yourbusiness.com.au" autocomplete="email">
+      <button class="btn small" id="w-email-go">Keep me posted</button>
+    </div>
+    <div class="w-email-note">Free forever. Drop your email for first dibs on anything new — no spam, ever.</div>
+    <div class="w-foot">Importing? <button id="w-template">Download the Excel template</button> to see the expected columns.</div>
+    <div class="w-foot" style="margin-top:9px">Built &amp; shipped by <a href="https://blueprintau.com" target="_blank" rel="noopener" style="color:var(--brass);font-weight:600;text-decoration:none">BlueprintAU</a> — product &#8470; 16. See the other 15 at <a href="https://blueprintau.com" target="_blank" rel="noopener" style="color:var(--ink-2)">blueprintau.com</a>.</div>
+    <details class="w-about" id="w-about">
+      <summary>What is Foreman? Free quoting, jobs, crew &amp; invoicing for Australian tradies</summary>
+      <div class="w-about-body"><h3>Free quoting and invoicing software built for Australian trade businesses</h3>
+<p>Foreman is a free operations console for sole traders and small trade crews — electricians, plumbers, carpenters, tilers, painters, landscapers and anyone else who quotes a job, does the work and then has to chase the money. It replaces the mix of notepad, spreadsheet and accounting app that most tradies run their business on, with one screen that follows a job from quote to paid.</p>
+<p>You write the quote from a price book you control, send it, and when it's accepted Foreman turns it into a job. Jobs go onto a weekly crew schedule so you can see who's where. When the work's signed off, the invoice is generated from the same line items — a proper Australian tax invoice with your ABN, GST calculated at 10%, and the inc-GST total your client expects to see. Nothing gets re-typed between the ute and the office.</p>
+<h3>Why tradies pick Foreman over a paid subscription</h3>
+<p>Most quoting and invoicing apps for tradies charge $30 to $80 a month per user, and the free tiers cap how many quotes you can send. Foreman is free forever with no user limits and no quote limits. It runs entirely in your browser — your data lives on your own device, you can export the whole workspace to Excel at any time, and you can import your existing clients, crew, price book, jobs and invoices from a spreadsheet to get started in minutes.</p>
+<p>Foreman is part of the BlueprintAU Trade Suite. <a href="../takeoff/">Takeoff</a> measures the job straight off the plan and sends the priced scope to Foreman as quote lines; <a href="../ledger/">Ledger</a> takes the paid invoices and shows you who still owes you, where the money's going, and what the BAS will look like. Use one or all three.</p>
+<h3>Built and supported in Adelaide</h3>
+<p>Foreman is built by <a href="https://blueprintau.com/">BlueprintAU</a>, a one-founder software lab in Adelaide, South Australia. It's free because it's the front door to the lab's paid work — if your business needs something Foreman doesn't do, BlueprintAU builds <a href="../build/">custom tools for Adelaide trade businesses from $2,000</a>.</p>
+<dl class="w-faq"><h3>Common questions</h3><dt>Is Foreman really free?</dt><dd>Yes. Foreman is free forever, with no user limits, no quote or invoice caps, and no card required. There's an optional tip jar if you want to shout the lab a beer.</dd><dt>Does Foreman handle GST and produce a valid Australian tax invoice?</dt><dd>Yes. Prices are entered ex GST, GST is calculated at 10%, and every invoice carries the words 'Tax invoice', your business name and ABN, the date, an itemised description, and the GST amount and inc-GST total — the elements the ATO requires.</dd><dt>Where is my data stored?</dt><dd>In your own browser on your own device. Nothing is uploaded to a server. Export the workspace to Excel to back it up or move it to another computer, and import it back with the same file.</dd><dt>Can I bring in my existing clients and price list?</dt><dd>Yes. Download the Excel template from the welcome screen, fill in clients, crew, price book, jobs and invoices, and import the .xlsx or .csv. You can also start from the loaded demo business to see how it all fits together.</dd><dt>Does it work on a phone or tablet?</dt><dd>Foreman is a web app and runs in any modern browser on desktop, tablet or phone. It's laid out for a screen at least the size of a tablet, where the quote builder and schedule are easiest to use.</dd><dt>What trades is Foreman for?</dt><dd>Any Australian trade that quotes, schedules and invoices: electrical, plumbing, carpentry, tiling, painting, landscaping, fencing, air conditioning, roofing, concreting and general building maintenance.</dd></dl></div>
+    </details>
+  </div>
+</div>
+<script>
+/* Foreman — single-file trade operations console. BlueprintAU product #16. */
+"use strict";
+
+/* ============================= State & seed data ============================= */
+const GST = 0.10;
+const today = new Date(); today.setHours(0,0,0,0);
+const DAY = 86400000;
+function d(offset){ return new Date(today.getTime() + offset*DAY); }
+function iso(dt){ return dt.toISOString().slice(0,10); }
+function mondayOf(dt){
+  const x = new Date(dt); const wd = (x.getDay()+6)%7; x.setTime(x.getTime()-wd*DAY); return x;
+}
+const fmtAUD = new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD'});
+const fmtAUD0 = new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD',maximumFractionDigits:0});
+function money(n){ return fmtAUD.format(n); }
+function money0(n){ return fmtAUD0.format(n); }
+function fmtDate(s){
+  const dt = typeof s==='string' ? new Date(s+'T00:00:00') : s;
+  return dt.toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});
+}
+function fmtDateShort(dt){ return dt.toLocaleDateString('en-AU',{day:'numeric',month:'short'}); }
+function esc(s){ return String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+const state = {
+  view:'dashboard',
+  quoteFilter:'all',
+  invoiceFilter:'all',
+  weekOffset:0,
+  openQuote:null,   // quote id being edited, or 'new'
+  openInvoice:null, // invoice id being viewed
+  openClient:null,
+  seq:{quote:47, job:132, invoice:1058},
+};
+
+let business = {
+  name:'Kestrel Electrical Pty Ltd',
+  abn:'ABN 47 118 220 356',
+  address:'4/38 Payneham Rd, Stepney SA 5069',
+  email:'accounts@kestrelelectrical.com.au',
+  city:'Adelaide SA',
+  bsb:'105-900', acc:'954 382 117',
+};
+
+let isDemo = false;
+let crew = [
+  {id:'c1', name:'Marcus Bell',    initials:'MB', role:'A-grade electrician'},
+  {id:'c2', name:'Priya Nair',     initials:'PN', role:'A-grade electrician'},
+  {id:'c3', name:'Jack Halloran',  initials:'JH', role:'2nd-year apprentice'},
+  {id:'c4', name:'Sofia Reyes',    initials:'SR', role:'Data & comms tech'},
+];
+
+let clients = [
+  {id:'cl1', name:'Parkside Dental Group',   contact:'Helen Voss',    phone:'08 8271 4402', email:'admin@parksidedental.com.au', suburb:'Parkside',    address:'212 Glen Osmond Rd, Parkside SA 5063'},
+  {id:'cl2', name:'Torrens Mills Apartments',contact:'Dean Okafor',   phone:'08 8340 1177', email:'dean@torrensmills.au',        suburb:'Mile End',    address:'8 Chapel St, Mile End SA 5031'},
+  {id:'cl3', name:'Cibo Norwood',            contact:'Marta Greco',   phone:'08 8362 0915', email:'norwood@cibo.au',             suburb:'Norwood',     address:'160 The Parade, Norwood SA 5067'},
+  {id:'cl4', name:'Hindmarsh Self Storage',  contact:'Ray Tillett',   phone:'08 8346 5230', email:'ray@hindmarshstorage.com.au', suburb:'Hindmarsh',   address:'31 Manton St, Hindmarsh SA 5007'},
+  {id:'cl5', name:'Glenelg Surf Lifesaving', contact:'Kylie Munro',   phone:'08 8295 8841', email:'facilities@glenelgslsc.au',   suburb:'Glenelg',     address:'Foreshore, Glenelg SA 5045'},
+  {id:'cl6', name:'Prospect Road Medical',   contact:'Dr Sam Whitford',phone:'08 8344 6218',email:'practice@prospectroadmed.au', suburb:'Prospect',    address:'104 Prospect Rd, Prospect SA 5082'},
+  {id:'cl7', name:'Fielders Joinery',        contact:'Anna Petrakis', phone:'08 8262 3390', email:'anna@fieldersjoinery.com.au', suburb:'Wingfield',   address:'19 Hakkinen Rd, Wingfield SA 5013'},
+];
+
+let catalog = [
+  {desc:'Labour — A-grade electrician', unit:'hr',   rate:118},
+  {desc:'Labour — apprentice',          unit:'hr',   rate:62},
+  {desc:'Labour — after hours',         unit:'hr',   rate:172},
+  {desc:'Call-out / service fee',       unit:'each', rate:145},
+  {desc:'LED hi-bay 150W',              unit:'each', rate:189},
+  {desc:'LED downlight 10W',            unit:'each', rate:38},
+  {desc:'Double GPO, install & test',   unit:'each', rate:74},
+  {desc:'Circuit breaker, single pole', unit:'each', rate:52},
+  {desc:'Safety switch (RCBO)',         unit:'each', rate:96},
+  {desc:'Cat6 outlet, terminated',      unit:'each', rate:88},
+  {desc:'TPS cable 2.5mm twin+earth',   unit:'m',    rate:4.2},
+  {desc:'Switchboard upgrade (materials)', unit:'each', rate:1180},
+  {desc:'Smoke alarm, interconnected',  unit:'each', rate:129},
+  {desc:'EV charger 7kW (supply)',      unit:'each', rate:1420},
+  {desc:'Test & tag, per item',         unit:'each', rate:6.5},
+];
+
+let quotes = [
+  {id:'Q-2026-046', clientId:'cl6', title:'EV charger install — staff carpark', site:'104 Prospect Rd, Prospect',
+   date:iso(d(-1)), status:'draft',
+   lines:[
+     {desc:'EV charger 7kW (supply)', qty:2, unit:'each', rate:1420},
+     {desc:'Labour — A-grade electrician', qty:14, unit:'hr', rate:118},
+     {desc:'Circuit breaker, single pole', qty:2, unit:'each', rate:52},
+     {desc:'TPS cable 2.5mm twin+earth', qty:60, unit:'m', rate:4.2},
+   ],
+   notes:'Assumes existing switchboard has spare capacity. SAPN notification included.'},
+  {id:'Q-2026-045', clientId:'cl3', title:'Kitchen circuit split + new GPOs', site:'160 The Parade, Norwood',
+   date:iso(d(-3)), status:'sent',
+   lines:[
+     {desc:'Labour — A-grade electrician', qty:16, unit:'hr', rate:118},
+     {desc:'Double GPO, install & test', qty:8, unit:'each', rate:74},
+     {desc:'Safety switch (RCBO)', qty:3, unit:'each', rate:96},
+     {desc:'TPS cable 2.5mm twin+earth', qty:85, unit:'m', rate:4.2},
+   ],
+   notes:'Night works — kitchen must be operational by 7am. After-hours loading waived per ongoing relationship.'},
+  {id:'Q-2026-044', clientId:'cl7', title:'Workshop hi-bay LED retrofit', site:'19 Hakkinen Rd, Wingfield',
+   date:iso(d(-6)), status:'sent',
+   lines:[
+     {desc:'LED hi-bay 150W', qty:24, unit:'each', rate:189},
+     {desc:'Labour — A-grade electrician', qty:22, unit:'hr', rate:118},
+     {desc:'Labour — apprentice', qty:22, unit:'hr', rate:62},
+     {desc:'Scissor lift hire, 3 days', qty:3, unit:'day', rate:310},
+   ],
+   notes:'REPS rebate estimated at $1,850 — claimed separately, not reflected in totals.'},
+  {id:'Q-2026-043', clientId:'cl2', title:'Common-area emergency lighting compliance', site:'8 Chapel St, Mile End',
+   date:iso(d(-9)), status:'accepted',
+   lines:[
+     {desc:'Emergency luminaire, maintained', qty:14, unit:'each', rate:142},
+     {desc:'Exit sign, LED', qty:6, unit:'each', rate:118},
+     {desc:'Labour — A-grade electrician', qty:18, unit:'hr', rate:118},
+     {desc:'Logbook & AS 2293 test report', qty:1, unit:'each', rate:240},
+   ],
+   notes:''},
+  {id:'Q-2026-041', clientId:'cl5', title:'Clubroom switchboard upgrade', site:'Foreshore, Glenelg',
+   date:iso(d(-14)), status:'declined',
+   lines:[
+     {desc:'Switchboard upgrade (materials)', qty:1, unit:'each', rate:1180},
+     {desc:'Labour — A-grade electrician', qty:20, unit:'hr', rate:118},
+   ],
+   notes:'Declined — committee deferred to next financial year.'},
+];
+
+let jobs = [
+  {id:'J-131', clientId:'cl2', quoteId:'Q-2026-043', title:'Emergency lighting compliance', site:'8 Chapel St, Mile End',
+   status:'scheduled', value:4130, crew:['c1','c3'], start:iso(d(2)), days:3, color:'b-blue'},
+  {id:'J-130', clientId:'cl1', quoteId:null, title:'Surgery 3 fit-out — power & data', site:'212 Glen Osmond Rd, Parkside',
+   status:'progress', value:9860, crew:['c2','c4'], start:iso(d(-2)), days:5, color:'b-yellow'},
+  {id:'J-129', clientId:'cl4', quoteId:null, title:'Gate motor circuit + CCTV power', site:'31 Manton St, Hindmarsh',
+   status:'progress', value:3240, crew:['c1'], start:iso(d(-1)), days:2, color:'b-green'},
+  {id:'J-127', clientId:'cl3', quoteId:null, title:'Dining room pendant rewire', site:'160 The Parade, Norwood',
+   status:'signoff', value:2180, crew:['c2'], start:iso(d(-6)), days:2, color:'b-green'},
+  {id:'J-126', clientId:'cl6', quoteId:null, title:'Annual test & tag — 240 items', site:'104 Prospect Rd, Prospect',
+   status:'invoiced', value:1560, crew:['c4'], start:iso(d(-8)), days:1, color:'b-red'},
+  {id:'J-124', clientId:'cl7', quoteId:null, title:'3-phase outlet for CNC router', site:'19 Hakkinen Rd, Wingfield',
+   status:'invoiced', value:1980, crew:['c1','c3'], start:iso(d(-12)), days:1, color:'b-yellow'},
+];
+
+let invoices = [
+  {id:'INV-1057', jobId:'J-126', clientId:'cl6', issued:iso(d(-7)),  due:iso(d(7)),   status:'awaiting', exGst:1560},
+  {id:'INV-1056', jobId:'J-124', clientId:'cl7', issued:iso(d(-11)), due:iso(d(3)),   status:'awaiting', exGst:1980},
+  {id:'INV-1054', jobId:null,    clientId:'cl2', issued:iso(d(-24)), due:iso(d(-10)), status:'overdue',  exGst:5240, title:'Basement carpark LED + sensors'},
+  {id:'INV-1052', jobId:null,    clientId:'cl1', issued:iso(d(-32)), due:iso(d(-18)), status:'paid',     exGst:7420, title:'Reception rewire & switchboard tidy', paid:iso(d(-15))},
+  {id:'INV-1050', jobId:null,    clientId:'cl5', issued:iso(d(-41)), due:iso(d(-27)), status:'paid',     exGst:2130, title:'Kiosk RCD faults & repairs', paid:iso(d(-26))},
+  {id:'INV-1049', jobId:null,    clientId:'cl4', issued:iso(d(-48)), due:iso(d(-34)), status:'paid',     exGst:3890, title:'Yard lighting poles 1–6', paid:iso(d(-30))},
+];
+
+/* revenue by month, ex GST — last 6 months incl. current */
+function revenueMonths(){
+  const out=[];
+  for(let i=5;i>=0;i--){
+    const m = new Date(today.getFullYear(), today.getMonth()-i, 1);
+    out.push({m, label:m.toLocaleDateString('en-AU',{month:'short'}), value:0});
+  }
+  return out;
+}
+function revenueFromInvoices(){
+  const out = revenueMonths();
+  invoices.filter(i=>i.status==='paid').forEach(i=>{
+    const dt = new Date((i.paid||i.issued)+'T00:00:00');
+    const hit = out.find(r=>r.m.getFullYear()===dt.getFullYear() && r.m.getMonth()===dt.getMonth());
+    if(hit) hit.value += i.exGst;
+  });
+  return out;
+}
+let revenueHistory = (()=>{
+  const out = revenueMonths(); const base=[18400, 22100, 15800, 24600, 19750];
+  for(let k=0;k<5;k++) out[k].value = base[k];
+  out[5].value = invoices.filter(i=>i.status==='paid').reduce((s,i)=>s+i.exGst,0) + 9200;
+  return out;
+})();
+
+/* schedule assignments: crewId, dayOffset from this week's Monday (0=Mon..5=Sat), jobId or label */
+let assignments = [];
+(function seedAssignments(){
+  const mon = mondayOf(today);
+  const off = dt => Math.round((mondayOf(today).getTime() - mon.getTime())/DAY); // 0
+  function add(crewId, weekday, jobId, week=0){ assignments.push({crewId, date:iso(new Date(mon.getTime()+(weekday+week*7)*DAY)), jobId}); }
+  // this week
+  add('c2',0,'J-130'); add('c2',1,'J-130'); add('c2',2,'J-130'); add('c2',3,'J-127');
+  add('c4',0,'J-130'); add('c4',1,'J-130'); add('c4',4,'J-130');
+  add('c1',0,'J-129'); add('c1',1,'J-129'); add('c1',2,'J-131'); add('c1',3,'J-131'); add('c1',4,'J-131');
+  add('c3',2,'J-131'); add('c3',3,'J-131'); add('c3',4,'J-131');
+  add('c4',2,'J-126');
+  // next week
+  add('c1',0,'J-131',1); add('c3',0,'J-131',1);
+  add('c2',0,'J-130',1); add('c2',1,'J-130',1);
+  add('c4',1,'J-130',1); add('c4',2,'J-130',1);
+})();
+
+let activity = [
+  {t:'2 hrs ago',  txt:'Priya marked day 3 complete on Surgery 3 fit-out (Parkside Dental).', dot:'var(--green-t)'},
+  {t:'Yesterday',  txt:'Quote Q-2026-046 drafted for Prospect Road Medical — EV chargers.', dot:'var(--blue-t)'},
+  {t:'Yesterday',  txt:'INV-1054 is now 10 days overdue. Reminder emailed to Torrens Mills.', dot:'var(--red-t)'},
+  {t:'2 days ago', txt:'Cibo Norwood accepted the pendant rewire variation (+$340 ex GST).', dot:'var(--green-t)'},
+  {t:'3 days ago', txt:'Q-2026-043 accepted — emergency lighting job J-131 created and crewed.', dot:'var(--green-t)'},
+  {t:'4 days ago', txt:'Jack booked for CPR / LVR refresher, Fri next week (unavailable).', dot:'var(--yellow-t)'},
+];
+
+/* ============================= Derived helpers ============================= */
+function clientById(id){ return clients.find(c=>c.id===id); }
+function jobById(id){ return jobs.find(j=>j.id===id); }
+function quoteById(id){ return quotes.find(q=>q.id===id); }
+function quoteSubtotal(q){ return q.lines.reduce((s,l)=>s + (Number(l.qty)||0)*(Number(l.rate)||0), 0); }
+function crewById(id){ return crew.find(c=>c.id===id); }
+function syncJobCrew(jobId){
+  const j = jobById(jobId);
+  if(!j) return;
+  j.crew = [...new Set(assignments.filter(a=>a.jobId===jobId).map(a=>a.crewId))];
+}
+function jobStatusLabel(s){ return {scheduled:'Scheduled', progress:'In progress', signoff:'Awaiting sign-off', invoiced:'Invoiced'}[s]; }
+function jobBadgeClass(s){ return {scheduled:'scheduled', progress:'progress', signoff:'signoff', invoiced:'invoiced'}[s]; }
+
+function animateValues(){
+  mainEl.querySelectorAll('[data-cv]').forEach(el=>{
+    const target = Number(el.dataset.cv)||0;
+    const fmt = el.dataset.fmt==='int' ? (v=>String(Math.round(v))) : (v=>money0(v));
+    if(target===0 || matchMedia('(prefers-reduced-motion: reduce)').matches){ el.textContent = fmt(target); return; }
+    const t0 = performance.now(), dur = 850;
+    function tick(t){
+      const p = Math.min(1,(t-t0)/dur);
+      const e = 1-Math.pow(1-p,3);
+      el.textContent = fmt(target*e);
+      if(p<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
+}
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+function updateChrome(){
+  document.getElementById('sb-biz').textContent = business.name || 'Your business';
+  document.getElementById('sb-abn').textContent = [business.abn, business.city].filter(Boolean).join(' · ') || 'Set up in Reset → Start fresh';
+}
+
+/* ============================= Ko-fi: shout us a beer ============================= */
+function track(n){ try{ if(window.goatcounter && goatcounter.count) goatcounter.count({path:n, title:n, event:true}); }catch(e){} }
+const KOFI_URL = 'https://ko-fi.com/blueprintau';
+const BEER_KEY = 'blueprintau-beer-prompted';
+function beerSeen(){ try{ return localStorage.getItem(BEER_KEY)==='1'; }catch(e){ return true; } }
+function markBeerSeen(){ try{ localStorage.setItem(BEER_KEY,'1'); }catch(e){} }
+function beerPrompt(heading, line){
+  if(beerSeen()) return;
+  markBeerSeen();
+  setTimeout(()=>{
+    openModal(`
+      <h3>${heading}</h3>
+      <div class="m-sub" style="max-width:34ch">${line} It's free and staying that way — no catch, no walls. But if it's earning its keep on your Tuesdays, a beer a month keeps us shipping.</div>
+      <div class="m-actions">
+        <button class="btn" data-close>Not now</button>
+        <a class="btn primary" href="${KOFI_URL}" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center" data-close>Shout us a beer</a>
+      </div>
+    `);
+  }, 900);
+}
+
+/* ============================= Modal system ============================= */
+const modalScrim = document.getElementById('modal-scrim');
+function openModal(html){
+  modalScrim.innerHTML = `<div class="modal">${html}<button class="m-x" data-close aria-label="Close">&times;</button></div>`;
+  modalScrim.classList.add('open');
+  modalScrim.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click', closeModal));
+  const f = modalScrim.querySelector('input,select'); if(f) setTimeout(()=>f.focus(), 60);
+  return modalScrim;
+}
+function closeModal(){ modalScrim.classList.remove('open'); setTimeout(()=>{ if(!modalScrim.classList.contains('open')) modalScrim.innerHTML=''; }, 260); }
+modalScrim.addEventListener('click', e=>{ if(e.target===modalScrim) closeModal(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && modalScrim.classList.contains('open')) closeModal(); });
+
+function clientModal(onSaved){
+  openModal(`
+    <h3>New client</h3>
+    <div class="m-sub">Only the name is required — fill the rest in later.</div>
+    <div class="m-body">
+      <div class="field"><label>Business / client name</label><input id="cm-name" placeholder="e.g. Harbour View Cafe"></div>
+      <div class="form-grid">
+        <div class="field"><label>Contact person</label><input id="cm-contact"></div>
+        <div class="field"><label>Phone</label><input id="cm-phone"></div>
+      </div>
+      <div class="field"><label>Email</label><input id="cm-email" type="email"></div>
+      <div class="form-grid">
+        <div class="field"><label>Suburb</label><input id="cm-suburb"></div>
+        <div class="field"><label>Street address</label><input id="cm-address"></div>
+      </div>
+    </div>
+    <div class="m-actions"><button class="btn" data-close>Cancel</button><button class="btn primary" id="cm-save">Add client</button></div>
+  `);
+  document.getElementById('cm-save').addEventListener('click', ()=>{
+    const name = document.getElementById('cm-name').value.trim();
+    if(!name){ toast('The client needs a name.'); return; }
+    const cl = {
+      id:'cl'+(clients.length+1)+'_'+Math.abs(name.split('').reduce((a,c)=>a*31+c.charCodeAt(0)|0,7)),
+      name, contact:document.getElementById('cm-contact').value.trim(),
+      phone:document.getElementById('cm-phone').value.trim(),
+      email:document.getElementById('cm-email').value.trim(),
+      suburb:document.getElementById('cm-suburb').value.trim(),
+      address:document.getElementById('cm-address').value.trim(),
+    };
+    clients.push(cl); closeModal(); toast(`${cl.name} added.`);
+    if(onSaved) onSaved(cl); else render();
+  });
+}
+
+function crewModal(){
+  openModal(`
+    <h3>Add crew member</h3>
+    <div class="m-sub">They'll appear as a row on the schedule.</div>
+    <div class="m-body">
+      <div class="field"><label>Name</label><input id="crm-name" placeholder="e.g. Sam Carter"></div>
+      <div class="field"><label>Role / trade</label><input id="crm-role" placeholder="e.g. A-grade electrician"></div>
+    </div>
+    <div class="m-actions"><button class="btn" data-close>Cancel</button><button class="btn primary" id="crm-save">Add to crew</button></div>
+  `);
+  document.getElementById('crm-save').addEventListener('click', ()=>{
+    const name = document.getElementById('crm-name').value.trim();
+    if(!name){ toast('Give them a name.'); return; }
+    const initials = name.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    crew.push({id:'c'+(crew.length+1)+'_'+Math.round(Math.abs(name.length*997+crew.length*31)), name, initials, role:document.getElementById('crm-role').value.trim()||'Crew'});
+    closeModal(); toast(`${name} added to the crew.`); render();
+  });
+}
+
+/* schedule cell editor: assign / remove jobs for one crew member on one day */
+function cellModal(crewId, dateIso){
+  const c = crewById(crewId);
+  const existing = assignments.filter(a=>a.crewId===crewId && a.date===dateIso);
+  const activeJobs = jobs.filter(j=>j.status!=='invoiced');
+  openModal(`
+    <h3>${esc(c.name)}</h3>
+    <div class="m-sub">${fmtDate(dateIso)}</div>
+    <div class="m-body">
+      ${existing.length?`<div class="m-list">${existing.map((a,i)=>{
+        const j=jobById(a.jobId); if(!j) return '';
+        return `<div class="m-row"><span><span class="t">${esc(clientById(j.clientId)?.name||'')}</span><br><span class="s">${esc(j.title)} · ${j.id}</span></span>
+          <button class="btn small ghost danger" data-unassign="${i}">Remove</button></div>`;
+      }).join('')}</div>`:`<div class="m-sub" style="margin:0">Nothing booked for this day yet.</div>`}
+      ${activeJobs.length?`
+      <div class="field"><label>Book onto job</label>
+        <select id="cm-job">${activeJobs.map(j=>`<option value="${j.id}">${esc(j.title)} — ${esc(clientById(j.clientId)?.name||'')}</option>`).join('')}</select>
+      </div>
+      <div class="field"><label>Through to (optional — books each weekday)</label>
+        <input id="cm-until" type="date" value="${dateIso}" min="${dateIso}"></div>
+      `:`<div class="m-sub" style="margin:0">No active jobs to book against — accept a quote or create a job first.</div>`}
+    </div>
+    <div class="m-actions">
+      <button class="btn" data-close>Done</button>
+      ${activeJobs.length?`<button class="btn primary" id="cm-assign">Book it</button>`:''}
+    </div>
+  `);
+  modalScrim.querySelectorAll('[data-unassign]').forEach(b=>b.addEventListener('click', ()=>{
+    const a = existing[+b.dataset.unassign];
+    const idx = assignments.indexOf(a);
+    if(idx>-1) assignments.splice(idx,1);
+    syncJobCrew(a.jobId);
+    closeModal(); toast('Booking removed.'); render();
+  }));
+  const asg = document.getElementById('cm-assign');
+  if(asg) asg.addEventListener('click', ()=>{
+    const jobId = document.getElementById('cm-job').value;
+    const until = document.getElementById('cm-until').value || dateIso;
+    const start = new Date(dateIso+'T00:00:00');
+    const end = new Date(Math.max(start, new Date(until+'T00:00:00')));
+    let added = 0;
+    for(let t=start.getTime(); t<=end.getTime(); t+=DAY){
+      const dt = new Date(t);
+      if((dt.getDay()+6)%7 > 4) continue; /* skip Sat/Sun for ranges; single-day Sat still books below */
+      if(assignments.some(a=>a.crewId===crewId && a.date===iso(dt) && a.jobId===jobId)) continue;
+      assignments.push({crewId, date:iso(dt), jobId}); added++;
+    }
+    if(!added && iso(start)===iso(end)){ /* single Saturday click */
+      if(!assignments.some(a=>a.crewId===crewId && a.date===dateIso && a.jobId===jobId)){
+        assignments.push({crewId, date:dateIso, jobId}); added=1;
+      }
+    }
+    syncJobCrew(jobId);
+    const j = jobById(jobId);
+    closeModal();
+    toast(added?`${c.name.split(' ')[0]} booked on ${j.id}${added>1?` for ${added} days`:''}.`:'Already booked on that job.');
+    render();
+  });
+}
+
+/* ============================= Router ============================= */
+const mainEl = document.getElementById('main');
+const views = {};
+function go(view){
+  state.view = view;
+  if(view!=='quotes') state.openQuote=null;
+  if(view!=='invoices') state.openInvoice=null;
+  if(view!=='clients') state.openClient=null;
+  render();
+}
+function render(){
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active', b.dataset.view===state.view));
+  document.getElementById('nav-quotes').textContent = quotes.filter(q=>q.status==='draft'||q.status==='sent').length;
+  document.getElementById('nav-jobs').textContent = jobs.filter(j=>j.status!=='invoiced').length;
+  document.getElementById('nav-invoices').textContent = invoices.filter(i=>i.status!=='paid').length;
+  mainEl.innerHTML = views[state.view]();
+  mainEl.querySelectorAll('[data-go]').forEach(el=>el.addEventListener('click', e=>{ go(el.dataset.go); }));
+  if(afterRender[state.view]) afterRender[state.view]();
+  animateValues();
+  mainEl.scrollTop = 0; window.scrollTo(0,0);
+  persist();
+}
+const afterRender = {};
+document.querySelectorAll('.nav-item').forEach(b=>b.addEventListener('click', ()=>go(b.dataset.view)));
+
+/* ============================= Dashboard ============================= */
+views.dashboard = function(){
+  const pipeline = quotes.filter(q=>q.status==='sent').reduce((s,q)=>s+quoteSubtotal(q),0);
+  const activeJobs = jobs.filter(j=>j.status==='scheduled'||j.status==='progress'||j.status==='signoff');
+  const wip = activeJobs.reduce((s,j)=>s+j.value,0);
+  const outstanding = invoices.filter(i=>i.status==='awaiting'||i.status==='overdue').reduce((s,i)=>s+i.exGst*(1+GST),0);
+  const overdueN = invoices.filter(i=>i.status==='overdue').length;
+  const mtd = revenueHistory[revenueHistory.length-1].value;
+
+  const todayIso = iso(today);
+  const todayCrew = assignments.filter(a=>a.date===todayIso);
+  const byJob = {};
+  todayCrew.forEach(a=>{ (byJob[a.jobId] ||= []).push(a.crewId); });
+
+  const monthLabel = today.toLocaleDateString('en-AU',{month:'long'});
+  const prevM = revenueHistory[revenueHistory.length-2];
+  const deltaHtml = prevM && prevM.value>0
+    ? (()=>{ const pct = Math.round((mtd-prevM.value)/prevM.value*100);
+        return `<strong class="${pct<0?'down':''}">${pct>=0?'+':''}${pct}%</strong> vs ${prevM.label} full month`; })()
+    : 'ex GST this month';
+  const attention = [
+    ...invoices.filter(i=>i.status==='overdue').map(i=>{
+      const cl=clientById(i.clientId);
+      return `<div class="feed-item"><div class="f-dot" style="background:var(--red-t)"></div>
+        <div style="flex:1"><div class="cell-main">${i.id} overdue — ${esc(cl?cl.name:'')}</div>
+        <div class="cell-sub">${money(i.exGst*(1+GST))} inc GST, due ${fmtDate(i.due)}</div></div></div>`;
+    }),
+    ...quotes.filter(q=>q.status==='sent').slice(0,2).map(q=>{
+      const cl=clientById(q.clientId);
+      return `<div class="feed-item"><div class="f-dot" style="background:var(--yellow-t)"></div>
+        <div style="flex:1"><div class="cell-main">Follow up ${q.id}</div>
+        <div class="cell-sub">${esc(cl?cl.name:'')} · ${money0(quoteSubtotal(q))} ex GST · sent ${fmtDate(q.date)}</div></div></div>`;
+    }),
+    ...jobs.filter(j=>j.status==='signoff').map(j=>{
+      const cl=clientById(j.clientId);
+      return `<div class="feed-item"><div class="f-dot" style="background:var(--blue-t)"></div>
+        <div style="flex:1"><div class="cell-main">Ready to invoice — ${esc(j.title)}</div>
+        <div class="cell-sub">${esc(cl?cl.name:'')} · ${money0(j.value)} ex GST</div></div></div>`;
+    }),
+  ].join('');
+  return `
+  <div class="fade">
+    <div class="page-head">
+      <div>
+        <h1>${today.toLocaleDateString('en-AU',{weekday:'long', day:'numeric', month:'long'})}</h1>
+        <div class="sub">${activeJobs.length} active jobs · ${crew.length} on the tools · ${overdueN} overdue invoice${overdueN===1?'':'s'}</div>
+      </div>
+      <div class="head-actions">
+        ${isDemo?`<button class="chip demo" id="demo-exit" title="This is sample data"><span class="dot"></span>Demo data — start your own</button>`:''}
+        <button class="btn" data-go="schedule">This week</button>
+        <button class="btn primary" id="dash-new-quote">New quote</button>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat"><div class="label">Quoted, awaiting reply</div><div class="value" data-cv="${Math.round(pipeline)}">${money0(pipeline)}</div><div class="delta">${quotes.filter(q=>q.status==='sent').length} quotes out, ex GST</div></div>
+      <div class="stat"><div class="label">Work in progress</div><div class="value" data-cv="${Math.round(wip)}">${money0(wip)}</div><div class="delta">${activeJobs.length} jobs, contract value ex GST</div></div>
+      <div class="stat"><div class="label">Invoiced ${monthLabel}</div><div class="value" data-cv="${Math.round(mtd)}">${money0(mtd)}</div><div class="delta">${deltaHtml}</div></div>
+      <div class="stat"><div class="label">Outstanding</div><div class="value" data-cv="${Math.round(outstanding)}">${money0(outstanding)}</div><div class="delta">${overdueN>0?`<strong class="down">${overdueN} overdue</strong> — chase today`:'nothing overdue'}</div></div>
+    </div>
+
+    <div class="dash-grid">
+      <div class="dash-col">
+        <div class="card">
+          <div class="card-head"><h3>Invoiced revenue, last 6 months</h3><div class="meta">EX GST</div></div>
+          <div class="card-body chart-wrap" id="rev-chart"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>On the tools today</h3><button class="btn small ghost" data-go="schedule">Full schedule</button></div>
+          ${Object.keys(byJob).length ? Object.entries(byJob).map(([jid, crewIds])=>{
+            const j = jobById(jid); if(!j) return '';
+            const cl = clientById(j.clientId);
+            return `<div class="feed-item">
+              <div class="f-dot" style="background:var(--blue-t)"></div>
+              <div style="flex:1">
+                <div><span class="cell-main">${esc(j.title)}</span> — ${esc(cl.name)}</div>
+                <div class="cell-sub">${esc(j.site)} · ${crewIds.map(c=>esc(crewById(c).name.split(' ')[0])).join(', ')}</div>
+              </div>
+              <span class="badge ${jobBadgeClass(j.status)}"><span class="dot"></span>${jobStatusLabel(j.status)}</span>
+            </div>`;
+          }).join('') : `<div class="empty">No crew scheduled today.</div>`}
+        </div>
+      </div>
+      <div class="dash-col">
+        <div class="card">
+          <div class="card-head"><h3>Needs attention</h3></div>
+          ${attention || `<div class="empty">All clear — nothing needs chasing.</div>`}
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>Recent activity</h3></div>
+          ${activity.map(a=>`<div class="feed-item">
+            <div class="f-dot" style="background:${a.dot}"></div>
+            <div style="flex:1">${esc(a.txt)}<div class="f-time">${a.t}</div></div>
+          </div>`).join('') || `<div class="empty">Quiet so far — activity shows up here as you work.</div>`}
+        </div>
+      </div>
+    </div>
+  </div>`;
+};
+
+afterRender.dashboard = function(){
+  document.getElementById('dash-new-quote').addEventListener('click', ()=>{ state.openQuote='new'; go('quotes'); });
+  const de = document.getElementById('demo-exit');
+  if(de) de.addEventListener('click', startOverModal);
+  drawRevenueChart(document.getElementById('rev-chart'));
+};
+
+function drawRevenueChart(host){
+  const W=560, H=190, padL=8, padB=24, padT=14;
+  const max = Math.max(1000, ...revenueHistory.map(r=>r.value)) * 1.12;
+  const n = revenueHistory.length;
+  const bw = 42, gap=(W-padL*2-n*bw)/(n-1);
+  const gridVals=[0, .5, 1].map(f=>Math.round(max*f/1000)*1000);
+  let bars='', labels='', valueLabel='', grid='';
+  gridVals.forEach(v=>{
+    const y = padT + (H-padB-padT)*(1-v/max);
+    grid += `<line x1="${padL}" x2="${W-padL}" y1="${y}" y2="${y}" stroke="var(--border)" stroke-width="1"/>`;
+    if(v>0) grid += `<text x="${W-padL}" y="${y-4}" text-anchor="end" font-size="9" fill="var(--ink-3)" font-family="var(--mono)">${(v/1000)}k</text>`;
+  });
+  revenueHistory.forEach((r,i)=>{
+    const x = padL + i*(bw+gap);
+    const h = (H-padB-padT)*(r.value/max);
+    const y = H-padB-h;
+    const cur = i===n-1;
+    bars += `<path d="M${x} ${H-padB} V${y+4} Q${x} ${y} ${x+4} ${y} H${x+bw-4} Q${x+bw} ${y} ${x+bw} ${y+4} V${H-padB} Z"
+      fill="${cur?'url(#barfill)':'var(--chart-soft)'}" data-i="${i}" class="rev-bar" style="cursor:default;--i:${i}"/>`;
+    labels += `<text x="${x+bw/2}" y="${H-7}" text-anchor="middle" font-size="10" fill="var(--ink-2)">${r.label}</text>`;
+    if(cur && r.value>0) valueLabel = `<text x="${x+bw/2}" y="${y-8}" text-anchor="middle" font-size="11" font-weight="600" fill="var(--ink)" font-family="var(--mono)">${money0(r.value)}</text>`;
+  });
+  host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block">
+    <defs><linearGradient id="barfill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--chart-hi)"/><stop offset="1" stop-color="var(--chart)"/>
+    </linearGradient></defs>
+    ${grid}${bars}${labels}<g class="chart-fadein">${valueLabel}</g></svg>
+    <div class="chart-tip" id="rev-tip"></div>`;
+  const tip = host.querySelector('#rev-tip');
+  host.querySelectorAll('.rev-bar').forEach(b=>{
+    b.addEventListener('mousemove', e=>{
+      const r = revenueHistory[+b.dataset.i];
+      tip.innerHTML = `<div class="tt-l">${r.m.toLocaleDateString('en-AU',{month:'long',year:'numeric'})}</div>${money0(r.value)} ex GST`;
+      const hr = host.getBoundingClientRect();
+      tip.style.left = Math.min(e.clientX-hr.left+12, hr.width-150)+'px';
+      tip.style.top = (e.clientY-hr.top-38)+'px';
+      tip.style.opacity=1;
+    });
+    b.addEventListener('mouseleave', ()=>tip.style.opacity=0);
+  });
+}
+
+/* ============================= Quotes ============================= */
+views.quotes = function(){
+  if(state.openQuote) return quoteBuilder();
+  const filters=[['all','All'],['draft','Draft'],['sent','Sent'],['accepted','Accepted'],['declined','Declined']];
+  const list = quotes.filter(q=>state.quoteFilter==='all'||q.status===state.quoteFilter);
+  return `
+  <div class="fade">
+    <div class="page-head">
+      <div><h1>Quotes</h1><div class="sub">${quotes.filter(q=>q.status==='sent').length} awaiting reply · ${money0(quotes.filter(q=>q.status==='sent').reduce((s,q)=>s+quoteSubtotal(q),0))} ex GST in the pipeline</div></div>
+      <div class="head-actions"><button class="btn primary" id="q-new">New quote</button></div>
+    </div>
+    <div class="filter-row">${filters.map(([k,l])=>`<button class="chip ${state.quoteFilter===k?'active':''}" data-qf="${k}">${l}</button>`).join('')}</div>
+    <div class="card">
+      <table class="data">
+        <thead><tr><th>Quote</th><th>Client</th><th>Status</th><th>Date</th><th class="num">Ex GST</th><th class="num">Inc GST</th></tr></thead>
+        <tbody>
+        ${list.map(q=>{
+          const cl=clientById(q.clientId); const sub=quoteSubtotal(q);
+          return `<tr class="rowlink" data-open-quote="${q.id}">
+            <td><div class="cell-main">${esc(q.title)}</div><div class="cell-sub mono">${q.id}</div></td>
+            <td>${cl?esc(cl.name):'<span style="color:var(--ink-3)">— assign a client —</span>'}<div class="cell-sub">${esc(cl?cl.suburb:'')}</div></td>
+            <td><span class="badge ${q.status}"><span class="dot"></span>${q.status}</span></td>
+            <td class="mono">${fmtDate(q.date)}</td>
+            <td class="num">${money(sub)}</td>
+            <td class="num cell-main">${money(sub*(1+GST))}</td>
+          </tr>`;
+        }).join('') || `<tr><td colspan="6"><div class="empty"><div class="e-title">Nothing here</div>No quotes match this filter.</div></td></tr>`}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
+};
+
+afterRender.quotes = function(){
+  if(state.openQuote){ afterQuoteBuilder(); return; }
+  document.getElementById('q-new').addEventListener('click', ()=>{ state.openQuote='new'; render(); });
+  mainEl.querySelectorAll('[data-qf]').forEach(c=>c.addEventListener('click', ()=>{ state.quoteFilter=c.dataset.qf; render(); }));
+  mainEl.querySelectorAll('[data-open-quote]').forEach(r=>r.addEventListener('click', ()=>{ state.openQuote=r.dataset.openQuote; render(); }));
+};
+
+/* --- builder (new or edit) --- */
+let draft = null;
+let pendingQuoteClient = null;
+function quoteBuilder(){
+  if(!draft || draft._for!==state.openQuote){
+    if(state.openQuote==='new'){
+      draft = {_for:'new', id:null, clientId:pendingQuoteClient||(clients[0]&&clients[0].id)||'', title:'', site:'', date:iso(today), status:'draft',
+        lines:[{desc:'Labour — A-grade electrician', qty:8, unit:'hr', rate:118}], notes:''};
+    }else{
+      const q = quoteById(state.openQuote);
+      draft = JSON.parse(JSON.stringify(q)); draft._for = q.id;
+    }
+  }
+  const q = draft;
+  const sub = quoteSubtotal(q), gst = sub*GST;
+  const isNew = !q.id;
+  return `
+  <div class="fade">
+    <button class="back" id="q-back">&larr; All quotes</button>
+    <div class="page-head">
+      <div><h1>${isNew?'New quote':esc(q.id)}</h1>
+        <div class="sub">${isNew?'Draft — not yet saved':`${q.status[0].toUpperCase()+q.status.slice(1)} · ${fmtDate(q.date)}`}</div></div>
+      <div class="head-actions">
+        ${!isNew && (q.status==='draft'||q.status==='sent') ? `<button class="btn danger" id="q-delete">Delete</button>`:''}
+        <button class="btn" id="q-save">${isNew?'Save draft':'Save changes'}</button>
+        ${q.status==='draft' ? `<button class="btn primary" id="q-send">Mark as sent</button>`:''}
+        ${q.status==='sent' ? `<button class="btn primary" id="q-accept">Accepted &rarr; create job</button>`:''}
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:14px"><div class="card-body">
+      <div class="form-grid">
+        <div class="field"><label>Client</label>
+          <div style="display:flex;gap:8px">
+            <select id="qf-client" style="flex:1">
+              ${(!q.clientId||!clientById(q.clientId))?'<option value="" selected>— pick a client —</option>':''}
+              ${clients.map(c=>`<option value="${c.id}" ${c.id===q.clientId?'selected':''}>${esc(c.name)}</option>`).join('')}
+            </select>
+            <button class="btn" id="qf-newclient" title="Add a new client">+ New</button>
+          </div>
+        </div>
+        <div class="field"><label>Quote title</label><input id="qf-title" value="${esc(q.title)}" placeholder="e.g. Switchboard upgrade — main workshop"></div>
+        <div class="field"><label>Site address</label><input id="qf-site" value="${esc(q.site)}" placeholder="Street, suburb"></div>
+        <div class="field"><label>Date</label><input id="qf-date" type="date" value="${q.date}"></div>
+      </div>
+    </div></div>
+
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-head"><h3>Line items</h3><div class="meta">RATES EX GST</div></div>
+      <table class="data lines">
+        <thead><tr><th style="width:44%">Description</th><th style="width:11%" class="num">Qty</th><th style="width:12%">Unit</th><th style="width:14%" class="num">Rate</th><th style="width:14%" class="num">Amount</th><th style="width:5%"></th></tr></thead>
+        <tbody id="q-lines">
+        ${q.lines.map((l,i)=>`<tr>
+          <td><input list="catalog-list" data-li="${i}" data-k="desc" value="${esc(l.desc)}" placeholder="Item or labour"></td>
+          <td><input class="num" data-li="${i}" data-k="qty" type="number" min="0" step="0.5" value="${l.qty}"></td>
+          <td><input data-li="${i}" data-k="unit" value="${esc(l.unit)}"></td>
+          <td><input class="num" data-li="${i}" data-k="rate" type="number" min="0" step="0.01" value="${l.rate}"></td>
+          <td class="num mono line-amt" style="font-size:12.5px;color:var(--ink)">${money((Number(l.qty)||0)*(Number(l.rate)||0))}</td>
+          <td><button class="btn small ghost" data-del-line="${i}" title="Remove line">&times;</button></td>
+        </tr>`).join('')}
+        </tbody>
+      </table>
+      <datalist id="catalog-list">${catalog.map(c=>`<option value="${esc(c.desc)}">`).join('')}</datalist>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:14px 20px;border-top:1px solid var(--border)">
+        <div style="display:flex;gap:8px">
+          <button class="btn small" id="q-add-line">+ Line</button>
+          ${catalog.length?`<select id="q-quick-add" class="btn small" style="appearance:auto">
+            <option value="">Quick add from price book…</option>
+            ${catalog.map((c,i)=>`<option value="${i}">${esc(c.desc)} — $${c.rate}/${c.unit}</option>`).join('')}
+          </select>`:''}
+        </div>
+        <div class="totals">
+          <div class="trow"><span class="lab">Subtotal</span><span id="t-sub">${money(sub)}</span></div>
+          <div class="trow"><span class="lab">GST 10%</span><span id="t-gst">${money(gst)}</span></div>
+          <div class="trow grand"><span class="lab">Total inc GST</span><span id="t-grand">${money(sub+gst)}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card"><div class="card-body">
+      <div class="field"><label>Notes & exclusions</label>
+        <textarea id="qf-notes" rows="3" placeholder="Assumptions, exclusions, access requirements…">${esc(q.notes)}</textarea></div>
+    </div></div>
+  </div>`;
+}
+
+function readQuoteForm(){
+  draft.clientId = document.getElementById('qf-client').value;
+  draft.title = document.getElementById('qf-title').value.trim();
+  draft.site = document.getElementById('qf-site').value.trim();
+  draft.date = document.getElementById('qf-date').value || iso(today);
+  draft.notes = document.getElementById('qf-notes').value;
+}
+function commitDraft(){
+  readQuoteForm();
+  if(!draft.title){ toast('Give the quote a title first.'); return null; }
+  if(!draft.clientId || !clientById(draft.clientId)){ toast('Pick or add a client first.'); return null; }
+  if(!draft.id){
+    draft.id = `Q-${today.getFullYear()}-${String(state.seq.quote++).padStart(3,'0')}`;
+    const q = JSON.parse(JSON.stringify(draft)); delete q._for;
+    quotes.unshift(q); return q;
+  }
+  const q = quoteById(draft.id);
+  Object.assign(q, JSON.parse(JSON.stringify(draft))); delete q._for;
+  return q;
+}
+function afterQuoteBuilder(){
+  document.getElementById('q-back').addEventListener('click', ()=>{ draft=null; state.openQuote=null; render(); });
+  function refreshQuoteTotals(){
+    const sub = quoteSubtotal(draft);
+    document.getElementById('t-sub').textContent = money(sub);
+    document.getElementById('t-gst').textContent = money(sub*GST);
+    document.getElementById('t-grand').textContent = money(sub*(1+GST));
+    mainEl.querySelectorAll('#q-lines tr').forEach((tr,i)=>{
+      const l = draft.lines[i]; if(!l) return;
+      const amt = tr.querySelector('.line-amt');
+      if(amt) amt.textContent = money((Number(l.qty)||0)*(Number(l.rate)||0));
+    });
+  }
+  mainEl.querySelectorAll('#q-lines input').forEach(inp=>{
+    inp.addEventListener('input', ()=>{
+      const l = draft.lines[+inp.dataset.li]; if(!l) return;
+      l[inp.dataset.k] = (inp.dataset.k==='qty'||inp.dataset.k==='rate') ? Number(inp.value)||0 : inp.value;
+      if(inp.dataset.k==='desc'){
+        const hit = catalog.find(c=>c.desc===inp.value);
+        if(hit){
+          l.unit=hit.unit; l.rate=hit.rate;
+          const tr = inp.closest('tr');
+          const u = tr.querySelector('[data-k="unit"]'); if(u) u.value = hit.unit;
+          const rt = tr.querySelector('[data-k="rate"]'); if(rt) rt.value = hit.rate;
+        }
+      }
+      refreshQuoteTotals();
+    });
+  });
+  mainEl.querySelectorAll('[data-del-line]').forEach(b=>b.addEventListener('click', ()=>{
+    readQuoteForm(); draft.lines.splice(+b.dataset.delLine,1);
+    if(!draft.lines.length) draft.lines.push({desc:'',qty:1,unit:'each',rate:0});
+    render();
+  }));
+  document.getElementById('q-add-line').addEventListener('click', ()=>{
+    readQuoteForm(); draft.lines.push({desc:'',qty:1,unit:'each',rate:0}); render();
+  });
+  const qa = document.getElementById('q-quick-add');
+  if(qa) qa.addEventListener('change', e=>{
+    if(e.target.value==='') return;
+    readQuoteForm(); const c = catalog[+e.target.value];
+    draft.lines.push({desc:c.desc, qty:1, unit:c.unit, rate:c.rate}); render();
+  });
+  document.getElementById('qf-newclient').addEventListener('click', ()=>{
+    readQuoteForm();
+    clientModal(cl=>{ draft.clientId = cl.id; render(); });
+  });
+  document.getElementById('q-save').addEventListener('click', ()=>{
+    const q = commitDraft(); if(!q) return;
+    state.openQuote = q.id; draft=null; toast(`${q.id} saved.`); render();
+  });
+  const send = document.getElementById('q-send');
+  if(send) send.addEventListener('click', ()=>{
+    const q = commitDraft(); if(!q) return;
+    q.status='sent';
+    activity.unshift({t:'Just now', txt:`${q.id} marked as sent to ${clientById(q.clientId)?.name||'client'} — ${money0(quoteSubtotal(q)*(1+GST))} inc GST.`, dot:'var(--blue-t)'});
+    draft=null; state.openQuote=null; toast(`${q.id} marked as sent.`); render();
+  });
+  const acc = document.getElementById('q-accept');
+  if(acc) acc.addEventListener('click', ()=>{
+    const q = commitDraft(); if(!q) return;
+    q.status='accepted';
+    const job = {
+      id:`J-${state.seq.job++}`, clientId:q.clientId, quoteId:q.id, title:q.title, site:q.site,
+      status:'scheduled', value:Math.round(quoteSubtotal(q)), crew:[], start:iso(d(7)), days:2,
+      color:['b-blue','b-green','b-yellow'][jobs.length%3],
+    };
+    jobs.unshift(job);
+    activity.unshift({t:'Just now', txt:`${q.id} accepted — job ${job.id} created for ${clientById(q.clientId).name}.`, dot:'var(--green-t)'});
+    draft=null; state.openQuote=null;
+    toast(`Quote accepted — job ${job.id} created.`); go('jobs');
+  });
+  const del = document.getElementById('q-delete');
+  if(del) del.addEventListener('click', ()=>{
+    quotes = quotes.filter(x=>x.id!==draft.id);
+    toast(`${draft.id} deleted.`); draft=null; state.openQuote=null; render();
+  });
+}
+
+/* ============================= Jobs board ============================= */
+const JOB_FLOW = ['scheduled','progress','signoff','invoiced'];
+views.jobs = function(){
+  const cols = JOB_FLOW.map(s=>({s, list:jobs.filter(j=>j.status===s)}));
+  return `
+  <div class="fade">
+    <div class="page-head">
+      <div><h1>Jobs</h1><div class="sub">Quote accepted &rarr; scheduled &rarr; on the tools &rarr; signed off &rarr; invoiced</div></div>
+      <div class="head-actions"><button class="btn" data-go="quotes">Quotes</button><button class="btn primary" data-go="schedule">Crew schedule</button></div>
+    </div>
+    <div class="board">
+    ${cols.map(({s,list})=>`
+      <div class="board-col">
+        <div class="col-head"><h4>${jobStatusLabel(s)}</h4><span class="n">${list.length} · ${money0(list.reduce((a,j)=>a+j.value,0))}</span></div>
+        ${list.map(j=>{
+          const cl = clientById(j.clientId);
+          const idx = JOB_FLOW.indexOf(s);
+          const next = JOB_FLOW[idx+1];
+          const nextLabel = {progress:'Start job', signoff:'Mark done', invoiced:'Invoice'}[next];
+          return `<div class="job-card">
+            <div class="jc-title">${esc(j.title)}</div>
+            <div class="jc-client">${esc(cl.name)} · ${esc(j.site.split(',').pop().trim())}</div>
+            <div class="jc-meta">
+              <span class="jc-value">${money0(j.value)} <span style="color:var(--ink-3)">ex GST</span></span>
+              <span class="jc-crew">${j.crew.length? j.crew.map(c=>`<span class="avatar" title="${esc(crewById(c).name)}">${crewById(c).initials}</span>`).join('') : `<span class="mono" style="font-size:10px">no crew</span>`}</span>
+            </div>
+            <div class="jc-meta" style="border-top:none;padding-top:0;margin-top:6px">
+              <span class="mono">${j.id}${j.quoteId?` · from ${j.quoteId}`:''}</span>
+              <span class="mono">${s==='scheduled'?`starts ${fmtDate(j.start)}`:''}</span>
+            </div>
+            ${next?`<div class="jc-actions">
+              ${idx>0?`<button class="btn small ghost" data-job-back="${j.id}">&larr;</button>`:''}
+              <button class="btn small ${next==='invoiced'?'primary':''}" data-job-adv="${j.id}">${nextLabel} &rarr;</button>
+            </div>`:''}
+          </div>`;
+        }).join('') || `<div class="job-card" style="border-style:dashed;color:var(--ink-3);text-align:center;font-size:12px">Empty</div>`}
+      </div>`).join('')}
+    </div>
+  </div>`;
+};
+afterRender.jobs = function(){
+  mainEl.querySelectorAll('[data-job-adv]').forEach(b=>b.addEventListener('click', ()=>{
+    const j = jobById(b.dataset.jobAdv);
+    const next = JOB_FLOW[JOB_FLOW.indexOf(j.status)+1];
+    if(next==='invoiced'){
+      j.status='invoiced';
+      const inv = {id:`INV-${state.seq.invoice++}`, jobId:j.id, clientId:j.clientId,
+        issued:iso(today), due:iso(d(14)), status:'awaiting', exGst:j.value};
+      invoices.unshift(inv);
+      activity.unshift({t:'Just now', txt:`${inv.id} raised for ${clientById(j.clientId).name} — ${money0(j.value*(1+GST))} inc GST, net 14 days.`, dot:'var(--green-t)'});
+      toast(`${inv.id} raised — ${money0(j.value*(1+GST))} inc GST.`);
+      state.openInvoice = inv.id; go('invoices'); return;
+    }
+    j.status = next; toast(`${j.id} → ${jobStatusLabel(next)}.`); render();
+  }));
+  mainEl.querySelectorAll('[data-job-back]').forEach(b=>b.addEventListener('click', ()=>{
+    const j = jobById(b.dataset.jobBack);
+    j.status = JOB_FLOW[Math.max(0, JOB_FLOW.indexOf(j.status)-1)];
+    render();
+  }));
+};
+
+/* ============================= Schedule ============================= */
+views.schedule = function(){
+  const mon = new Date(mondayOf(today).getTime() + state.weekOffset*7*DAY);
+  const days = [0,1,2,3,4,5].map(i=>new Date(mon.getTime()+i*DAY));
+  const label = `${fmtDateShort(days[0])} – ${fmtDateShort(days[5])}`;
+  return `
+  <div class="fade">
+    <div class="page-head">
+      <div><h1>Crew schedule</h1><div class="sub">Week of ${fmtDate(days[0])}${state.weekOffset===0?' · this week':''}</div></div>
+      <div class="head-actions">
+        <button class="btn" id="wk-addcrew">+ Crew member</button>
+        <button class="btn" id="wk-prev">&larr;</button>
+        <button class="btn" id="wk-today" ${state.weekOffset===0?'disabled style="opacity:.4"':''}>Today</button>
+        <button class="btn" id="wk-next">&rarr;</button>
+      </div>
+    </div>
+    <div class="sched"><div class="sched-grid">
+      <div class="sched-head"></div>
+      ${days.map(dt=>`<div class="sched-head ${iso(dt)===iso(today)?'today':''}">
+        <div class="d">${dt.toLocaleDateString('en-AU',{weekday:'short'})}</div>
+        <div class="dt">${fmtDateShort(dt)}</div></div>`).join('')}
+      ${crew.map(c=>`
+        <div class="sched-crew"><div class="nm">${esc(c.name)}</div><div class="rl">${esc(c.role)}</div></div>
+        ${days.map(dt=>{
+          const cells = assignments.filter(a=>a.crewId===c.id && a.date===iso(dt));
+          return `<div class="sched-cell" data-crew="${c.id}" data-date="${iso(dt)}" title="Click to book or change">${cells.map(a=>{
+            const j = jobById(a.jobId); if(!j) return '';
+            const cl = clientById(j.clientId);
+            return `<div class="sched-block ${j.color}" title="${esc(j.title)} — ${esc(cl?cl.name:'')}">
+              <div class="sb-t">${esc(cl?cl.name:'')}</div><div class="sb-s">${esc(j.title)}</div></div>`;
+          }).join('')}<div class="cell-add">+ book</div></div>`;
+        }).join('')}`).join('')}
+    </div>
+    ${!crew.length?`<div class="empty"><div class="e-title">No crew yet</div>Add your first crew member to start scheduling.<br><br><button class="btn primary" id="sched-addcrew-empty">+ Crew member</button></div>`:''}
+    </div>
+    <div style="margin-top:14px" class="card">
+      <div class="card-head"><h3>Unassigned jobs</h3><div class="meta">DRAG-FREE DEMO — CREW SET ON JOB CARDS</div></div>
+      ${jobs.filter(j=>j.status==='scheduled' && !j.crew.length).map(j=>`
+        <div class="feed-item"><div class="f-dot" style="background:var(--yellow-t)"></div>
+          <div style="flex:1"><span class="cell-main">${esc(j.title)}</span> — ${esc(clientById(j.clientId).name)}
+          <div class="cell-sub">starts ${fmtDate(j.start)} · ${money0(j.value)} ex GST</div></div>
+          <button class="btn small" data-crew-job="${j.id}">Assign crew</button>
+        </div>`).join('') || `<div class="empty">Every scheduled job has a crew. Good shape.</div>`}
+    </div>
+  </div>`;
+};
+afterRender.schedule = function(){
+  document.getElementById('wk-prev').addEventListener('click', ()=>{ state.weekOffset--; render(); });
+  document.getElementById('wk-next').addEventListener('click', ()=>{ state.weekOffset++; render(); });
+  document.getElementById('wk-today').addEventListener('click', ()=>{ state.weekOffset=0; render(); });
+  document.getElementById('wk-addcrew').addEventListener('click', crewModal);
+  const em = document.getElementById('sched-addcrew-empty');
+  if(em) em.addEventListener('click', crewModal);
+  mainEl.querySelectorAll('.sched-cell[data-crew]').forEach(cell=>cell.addEventListener('click', ()=>{
+    cellModal(cell.dataset.crew, cell.dataset.date);
+  }));
+  mainEl.querySelectorAll('[data-crew-job]').forEach(b=>b.addEventListener('click', ()=>{
+    if(!crew.length){ crewModal(); return; }
+    const j = jobById(b.dataset.crewJob);
+    const free = crew.filter(c=>!jobs.some(x=>x.status==='progress' && x.crew.includes(c.id)));
+    const pick = (free.length?free:crew).slice(0,2).map(c=>c.id);
+    const start = new Date(j.start+'T00:00:00');
+    for(let k=0;k<j.days;k++){
+      const dt = new Date(start.getTime()+k*DAY);
+      if((dt.getDay()+6)%7 > 5) continue;
+      pick.forEach(cid=>assignments.push({crewId:cid, date:iso(dt), jobId:j.id}));
+    }
+    syncJobCrew(j.id);
+    toast(`${pick.map(c=>crewById(c).name.split(' ')[0]).join(' & ')} assigned to ${j.id}.`);
+    render();
+  }));
+};
+
+/* ============================= Invoices ============================= */
+views.invoices = function(){
+  if(state.openInvoice) return invoiceDoc();
+  const filters=[['all','All'],['awaiting','Awaiting'],['overdue','Overdue'],['paid','Paid']];
+  const list = invoices.filter(i=>state.invoiceFilter==='all'||i.status===state.invoiceFilter);
+  const out = invoices.filter(i=>i.status!=='paid').reduce((s,i)=>s+i.exGst*(1+GST),0);
+  return `
+  <div class="fade">
+    <div class="page-head">
+      <div><h1>Invoices</h1><div class="sub">${money0(out)} inc GST outstanding across ${invoices.filter(i=>i.status!=='paid').length} invoices</div></div>
+    </div>
+    <div class="filter-row">${filters.map(([k,l])=>`<button class="chip ${state.invoiceFilter===k?'active':''}" data-if="${k}">${l}</button>`).join('')}</div>
+    <div class="card">
+      <table class="data">
+        <thead><tr><th>Invoice</th><th>Client</th><th>Status</th><th>Issued</th><th>Due</th><th class="num">Inc GST</th></tr></thead>
+        <tbody>
+        ${list.map(i=>{
+          const cl=clientById(i.clientId);
+          const j = i.jobId ? jobById(i.jobId) : null;
+          return `<tr class="rowlink" data-open-inv="${i.id}">
+            <td><div class="cell-main mono" style="color:var(--ink-strong);font-size:12.5px">${i.id}</div><div class="cell-sub">${esc(j?j.title:(i.title||''))}</div></td>
+            <td>${esc(cl.name)}</td>
+            <td><span class="badge ${i.status}"><span class="dot"></span>${i.status==='awaiting'?'awaiting payment':i.status}</span></td>
+            <td class="mono">${fmtDate(i.issued)}</td>
+            <td class="mono" ${i.status==='overdue'?'style="color:var(--red-t)"':''}>${fmtDate(i.due)}</td>
+            <td class="num cell-main">${money(i.exGst*(1+GST))}</td>
+          </tr>`;
+        }).join('') || `<tr><td colspan="6"><div class="empty"><div class="e-title">Nothing here</div>No invoices match this filter.</div></td></tr>`}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
+};
+
+function invoiceDoc(){
+  const inv = invoices.find(i=>i.id===state.openInvoice);
+  const cl = clientById(inv.clientId);
+  const j = inv.jobId ? jobById(inv.jobId) : null;
+  const q = j && j.quoteId ? quoteById(j.quoteId) : null;
+  const lines = q ? q.lines : [{desc: j?j.title:(inv.title||'Electrical works as agreed'), qty:1, unit:'each', rate:inv.exGst}];
+  const sub = lines.reduce((s,l)=>s+(Number(l.qty)||0)*(Number(l.rate)||0),0);
+  return `
+  <div class="fade">
+    <button class="back" id="inv-back">&larr; All invoices</button>
+    <div class="page-head">
+      <div><h1 style="font-size:24px">Tax invoice</h1></div>
+      <div class="head-actions">
+        ${inv.status!=='paid'?`<button class="btn primary" id="inv-paid">Record payment</button>`:''}
+        <button class="btn" onclick="window.print()">Print / PDF</button>
+      </div>
+    </div>
+    <div class="doc">
+      ${inv.status==='paid'?`<div class="stamp" aria-hidden="true">PAID</div>`:''}
+      <div class="doc-top">
+        <div>
+          <h2>Tax invoice</h2>
+          <div class="doc-num">${inv.id} · issued ${fmtDate(inv.issued)} · due ${fmtDate(inv.due)}</div>
+        </div>
+        <span class="badge ${inv.status}" style="margin-top:8px"><span class="dot"></span>${inv.status==='awaiting'?'awaiting payment':inv.status}</span>
+      </div>
+      <div class="doc-parties">
+        <div>
+          <div class="p-label">From</div>
+          <div class="p-name">${esc(business.name)}</div>
+          ${business.abn?`<div class="p-line">${esc(business.abn)}</div>`:''}
+          ${business.address?`<div class="p-line">${esc(business.address)}</div>`:''}
+          ${business.email?`<div class="p-line">${esc(business.email)}</div>`:''}
+        </div>
+        <div>
+          <div class="p-label">Bill to</div>
+          <div class="p-name">${esc(cl.name)}</div>
+          <div class="p-line">Attn: ${esc(cl.contact)}</div>
+          <div class="p-line">${esc(cl.address)}</div>
+          ${j?`<div class="p-line" style="margin-top:6px">Job ${j.id} — ${esc(j.title)}</div>`:''}
+        </div>
+      </div>
+      <table class="data">
+        <thead><tr><th>Description</th><th class="num">Qty</th><th class="num">Rate</th><th class="num">Amount</th></tr></thead>
+        <tbody>
+          ${lines.map(l=>`<tr>
+            <td>${esc(l.desc)}</td>
+            <td class="num mono">${l.qty} ${esc(l.unit)}</td>
+            <td class="num mono">${money(l.rate)}</td>
+            <td class="num">${money((Number(l.qty)||0)*(Number(l.rate)||0))}</td></tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="totals" style="margin-top:16px">
+        <div class="trow"><span class="lab">Subtotal</span><span>${money(sub)}</span></div>
+        <div class="trow"><span class="lab">GST 10%</span><span>${money(sub*GST)}</span></div>
+        <div class="trow grand"><span class="lab">Total inc GST</span><span>${money(sub*(1+GST))}</span></div>
+        ${inv.status==='paid'?`<div class="trow"><span class="lab">Paid ${fmtDate(inv.paid||inv.due)}</span><span style="color:var(--green-t);font-weight:600">${money(sub*(1+GST))}</span></div>`:''}
+      </div>
+      <div class="doc-foot">
+        <div>Payment terms: 14 days from issue.<br>Please quote ${inv.id} on all payments.</div>
+        <div class="mono">${business.bsb?`BSB ${esc(business.bsb)} · ACC ${esc(business.acc||'')}<br>`:''}${esc(business.name)}</div>
+      </div>
+      <div class="doc-credit">Generated with Foreman — free for Australian trades at blueprintau.com</div>
+    </div>
+  </div>`;
+}
+afterRender.invoices = function(){
+  if(state.openInvoice){
+    document.getElementById('inv-back').addEventListener('click', ()=>{ state.openInvoice=null; render(); });
+    const p = document.getElementById('inv-paid');
+    if(p) p.addEventListener('click', ()=>{
+      const inv = invoices.find(i=>i.id===state.openInvoice);
+      inv.status='paid'; inv.paid=iso(today);
+      revenueHistory[revenueHistory.length-1].value += inv.exGst;
+      activity.unshift({t:'Just now', txt:`${inv.id} paid in full by ${clientById(inv.clientId).name} — ${money0(inv.exGst*(1+GST))} inc GST.`, dot:'var(--green-t)'});
+      toast(`${inv.id} recorded as paid.`); render();
+      track('foreman-invoice-paid');
+      beerPrompt('That one&#8217;s in the bank.', 'Quoted, crewed, invoiced, paid — Foreman just walked a job all the way home.');
+    });
+    return;
+  }
+  mainEl.querySelectorAll('[data-if]').forEach(c=>c.addEventListener('click', ()=>{ state.invoiceFilter=c.dataset.if; render(); }));
+  mainEl.querySelectorAll('[data-open-inv]').forEach(r=>r.addEventListener('click', ()=>{ state.openInvoice=r.dataset.openInv; render(); }));
+};
+
+/* ============================= Clients ============================= */
+views.clients = function(){
+  if(state.openClient){
+    const cl = clientById(state.openClient);
+    const clQuotes = quotes.filter(q=>q.clientId===cl.id);
+    const clJobs = jobs.filter(j=>j.clientId===cl.id);
+    const clInv = invoices.filter(i=>i.clientId===cl.id);
+    const lifetime = clInv.filter(i=>i.status==='paid').reduce((s,i)=>s+i.exGst,0);
+    return `
+    <div class="fade">
+      <button class="back" id="cl-back">&larr; All clients</button>
+      <div class="page-head">
+        <div><h1>${esc(cl.name)}</h1><div class="sub">${esc(cl.contact)} · ${esc(cl.phone)} · ${esc(cl.email)}</div></div>
+        <div class="head-actions"><button class="btn primary" id="cl-quote">New quote</button></div>
+      </div>
+      <div class="stat-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat"><div class="label">Lifetime billed</div><div class="value" data-cv="${Math.round(lifetime)}">${money0(lifetime)}</div><div class="delta">paid invoices, ex GST</div></div>
+        <div class="stat"><div class="label">Open work</div><div class="value" data-cv="${clJobs.filter(j=>j.status!=='invoiced').length}" data-fmt="int">${clJobs.filter(j=>j.status!=='invoiced').length}</div><div class="delta">active jobs</div></div>
+        <div class="stat"><div class="label">Outstanding</div><div class="value" data-cv="${Math.round(clInv.filter(i=>i.status!=='paid').reduce((s,i)=>s+i.exGst*(1+GST),0))}">${money0(clInv.filter(i=>i.status!=='paid').reduce((s,i)=>s+i.exGst*(1+GST),0))}</div><div class="delta">inc GST</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>History</h3><div class="meta">${esc(cl.address)}</div></div>
+        ${[...clQuotes.map(q=>({d:q.date, html:`<span class="cell-main">${q.id}</span> — ${esc(q.title)} · ${money0(quoteSubtotal(q))} ex GST`, badge:q.status})),
+           ...clJobs.map(j=>({d:j.start, html:`<span class="cell-main">${j.id}</span> — ${esc(j.title)} · ${money0(j.value)} ex GST`, badge:jobBadgeClass(j.status), blab:jobStatusLabel(j.status)})),
+           ...clInv.map(i=>({d:i.issued, html:`<span class="cell-main">${i.id}</span> · ${money0(i.exGst*(1+GST))} inc GST`, badge:i.status}))]
+          .sort((a,b)=>b.d.localeCompare(a.d))
+          .map(x=>`<div class="feed-item"><div class="f-dot" style="background:var(--ink-3)"></div>
+            <div style="flex:1">${x.html}<div class="f-time">${fmtDate(x.d)}</div></div>
+            <span class="badge ${x.badge}"><span class="dot"></span>${x.blab||x.badge}</span></div>`).join('')
+          || `<div class="empty">No history yet.</div>`}
+      </div>
+    </div>`;
+  }
+  return `
+  <div class="fade">
+    <div class="page-head">
+      <div><h1>Clients</h1><div class="sub">${clients.length} on the books</div></div>
+      <div class="head-actions"><button class="btn primary" id="cl-add">New client</button></div>
+    </div>
+    <div class="card">
+      <table class="data">
+        <thead><tr><th>Client</th><th>Contact</th><th>Suburb</th><th class="num">Lifetime ex GST</th><th class="num">Outstanding inc GST</th></tr></thead>
+        <tbody>
+        ${clients.map(cl=>{
+          const paid = invoices.filter(i=>i.clientId===cl.id&&i.status==='paid').reduce((s,i)=>s+i.exGst,0);
+          const out = invoices.filter(i=>i.clientId===cl.id&&i.status!=='paid').reduce((s,i)=>s+i.exGst*(1+GST),0);
+          return `<tr class="rowlink" data-open-client="${cl.id}">
+            <td class="cell-main">${esc(cl.name)}</td>
+            <td>${esc(cl.contact)}<div class="cell-sub">${esc(cl.phone)}</div></td>
+            <td>${esc(cl.suburb)}</td>
+            <td class="num">${paid?money0(paid):'—'}</td>
+            <td class="num" ${out?'style="font-weight:600;color:var(--ink-strong)"':''}>${out?money0(out):'—'}</td>
+          </tr>`;
+        }).join('') || `<tr><td colspan="5"><div class="empty"><div class="e-title">No clients yet</div>Add your first client — everything starts there.</div></td></tr>`}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
+};
+afterRender.clients = function(){
+  if(state.openClient){
+    document.getElementById('cl-back').addEventListener('click', ()=>{ state.openClient=null; render(); });
+    document.getElementById('cl-quote').addEventListener('click', ()=>{
+      pendingQuoteClient = state.openClient; draft = null;
+      state.openQuote='new'; go('quotes');
+      pendingQuoteClient = null;
+    });
+    return;
+  }
+  mainEl.querySelectorAll('[data-open-client]').forEach(r=>r.addEventListener('click', ()=>{ state.openClient=r.dataset.openClient; render(); }));
+  document.getElementById('cl-add').addEventListener('click', ()=>clientModal());
+};
+
+/* ============================= Data I/O ============================= */
+let XLSX_URL = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+function loadSheetJS(){
+  if(window.XLSX) return Promise.resolve(window.XLSX);
+  return new Promise((res,rej)=>{
+    const s = document.createElement('script');
+    s.src = XLSX_URL;
+    s.onload = ()=> window.XLSX ? res(window.XLSX) : rej(new Error('XLSX missing'));
+    s.onerror = ()=> rej(new Error('load failed'));
+    document.head.appendChild(s);
+    setTimeout(()=>rej(new Error('timeout')), 12000);
+  });
+}
+
+function parseCSV(text){
+  const rows=[]; let row=[], cell='', inQ=false;
+  text = text.replace(/^﻿/,'');
+  for(let i=0;i<text.length;i++){
+    const ch=text[i];
+    if(inQ){
+      if(ch==='"'){ if(text[i+1]==='"'){cell+='"';i++;} else inQ=false; }
+      else cell+=ch;
+    }else if(ch==='"') inQ=true;
+    else if(ch===','){ row.push(cell); cell=''; }
+    else if(ch==='\n'||ch==='\r'){
+      if(ch==='\r'&&text[i+1]==='\n') i++;
+      row.push(cell); cell='';
+      if(row.some(c=>c.trim()!=='')) rows.push(row);
+      row=[];
+    }else cell+=ch;
+  }
+  row.push(cell); if(row.some(c=>c.trim()!=='')) rows.push(row);
+  if(!rows.length) return [];
+  const headers = rows[0].map(h=>String(h).trim());
+  return rows.slice(1).map(r=>{
+    const o={}; headers.forEach((h,i)=>{ o[h] = r[i]!==undefined ? r[i] : ''; }); return o;
+  });
+}
+
+const normKey = k => String(k).toLowerCase().replace(/[^a-z]/g,'');
+function normRow(row){
+  const o={};
+  Object.keys(row).forEach(k=>{ const nk=normKey(k); if(nk && o[nk]===undefined) o[nk]=row[k]; });
+  return o;
+}
+function pick(r, ...keys){
+  for(const k of keys){ const v=r[k]; if(v!==undefined && v!==null && String(v).trim()!=='') return String(v).trim(); }
+  return '';
+}
+function pickNum(r, ...keys){
+  for(const k of keys){
+    const v=r[k]; if(v===undefined||v===null||String(v).trim()==='') continue;
+    const n = Number(String(v).replace(/[$,\s]/g,''));
+    if(!isNaN(n)) return n;
+  }
+  return 0;
+}
+function parseDateAny(v){
+  if(v===undefined||v===null||String(v).trim()==='') return null;
+  if(typeof v==='number' && v>20000 && v<80000) return new Date(Math.round((v-25569)*86400000));
+  const s = String(v).trim();
+  let m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if(m) return new Date(+m[1], +m[2]-1, +m[3]);
+  m = s.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})$/);  /* AU: dd/mm/yyyy */
+  if(m){ let y=+m[3]; if(y<100) y+=2000; return new Date(y, +m[2]-1, +m[1]); }
+  const d2 = new Date(s);
+  return isNaN(d2) ? null : d2;
+}
+function isoOr(v, fallback){ const dt = parseDateAny(v); return dt ? iso(dt) : fallback; }
+
+function classifySheet(name, rows){
+  const n = String(name||'').toLowerCase();
+  if(/business|settings|company|profile/.test(n)) return 'business';
+  if(/schedule|roster/.test(n)) return 'schedule';
+  if(/quote ?lines?|line ?items?/.test(n)) return 'quotelines';
+  if(/client|customer/.test(n)) return 'clients';
+  if(/crew|staff|team|employee/.test(n)) return 'crew';
+  if(/price|catalog|catalogue|rate|item/.test(n)) return 'catalog';
+  if(/invoice/.test(n)) return 'invoices';
+  if(/quote|estimate/.test(n)) return 'quotes';
+  if(/job|work|project/.test(n)) return 'jobs';
+  if(!rows.length) return null;
+  const keys = Object.keys(normRow(rows[0]));
+  const has = (...ks)=>ks.some(k=>keys.includes(k));
+  if(has('abn')) return 'business';
+  if(has('crew','crewname') && has('date')) return 'schedule';
+  if(has('quote','quotetitle','quoteref') && has('qty','quantity') && has('rate','price')) return 'quotelines';
+  if(has('role','trade','position')) return 'crew';
+  if(has('rate','price') && has('unit','description','item')) return 'catalog';
+  if(has('due','duedate','invoicenumber','invoiceno','issued')) return 'invoices';
+  if(has('quotetitle') || (has('status') && has('total','quoted'))) return 'quotes';
+  if(has('start','startdate','days') || (has('status') && has('value','amount'))) return 'jobs';
+  if(has('phone','email','contact','suburb')) return 'clients';
+  return null;
+}
+
+const JOB_COLORS = ['b-blue','b-green','b-yellow','b-red'];
+function applyImport(sheets){
+  const counts = {clients:0, crew:0, catalog:0, quotes:0, jobs:0, invoices:0, schedule:0, quotelines:0};
+  const nc=[], nw=[], ncat=[], nq=[], nj=[], ninv=[], nassign=[];
+  let nbiz = null;
+  const scheduleSheets = [], quoteLineSheets = [];
+  const clientByName = {};
+  function ensureClient(name){
+    if(!name) return null;
+    const key = name.toLowerCase();
+    if(clientByName[key]) return clientByName[key];
+    const cl = {id:'icl'+(nc.length+1), name, contact:'', phone:'', email:'', suburb:'', address:''};
+    nc.push(cl); clientByName[key]=cl; return cl;
+  }
+  sheets.forEach(({name, rows})=>{
+    const kind = classifySheet(name, rows);
+    if(!kind || !rows.length) return;
+    if(kind==='schedule'){ scheduleSheets.push(rows); return; }
+    if(kind==='quotelines'){ quoteLineSheets.push(rows); return; }
+    rows.map(normRow).forEach((r,i)=>{
+      if(kind==='business'){
+        if(!nbiz) nbiz = {
+          name:pick(r,'name','business','businessname','company')||business.name,
+          abn:pick(r,'abn'), address:pick(r,'address','street','streetaddress'),
+          email:pick(r,'email'), city:pick(r,'city','suburb','location'),
+          bsb:pick(r,'bsb'), acc:pick(r,'account','acc','accountnumber'),
+        };
+        if(nbiz.abn && !/^abn/i.test(nbiz.abn)) nbiz.abn = 'ABN '+nbiz.abn;
+        return;
+      }
+      if(kind==='clients'){
+        const nm = pick(r,'name','client','clientname','business','customer'); if(!nm) return;
+        const cl = ensureClient(nm);
+        cl.contact = pick(r,'contact','contactperson','person') || cl.contact;
+        cl.phone = pick(r,'phone','mobile','ph') || cl.phone;
+        cl.email = pick(r,'email') || cl.email;
+        cl.suburb = pick(r,'suburb','city','area') || cl.suburb;
+        cl.address = pick(r,'address','street','streetaddress','site') || cl.address;
+        counts.clients++;
+      }else if(kind==='crew'){
+        const nm = pick(r,'name','crew','member','employee'); if(!nm) return;
+        nw.push({id:'ic'+(nw.length+1), name:nm,
+          initials:nm.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase(),
+          role:pick(r,'role','trade','position')||'Crew'});
+        counts.crew++;
+      }else if(kind==='catalog'){
+        const desc = pick(r,'description','item','desc','name'); if(!desc) return;
+        ncat.push({desc, unit:pick(r,'unit','uom')||'each', rate:pickNum(r,'rate','price','cost')});
+        counts.catalog++;
+      }else if(kind==='quotes'){
+        const title = pick(r,'title','quotetitle','description','job','name'); if(!title) return;
+        const cl = ensureClient(pick(r,'client','clientname','customer'));
+        const st = pick(r,'status').toLowerCase();
+        const total = pickNum(r,'totalexgst','total','amount','value','exgst','quoted','subtotal');
+        nq.push({
+          id:`Q-${today.getFullYear()}-${String(nq.length+1).padStart(3,'0')}`,
+          clientId:cl?cl.id:null, title, site:pick(r,'site','address','siteaddress'),
+          date:isoOr(r.date||r.quotedate||r.sent, iso(today)),
+          status:/accept|won|approve/.test(st)?'accepted':/declin|lost|reject/.test(st)?'declined':/sent|submit|issued/.test(st)?'sent':'draft',
+          lines:[{desc:'Works as quoted', qty:1, unit:'each', rate:total}],
+          notes:pick(r,'notes','comments'),
+        });
+        counts.quotes++;
+      }else if(kind==='jobs'){
+        const title = pick(r,'title','job','jobname','description','name'); if(!title) return;
+        const cl = ensureClient(pick(r,'client','clientname','customer'));
+        const st = pick(r,'status').toLowerCase();
+        nj.push({
+          id:`J-${101+nj.length}`, clientId:cl?cl.id:null, quoteId:null, title,
+          site:pick(r,'site','address','siteaddress','location'),
+          status:/invoic|billed/.test(st)?'invoiced':/sign|done|complete|finish/.test(st)?'signoff':/prog|tool|active|started|underway/.test(st)?'progress':'scheduled',
+          value:pickNum(r,'valueexgst','value','amount','total','exgst','contractvalue'),
+          crew:[], start:isoOr(r.start||r.startdate||r.date, iso(today)),
+          days:Math.max(1, pickNum(r,'days','duration')||1),
+          color:JOB_COLORS[nj.length%4],
+        });
+        counts.jobs++;
+      }else if(kind==='invoices'){
+        const cl = ensureClient(pick(r,'client','clientname','customer'));
+        const given = pick(r,'number','invoicenumber','invoiceno','invoice','id');
+        const st = pick(r,'status').toLowerCase();
+        const issued = isoOr(r.issued||r.date||r.invoicedate, iso(today));
+        const due = isoOr(r.due||r.duedate, iso(new Date(new Date(issued+'T00:00:00').getTime()+14*DAY)));
+        let status = /paid|settled|closed/.test(st)?'paid':/overdue|late/.test(st)?'overdue':'awaiting';
+        if(status==='awaiting' && due < iso(today)) status='overdue';
+        const inv = {
+          id: given ? (/^inv/i.test(given)?given.toUpperCase():'INV-'+given) : `INV-${1001+ninv.length}`,
+          jobId:null, clientId:cl?cl.id:null,
+          issued, due, status,
+          exGst:pickNum(r,'amountexgst','exgst','subtotal','amount','total','value'),
+          title:pick(r,'title','description','job','works')||'Works as invoiced',
+        };
+        if(status==='paid') inv.paid = isoOr(r.paid||r.paiddate||r.datepaid, due);
+        ninv.push(inv); counts.invoices++;
+      }
+    });
+  });
+  const linesReset = new Set();
+  quoteLineSheets.forEach(rows=>{
+    rows.map(normRow).forEach(r=>{
+      const ref = pick(r,'quote','quotetitle','quotenumber','quoteref').toLowerCase();
+      const desc = pick(r,'description','item','desc','line');
+      if(!desc) return;
+      const qty = pickNum(r,'qty','quantity') || 1;
+      const rate = pickNum(r,'rate','price','unitrate');
+      const unit = pick(r,'unit','uom') || 'each';
+      let q = ref ? (nq.find(x=>x.id.toLowerCase()===ref) || nq.find(x=>x.title.toLowerCase()===ref)) : null;
+      if(!q && nq.length===1) q = nq[0];
+      if(!q){
+        /* lines with no matching quote: create one to hold them */
+        q = {id:`Q-${today.getFullYear()}-${String(nq.length+1).padStart(3,'0')}`,
+          clientId:null, title:ref||'Imported quote', site:'', date:iso(today), status:'draft', lines:[], notes:''};
+        nq.push(q); counts.quotes++;
+      }
+      if(!linesReset.has(q)){ q.lines = []; linesReset.add(q); }
+      q.lines.push({desc, qty, unit, rate});
+      counts.quotelines++;
+    });
+  });
+  scheduleSheets.forEach(rows=>{
+    rows.map(normRow).forEach(r=>{
+      const cn = pick(r,'crew','crewname','member','name');
+      const dt = parseDateAny(r.date||r.day);
+      const jref = pick(r,'job','jobid','jobnumber','number').toLowerCase();
+      const jtitle = pick(r,'title','jobtitle','description').toLowerCase();
+      const cw = nw.find(c=>c.name.toLowerCase()===cn.toLowerCase());
+      const j = nj.find(x=>x.id.toLowerCase()===jref) || nj.find(x=>x.title.toLowerCase()===(jtitle||jref));
+      if(cw && j && dt && !nassign.some(a=>a.crewId===cw.id && a.date===iso(dt) && a.jobId===j.id)){
+        nassign.push({crewId:cw.id, date:iso(dt), jobId:j.id}); counts.schedule++;
+      }
+    });
+  });
+  const total = Object.values(counts).reduce((a,b)=>a+b,0);
+  if(!total && !nbiz) return null;
+  if(nbiz) business = nbiz;
+  isDemo = false;
+  clients = nc; crew = nw; catalog = ncat; quotes = nq.reverse(); jobs = nj.reverse(); invoices = ninv.reverse();
+  assignments = nassign; activity = [];
+  revenueHistory = revenueFromInvoices();
+  state.seq = {
+    quote: nq.length+1,
+    job: 101+nj.length,
+    invoice: 1001 + Math.max(0, ...ninv.map(i=>{ const m=String(i.id).match(/(\d+)$/); return m? (+m[1]-1000) : 0; })),
+  };
+  state.view='dashboard'; state.openQuote=null; state.openInvoice=null; state.openClient=null;
+  return counts;
+}
+
+function importSummaryToast(counts){
+  const parts = [];
+  if(counts.clients) parts.push(`${counts.clients} clients`);
+  if(counts.crew) parts.push(`${counts.crew} crew`);
+  if(counts.catalog) parts.push(`${counts.catalog} price book items`);
+  if(counts.quotes) parts.push(`${counts.quotes} quotes`);
+  if(counts.jobs) parts.push(`${counts.jobs} jobs`);
+  if(counts.invoices) parts.push(`${counts.invoices} invoices`);
+  if(counts.quotelines) parts.push(`${counts.quotelines} quote lines`);
+  if(counts.schedule) parts.push(`${counts.schedule} bookings`);
+  toast(parts.length ? 'Imported ' + parts.join(', ') + '.' : 'Workspace details imported.');
+}
+
+async function handleImportFile(file){
+  try{
+    if(/\.csv$/i.test(file.name)){
+      const text = await file.text();
+      const rows = parseCSV(text);
+      if(!rows.length){ toast('That CSV looks empty.'); return; }
+      const counts = applyImport([{name:file.name.replace(/\.csv$/i,''), rows}]);
+      if(!counts){ toast("Couldn't recognise those columns — try the template."); return; }
+      workspaceChosen = true; hideWelcome(); updateChrome(); render(); importSummaryToast(counts); track('foreman-import');
+    }else{
+      const X = await loadSheetJS().catch(()=>null);
+      if(!X){ toast('Needs internet to load the Excel engine — or import a .csv instead.'); return; }
+      const wb = X.read(await file.arrayBuffer(), {type:'array'});
+      const sheets = wb.SheetNames.map(sn=>({name:sn, rows:X.utils.sheet_to_json(wb.Sheets[sn], {defval:''})}));
+      const counts = applyImport(sheets);
+      if(!counts){ toast("Couldn't recognise any sheets — try the template."); return; }
+      workspaceChosen = true; hideWelcome(); updateChrome(); render(); importSummaryToast(counts); track('foreman-import');
+    }
+  }catch(err){
+    toast('Import failed: ' + (err && err.message ? err.message : 'unreadable file'));
+  }
+}
+
+async function exportWorkbook(){
+  const X = await loadSheetJS().catch(()=>null);
+  if(!X){ toast('Needs internet to load the Excel engine for export.'); return; }
+  const wb = X.utils.book_new();
+  const add = (name, rows)=>X.utils.book_append_sheet(wb, X.utils.json_to_sheet(rows.length?rows:[{}]), name);
+  add('Business', [{Name:business.name, ABN:business.abn, Address:business.address, Email:business.email, City:business.city, BSB:business.bsb, Account:business.acc}]);
+  add('Clients', clients.map(c=>({Name:c.name, Contact:c.contact, Phone:c.phone, Email:c.email, Suburb:c.suburb, Address:c.address})));
+  add('Crew', crew.map(c=>({Name:c.name, Role:c.role})));
+  add('Price Book', catalog.map(c=>({Description:c.desc, Unit:c.unit, Rate:c.rate})));
+  add('Quotes', quotes.map(q=>({Number:q.id, Title:q.title, Client:clientById(q.clientId)?.name||'', Site:q.site, Date:q.date, Status:q.status, TotalExGST:quoteSubtotal(q), TotalIncGST:+(quoteSubtotal(q)*(1+GST)).toFixed(2)})));
+  add('Jobs', jobs.map(j=>({Number:j.id, Title:j.title, Client:clientById(j.clientId)?.name||'', Site:j.site, Status:jobStatusLabel(j.status), ValueExGST:j.value, Start:j.start, Days:j.days, Crew:j.crew.map(c=>crewById(c)?.name||'').join(', ')})));
+  add('Invoices', invoices.map(i=>({Number:i.id, Client:clientById(i.clientId)?.name||'', Title:i.title||jobById(i.jobId||'')?.title||'', Issued:i.issued, Due:i.due, Status:i.status, AmountExGST:i.exGst, AmountIncGST:+(i.exGst*(1+GST)).toFixed(2), Paid:i.paid||''})));
+  add('Schedule', assignments.map(a=>({Crew:crewById(a.crewId)?.name||'', Date:a.date, Job:a.jobId, Title:jobById(a.jobId)?.title||'', Client:clientById(jobById(a.jobId)?.clientId)?.name||''})));
+  X.writeFile(wb, 'foreman-export.xlsx');
+  toast('Workbook exported.');
+  track('foreman-export');
+}
+
+async function downloadTemplate(){
+  const X = await loadSheetJS().catch(()=>null);
+  if(!X){ toast('Needs internet to load the Excel engine for the template.'); return; }
+  const wb = X.utils.book_new();
+  const add = (name, rows)=>X.utils.book_append_sheet(wb, X.utils.json_to_sheet(rows), name);
+  add('Business', [{Name:'Your Business Pty Ltd', ABN:'12 345 678 901', Address:'1 Example St, Adelaide SA 5000', Email:'accounts@yourbusiness.com.au', City:'Adelaide SA', BSB:'000-000', Account:'12345678'}]);
+  add('Clients', [
+    {Name:'Sample Client Co', Contact:'Alex Smith', Phone:'08 8000 0000', Email:'alex@sampleclient.com.au', Suburb:'Norwood', Address:'12 Sample Rd, Norwood SA 5067'},
+  ]);
+  add('Crew', [{Name:'Jamie Doe', Role:'A-grade electrician'}]);
+  add('Price Book', [
+    {Description:'Labour — standard hourly', Unit:'hr', Rate:110},
+    {Description:'Call-out fee', Unit:'each', Rate:140},
+  ]);
+  add('Quotes', [{Title:'Sample quote — office fit-out', Client:'Sample Client Co', Site:'12 Sample Rd, Norwood', Date:'25/08/2026', Status:'sent', TotalExGST:2500}]);
+  add('Jobs', [{Title:'Sample job — switchboard upgrade', Client:'Sample Client Co', Site:'12 Sample Rd, Norwood', Status:'scheduled', ValueExGST:3400, Start:'01/09/2026', Days:2}]);
+  add('Invoices', [{Number:'INV-1001', Client:'Sample Client Co', Title:'Completed works', Issued:'10/08/2026', Due:'24/08/2026', Status:'awaiting', AmountExGST:1800}]);
+  X.writeFile(wb, 'foreman-template.xlsx');
+  toast('Template downloaded — fill it in, then import.');
+}
+
+/* ============================= Local persistence ============================= */
+const STORAGE_KEY = 'foreman-workspace-v1';
+let workspaceChosen = false;
+function persist(){
+  if(!workspaceChosen) return;
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      business, clients, crew, catalog, quotes, jobs, invoices, assignments, activity, revenueHistory,
+      seq: state.seq, isDemo,
+    }));
+  }catch(e){ /* storage unavailable or full — app keeps working in-memory */ }
+}
+function loadPersisted(){
+  let raw;
+  try{ raw = localStorage.getItem(STORAGE_KEY); }catch(e){ return false; }
+  if(!raw) return false;
+  try{
+    const s = JSON.parse(raw);
+    business = s.business || business;
+    clients = s.clients || [];
+    crew = s.crew || [];
+    catalog = s.catalog || [];
+    quotes = s.quotes || [];
+    jobs = s.jobs || [];
+    invoices = s.invoices || [];
+    assignments = s.assignments || [];
+    activity = s.activity || [];
+    revenueHistory = (s.revenueHistory || revenueMonths()).map(r=>({...r, m:new Date(r.m)}));
+    state.seq = s.seq || state.seq;
+    isDemo = !!s.isDemo;
+    workspaceChosen = true;
+    return true;
+  }catch(e){ return false; }
+}
+function clearPersisted(){
+  try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+}
+
+/* ============================= Email capture ============================= */
+/* Free, no-backend capture via FormSubmit.co — no account needed, forwards every
+   submission straight to the inbox below. The FIRST submission ever sent triggers a
+   one-time "confirm your FormSubmit form" email to that inbox — someone has to click
+   the link in it once before any submissions actually deliver. Every email is also
+   always saved to this browser's local storage (foreman-emails) as a backup. */
+const EMAIL_ENDPOINT = 'https://formsubmit.co/ajax/tradie@blueprintau.com';
+const EMAIL_KEY = 'foreman-emails';
+
+function rememberEmailLocally(email){
+  try{
+    const list = JSON.parse(localStorage.getItem(EMAIL_KEY)||'[]');
+    if(!list.includes(email)){ list.push(email); localStorage.setItem(EMAIL_KEY, JSON.stringify(list)); }
+  }catch(e){}
+}
+function isValidEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+async function submitEmail(email){
+  rememberEmailLocally(email);
+  try{
+    await fetch(EMAIL_ENDPOINT, {
+      method:'POST',
+      headers:{'Content-Type':'application/json', 'Accept':'application/json'},
+      body:JSON.stringify({email, _subject:'New Foreman signup'}),
+    });
+  }catch(e){ /* best-effort — email is still saved locally either way */ }
+}
+function emailCaptureModal(){
+  openModal(`
+    <h3>Stay in the loop</h3>
+    <div class="m-sub">Foreman's free and staying that way. Leave your email and we'll flag you first when there's something new — extra tools, freebies, whatever's next.</div>
+    <div class="m-body">
+      <div class="field"><label>Email</label><input id="ec-email" type="email" placeholder="you@yourbusiness.com.au" autocomplete="email"></div>
+    </div>
+    <div class="m-actions"><button class="btn" data-close>Not now</button><button class="btn primary" id="ec-go">Keep me posted</button></div>
+  `);
+  document.getElementById('ec-go').addEventListener('click', ()=>{
+    const v = document.getElementById('ec-email').value.trim();
+    if(!isValidEmail(v)){ toast("That email doesn't look right."); return; }
+    submitEmail(v); closeModal(); toast("Done — we'll flag you when there's something worth seeing.");
+  });
+}
+
+/* ============================= Welcome & workspace ============================= */
+const welcomeEl = document.getElementById('welcome');
+function hideWelcome(){ welcomeEl.classList.add('hidden'); }
+
+function freshSetupModal(){
+  openModal(`
+    <h3>Your business</h3>
+    <div class="m-sub">Shown on your tax invoices. Only the name is required.</div>
+    <div class="m-body">
+      <div class="field"><label>Business name</label><input id="bf-name" placeholder="e.g. Southern Cross Plumbing Pty Ltd"></div>
+      <div class="form-grid">
+        <div class="field"><label>ABN</label><input id="bf-abn" placeholder="12 345 678 901"></div>
+        <div class="field"><label>City / region</label><input id="bf-city" placeholder="Adelaide SA"></div>
+      </div>
+      <div class="field"><label>Street address</label><input id="bf-address"></div>
+      <div class="field"><label>Accounts email</label><input id="bf-email" type="email"></div>
+      <div class="form-grid">
+        <div class="field"><label>BSB</label><input id="bf-bsb" placeholder="000-000"></div>
+        <div class="field"><label>Account number</label><input id="bf-acc"></div>
+      </div>
+    </div>
+    <div class="m-actions"><button class="btn" data-close>Back</button><button class="btn primary" id="bf-go">Open my workspace</button></div>
+  `);
+  document.getElementById('bf-go').addEventListener('click', ()=>{
+    const name = document.getElementById('bf-name').value.trim();
+    if(!name){ toast('Your business needs a name.'); return; }
+    let abn = document.getElementById('bf-abn').value.trim();
+    if(abn && !/^abn/i.test(abn)) abn = 'ABN '+abn;
+    business = {
+      name, abn,
+      address:document.getElementById('bf-address').value.trim(),
+      email:document.getElementById('bf-email').value.trim(),
+      city:document.getElementById('bf-city').value.trim(),
+      bsb:document.getElementById('bf-bsb').value.trim(),
+      acc:document.getElementById('bf-acc').value.trim(),
+    };
+    clients=[]; crew=[]; catalog=[]; quotes=[]; jobs=[]; invoices=[]; assignments=[]; activity=[]; isDemo=false;
+    revenueHistory = revenueMonths();
+    state.seq = {quote:1, job:101, invoice:1001};
+    state.view='dashboard'; state.openQuote=null; state.openInvoice=null; state.openClient=null;
+    draft=null; workspaceChosen = true;
+    closeModal(); hideWelcome(); updateChrome(); render();
+    toast(`Welcome, ${name}. Add a client, then quote your first job.`);
+  });
+}
+
+document.getElementById('w-demo').addEventListener('click', ()=>{ workspaceChosen = true; isDemo = true; hideWelcome(); render(); track('foreman-demo-opened'); });
+document.getElementById('w-fresh').addEventListener('click', freshSetupModal);
+document.getElementById('w-import').addEventListener('click', ()=>document.getElementById('file-import').click());
+document.getElementById('w-template').addEventListener('click', downloadTemplate);
+document.getElementById('file-import').addEventListener('change', e=>{
+  const f = e.target.files[0];
+  if(f) handleImportFile(f);
+  e.target.value='';
+});
+document.getElementById('w-email-go').addEventListener('click', ()=>{
+  const v = document.getElementById('w-email-input').value.trim();
+  if(!isValidEmail(v)){ toast("That email doesn't look right."); return; }
+  submitEmail(v);
+  document.getElementById('w-email-input').value='';
+  toast("Done — we'll flag you when there's something worth seeing.");
+});
+document.getElementById('sb-import').addEventListener('click', ()=>document.getElementById('file-import').click());
+document.getElementById('sb-export').addEventListener('click', exportWorkbook);
+document.getElementById('sb-updates').addEventListener('click', emailCaptureModal);
+function startOverModal(){
+  openModal(`
+    <h3>Start over?</h3>
+    <div class="m-sub">This clears the current workspace and returns to the welcome screen. Export first if you want to keep your data.</div>
+    <div class="m-actions">
+      <button class="btn" data-close>Cancel</button>
+      <button class="btn" id="rs-export">Export first</button>
+      <button class="btn primary" id="rs-go">Start over</button>
+    </div>
+  `);
+  document.getElementById('rs-export').addEventListener('click', exportWorkbook);
+  document.getElementById('rs-go').addEventListener('click', ()=>{ clearPersisted(); location.reload(); });
+}
+document.getElementById('sb-reset').addEventListener('click', startOverModal);
+
+/* ============================= Boot ============================= */
+if(loadPersisted()) hideWelcome();
+updateChrome();
+render();
+</script>
+<script>
+(function () {
+  if (window.__bpEvents) return;          // never bind twice
+  window.__bpEvents = true;
+
+  /* ---- which page are we on? lets you read "call/foreman" vs "call/home" -- */
+  var page = location.pathname
+    .replace(/\/index\.html$/, '/')
+    .replace(/^\/|\/$/g, '')
+    .replace(/\.html$/, '')
+    .replace(/[^a-z0-9/-]/gi, '')
+    .toLowerCase() || 'home';
+
+  /* ---- fire one event -------------------------------------------------- */
+  function hit(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: name, title: name, event: true });
+      return;
+    }
+    // count.js not loaded yet (async) — beacon it directly so nothing is lost.
+    try {
+      new Image().src = 'https://blueprintau.goatcounter.com/count'
+        + '?e=true&p=' + encodeURIComponent(name)
+        + '&t=' + encodeURIComponent(name)
+        + '&rnd=' + Math.random().toString(36).slice(2);
+    } catch (e) {}
+  }
+
+  /* ---- map a clicked link to an event name, or null to ignore ---------- */
+  var TOOLS = /^\/(foreman|takeoff|ledger|roster|catalogue|glassbox)\/?$/;
+
+  function nameFor(a) {
+    var raw = a.getAttribute('href') || '';
+    if (!raw || raw.charAt(0) === '#') {
+      // in-page anchors: only the booking jump is worth counting
+      return /#book/i.test(raw) ? 'cta/book-the-hour/' + page : null;
+    }
+    if (/^tel:/i.test(raw))    return 'call/' + page;
+    if (/^mailto:/i.test(raw)) return 'email/' + page;
+
+    var url;
+    try { url = new URL(a.href, location.href); } catch (e) { return null; }
+    if (!/^https?:$/.test(url.protocol)) return null;
+
+    // outbound
+    if (url.hostname.replace(/^www\./, '') !== location.hostname.replace(/^www\./, '')) {
+      return 'outbound/' + url.hostname.replace(/^www\./, '');
+    }
+
+    var path = url.pathname.replace(/index\.html$/, '');
+    var tool = path.match(TOOLS);
+    if (tool) return 'tool-open/' + tool[1] + '/' + page;
+    if (/^\/build\/?$/.test(path))  return 'cta/build/' + page;
+    if (/^\/intake\/?$/.test(path)) return 'cta/intake/' + page;
+    return null;
+  }
+
+  document.addEventListener('click', function (ev) {
+    // ev.target may be a <span> inside the <a>
+    var a = ev.target && ev.target.closest && ev.target.closest('a[href]');
+    if (!a) return;
+    // let a page opt a link out with data-gc-ignore, or override with data-gc
+    if (a.hasAttribute('data-gc-ignore')) return;
+    var name = a.getAttribute('data-gc') || nameFor(a);
+    if (name) hit(name);
+  }, true);
+
+  /* ---- scroll depth: did anyone actually reach the booking form? ------- */
+  var seen = {};
+  function depth() {
+    var h = document.documentElement;
+    var max = (h.scrollHeight - h.clientHeight);
+    if (max < 400) return;                       // short page, not meaningful
+    var pct = (h.scrollTop || document.body.scrollTop) / max * 100;
+    [50, 90].forEach(function (mark) {
+      if (pct >= mark && !seen[mark]) { seen[mark] = 1; hit('depth/' + mark + '/' + page); }
+    });
+    if (seen[90]) window.removeEventListener('scroll', throttled);
+  }
+  var ticking = false;
+  function throttled() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { depth(); ticking = false; });
+  }
+  window.addEventListener('scroll', throttled, { passive: true });
+})();
+</script>
+<style>
+.seo-about{box-sizing:border-box;width:calc(100% - 32px);max-width:760px;margin:40px auto 24px;padding:28px 26px;background:#fff;color:#1e293b;border:1px solid #e2e8f0;border-radius:14px;font:15px/1.65 Inter,system-ui,sans-serif;}
+.seo-about h2{font-size:22px;line-height:1.3;margin:0 0 10px;color:#0f172a;}
+.seo-about h3{font-size:16px;margin:20px 0 4px;color:#0f172a;}
+.seo-about p{margin:0 0 8px;}
+.seo-about a{color:#c2410c;font-weight:600;}
+</style>
+<section class="seo-about" aria-labelledby="seo-about-h"><h2 id="seo-about-h">Foreman — free quoting, jobs and invoicing for tradies</h2><p>Free quoting, job tracking, crew scheduling and GST tax invoices for Australian tradies. No subscription, no lock-in, runs in your browser. From BlueprintAU.</p><h3>Is Foreman really free?</h3><p>Yes. Foreman is free forever, with no user limits, no quote or invoice caps, and no card required. There&#x27;s an optional tip jar if you want to shout the lab a beer.</p><h3>Does Foreman handle GST and produce a valid Australian tax invoice?</h3><p>Yes. Prices are entered ex GST, GST is calculated at 10%, and every invoice carries the words &#x27;Tax invoice&#x27;, your business name and ABN, the date, an itemised description, and the GST amount and inc-GST total — the elements the ATO requires.</p><h3>Where is my data stored?</h3><p>In your own browser on your own device. Nothing is uploaded to a server. Export the workspace to Excel to back it up or move it to another computer, and import it back with the same file.</p><h3>Can I bring in my existing clients and price list?</h3><p>Yes. Download the Excel template from the welcome screen, fill in clients, crew, price book, jobs and invoices, and import the .xlsx or .csv. You can also start from the loaded demo business to see how it all fits together.</p><h3>Does it work on a phone or tablet?</h3><p>Foreman is a web app and runs in any modern browser on desktop, tablet or phone. It&#x27;s laid out for a screen at least the size of a tablet, where the quote builder and schedule are easiest to use.</p><h3>What trades is Foreman for?</h3><p>Any Australian trade that quotes, schedules and invoices: electrical, plumbing, carpentry, tiling, painting, landscaping, fencing, air conditioning, roofing, concreting and general building maintenance.</p><p style="margin-top:18px;">Need a tool built around how your business works? <a href="../build/">Custom software, one tool, $2,000 fixed →</a></p></section>
+</body>
+</html>

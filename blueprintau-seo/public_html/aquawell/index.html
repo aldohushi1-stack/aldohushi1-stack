@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head><meta charset="utf-8">
+<meta name="robots" content="noindex, follow">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#FFFFFF">
+<title>AquaWell — Clean filtered water, installed tomorrow | Adelaide</title>
+<style>
+/* ==========================================================
+   AquaWell — demo build
+   Designed for readability first: large type, strong contrast,
+   big targets, one decision per screen, no animation.
+   ========================================================== */
+:root{
+  --ink:#0F2E36;        /* headings + body text */
+  --ink-soft:#3F5A62;   /* secondary text, still high contrast */
+  --bg:#FFFFFF;
+  --bg-alt:#EFF4F5;
+  --blue:#0A5C77;       /* primary action */
+  --blue-dk:#074A60;
+  --blue-pale:#E3EFF3;
+  --green:#1A6B44;      /* available / confirmed */
+  --green-pale:#E6F1EB;
+  --amber-bg:#FDF3DC;
+  --amber-ink:#7A5000;
+  --red:#9A2B14;
+  --line:#B9CCD1;
+  --display:"Segoe UI Semibold","Helvetica Neue",-apple-system,BlinkMacSystemFont,Roboto,Arial,sans-serif;
+  --body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --r:8px;
+  --pad:clamp(20px,4vw,28px);
+}
+*{box-sizing:border-box}
+html{font-size:19px;color-scheme:only light;background:#FFFFFF}
+html[data-size="l"]{font-size:22px}
+html[data-size="xl"]{font-size:25px}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--body);font-size:1rem;line-height:1.65;
+  -webkit-text-size-adjust:100%;
+}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.15;margin:0}
+h1{font-size:clamp(2rem,5vw,2.9rem);letter-spacing:-.01em}
+h2{font-size:clamp(1.5rem,3.4vw,2.05rem)}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:0 0 1rem}
+.lead{font-size:1.12rem;line-height:1.6;max-width:34em}
+.sub{color:var(--ink-soft)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 var(--pad)}
+.narrow{max-width:760px}
+a{color:var(--blue);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:12px;top:12px;background:#fff;padding:12px 16px;z-index:99;border:2px solid var(--blue);border-radius:var(--r)}
+
+/* ---------- header ---------- */
+.top{border-bottom:2px solid var(--line);background:var(--bg)}
+.top-in{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:14px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);
+  font-family:var(--display);font-weight:800;font-size:1.35rem}
+.brand i{font-style:normal;color:var(--blue)}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.callnum{display:flex;flex-direction:column;text-decoration:none;color:var(--ink)}
+.callnum small{font-size:.78rem;color:var(--ink-soft)}
+.callnum b{font-family:var(--display);font-size:1.2rem;white-space:nowrap}
+.sizer{display:flex;align-items:center;gap:8px;border:2px solid var(--line);border-radius:var(--r);padding:6px 10px}
+.sizer span{font-size:.8rem;color:var(--ink-soft)}
+.sizer button{
+  background:#fff;border:2px solid var(--line);border-radius:6px;cursor:pointer;
+  width:38px;height:38px;font-family:var(--display);font-weight:700;color:var(--ink);
+}
+.sizer button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+nav{border-bottom:2px solid var(--line);background:var(--bg-alt)}
+nav ul{display:flex;flex-wrap:wrap;gap:0;list-style:none;margin:0;padding:0}
+nav button{
+  background:none;border:0;cursor:pointer;padding:16px 20px;font-size:1rem;font-weight:600;
+  color:var(--ink);border-bottom:5px solid transparent;font-family:var(--body);
+}
+nav button:hover{background:#E3EBEC}
+nav button[aria-current="page"]{border-bottom-color:var(--blue);color:var(--blue)}
+@media(max-width:640px){
+  nav button{padding:14px 14px;font-size:.95rem;flex:1 1 auto}
+  .top-in{padding:12px 0}
+}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:62px;padding:14px 28px;cursor:pointer;text-decoration:none;
+  background:var(--blue);color:#fff;border:2px solid var(--blue);border-radius:var(--r);
+  font-family:var(--body);font-size:1.05rem;font-weight:700;
+}
+.btn:hover{background:var(--blue-dk);border-color:var(--blue-dk)}
+.btn-2{background:#fff;color:var(--blue)}
+.btn-2:hover{background:var(--blue-pale)}
+.btn-3{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn-3:hover{background:var(--bg-alt)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.btns{display:flex;flex-wrap:wrap;gap:14px}
+@media(max-width:560px){.btns .btn{width:100%}}
+
+/* ---------- sections ---------- */
+section{padding:clamp(38px,6vw,62px) 0}
+section.alt{background:var(--bg-alt);border-top:2px solid var(--line);border-bottom:2px solid var(--line)}
+.hidden{display:none !important}
+
+/* hero */
+.hero{padding-top:clamp(30px,5vw,52px)}
+.hero-price{
+  display:inline-block;background:var(--green-pale);border:2px solid var(--green);
+  color:var(--green);font-weight:700;border-radius:var(--r);padding:8px 16px;margin-bottom:18px;
+}
+.hero-grid{display:grid;grid-template-columns:1fr 400px;gap:36px;align-items:start}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:28px}}
+.ticks{list-style:none;padding:0;margin:0 0 26px;font-size:1.08rem}
+.ticks li{display:flex;gap:12px;padding:7px 0}
+.ticks li:before{content:"✓";color:var(--green);font-weight:700;flex:none}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:860px){.cards{grid-template-columns:1fr}}
+.card{background:#fff;border:2px solid var(--line);border-radius:var(--r);padding:24px}
+.card .price{font-family:var(--display);font-weight:800;font-size:1.9rem;margin:12px 0 2px}
+.card .price small{display:block;font-size:.82rem;font-weight:600;color:var(--ink-soft);font-family:var(--body)}
+.card ul{list-style:none;padding:0;margin:16px 0 20px}
+.card li{display:flex;gap:10px;padding:6px 0;border-top:1px solid var(--line)}
+.card li:before{content:"•";color:var(--blue);font-weight:700}
+.badge{display:inline-block;background:var(--blue);color:#fff;font-weight:700;font-size:.82rem;
+  padding:4px 12px;border-radius:999px;margin-bottom:10px}
+
+/* steps */
+.how{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:h}
+@media(max-width:860px){.how{grid-template-columns:1fr}}
+.how > div{counter-increment:h}
+.how > div:before{
+  content:counter(h);display:flex;align-items:center;justify-content:center;
+  width:52px;height:52px;border-radius:50%;background:var(--blue);color:#fff;
+  font-family:var(--display);font-weight:800;font-size:1.3rem;margin-bottom:14px;
+}
+
+/* ---------- slot board ---------- */
+.board{background:#fff;border:2px solid var(--line);border-radius:var(--r);overflow:hidden}
+.board-head{padding:18px 20px;background:var(--blue);color:#fff}
+.board-head small{display:block;font-size:.85rem;opacity:.9}
+.board-head b{font-family:var(--display);font-size:1.25rem;display:block;line-height:1.25}
+.slot{
+  display:flex;align-items:center;gap:16px;width:100%;text-align:left;cursor:pointer;
+  background:#fff;border:0;border-top:2px solid var(--line);padding:18px 20px;
+  font-family:var(--body);color:var(--ink);min-height:76px;
+}
+.slot:first-child{border-top:0}
+.slot .mark{
+  flex:none;width:32px;height:32px;border-radius:50%;border:3px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;
+}
+.slot .time{font-size:1.12rem;font-weight:700;font-family:var(--display)}
+.slot .state{display:block;font-size:.92rem;color:var(--green);font-weight:600}
+.slot:hover:not([disabled]){background:var(--blue-pale)}
+.slot[disabled]{cursor:not-allowed;background:var(--bg-alt);color:var(--ink-soft)}
+.slot[disabled] .state{color:var(--ink-soft)}
+.slot[aria-pressed="true"]{background:var(--blue-pale);box-shadow:inset 6px 0 0 var(--blue)}
+.slot[aria-pressed="true"] .mark{background:var(--blue);border-color:var(--blue)}
+.board-foot{padding:16px 20px;border-top:2px solid var(--line);background:var(--bg-alt);font-size:.95rem}
+.days{display:flex;flex-wrap:wrap;gap:10px;padding:16px 20px;border-top:2px solid var(--line);background:var(--bg-alt)}
+.days button{
+  background:#fff;border:2px solid var(--line);border-radius:var(--r);cursor:pointer;
+  padding:12px 16px;min-height:62px;font-family:var(--body);font-size:.95rem;font-weight:600;color:var(--ink);
+  text-align:left;line-height:1.3;
+}
+.days button b{display:block;font-family:var(--display);font-size:1.05rem}
+.days button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+
+/* ---------- booking stepper ---------- */
+.progress{background:var(--bg-alt);border:2px solid var(--line);border-radius:var(--r);padding:18px 20px;margin-bottom:26px}
+.progress .t{display:flex;justify-content:space-between;gap:14px;font-weight:700;flex-wrap:wrap}
+.progress .bar{height:14px;background:#fff;border:2px solid var(--line);border-radius:999px;overflow:hidden;margin-top:12px}
+.progress .bar i{display:block;height:100%;background:var(--blue)}
+.step-panel{border:2px solid var(--line);border-radius:var(--r);padding:var(--pad);background:#fff}
+.step-panel > h2{margin-bottom:8px}
+.step-nav{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;padding-top:24px;border-top:2px solid var(--line)}
+@media(max-width:560px){.step-nav{flex-direction:column-reverse}.step-nav .btn{width:100%}}
+
+/* choice rows */
+.choice{
+  display:flex;gap:16px;align-items:flex-start;border:2px solid var(--line);border-radius:var(--r);
+  padding:20px;margin-bottom:14px;cursor:pointer;background:#fff;
+}
+.choice:hover{background:var(--blue-pale)}
+.choice input{flex:none;width:26px;height:26px;margin:2px 0 0;accent-color:var(--blue)}
+.choice.on{border-color:var(--blue);background:var(--blue-pale);box-shadow:inset 6px 0 0 var(--blue)}
+.choice .nm{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-weight:700;font-size:1.1rem;font-family:var(--display)}
+.choice .nm em{font-style:normal;white-space:nowrap}
+.choice .ds{color:var(--ink-soft);margin-top:4px}
+
+/* forms */
+.field{margin-bottom:22px}
+label{display:block;font-weight:700;margin-bottom:8px;font-size:1.02rem}
+label .hint{font-weight:400;color:var(--ink-soft)}
+input,select,textarea{
+  width:100%;min-height:62px;padding:14px 16px;border:2px solid var(--line);border-radius:var(--r);
+  font-family:var(--body);font-size:1.05rem;color:var(--ink);background:#fff;color-scheme:only light;
+}
+select option{background:#fff;color:var(--ink)}
+input:-webkit-autofill,input:-webkit-autofill:focus,textarea:-webkit-autofill,select:-webkit-autofill{
+  -webkit-box-shadow:0 0 0 60px #fff inset;box-shadow:0 0 0 60px #fff inset;
+  -webkit-text-fill-color:var(--ink);caret-color:var(--ink);
+}
+textarea{min-height:96px;line-height:1.5}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);outline:none;box-shadow:0 0 0 3px var(--blue-pale)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:620px){.two{grid-template-columns:1fr}}
+.err{display:none;color:var(--red);font-weight:600;margin-top:8px}
+.field.bad input,.field.bad select{border-color:var(--red);background:#FDF6F4}
+.field.bad .err{display:block}
+.errbox{
+  display:none;background:#FDF6F4;border:2px solid var(--red);border-radius:var(--r);
+  padding:16px 20px;margin-bottom:22px;color:var(--red);font-weight:600;
+}
+.errbox.show{display:block}
+
+/* notices */
+.notice{background:var(--amber-bg);border:2px solid #D9B15C;border-radius:var(--r);padding:18px 20px;margin-bottom:26px}
+.notice b{display:block;color:var(--amber-ink);font-family:var(--display);margin-bottom:4px}
+.callout{background:var(--bg-alt);border:2px solid var(--line);border-radius:var(--r);padding:20px;
+  display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:space-between;margin-top:26px}
+
+/* summary */
+.summary{background:var(--blue-pale);border:2px solid var(--blue);border-radius:var(--r);padding:20px;margin-bottom:26px}
+.summary h3{margin-bottom:10px}
+.row{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row span:last-child{font-weight:700;text-align:right}
+.total{display:flex;justify-content:space-between;gap:16px;margin-top:14px;padding-top:14px;border-top:2px solid var(--blue);
+  font-family:var(--display);font-weight:800;font-size:1.3rem}
+
+/* confirmation */
+.done-head{background:var(--green-pale);border:2px solid var(--green);border-radius:var(--r);padding:var(--pad);margin-bottom:26px}
+.done-head .tick{width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:1.7rem;font-weight:700;margin-bottom:14px}
+.done-head .when{font-family:var(--display);font-weight:800;font-size:1.45rem;margin-top:10px}
+.ref{font-weight:700;color:var(--ink-soft)}
+.sent{border:2px solid var(--line);border-radius:var(--r);padding:20px;margin-top:26px;background:#fff}
+.sent .st{display:flex;gap:12px;align-items:center;font-weight:700;margin-bottom:12px}
+.sent .st .pill{background:var(--green);color:#fff;border-radius:999px;padding:3px 12px;font-size:.85rem}
+.sent .st .pill.warn{background:var(--amber-ink)}
+.sent pre{
+  background:var(--bg-alt);border:2px solid var(--line);border-radius:var(--r);padding:16px;
+  font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.86rem;line-height:1.6;
+  white-space:pre-wrap;word-break:break-word;margin:0 0 16px;color:var(--ink);
+}
+
+footer{background:var(--ink);color:#fff;padding:44px 0 26px;margin-top:0}
+footer a{color:#BEE3EC}
+.foot{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:28px;padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.25)}
+@media(max-width:760px){.foot{grid-template-columns:1fr}}
+footer h3{font-size:1rem;margin-bottom:10px}
+footer ul{list-style:none;padding:0;margin:0}
+footer li{padding:5px 0}
+.fine{padding-top:20px;font-size:.86rem;color:#C9DCE1}
+
+@media print{
+  .top,nav,footer,.step-nav,.sent,.no-print{display:none !important}
+  body{font-size:12pt}
+  .done-head{border:1px solid #000}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<script data-goatcounter="https://blueprintau.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script></head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#/" data-nav="home">Aqua<i>Well</i></a>
+    <div class="top-right">
+      <a class="callnum" href="tel:+61880000000"><small>Prefer to talk? Call us</small><b>08 8000 0000</b></a>
+      <div class="sizer">
+        <span>Text size</span>
+        <button data-size="m" aria-pressed="true" aria-label="Normal text size">A</button>
+        <button data-size="l" aria-pressed="false" aria-label="Large text size">A+</button>
+        <button data-size="xl" aria-pressed="false" aria-label="Extra large text size">A++</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav aria-label="Main">
+  <div class="wrap">
+    <ul>
+      <li><button data-nav="home">Home</button></li>
+      <li><button data-nav="info">About filters</button></li>
+      <li><button data-nav="buy">Buy &amp; book</button></li>
+      <li><button data-nav="member">Filter membership</button></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ================= HOME ================= -->
+<div class="view" id="view-home">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="hero-price">From $999, fully installed</p>
+        <h1>Clean, filtered water.<br>Fitted tomorrow.</h1>
+        <p class="lead" style="margin-top:16px">Choose a two-hour time that suits you. A licensed Adelaide plumber comes to your home tomorrow and fits your water filter. Most jobs take under an hour.</p>
+        <ul class="ticks">
+          <li>No mess, no tiling touched</li>
+          <li>One price — the filter, the fittings and the plumber</li>
+          <li>We phone you the day before to confirm</li>
+        </ul>
+        <div class="btns">
+          <button class="btn" data-nav="buy">Book an installation</button>
+          <a class="btn btn-3" href="tel:+61880000000">Or call 08 8000 0000</a>
+        </div>
+      </div>
+
+      <div class="board">
+        <div class="board-head">
+          <small>Times still free tomorrow</small>
+          <b id="boardDate">—</b>
+        </div>
+        <div id="heroSlots"></div>
+        <div class="board-foot" id="heroFoot">Choose a time to get started. Nothing is paid yet.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <h2>Three filters to choose from</h2>
+      <p class="lead sub" style="margin:10px 0 30px">Every price below includes installation by our own plumber. Not sure which one? Call us and we'll tell you in two minutes.</p>
+      <div class="cards" id="homeCards"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p class="lead sub" style="margin:10px 0 32px">Four steps, one day.</p>
+      <div class="how">
+        <div><h3>You pick a time</h3><p class="sub">Two-hour windows from 7am. You see only the times that are still free.</p></div>
+        <div><h3>We confirm</h3><p class="sub">A text and a phone call, with your plumber's name and licence number.</p></div>
+        <div><h3>We fit it</h3><p class="sub">Usually under the kitchen sink. Drop sheet down, everything tidied up after.</p></div>
+        <div><h3>We show you</h3><p class="sub">How to use it, when the next filter change is due, and we write it on a card for your fridge.</p></div>
+      </div>
+      <div class="callout">
+        <div>
+          <h3>Would you rather book over the phone?</h3>
+          <p class="sub" style="margin:4px 0 0">We're on the phone from 7am to 6pm, seven days. A real person answers.</p>
+        </div>
+        <a class="btn" href="tel:+61880000000">Call 08 8000 0000</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap narrow">
+      <h2>Never think about filter changes again</h2>
+      <p class="lead" style="margin:14px 0 22px">A filter stops working properly after about six months. Join our membership and we bring the new filter to you and fit it — no call-out fee, and your first change is free.</p>
+      <div class="btns"><button class="btn" data-nav="member">See the membership</button></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= INFO ================= -->
+<div class="view hidden" id="view-info">
+  <section>
+    <div class="wrap narrow">
+      <h1>About water filters</h1>
+      <p class="lead" style="margin:16px 0 30px">Plain answers, no sales talk. If anything here doesn't match what you're tasting at home, give us a call.</p>
+
+      <h2 style="margin-bottom:18px">What a filter does</h2>
+      <div class="cards" style="grid-template-columns:1fr;gap:16px;margin-bottom:36px">
+        <div class="card"><h3>It takes out the chlorine taste</h3><p class="sub" style="margin:6px 0 0">Mains water is treated with chlorine so it stays safe on the long trip to your house. A carbon filter removes the taste and smell at the tap.</p></div>
+        <div class="card"><h3>It catches grit and rust</h3><p class="sub" style="margin:6px 0 0">Small particles picked up from the pipes — the things that make water look cloudy and wear out tap washers and kettles.</p></div>
+        <div class="card"><h3>It leaves the good minerals in</h3><p class="sub" style="margin:6px 0 0">Standard filters don't strip out calcium or magnesium. Only the reverse osmosis system does that, which is why we suggest it mainly for tank or bore water.</p></div>
+      </div>
+
+      <h2 style="margin-bottom:8px">Common questions</h2>
+      <div id="faq"></div>
+
+      <div class="callout">
+        <div>
+          <h3>Not sure which filter you need?</h3>
+          <p class="sub" style="margin:4px 0 0">Tell us at the booking, or on the phone. We'll bring the right one.</p>
+        </div>
+        <button class="btn" data-nav="buy">Buy &amp; book</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= BUY & BOOK ================= -->
+<div class="view hidden" id="view-buy">
+  <section>
+    <div class="wrap narrow" id="buyFlow">
+      <h1>Buy &amp; book your installation</h1>
+
+      <div class="notice" style="margin-top:22px">
+        <b>This is a demonstration website</b>
+        Nothing is charged and no plumber is booked. Please do not type a real card number — use 4242 4242 4242 4242 instead.
+      </div>
+
+      <div class="progress">
+        <div class="t"><span id="stepLabel">Step 1 of 4</span><span id="stepName">Choose your filter</span></div>
+        <div class="bar"><i id="stepBar" style="width:25%"></i></div>
+      </div>
+
+      <div class="errbox" id="errBox"></div>
+
+      <!-- STEP 1 -->
+      <div class="step-panel" data-step="1">
+        <h2>Which filter would you like?</h2>
+        <p class="sub">All prices include the plumber. Choose one to continue.</p>
+        <div id="buySystems" style="margin-top:22px"></div>
+        <h3 style="margin:28px 0 12px">Anything to add? <span style="font-weight:400;color:var(--ink-soft)">(optional)</span></h3>
+        <div id="buyAddons"></div>
+        <div class="step-nav">
+          <button class="btn" data-next="2">Continue to choose a time</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-panel hidden" data-step="2">
+        <h2>When suits you?</h2>
+        <p class="sub">Tomorrow's free times are shown first. You can pick a later day if you'd rather.</p>
+        <div class="board" style="margin-top:22px">
+          <div class="board-head">
+            <small id="buyDayLabel">Chosen day</small>
+            <b id="buyDate">—</b>
+          </div>
+          <div id="buySlots"></div>
+          <div class="board-foot" id="buyFoot">No time chosen yet.</div>
+          <div class="days" id="buyDays"></div>
+        </div>
+        <div class="step-nav">
+          <button class="btn" data-next="3">Continue to your details</button>
+          <button class="btn btn-3" data-back="1">Go back</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-panel hidden" data-step="3">
+        <h2>Your details</h2>
+        <p class="sub">So the plumber knows where to go and who to ask for.</p>
+        <div style="margin-top:22px">
+          <div class="field"><label for="fName">Your name</label><input id="fName" autocomplete="name"><div class="err">Please enter your name.</div></div>
+          <div class="two">
+            <div class="field"><label for="fPhone">Phone number <span class="hint">— we'll confirm on this</span></label><input id="fPhone" type="tel" inputmode="tel" autocomplete="tel"><div class="err">Please enter a phone number we can reach you on.</div></div>
+            <div class="field"><label for="fEmail">Email <span class="hint">— for your receipt</span></label><input id="fEmail" type="email" autocomplete="email"><div class="err">Please enter a valid email address.</div></div>
+          </div>
+          <div class="field"><label for="fAddr">Street address</label><input id="fAddr" autocomplete="street-address"><div class="err">Please enter the street address for the installation.</div></div>
+          <div class="two">
+            <div class="field"><label for="fSuburb">Suburb</label><input id="fSuburb"><div class="err">Please enter your suburb.</div></div>
+            <div class="field"><label for="fPost">Postcode</label><input id="fPost" inputmode="numeric" maxlength="4"><div class="err">Please enter a 4-digit postcode.</div></div>
+          </div>
+          <div class="field">
+            <label for="fSupply">Where does your water come from?</label>
+            <select id="fSupply">
+              <option>Mains water</option><option>Rainwater tank</option><option>Bore water</option><option>Mains and tank</option><option>I'm not sure</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="fHeard">How did you hear about us?</label>
+            <select id="fHeard">
+              <option>Please choose one</option>
+              <option>A flyer in my letterbox</option>
+              <option>Facebook or Instagram</option>
+              <option>I searched on Google</option>
+              <option>A friend or family member</option>
+              <option>I'm already a customer</option>
+              <option>Heard it on the radio</option>
+              <option>Saw the van or a sign</option>
+              <option>Somewhere else</option>
+            </select>
+            <div class="err">Please let us know how you found us — it helps us a lot.</div>
+          </div>
+          <div class="field"><label for="fNotes">Anything the plumber should know? <span class="hint">(optional)</span></label><textarea id="fNotes" placeholder="For example: dog in the yard, please knock loudly, side gate is unlocked"></textarea></div>
+        </div>
+        <div class="step-nav">
+          <button class="btn" data-next="4">Continue to payment</button>
+          <button class="btn btn-3" data-back="2">Go back</button>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-panel hidden" data-step="4">
+        <h2>Payment</h2>
+        <p class="sub">Please check your booking, then enter the demonstration card details.</p>
+        <div class="summary" id="paySummary" style="margin-top:22px"></div>
+        <div class="field"><label for="fCard">Card number</label><input id="fCard" inputmode="numeric" placeholder="4242 4242 4242 4242" autocomplete="off"><div class="err">Please enter the 16-digit demonstration card number.</div></div>
+        <div class="two">
+          <div class="field"><label for="fExp">Expiry date</label><input id="fExp" placeholder="MM/YY" maxlength="5" autocomplete="off"><div class="err">Please enter the expiry as MM/YY, for example 06/29.</div></div>
+          <div class="field"><label for="fCvc">Security number <span class="hint">— back of card</span></label><input id="fCvc" inputmode="numeric" maxlength="4" placeholder="123" autocomplete="off"><div class="err">Please enter the 3 or 4 digit number.</div></div>
+        </div>
+        <label class="choice" for="fJoin" id="joinRow">
+          <input type="checkbox" id="fJoin">
+          <span>
+            <span class="nm">Add filter membership <em>$19 a month</em></span>
+            <span class="ds">We bring your replacement filters and fit them. First change free. Stop any time.</span>
+          </span>
+        </label>
+        <div class="step-nav">
+          <button class="btn" id="payBtn">Pay <span id="payAmt">$999</span> and book my installation</button>
+          <button class="btn btn-3" data-back="3">Go back</button>
+        </div>
+      </div>
+
+      <div class="callout no-print">
+        <div><h3>Stuck, or would rather do this by phone?</h3><p class="sub" style="margin:4px 0 0">Call us between 7am and 6pm and we'll book it for you.</p></div>
+        <a class="btn btn-3" href="tel:+61880000000">Call 08 8000 0000</a>
+      </div>
+    </div>
+
+    <!-- CONFIRMATION -->
+    <div class="wrap narrow hidden" id="buyDone">
+      <div class="done-head">
+        <div class="tick" aria-hidden="true">✓</div>
+        <h1 style="font-size:clamp(1.7rem,4vw,2.3rem)">Your installation is booked</h1>
+        <p class="when" id="doneWhen">—</p>
+        <p class="ref" id="doneRef" style="margin:6px 0 0">—</p>
+      </div>
+      <h2>What happens next</h2>
+      <p class="lead" style="margin:10px 0 22px">We'll send a text message and give you a call to confirm, with your plumber's name and licence number. Nothing to print — but you can keep a copy if you'd like.</p>
+      <div class="summary" id="doneSummary"></div>
+      <div class="sent" id="doneSent"></div>
+      <div class="btns no-print" style="margin-top:26px">
+        <button class="btn btn-3" onclick="window.print()">Print this page</button>
+        <button class="btn btn-3" data-nav="home">Back to the home page</button>
+        <button class="btn btn-3" id="againBtn">Start the demonstration again</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= MEMBERSHIP ================= -->
+<div class="view hidden" id="view-member">
+  <section>
+    <div class="wrap narrow" id="memFlow">
+      <h1>Filter membership</h1>
+      <p class="lead" style="margin:16px 0 0">Filters need changing about twice a year. We keep track of yours, ring you when it's due, and come and fit the new one. No call-out fee, and your first change is free.</p>
+
+      <div class="notice" style="margin-top:26px">
+        <b>This is a demonstration website</b>
+        No membership is created and nothing is charged.
+      </div>
+
+      <div class="errbox" id="memErrBox"></div>
+
+      <div class="step-panel">
+        <h2>Choose how often</h2>
+        <div id="memPlans" style="margin-top:20px"></div>
+
+        <h2 style="margin:32px 0 6px">Your details</h2>
+        <div class="field"><label for="mName">Your name</label><input id="mName" autocomplete="name"><div class="err">Please enter your name.</div></div>
+        <div class="two">
+          <div class="field"><label for="mPhone">Phone number</label><input id="mPhone" type="tel" inputmode="tel" autocomplete="tel"><div class="err">Please enter a phone number.</div></div>
+          <div class="field"><label for="mEmail">Email</label><input id="mEmail" type="email" autocomplete="email"><div class="err">Please enter a valid email address.</div></div>
+        </div>
+        <div class="field"><label for="mAddr">Address where the filter is fitted</label><input id="mAddr"><div class="err">Please enter the address.</div></div>
+        <div class="two">
+          <div class="field">
+            <label for="mSystem">Which filter do you have?</label>
+            <select id="mSystem"><option>Under-sink filter</option><option>Whole-home filter</option><option>Reverse osmosis filter</option><option>Another brand</option><option>I'm not sure</option></select>
+          </div>
+          <div class="field">
+            <label for="mWhen">Roughly when was it fitted?</label>
+            <select id="mWhen"><option>In the last 6 months</option><option>6 to 12 months ago</option><option>1 to 2 years ago</option><option>More than 2 years ago</option><option>I can't remember</option></select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="mWindow">Best time of day for us to visit</label>
+          <select id="mWindow"></select>
+        </div>
+        <div class="step-nav">
+          <button class="btn" id="memBtn">Start my membership</button>
+        </div>
+      </div>
+
+      <div class="callout no-print">
+        <div><h3>Rather join over the phone?</h3><p class="sub" style="margin:4px 0 0">We'll take your details and set it up while you're on the line.</p></div>
+        <a class="btn btn-3" href="tel:+61880000000">Call 08 8000 0000</a>
+      </div>
+    </div>
+
+    <div class="wrap narrow hidden" id="memDone">
+      <div class="done-head">
+        <div class="tick" aria-hidden="true">✓</div>
+        <h1 style="font-size:clamp(1.7rem,4vw,2.3rem)">You're a member</h1>
+        <p class="when" id="memHead">—</p>
+        <p class="ref" id="memRef" style="margin:6px 0 0">—</p>
+      </div>
+      <div class="summary" id="memSummary"></div>
+      <div class="sent" id="memSent"></div>
+      <div class="btns no-print" style="margin-top:26px">
+        <button class="btn btn-3" onclick="window.print()">Print this page</button>
+        <button class="btn btn-3" data-nav="home">Back to the home page</button>
+        <button class="btn btn-3" id="memAgain">Start the demonstration again</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <h3 style="font-size:1.3rem">AquaWell</h3>
+        <p style="margin:8px 0 0;color:#D6E7EB">Clean filtered water, installed the next day across Adelaide. Licensed plumbers, genuine filters.</p>
+        <p style="margin:14px 0 0"><a href="tel:+61880000000" style="font-weight:700;font-size:1.15rem">08 8000 0000</a><br><a href="mailto:hello@aquawell.com.au">hello@aquawell.com.au</a></p>
+      </div>
+      <div><h3>Filters</h3><ul id="footList"></ul></div>
+      <div><h3>Help</h3><ul>
+        <li><a href="#/info" data-nav="info">About filters</a></li>
+        <li><a href="#/member" data-nav="member">Filter membership</a></li>
+        <li>7am – 6pm, seven days</li>
+      </ul></div>
+    </div>
+    <p class="fine">© <span id="yr"></span> AquaWell Pty Ltd · aquawell.com.au · Demonstration website, not a live shop</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* ==========================================================
+   1. BOOKING NOTIFICATIONS  ← the part to set up for real
+   ----------------------------------------------------------
+   Paste an endpoint below and every booking + membership is
+   emailed to you automatically. Two free options that need no
+   server of your own:
+
+     Web3Forms  https://web3forms.com   → paste your access key
+     Formspree  https://formspree.io    → paste your form URL
+
+   With ENDPOINT empty the site stays in demonstration mode:
+   it shows on screen exactly what would be emailed.
+   ========================================================== */
+var NOTIFY = {
+  ENDPOINT: "",                          /* e.g. "https://api.web3forms.com/submit" */
+  ACCESS_KEY: "",                        /* Web3Forms only — your access key */
+  TO_EMAIL: "bookings@aquawell.com.au",  /* shown on screen + used by the email fallback */
+  BUSINESS: "AquaWell"
+};
+
+function notify(subject, fields){
+  var lines = Object.keys(fields).map(function(k){ return k + ": " + fields[k] });
+  var body = lines.join("\n");
+
+  if(!NOTIFY.ENDPOINT){
+    return Promise.resolve({ok:false, demo:true, subject:subject, body:body});
+  }
+  var payload = {subject:subject, message:body, from_name:NOTIFY.BUSINESS, _replyto:fields["Email"]||""};
+  if(NOTIFY.ACCESS_KEY) payload.access_key = NOTIFY.ACCESS_KEY;
+  Object.keys(fields).forEach(function(k){ payload[k] = fields[k] });
+
+  return fetch(NOTIFY.ENDPOINT, {
+    method:"POST",
+    headers:{"Content-Type":"application/json", "Accept":"application/json"},
+    body: JSON.stringify(payload)
+  }).then(function(r){
+    return {ok:r.ok, demo:false, subject:subject, body:body, code:r.status};
+  }).catch(function(e){
+    return {ok:false, demo:false, subject:subject, body:body, error:String(e)};
+  });
+}
+
+function mailtoLink(subject, body){
+  return "mailto:" + NOTIFY.TO_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+}
+
+function renderSent(host, res){
+  var pill, msg;
+  if(res.ok){ pill = '<span class="pill">Sent</span>'; msg = "The booking was emailed to " + NOTIFY.TO_EMAIL + "."; }
+  else if(res.demo){ pill = '<span class="pill warn">Demonstration</span>'; msg = "No email was sent. This is what would arrive at " + NOTIFY.TO_EMAIL + ":"; }
+  else { pill = '<span class="pill warn">Not sent</span>'; msg = "The email could not be sent" + (res.code ? " (error " + res.code + ")" : "") + ". Use the button below to send it by hand."; }
+
+  host.innerHTML =
+    '<div class="st">' + pill + '<span>Booking notification</span></div>' +
+    '<p class="sub" style="margin:0 0 12px">' + msg + '</p>' +
+    '<pre>Subject: ' + esc(res.subject) + '\n\n' + esc(res.body) + '</pre>' +
+    (res.ok ? '' : '<a class="btn btn-3" href="' + mailtoLink(res.subject, res.body) + '">Open this in my email program</a>');
+}
+function esc(s){ return String(s).replace(/[<>&]/g, function(c){ return ({"<":"&lt;",">":"&gt;","&":"&amp;"})[c] }) }
+
+/* ==========================================================
+   2. Content
+   ========================================================== */
+var PRODUCTS = [
+  {id:"under", name:"Under-sink filter", price:999, badge:"Most popular",
+   blurb:"Two filters hidden inside the cupboard, feeding the tap you already have.",
+   specs:["Removes chlorine taste, grit and rust","Fits a standard kitchen cupboard","New filters about every 6 months","Fitted in under an hour"]},
+  {id:"ro", name:"Reverse osmosis filter", price:1499, badge:"Tank & bore water",
+   blurb:"Five stages and its own small tap. The purest, flattest tasting water we can give you.",
+   specs:["Best for rainwater tanks and bore water","Comes with its own drinking tap","Pours a little slower by design","Fitted in about two hours"]},
+  {id:"whole", name:"Whole-home filter", price:2190, badge:"Every tap in the house",
+   blurb:"Fitted where the water comes into the house, so showers and the laundry get it too.",
+   specs:["Every tap, shower and appliance","Kinder on kettles and hot water systems","New filters about every 6 months","Fitted in two to three hours"]}
+];
+var ADDONS = [
+  {id:"tap", name:"Separate filtered-water tap", price:199, ds:"A second small tap beside your mixer, just for filtered water."},
+  {id:"spare", name:"Spare set of filters", price:89, ds:"Kept under the sink so you always have one ready."}
+];
+var PLANS = [
+  {id:"p6", name:"Every 6 months", price:19, ds:"Two visits a year. Right for most households."},
+  {id:"p12", name:"Once a year", price:12, ds:"For one or two people who don't use a lot of water."}
+];
+var WINDOWS = ["7:00am – 9:00am","9:00am – 11:00am","11:00am – 1:00pm","1:00pm – 3:00pm","3:00pm – 5:00pm"];
+var FAQ = [
+  ["Will it make my water pressure drop?","No noticeable change at the kitchen tap. Whole-home filters are sized to your house and we check the pressure before we leave. A reverse osmosis filter fills a small tank, so that one pours a little more slowly."],
+  ["Do I own the filter?","Yes. It's yours from the day it's fitted. The membership only covers the replacement filters and the labour to fit them."],
+  ["I'm renting. Can I still have one?","Usually yes for an under-sink filter, because it comes out again without leaving a mark. Get your landlord's permission in writing, and tell us at the booking."],
+  ["How often do the filters need changing?","About every six months for a standard filter, and every two to three years for a reverse osmosis membrane. We write your next date on a card for the fridge, and the membership takes care of it for you."],
+  ["What if I'm not home at the time I chose?","Ring us and we'll move it, no charge. We also call you the day before as a reminder."],
+  ["How do I pay?","By card on this website, or over the phone. There is nothing extra to pay on the day."]
+];
+
+/* ==========================================================
+   3. Days and times
+   ========================================================== */
+function hash(s){var h=0;for(var i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))>>>0}return h}
+var DAYS = (function(){
+  var out=[], base=new Date(); base.setHours(0,0,0,0);
+  for(var i=1;i<=5;i++){
+    var d=new Date(base.getTime()); d.setDate(base.getDate()+i);
+    var h=hash(d.toDateString());
+    var taken=WINDOWS.map(function(_,j){ return ((h>>(j*3))&7)<3 });
+    if(taken.every(Boolean)) taken[2]=false;
+    out.push({date:d, taken:taken});
+  }
+  return out;
+})();
+function longDay(d){ return d.toLocaleDateString("en-AU",{weekday:"long",day:"numeric",month:"long"}) }
+function freeCount(i){ return DAYS[i].taken.filter(function(t){return !t}).length }
+
+/* ==========================================================
+   4. State + helpers
+   ========================================================== */
+var S = {product:"under", addons:{}, dayIdx:0, slot:null, plan:"p6", step:1};
+var $ = function(s,r){ return (r||document).querySelector(s) };
+var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)) };
+var money = function(n){ return "$" + n.toLocaleString("en-AU") };
+var digits = function(v){ return (v||"").replace(/\D/g,"") };
+function prod(){ return PRODUCTS.filter(function(p){return p.id===S.product})[0] }
+function plan(){ return PLANS.filter(function(p){return p.id===S.plan})[0] }
+function total(){ var t=prod().price; ADDONS.forEach(function(a){ if(S.addons[a.id]) t+=a.price }); return t }
+
+/* ==========================================================
+   5. Navigation
+   ========================================================== */
+function go(name){
+  $$(".view").forEach(function(v){ v.classList.add("hidden") });
+  var v=$("#view-"+name); if(v) v.classList.remove("hidden");
+  $$("nav button").forEach(function(b){
+    if(b.dataset.nav===name) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current");
+  });
+  try { if(location.hash!=="#/"+name) history.replaceState(null,"","#/"+name) }
+  catch(e){ /* file:// origins reject replaceState — navigation still works */ }
+  window.scrollTo(0,0);
+}
+document.addEventListener("click", function(e){
+  var t=e.target.closest("[data-nav]");
+  if(t){ e.preventDefault(); go(t.dataset.nav) }
+});
+
+/* text size */
+$$(".sizer button").forEach(function(b){
+  b.addEventListener("click", function(){
+    document.documentElement.dataset.size = b.dataset.size;
+    $$(".sizer button").forEach(function(o){ o.setAttribute("aria-pressed", o===b ? "true":"false") });
+  });
+});
+
+/* ==========================================================
+   6. Slot boards
+   ========================================================== */
+function drawSlots(host, dayIdx, jump){
+  var day=DAYS[dayIdx];
+  host.innerHTML="";
+  WINDOWS.forEach(function(w,i){
+    var sel = (S.dayIdx===dayIdx && S.slot===i);
+    var b=document.createElement("button");
+    b.type="button"; b.className="slot"; b.disabled=day.taken[i];
+    b.setAttribute("aria-pressed", sel ? "true":"false");
+    b.innerHTML='<span class="mark" aria-hidden="true">'+(sel?"✓":"")+'</span>'
+      + '<span><span class="time">'+w+'</span>'
+      + '<span class="state">'+(day.taken[i] ? "Already booked" : "Available")+'</span></span>';
+    b.addEventListener("click", function(){
+      S.dayIdx=dayIdx; S.slot=i; drawBoards(); clearErrs();
+      if(jump){ setStep(2) ; go("buy") }
+    });
+    host.appendChild(b);
+  });
+}
+function drawBoards(){
+  $("#boardDate").textContent = "Tomorrow, " + longDay(DAYS[0].date);
+  drawSlots($("#heroSlots"), 0, true);
+  $("#heroFoot").textContent = (S.dayIdx===0 && S.slot!==null)
+    ? "Holding " + WINDOWS[S.slot] + " for you. Nothing is paid yet."
+    : "Choose a time to get started. Nothing is paid yet.";
+
+  var bar=$("#buyDays"); bar.innerHTML="";
+  DAYS.forEach(function(d,i){
+    var b=document.createElement("button"); b.type="button";
+    b.setAttribute("aria-pressed", S.dayIdx===i ? "true":"false");
+    b.innerHTML="<b>"+(i===0 ? "Tomorrow" : d.date.toLocaleDateString("en-AU",{weekday:"long"}))+"</b>"
+      + d.date.toLocaleDateString("en-AU",{day:"numeric",month:"short"}) + " · " + freeCount(i) + " free";
+    b.addEventListener("click", function(){ S.dayIdx=i; S.slot=null; drawBoards() });
+    bar.appendChild(b);
+  });
+  $("#buyDayLabel").textContent = S.dayIdx===0 ? "Tomorrow" : "Chosen day";
+  $("#buyDate").textContent = longDay(DAYS[S.dayIdx].date);
+  drawSlots($("#buySlots"), S.dayIdx, false);
+  $("#buyFoot").textContent = S.slot===null ? "No time chosen yet."
+    : "Your plumber will arrive between " + WINDOWS[S.slot] + ".";
+}
+
+/* ==========================================================
+   7. Products, add-ons, plans, FAQ
+   ========================================================== */
+$("#homeCards").innerHTML = PRODUCTS.map(function(p){
+  return '<div class="card"><span class="badge">'+p.badge+'</span><h3>'+p.name+'</h3>'
+    + '<p class="sub" style="margin:6px 0 0">'+p.blurb+'</p>'
+    + '<p class="price">'+money(p.price)+'<small>including installation and GST</small></p>'
+    + '<ul>'+p.specs.map(function(s){return "<li><span>"+s+"</span></li>"}).join("")+'</ul>'
+    + '<button class="btn btn-2" data-pick="'+p.id+'" style="width:100%">Choose this filter</button></div>';
+}).join("");
+$$("[data-pick]").forEach(function(b){
+  b.addEventListener("click", function(){ S.product=b.dataset.pick; drawBuy(); setStep(1); go("buy") });
+});
+$("#footList").innerHTML = PRODUCTS.map(function(p){ return "<li>"+p.name+" — from "+money(p.price)+"</li>" }).join("");
+
+$("#faq").innerHTML = FAQ.map(function(f){
+  return '<div class="card" style="margin-bottom:14px"><h3>'+f[0]+'</h3><p class="sub" style="margin:6px 0 0">'+f[1]+'</p></div>';
+}).join("");
+
+function drawBuy(){
+  $("#buySystems").innerHTML = PRODUCTS.map(function(p){
+    return '<label class="choice'+(S.product===p.id?" on":"")+'">'
+      + '<input type="radio" name="sys" value="'+p.id+'"'+(S.product===p.id?" checked":"")+'>'
+      + '<span><span class="nm">'+p.name+' <em>'+money(p.price)+'</em></span>'
+      + '<span class="ds">'+p.blurb+'</span></span></label>';
+  }).join("");
+  $$('#buySystems input').forEach(function(r){
+    r.addEventListener("change", function(){ S.product=r.value; drawBuy(); drawPaySummary() });
+  });
+  $("#buyAddons").innerHTML = ADDONS.map(function(a){
+    return '<label class="choice'+(S.addons[a.id]?" on":"")+'">'
+      + '<input type="checkbox" value="'+a.id+'"'+(S.addons[a.id]?" checked":"")+'>'
+      + '<span><span class="nm">'+a.name+' <em>add '+money(a.price)+'</em></span>'
+      + '<span class="ds">'+a.ds+'</span></span></label>';
+  }).join("");
+  $$('#buyAddons input').forEach(function(c){
+    c.addEventListener("change", function(){ S.addons[c.value]=c.checked; drawBuy(); drawPaySummary() });
+  });
+  drawPaySummary();
+}
+
+function drawPaySummary(){
+  var rows = ['<h3>Your booking</h3>'];
+  rows.push(row(prod().name, money(prod().price)));
+  ADDONS.forEach(function(a){ if(S.addons[a.id]) rows.push(row(a.name, money(a.price))) });
+  rows.push(row("Installation by our plumber","Included"));
+  rows.push(row("Time", S.slot===null ? "Not chosen yet" : longDay(DAYS[S.dayIdx].date) + ", " + WINDOWS[S.slot]));
+  rows.push('<div class="total"><span>Total to pay</span><span>'+money(total())+'</span></div>');
+  $("#paySummary").innerHTML = rows.join("");
+  $("#payAmt").textContent = money(total());
+}
+function row(a,b){ return '<div class="row"><span>'+a+'</span><span>'+b+'</span></div>' }
+
+function drawPlans(){
+  $("#memPlans").innerHTML = PLANS.map(function(p){
+    return '<label class="choice'+(S.plan===p.id?" on":"")+'">'
+      + '<input type="radio" name="plan" value="'+p.id+'"'+(S.plan===p.id?" checked":"")+'>'
+      + '<span><span class="nm">'+p.name+' <em>$'+p.price+' a month</em></span>'
+      + '<span class="ds">'+p.ds+'</span></span></label>';
+  }).join("");
+  $$('#memPlans input').forEach(function(r){
+    r.addEventListener("change", function(){ S.plan=r.value; drawPlans() });
+  });
+}
+$("#mWindow").innerHTML = WINDOWS.map(function(w){ return "<option>"+w+"</option>" }).join("") + "<option>Any time is fine</option>";
+
+/* ==========================================================
+   8. Stepper + validation
+   ========================================================== */
+var STEP_NAMES = {1:"Choose your filter",2:"Choose a time",3:"Your details",4:"Payment"};
+function setStep(n){
+  S.step=n;
+  $$("[data-step]").forEach(function(p){ p.classList.toggle("hidden", Number(p.dataset.step)!==n) });
+  $("#stepLabel").textContent = "Step " + n + " of 4";
+  $("#stepName").textContent = STEP_NAMES[n];
+  $("#stepBar").style.width = (n*25) + "%";
+  if(n===4) drawPaySummary();
+  clearErrs();
+  $("#buyFlow").scrollIntoView({block:"start"});
+}
+function clearErrs(){
+  $("#errBox").classList.remove("show");
+  $$(".field.bad").forEach(function(f){ f.classList.remove("bad") });
+}
+function showErr(msg){
+  var b=$("#errBox"); b.textContent=msg; b.classList.add("show");
+  b.scrollIntoView({block:"center"});
+}
+function bad(id, cond){
+  var el=$("#"+id), f=el.closest(".field");
+  if(cond){ f.classList.add("bad"); return el } f.classList.remove("bad"); return null;
+}
+var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function checkDetails(){
+  var first=null;
+  [ bad("fName", $("#fName").value.trim().length<2),
+    bad("fPhone", digits($("#fPhone").value).length<8),
+    bad("fEmail", !EMAIL.test($("#fEmail").value)),
+    bad("fAddr", $("#fAddr").value.trim().length<4),
+    bad("fSuburb", $("#fSuburb").value.trim().length<2),
+    bad("fPost", digits($("#fPost").value).length!==4),
+    bad("fHeard", $("#fHeard").selectedIndex===0)
+  ].forEach(function(el){ if(el && !first) first=el });
+  if(first){ showErr("Please check the boxes marked in red below."); first.focus(); return false }
+  return true;
+}
+function checkCard(){
+  var first=null;
+  [ bad("fCard", digits($("#fCard").value).length!==16),
+    bad("fExp", !/^(0[1-9]|1[0-2])\/\d{2}$/.test($("#fExp").value.trim())),
+    bad("fCvc", digits($("#fCvc").value).length<3)
+  ].forEach(function(el){ if(el && !first) first=el });
+  if(first){ showErr("Please check the card details marked in red below."); first.focus(); return false }
+  return true;
+}
+
+$$("[data-next]").forEach(function(b){
+  b.addEventListener("click", function(){
+    var n=Number(b.dataset.next);
+    if(n===3 && S.slot===null){ showErr("Please choose a time before you continue."); return }
+    if(n===4 && !checkDetails()) return;
+    setStep(n);
+  });
+});
+$$("[data-back]").forEach(function(b){
+  b.addEventListener("click", function(){ setStep(Number(b.dataset.back)) });
+});
+
+/* card formatting help */
+$("#fCard").addEventListener("input", function(){
+  this.value = digits(this.value).slice(0,16).replace(/(.{4})/g,"$1 ").trim();
+});
+$("#fExp").addEventListener("input", function(){
+  var v=digits(this.value).slice(0,4);
+  this.value = v.length>2 ? v.slice(0,2)+"/"+v.slice(2) : v;
+});
+
+/* ==========================================================
+   9. Confirm booking
+   ========================================================== */
+$("#payBtn").addEventListener("click", function(){
+  if(S.slot===null){ showErr("Please go back and choose a time."); return }
+  if(!checkCard()) return;
+
+  var btn=this, label=btn.innerHTML;
+  btn.disabled=true; btn.textContent="Please wait…";
+
+  var day=DAYS[S.dayIdx], win=WINDOWS[S.slot];
+  var ref="AW-"+String(Math.floor(Math.random()*9000)+1000);
+  var addonNames = ADDONS.filter(function(a){return S.addons[a.id]}).map(function(a){return a.name});
+
+  var fields = {
+    "Reference": ref,
+    "Install date": longDay(day.date),
+    "Install time": win,
+    "Filter": prod().name + " (" + money(prod().price) + ")",
+    "Extras": addonNames.length ? addonNames.join(", ") : "None",
+    "Membership": $("#fJoin").checked ? "Yes — $19 a month" : "No",
+    "Total paid": money(total()),
+    "Name": $("#fName").value.trim(),
+    "Phone": $("#fPhone").value.trim(),
+    "Email": $("#fEmail").value.trim(),
+    "Address": $("#fAddr").value.trim() + ", " + $("#fSuburb").value.trim() + " SA " + digits($("#fPost").value),
+    "Water supply": $("#fSupply").value,
+    "Heard about us via": $("#fHeard").value,
+    "Notes": $("#fNotes").value.trim() || "None"
+  };
+  var subject = "New install booking " + ref + " — " + longDay(day.date) + ", " + win;
+
+  notify(subject, fields).then(function(res){
+    day.taken[S.slot]=true;                            /* the time is now off the board */
+    $("#doneWhen").textContent = win + ", " + longDay(day.date);
+    $("#doneRef").textContent = "Your reference: " + ref;
+    var rows=['<h3>What you have booked</h3>', row("Filter", prod().name)];
+    addonNames.forEach(function(n){ rows.push(row("Extra", n)) });
+    rows.push(row("Address", fields["Address"]));
+    rows.push(row("We will call", fields["Phone"]));
+    if($("#fJoin").checked) rows.push(row("Filter membership","$19 a month"));
+    rows.push('<div class="total"><span>Paid today</span><span>'+money(total())+'</span></div>');
+    $("#doneSummary").innerHTML = rows.join("");
+    renderSent($("#doneSent"), res);
+
+    $("#buyFlow").classList.add("hidden");
+    $("#buyDone").classList.remove("hidden");
+    window.scrollTo(0,0);
+    btn.disabled=false; btn.innerHTML=label;
+    S.slot=null; drawBoards(); drawPaySummary();
+  });
+});
+
+$("#againBtn").addEventListener("click", function(){
+  ["fName","fPhone","fEmail","fAddr","fSuburb","fPost","fNotes","fCard","fExp","fCvc"].forEach(function(id){ $("#"+id).value="" });
+  $("#fHeard").selectedIndex=0;
+  $("#fJoin").checked=false;
+  $("#buyDone").classList.add("hidden");
+  $("#buyFlow").classList.remove("hidden");
+  setStep(1); window.scrollTo(0,0);
+});
+
+/* ==========================================================
+   10. Confirm membership
+   ========================================================== */
+$("#memBtn").addEventListener("click", function(){
+  var first=null;
+  [ bad("mName", $("#mName").value.trim().length<2),
+    bad("mPhone", digits($("#mPhone").value).length<8),
+    bad("mEmail", !EMAIL.test($("#mEmail").value)),
+    bad("mAddr", $("#mAddr").value.trim().length<4)
+  ].forEach(function(el){ if(el && !first) first=el });
+  if(first){
+    var b=$("#memErrBox"); b.textContent="Please check the boxes marked in red below.";
+    b.classList.add("show"); b.scrollIntoView({block:"center"}); first.focus(); return;
+  }
+  $("#memErrBox").classList.remove("show");
+
+  var btn=this, label=btn.textContent;
+  btn.disabled=true; btn.textContent="Please wait…";
+
+  var ref="AWM-"+String(Math.floor(Math.random()*9000)+1000);
+  var fields = {
+    "Reference": ref,
+    "Plan": plan().name + " — $" + plan().price + " a month",
+    "Name": $("#mName").value.trim(),
+    "Phone": $("#mPhone").value.trim(),
+    "Email": $("#mEmail").value.trim(),
+    "Address": $("#mAddr").value.trim(),
+    "Filter they have": $("#mSystem").value,
+    "Fitted": $("#mWhen").value,
+    "Preferred time": $("#mWindow").value
+  };
+
+  notify("New filter membership " + ref + " — " + plan().name, fields).then(function(res){
+    $("#memHead").textContent = plan().name + " · $" + plan().price + " a month";
+    $("#memRef").textContent = "Your reference: " + ref;
+    $("#memSummary").innerHTML = ['<h3>Your membership</h3>',
+      row("How often", plan().name),
+      row("Filter on file", fields["Filter they have"]),
+      row("Preferred time", fields["Preferred time"]),
+      row("We will call", fields["Phone"]),
+      row("First filter change","Free"),
+      '<div class="total"><span>Each month</span><span>$'+plan().price+'</span></div>'
+    ].join("");
+    renderSent($("#memSent"), res);
+    $("#memFlow").classList.add("hidden");
+    $("#memDone").classList.remove("hidden");
+    window.scrollTo(0,0);
+    btn.disabled=false; btn.textContent=label;
+  });
+});
+$("#memAgain").addEventListener("click", function(){
+  ["mName","mPhone","mEmail","mAddr"].forEach(function(id){ $("#"+id).value="" });
+  $("#memDone").classList.add("hidden");
+  $("#memFlow").classList.remove("hidden");
+  window.scrollTo(0,0);
+});
+
+/* ==========================================================
+   11. Start
+   ========================================================== */
+$("#yr").textContent = new Date().getFullYear();
+drawBuy(); drawBoards(); drawPlans(); setStep(1);
+var start=(location.hash||"").replace("#/","");
+go(["home","info","buy","member"].indexOf(start)>=0 ? start : "home");
+})();
+</script>
+<script>
+(function () {
+  if (window.__bpEvents) return;          // never bind twice
+  window.__bpEvents = true;
+
+  /* ---- which page are we on? lets you read "call/foreman" vs "call/home" -- */
+  var page = location.pathname
+    .replace(/\/index\.html$/, '/')
+    .replace(/^\/|\/$/g, '')
+    .replace(/\.html$/, '')
+    .replace(/[^a-z0-9/-]/gi, '')
+    .toLowerCase() || 'home';
+
+  /* ---- fire one event -------------------------------------------------- */
+  function hit(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: name, title: name, event: true });
+      return;
+    }
+    // count.js not loaded yet (async) — beacon it directly so nothing is lost.
+    try {
+      new Image().src = 'https://blueprintau.goatcounter.com/count'
+        + '?e=true&p=' + encodeURIComponent(name)
+        + '&t=' + encodeURIComponent(name)
+        + '&rnd=' + Math.random().toString(36).slice(2);
+    } catch (e) {}
+  }
+
+  /* ---- map a clicked link to an event name, or null to ignore ---------- */
+  var TOOLS = /^\/(foreman|takeoff|ledger|roster|catalogue|glassbox)\/?$/;
+
+  function nameFor(a) {
+    var raw = a.getAttribute('href') || '';
+    if (!raw || raw.charAt(0) === '#') {
+      // in-page anchors: only the booking jump is worth counting
+      return /#book/i.test(raw) ? 'cta/book-the-hour/' + page : null;
+    }
+    if (/^tel:/i.test(raw))    return 'call/' + page;
+    if (/^mailto:/i.test(raw)) return 'email/' + page;
+
+    var url;
+    try { url = new URL(a.href, location.href); } catch (e) { return null; }
+    if (!/^https?:$/.test(url.protocol)) return null;
+
+    // outbound
+    if (url.hostname.replace(/^www\./, '') !== location.hostname.replace(/^www\./, '')) {
+      return 'outbound/' + url.hostname.replace(/^www\./, '');
+    }
+
+    var path = url.pathname.replace(/index\.html$/, '');
+    var tool = path.match(TOOLS);
+    if (tool) return 'tool-open/' + tool[1] + '/' + page;
+    if (/^\/build\/?$/.test(path))  return 'cta/build/' + page;
+    if (/^\/intake\/?$/.test(path)) return 'cta/intake/' + page;
+    return null;
+  }
+
+  document.addEventListener('click', function (ev) {
+    // ev.target may be a <span> inside the <a>
+    var a = ev.target && ev.target.closest && ev.target.closest('a[href]');
+    if (!a) return;
+    // let a page opt a link out with data-gc-ignore, or override with data-gc
+    if (a.hasAttribute('data-gc-ignore')) return;
+    var name = a.getAttribute('data-gc') || nameFor(a);
+    if (name) hit(name);
+  }, true);
+
+  /* ---- scroll depth: did anyone actually reach the booking form? ------- */
+  var seen = {};
+  function depth() {
+    var h = document.documentElement;
+    var max = (h.scrollHeight - h.clientHeight);
+    if (max < 400) return;                       // short page, not meaningful
+    var pct = (h.scrollTop || document.body.scrollTop) / max * 100;
+    [50, 90].forEach(function (mark) {
+      if (pct >= mark && !seen[mark]) { seen[mark] = 1; hit('depth/' + mark + '/' + page); }
+    });
+    if (seen[90]) window.removeEventListener('scroll', throttled);
+  }
+  var ticking = false;
+  function throttled() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { depth(); ticking = false; });
+  }
+  window.addEventListener('scroll', throttled, { passive: true });
+})();
+</script>
+</body>
+</html>

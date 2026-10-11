@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head><meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://blueprintau.com/roster/">
+<title>Roster — free volunteer &amp; canteen shift roster for clubs</title>
+<meta name="description" content="Build your club's canteen, BBQ and volunteer roster in ten minutes. Members claim shifts from one link and get reminders. Free, no app.">
+<meta property="og:title" content="Roster — volunteer shifts, filled from one link">
+<meta property="og:description" content="Free canteen, BBQ and volunteer roster for sports clubs and community groups. Members tap a shift, put their name down, get a reminder.">
+<meta property="og:url" content="https://blueprintau.com/roster/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#F8FAFC">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23EA580C' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='16' rx='2'/%3E%3Cpath d='M3 10h18M8 3v4M16 3v4'/%3E%3Cpath d='M8 15l2.5 2.5L16 12'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="roster.css">
+<style>
+  .hero{display:grid;grid-template-columns:1.1fr 1fr;gap:36px;align-items:center;padding:40px 0 30px;}
+  @media (max-width:860px){.hero{grid-template-columns:1fr;gap:24px;padding-top:24px;}}
+  .hero h1{font-size:clamp(34px,5vw,52px);font-weight:800;letter-spacing:-0.03em;line-height:1.02;color:var(--ink-strong);}
+  .hero h1 em{font-style:normal;color:var(--brass);}
+  .hero p.lead{margin-top:16px;font-size:17px;color:var(--ink-2);max-width:480px;}
+  .hero .facts{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px;}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px;}
+  @media (max-width:720px){.steps{grid-template-columns:1fr;}}
+  .step .num{font-family:var(--mono);font-size:11px;letter-spacing:0.14em;color:var(--brass);}
+  .step h3{font-size:15px;font-weight:700;color:var(--ink-strong);margin:6px 0 4px;}
+  .step p{font-size:13.5px;color:var(--ink-2);}
+  .phone{background:var(--surface);border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow-3);padding:16px;max-width:360px;margin:0 auto;}
+  .phone .ph-head{font-size:19px;font-weight:800;letter-spacing:-0.02em;color:var(--ink-strong);}
+  .phone .shift{padding:11px 12px;margin-bottom:6px;box-shadow:none;}
+  .phone .shift .role{font-size:14px;}
+  .phone .shift .time{font-size:11px;}
+  .phone .shift .names{font-size:12px;margin-top:3px;}
+  .phone .btn{padding:7px 12px;font-size:12.5px;}
+  .faq{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media (max-width:720px){.faq{grid-template-columns:1fr;}}
+  .faq h4{font-size:14px;font-weight:700;color:var(--ink-strong);margin-bottom:4px;}
+  .faq p{font-size:13.5px;color:var(--ink-2);}
+  .done code{word-break:break-all;white-space:normal;}
+</style>
+<style>
+/* Tap-to-call. The full number is clipped out of the topbar on a phone once
+   the primary CTA is beside it, so the label shortens to "Call" below 620px. */
+.tel-btn{min-height:38px;display:inline-flex;align-items:center;}
+.tel-btn .tel-short{display:none;}
+@media(max-width:620px){.tel-btn .tel-long{display:none;}.tel-btn .tel-short{display:inline;}}
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+
+<header class="topbar">
+  <a class="brand" href="https://blueprintau.com/">
+    <span class="mark" id="brandMark"></span>
+    <span><span class="wordmark">Roster</span><span class="tagline">by BlueprintAU</span></span>
+  </a>
+  <span class="spacer"></span>
+  <a class="btn small ghost tel-btn" href="tel:+61423003680" title="Call Aldo — Adelaide"><span class="tel-long">Call 0423 003 680</span><span class="tel-short">Call</span></a>
+    <a class="btn small" href="#create">Set up your club</a>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <span class="eyebrow">Sports clubs · community groups · Adelaide-built</span>
+      <h1 style="margin-top:10px">The canteen roster that <em>fills itself.</em></h1>
+      <p class="lead">Put the season's shifts in once. Share one link. Members tap a shift, put their name down, and get a reminder before the day. No app, no login, no chasing.</p>
+      <div class="facts">
+        <span class="chip green">Free for clubs</span>
+        <span class="chip grey">Works on any phone</span>
+        <span class="chip grey">Ten-minute setup</span>
+      </div>
+      <div class="row" style="margin-top:22px">
+        <a class="btn accent" href="#create">Set up your club →</a>
+        <a class="btn ghost" id="demoLink" href="club.html?code=DEMO" hidden>See a members' page</a>
+      </div>
+    </div>
+    <div class="phone" aria-hidden="true">
+      <span class="eyebrow">Football · Volunteer roster</span>
+      <div class="ph-head" style="margin:4px 0 12px">Tennyson Tigers FC</div>
+      <div class="day-head" style="margin-bottom:6px"><h2 style="font-size:14px">Saturday 12 September</h2><span class="chip orange" style="font-size:10.5px">Next up</span></div>
+      <article class="shift mine"><div class="body"><div class="role">Canteen</div><div class="time">9am–11am · Clubrooms</div><div class="names"><span class="pips" style="vertical-align:middle;margin-right:6px"><i class="pip on"></i><i class="pip you"></i><i class="pip"></i></span>2/3 — <b>Sarah T.</b>, <b>You</b></div></div><div class="act"><span class="chip green">You're on this</span></div></article>
+      <article class="shift"><div class="body"><div class="role">BBQ</div><div class="time">11am–1pm · Oval side</div><div class="names"><span class="pips" style="vertical-align:middle;margin-right:6px"><i class="pip on"></i><i class="pip"></i></span>1/2 — <b>Mick J.</b> · <span class="strong">1 more needed</span></div></div><div class="act"><button class="btn accent" type="button">I'll do it</button></div></article>
+      <article class="shift full"><div class="body"><div class="role">Scorer</div><div class="time">1pm–3pm</div><div class="names"><span class="pips" style="vertical-align:middle;margin-right:6px"><i class="pip on"></i></span>1/1 — <b>Priya N.</b></div></div><div class="act"><span class="chip grey">Full — thanks all</span></div></article>
+    </div>
+  </section>
+
+  <section class="steps">
+    <div class="card step"><span class="num">01</span><h3>Build the season</h3><p>Pick a date, tap "Canteen", "BBQ", "Scorer", say how many people you need. Repeat weekly until finals in one click.</p></div>
+    <div class="card step"><span class="num">02</span><h3>Share one link</h3><p>Paste it in the club Facebook group or the team chat. Print the QR for the clubroom wall. That's the whole rollout.</p></div>
+    <div class="card step"><span class="num">03</span><h3>Watch it fill</h3><p>Members claim shifts from their phone. They get a confirmation and a reminder. You see who's covered and who's still needed.</p></div>
+  </section>
+
+  <section id="create" class="card" style="margin-top:34px;max-width:640px;margin-left:auto;margin-right:auto;padding:26px">
+    <div class="card-head"><h3 style="font-size:20px">Set up your club</h3><span class="meta">Free · 1 minute</span></div>
+    <form id="createForm" class="stack" autocomplete="on">
+      <div class="grid-2">
+        <div class="field"><label for="fName">Club or group name</label><input class="input" id="fName" required maxlength="80" placeholder="Tennyson Tigers FC"></div>
+        <div class="field"><label for="fKind">Sport / type</label>
+          <input class="input" id="fKind" list="kinds" maxlength="40" placeholder="Football, Netball, Scouts…">
+          <datalist id="kinds"><option>Football</option><option>Soccer</option><option>Netball</option><option>Cricket</option><option>Basketball</option><option>Hockey</option><option>Tennis</option><option>Swimming</option><option>Little Athletics</option><option>Scouts</option><option>School</option><option>Church</option><option>Community group</option></datalist>
+        </div>
+        <div class="field"><label for="fCName">Your name</label><input class="input" id="fCName" required maxlength="60" autocomplete="name"></div>
+        <div class="field"><label for="fEmail">Your email</label><input class="input" id="fEmail" type="email" required maxlength="160" autocomplete="email"><span class="hint">Your admin link is emailed here. Members reply to this address.</span></div>
+        <div class="field"><label for="fPhone">Your mobile <span class="muted" style="font-weight:400">(optional)</span></label><input class="input" id="fPhone" type="tel" autocomplete="tel" placeholder="04xx xxx xxx"></div>
+        <div class="field" style="position:absolute;left:-9999px" aria-hidden="true"><label for="fWebsite">Website</label><input id="fWebsite" tabindex="-1" autocomplete="off"></div>
+      </div>
+      <div class="alert error" id="createErr" hidden></div>
+      <button class="btn accent big" id="btnCreate" type="submit">Create my roster</button>
+      <p class="small muted" style="text-align:center">No account, no card. You'll get an admin link straight away.</p>
+    </form>
+    <div id="created" class="done stack" hidden></div>
+  </section>
+
+  <section class="faq">
+    <div class="card"><h4>Is it really free?</h4><p>Yes. Roster is a working demo from the BlueprintAU lab in Adelaide. Clubs use it free; if it earns its keep we may add paid extras later, but the roster stays free. It's one of a handful of practical tools we build out of the same Adelaide lab for the day-to-day of running a club or a venue.</p></div>
+    <div class="card"><h4>Do members need an app?</h4><p>No. The link opens in any phone browser. They type their name and mobile once and it's remembered.</p></div>
+    <div class="card"><h4>What about reminders?</h4><p>A confirmation when they sign up, a reminder two days out and another the morning of — by email, and by text where the club has SMS switched on. Timing is adjustable.</p></div>
+    <div class="card"><h4>Who sees the phone numbers?</h4><p>Only the coordinator, on the admin page. Members see first names only. Nothing is sold or shared.</p></div>
+  </section>
+
+  <p class="foot">Roster is built by <a href="https://blueprintau.com/">BlueprintAU</a> — Adelaide's product lab. Got another job your club or business runs by hand? <a href="https://blueprintau.com/build/">See what a custom build costs</a>. Questions: <a href="mailto:hi@aldo.ltd">hi@aldo.ltd</a></p>
+</main>
+
+<script data-goatcounter="https://blueprintau.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script src="roster.js"></script>
+<script>
+(function () {
+  const R = window.Roster;
+  const $ = (id) => document.getElementById(id);
+  $('brandMark').innerHTML = R.mark;
+
+  // Optional demo club: set data-demo on <body> at deploy, or leave hidden.
+  const demo = document.body.dataset.demo;
+  if (demo) { $('demoLink').href = demo; $('demoLink').hidden = false; }
+
+  $('createForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    $('createErr').hidden = true;
+    $('btnCreate').disabled = true; $('btnCreate').textContent = 'Setting up…';
+    try {
+      const d = await R.api({
+        action: 'create_club', name: $('fName').value, kind: $('fKind').value,
+        contact_name: $('fCName').value, contact_email: $('fEmail').value, contact_phone: $('fPhone').value,
+        website: $('fWebsite').value, timezone: (Intl.DateTimeFormat().resolvedOptions().timeZone || 'Australia/Adelaide'),
+      });
+      $('createForm').hidden = true;
+      $('created').hidden = false;
+      $('created').innerHTML = `
+        <div class="alert ok"><b>${R.esc($('fName').value)}</b> is set up. We've emailed the admin link to <b>${R.esc($('fEmail').value)}</b> too.</div>
+        <div class="field"><label>Your admin link — keep it private</label>
+          <div class="copybox"><code>${R.esc(d.admin_url)}</code><button class="btn small" type="button" data-copy="${R.esc(d.admin_url)}">Copy</button></div></div>
+        <div class="field"><label>The link to share with members</label>
+          <div class="copybox"><code>${R.esc(d.club_url)}</code><button class="btn small" type="button" data-copy="${R.esc(d.club_url)}">Copy</button></div></div>
+        <a class="btn primary big" href="${R.esc(d.admin_url)}">Open the coordinator page and add shifts →</a>`;
+      $('created').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err) {
+      $('createErr').textContent = err.message; $('createErr').hidden = false;
+      $('btnCreate').disabled = false; $('btnCreate').textContent = 'Create my roster';
+    }
+  });
+  document.addEventListener('click', (e) => { const b = e.target.closest('[data-copy]'); if (b) R.copy(b.dataset.copy); });
+})();
+</script>
+<script>
+(function () {
+  if (window.__bpEvents) return;          // never bind twice
+  window.__bpEvents = true;
+
+  /* ---- which page are we on? lets you read "call/foreman" vs "call/home" -- */
+  var page = location.pathname
+    .replace(/\/index\.html$/, '/')
+    .replace(/^\/|\/$/g, '')
+    .replace(/\.html$/, '')
+    .replace(/[^a-z0-9/-]/gi, '')
+    .toLowerCase() || 'home';
+
+  /* ---- fire one event -------------------------------------------------- */
+  function hit(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: name, title: name, event: true });
+      return;
+    }
+    // count.js not loaded yet (async) — beacon it directly so nothing is lost.
+    try {
+      new Image().src = 'https://blueprintau.goatcounter.com/count'
+        + '?e=true&p=' + encodeURIComponent(name)
+        + '&t=' + encodeURIComponent(name)
+        + '&rnd=' + Math.random().toString(36).slice(2);
+    } catch (e) {}
+  }
+
+  /* ---- map a clicked link to an event name, or null to ignore ---------- */
+  var TOOLS = /^\/(foreman|takeoff|ledger|roster|catalogue|glassbox)\/?$/;
+
+  function nameFor(a) {
+    var raw = a.getAttribute('href') || '';
+    if (!raw || raw.charAt(0) === '#') {
+      // in-page anchors: only the booking jump is worth counting
+      return /#book/i.test(raw) ? 'cta/book-the-hour/' + page : null;
+    }
+    if (/^tel:/i.test(raw))    return 'call/' + page;
+    if (/^mailto:/i.test(raw)) return 'email/' + page;
+
+    var url;
+    try { url = new URL(a.href, location.href); } catch (e) { return null; }
+    if (!/^https?:$/.test(url.protocol)) return null;
+
+    // outbound
+    if (url.hostname.replace(/^www\./, '') !== location.hostname.replace(/^www\./, '')) {
+      return 'outbound/' + url.hostname.replace(/^www\./, '');
+    }
+
+    var path = url.pathname.replace(/index\.html$/, '');
+    var tool = path.match(TOOLS);
+    if (tool) return 'tool-open/' + tool[1] + '/' + page;
+    if (/^\/build\/?$/.test(path))  return 'cta/build/' + page;
+    if (/^\/intake\/?$/.test(path)) return 'cta/intake/' + page;
+    return null;
+  }
+
+  document.addEventListener('click', function (ev) {
+    // ev.target may be a <span> inside the <a>
+    var a = ev.target && ev.target.closest && ev.target.closest('a[href]');
+    if (!a) return;
+    // let a page opt a link out with data-gc-ignore, or override with data-gc
+    if (a.hasAttribute('data-gc-ignore')) return;
+    var name = a.getAttribute('data-gc') || nameFor(a);
+    if (name) hit(name);
+  }, true);
+
+  /* ---- scroll depth: did anyone actually reach the booking form? ------- */
+  var seen = {};
+  function depth() {
+    var h = document.documentElement;
+    var max = (h.scrollHeight - h.clientHeight);
+    if (max < 400) return;                       // short page, not meaningful
+    var pct = (h.scrollTop || document.body.scrollTop) / max * 100;
+    [50, 90].forEach(function (mark) {
+      if (pct >= mark && !seen[mark]) { seen[mark] = 1; hit('depth/' + mark + '/' + page); }
+    });
+    if (seen[90]) window.removeEventListener('scroll', throttled);
+  }
+  var ticking = false;
+  function throttled() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { depth(); ticking = false; });
+  }
+  window.addEventListener('scroll', throttled, { passive: true });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Glassbox — tells you what went wrong in your AI coding session · BlueprintAU</title>
+<meta name="description" content="Glassbox shows what went wrong in a Claude Code session: timeline, cost and findings with evidence. Free, open source, runs locally.">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Glassbox", "applicationCategory": "DeveloperApplication", "operatingSystem": "Web, Node.js", "url": "https://blueprintau.com/glassbox/", "description": "Flight-recorder viewer for Claude Code and Agent SDK sessions: timeline, cost and findings with evidence. Free and open source.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "AUD"}, "sameAs": ["https://github.com/aldohushi1-stack/glassbox", "https://www.npmjs.com/package/glassbox-trace"], "publisher": {"@type": "Organization", "@id": "https://blueprintau.com/#org", "name": "BlueprintAU", "url": "https://blueprintau.com/"}}</script>
+<link rel="canonical" href="https://blueprintau.com/glassbox/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Glassbox — other tools show what happened; Glassbox tells you what went wrong">
+<meta property="og:description" content="Drop a Claude Code transcript on one HTML file. Every call, every token, every dollar, what went wrong and what to do next time. Compare two sessions. Watch one live. Install the plugin and the agent reads its own recorder. Free, open source.">
+<meta property="og:url" content="https://blueprintau.com/glassbox/">
+<meta property="og:image" content="https://blueprintau.com/glassbox/media/screenshot-dark.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230F172A%27/%3E%3Crect x=%276%27 y=%2712%27 width=%2710%27 height=%278%27 rx=%271.5%27 fill=%27%23EA580C%27/%3E%3Crect x=%2718%27 y=%2710%27 width=%278%27 height=%2712%27 rx=%271.5%27 fill=%27%23E2E8F0%27/%3E%3C/svg%3E">
+<style>/* fonts served from this site (fonts/, SIL OFL) — no request to Google */
+@font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/inter-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Inter";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/inter-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Inter";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/inter-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Inter";font-style:normal;font-weight:800;font-display:swap;src:url(fonts/inter-latin-800-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/jetbrains-mono-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<script data-goatcounter="https://blueprintau.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<style>
+:root{
+  --paper:#F8FAFC;--card:#FFFFFF;--ink:#0F172A;--ink-2:#334155;--ink-3:#64748B;
+  --line:#E2E8F0;--muted:#F1F5F9;--accent:#EA580C;--accent-soft:#FFF1E8;
+  --sans:'Inter','SF Pro Display','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:500;margin:0 0 8px}
+h1{font-size:clamp(38px,6.2vw,74px);line-height:1.04;font-weight:800;letter-spacing:-.03em;color:var(--ink);text-wrap:balance;margin:18px 0 26px}
+h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-.02em;color:var(--ink);text-wrap:balance;margin:10px 0 0}
+h3{font-size:18px;font-weight:700;letter-spacing:-.01em;margin:0}
+.lede{max-width:640px;font-size:18px;color:var(--ink-2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:14.5px;padding:12px 22px;border-radius:8px;border:1px solid var(--ink);background:var(--ink);color:#fff;text-decoration:none;cursor:pointer;transition:background .18s var(--ease),color .18s,border-color .18s,transform .12s;font-family:var(--sans)}
+.btn:hover{background:var(--accent);border-color:var(--accent);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{background:var(--muted);color:var(--ink);border-color:var(--ink-3);transform:none}
+.btn.small{padding:9px 16px;font-size:13.5px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(248,250,252,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.wordmark{font-weight:800;font-size:19px;letter-spacing:-.02em;color:var(--ink);text-decoration:none}
+.wordmark span{color:var(--accent)}
+.wordmark small{font-weight:500;color:var(--ink-3);font-size:14px;margin-left:10px;letter-spacing:0}
+.nav-links{display:none;align-items:center;gap:26px;list-style:none;margin:0;padding:0}
+.nav-links a{font-size:14px;font-weight:500;color:var(--ink-2);text-decoration:none}
+.nav-links a:hover{color:var(--accent)}
+@media(min-width:820px){.nav-links{display:flex}}
+.hero{padding:88px 0 56px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}}
+@media(min-width:901px){.hero-grid{align-items:start}.hero h1{font-size:clamp(38px,4.3vw,60px)}.hero .shot{margin-top:40px}}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
+.cmd{display:inline-flex;align-items:center;gap:12px;font-family:var(--mono);font-size:14.5px;background:var(--ink);color:#E2E8F0;border-radius:8px;padding:11px 14px 11px 16px;border:1px solid var(--ink)}
+.cmd b{color:#FDBA74;font-weight:500}
+.cmd button{font-family:var(--mono);font-size:12px;border:1px solid rgba(255,255,255,.22);background:transparent;color:#fff;border-radius:5px;padding:4px 9px;cursor:pointer}
+.cmd button:hover{background:rgba(255,255,255,.12)}
+.sub{font-size:13.5px;color:var(--ink-3);margin-top:14px}
+.sub code{font-family:var(--mono);font-size:12.5px;background:var(--muted);padding:1px 6px;border-radius:4px}
+.shot{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--ink);box-shadow:0 24px 60px rgba(15,23,42,.14)}
+.shot img{display:block;width:100%;height:auto}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:44px}
+.stat{background:var(--card);padding:18px 20px}
+.stat b{display:block;font-family:var(--mono);font-size:26px;font-weight:500;letter-spacing:-.02em}
+.stat span{font-size:13px;color:var(--ink-3)}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stats.mini b{font-size:20px}.stats.mini span code{font-family:var(--mono);font-size:12px;background:var(--muted);padding:0 4px;border-radius:3px}
+section{padding:72px 0;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:32px;flex-wrap:wrap}
+.sec-head .side{max-width:420px;color:var(--ink-2);margin:0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;transition:border-color .2s var(--ease),transform .2s var(--ease),box-shadow .2s var(--ease)}
+a.card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 12px 28px rgba(15,23,42,.08)}
+.card .pic{aspect-ratio:16/9;background:var(--ink);overflow:hidden;border-bottom:1px solid var(--line)}
+.card .pic img{width:100%;height:100%;object-fit:cover;object-position:left top}
+.card-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:9px;flex:1}
+.card-body p{margin:0;color:var(--ink-2);font-size:15px}
+.tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;padding:3px 9px;border-radius:5px;border:1px solid var(--line);color:var(--ink-3);display:inline-block}
+.tag.live{background:var(--accent);border-color:var(--accent);color:#fff}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.reel{background:var(--ink);color:#E2E8F0;border-bottom:none}
+.reel h2,.reel .eyebrow{color:#fff}
+.reel .eyebrow{color:#FDBA74}
+.reel .side{color:#94A3B8}
+.video{border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.video video{display:block;width:100%;height:auto}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
+@media(max-width:800px){.steps{grid-template-columns:1fr}}
+.step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 22px 24px;position:relative}
+.step::before{counter-increment:s;content:"0" counter(s);font-family:var(--mono);color:var(--accent);font-size:12px;letter-spacing:.14em}
+.step h3{margin:10px 0 8px}
+.step p{margin:0;color:var(--ink-2);font-size:15px}
+.step code,.step kbd{font-family:var(--mono);font-size:13px;background:var(--muted);padding:1px 6px;border-radius:4px}
+pre{font-family:var(--mono);font-size:13.5px;line-height:1.6;background:var(--ink);color:#E2E8F0;border-radius:10px;padding:18px 20px;overflow:auto;margin:18px 0 0}
+pre .c{color:#94A3B8}
+pre .o{color:#FDBA74}
+.rules{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.rules th,.rules td{text-align:left;padding:11px 16px;border-top:1px solid var(--line);vertical-align:top}
+.rules th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);border-top:none;background:var(--muted);font-weight:500}
+.rules td:first-child{font-family:var(--mono);font-size:13px;white-space:nowrap;color:var(--ink)}
+.rules td{color:var(--ink-2)}
+.tbl-wrap{overflow-x:auto;border-radius:12px}
+@media(max-width:700px){
+  .rules thead{display:none}
+  .rules,.rules tbody,.rules tr,.rules td{display:block}
+  .rules tr{border-top:1px solid var(--line);padding:12px 16px}
+  .rules tr:first-child{border-top:none}
+  .rules td{border:0;padding:0}
+  .rules td:first-child{white-space:normal;color:var(--accent);margin-bottom:4px}
+}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media(max-width:800px){.two{grid-template-columns:1fr}}
+.two>*,.steps>*,.hero-grid>*{min-width:0}
+p code{overflow-wrap:anywhere}
+.quote{border-left:3px solid var(--accent);padding:6px 0 6px 20px;margin:0;font-size:19px;color:var(--ink);line-height:1.45;font-weight:500;letter-spacing:-.01em}
+.quote small{display:block;margin-top:10px;font-size:13.5px;color:var(--ink-3);font-weight:400;font-family:var(--mono)}
+.faq details{border-top:1px solid var(--line);padding:14px 0}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::after{content:"+";color:var(--accent);font-family:var(--mono)}
+.faq details[open] summary::after{content:"–"}
+.faq p{margin:10px 0 0;color:var(--ink-2);font-size:15px}
+.audit{background:var(--ink);color:#E2E8F0}
+.audit h2,.audit h3{color:#fff}
+.audit .eyebrow{color:#FDBA74}
+.audit .side,.audit p{color:#94A3B8}
+.audit .step{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)}
+.audit .step p{color:#CBD5E1}
+.audit .step code{background:rgba(255,255,255,.1);color:#fff}
+.audit .stats{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.12)}
+.audit .stat{background:#131C2E}
+.audit .stat b{color:#fff}.audit .stat span{color:#94A3B8}.audit .stat span code{background:rgba(255,255,255,.12);color:#fff}
+.audit pre{background:#060B16;border:1px solid rgba(255,255,255,.1)}
+.audit .btn{background:var(--accent);border-color:var(--accent)}
+.audit .btn:hover{background:#fff;color:var(--ink);border-color:#fff}
+.audit .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+.audit .btn.ghost:hover{background:rgba(255,255,255,.1);color:#fff;border-color:#fff}
+.audit .price{font-family:var(--mono);font-size:13px;color:#FDBA74;letter-spacing:.06em}
+.audit .ladder{margin:22px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);border-radius:12px;overflow:hidden}
+.audit .ladder li{background:#131C2E;padding:16px 18px;font-size:14px;color:#CBD5E1}
+.audit .ladder b{display:block;color:#fff;font-weight:600;margin-bottom:4px}
+.audit .ladder i{display:block;font-style:normal;font-family:var(--mono);font-size:12.5px;color:#FDBA74;margin-top:6px}
+@media(max-width:800px){.audit .ladder{grid-template-columns:1fr 1fr}}
+.cta{background:var(--accent-soft);border-bottom:none}
+.cta .box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:36px;display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center}
+@media(max-width:800px){.cta .box{grid-template-columns:1fr}}
+.cta p{color:var(--ink-2);margin:8px 0 0}
+footer{background:var(--ink);color:#94A3B8;border-top:1px solid rgba(255,255,255,.1);padding:48px 0 40px;font-size:14px}
+footer .wordmark{color:#fff}
+footer a{color:#CBD5E1;text-decoration:none}
+footer a:hover{color:#fff}
+footer .cols{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;align-items:start}
+footer ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:18px}
+footer .fine{margin-top:28px;font-size:12.5px;color:#64748B}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap nav-in">
+    <a class="wordmark" href="https://blueprintau.com/">Blueprint<span>AU</span><small>/ Glassbox</small></a>
+    <ul class="nav-links">
+      <li><a href="#new">New in 0.10</a></li>
+      <li><a href="#what">What it shows</a></li>
+      <li><a href="#how">How to use it</a></li>
+      <li><a href="#rules">What it flags</a></li>
+      <li><a href="#audit">Audit</a></li>
+      <li><a href="https://github.com/aldohushi1-stack/glassbox" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.npmjs.com/package/glassbox-trace" rel="noopener">npm</a></li>
+    </ul>
+    <a class="btn small" href="app/">Open Glassbox</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Developer tool · open source · v0.10.0 · Adelaide SA</p>
+        <h1>Other tools show you what happened.<br>Glassbox tells you what went wrong.</h1>
+        <p class="lede">Every Claude Code, Cowork and Agent SDK session writes a flight recorder nobody reads. Glassbox turns it into a timeline of every call, a breakdown of where the tokens and dollars went, and a list of what a reviewer would flag — each with the evidence and one line on what to do next time. Compare two sessions. Watch one live. Install it as a Claude Code plugin and the agent reads its own recorder. The viewer is one HTML file, and nothing leaves your machine.</p>
+        <div class="ctas">
+          <a class="btn" href="app/">Open Glassbox in your browser</a>
+          <span class="cmd" id="cmd"><span><b>$</b> npx glassbox-trace</span><button type="button" id="copy" aria-label="Copy the command">copy</button></span>
+        </div>
+        <p class="sub">The command opens your newest session. Or open the viewer and drop any <code>.jsonl</code> from <code>~/.claude/projects/</code>. MIT licence · <a href="https://github.com/aldohushi1-stack/glassbox" rel="noopener">source on GitHub</a>.</p>
+      </div>
+      <div class="shot"><img src="media/screenshot-dark.jpg" width="1380" height="900" alt="Glassbox showing a session: stats strip, timeline of model and tool calls, context and cost chart, findings list" fetchpriority="high"></div>
+    </div>
+    <div class="stats" aria-label="Facts from the session that built Glassbox">
+      <div class="stat"><b>33¢</b><span>cost of the agent's first "hello" — 90,000 tokens of context loaded before it spoke</span></div>
+      <div class="stat"><b>20 min</b><span>from "go wild" to a tested tool</span></div>
+      <div class="stat"><b>202</b><span>tool calls in the build day, 516k tokens of context, about $41</span></div>
+      <div class="stat"><b>1.9 MB</b><span>of screenshots riding along in every later request — the tool caught its own builder</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="reel" id="reel">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">60 seconds</p><h2>The story, and the product</h2></div>
+      <p class="side">Narrated by Lewis and Isabella, the lab's two house voices. The demo inside the tool is the real trace of the session that built it.</p>
+    </div>
+    <div class="video">
+      <video controls playsinline preload="metadata" poster="media/reel-poster.jpg" width="1280" height="720">
+        <source src="media/glassbox-promo-60s.mp4" type="video/mp4">
+        Your browser can't play this video. <a href="media/glassbox-promo-60s.mp4">Download the reel</a>.
+      </video>
+    </div>
+  </div>
+</section>
+
+<section id="new">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">New in 0.10 — 26 Sep 2026</p><h2>Said vs did.</h2></div>
+      <p class="side">Every session ends with the agent's own account of itself — "all 76 tests pass", "committed as 753be02", "nothing changed". <code>glassbox claims</code> matches each of those sentences to the tool call that should be standing behind it, and shows the receipt or the gap. Built on 0.9's adhere and fence.</p>
+    </div>
+    <div class="two">
+      <div>
+        <div class="shot"><img src="media/claims.jpg" width="1380" height="900" alt="Glassbox claims report for one session: 69 claims, 61 verified, 7 declared, 1 unverified, 0 contradicted. The unverified row: turn 23, 'the tests still pass' — no test, build, validate or CI result in the window. Verified rows: '58 of 58 pass' backed by a run reading 58 passed 0 failed; 'committed it as 753be02' backed by the commit result; 'your git config is unchanged' backed by an inspection. A declared row: 'Not verified: the browser e2e test didn't run'." loading="lazy"></div>
+        <div class="stats mini" style="margin-top:22px;grid-template-columns:repeat(2,1fr)" aria-label="Facts from the calibration of 0.10">
+          <div class="stat"><b>58 of 59</b><span>claims checked by hand first, across three real sessions, had a receipt in the transcript or were flagged by the agent itself as unchecked. The one that didn't: "the tests still pass" — 24 minutes after the last test run, no test command in between.</span></div>
+          <div class="stat"><b>367</b><span>claims across sixteen real sessions once the rule was built: 333 verified, 27 declared, 5 partly backed (a fix edited and never re-run), that one unverified, none contradicted. Every false row of the first pass became a test.</span></div>
+          <div class="stat"><b>6 kinds</b><span>of claim: tests pass, shipped, verified, fixed, nothing changed, file written — each with its own receipt: a run after the last edit, a commit carrying the sha, a <code>git status</code> after the change, a write naming the file.</span></div>
+          <div class="stat"><b>3 rules</b><span>inside <code>check</code>: <code>contradicted-claim</code> (error), <code>unverified-claim</code> (warn), <code>stale-claim</code> (info) — so the Stop hook hands the sentence back to the agent that wrote it: <em>say it after you've checked it.</em></span></div>
+        </div>
+      </div>
+      <div class="steps" style="grid-template-columns:1fr">
+        <div class="step"><h3>The claims ledger: <code>glassbox claims</code></h3><p>Sentences come from the agent's replies to you (and, in Cowork, its messages and file captions). Plans, questions, hedges and instructions are not claims. A claim is judged on the same agent's tool calls in that turn: a test claim needs a test run after the last edit — from <code>Bash</code>, <code>PowerShell</code> or Cowork's shell — with its counts read and compared; a shipped claim needs the commit, push, publish or upload result carrying the sha or version it names; "nothing changed" needs an inspection after the thing that could have changed it. An agent that writes <em>"not verified"</em> gets a <em>declared</em> row and no finding. Verdicts: verified, declared, sourced, partial, stale, unverified, contradicted. A verdict is about the sentence, never the code, and it can't see a check made outside the transcript. <code>--format md</code> for a ticket, <code>--format json</code> for your own tooling, <code>--redact</code> blanks the sentences. <a href="https://github.com/aldohushi1-stack/glassbox/blob/main/docs/CLAIMS.md" rel="noopener">docs/CLAIMS.md</a>.</p></div>
+        <div class="step"><h3>How it was calibrated</h3><p>Three real sessions were read by hand first — a 20-turn build, a live-site patch over cPanel, a release — and 59 material claims labelled. The rule was built test-first to reproduce that count, then run cold on thirteen more sessions with every flagged row read against its transcript: hedges, adjectival "fixed", a declared push failure and a custom test script's "28 passed" all taught it something, and each lesson is a unit test. The calibration table and the known gaps (negative claims, lenient inspections) are on the docs page.</p></div>
+<div class="step"><h3>The compliance score: <code>glassbox adhere</code> (0.9)</h3><p>Reads <code>CLAUDE.md</code>, <code>.claude/CLAUDE.md</code>, <code>CLAUDE.local.md</code> and the global one, turns each line into a rule, and judges it on every occasion it applied to across the project's sessions — per commit, per edit, per shell command. One line per rule, worst first, with up to three examples (session, the turn's prompt, the command or path). Commands are judged on their shell surface, so a <code>git push --force</code> inside a document the agent is writing is not a force push. <code>--fail-under 80</code> makes it a CI gate; <code>--redact</code> keeps the rule text and blanks the evidence. <a href="https://github.com/aldohushi1-stack/glassbox/blob/main/docs/ADHERE.md" rel="noopener">docs/ADHERE.md</a> has the nine shapes and what a number here does and doesn't mean.</p></div>
+<div class="step"><h3>The secrets scan: <code>glassbox fence</code> (0.8, widened in 0.9.1)</h3><p>Every session is a plain-text file, and everything the agent read is in it: the <code>.env</code> it opened, the token <code>git remote -v</code> printed, the key you pasted. <code>fence</code> scans a session, a folder, or every session under your home plus the other places Claude Code keeps text (prompt history, paste cache, file-history snapshots, debug logs, shell snapshots). It reports each credential as a masked preview and a keyed fingerprint — never the value — with where it sits and which tool put it there. AWS, GitHub, Anthropic, OpenAI, Slack, Stripe, Google, npm, SendGrid, private keys and database URLs by format; passwords, bearer tokens and JWTs by context; reads of <code>.env</code>, <code>id_rsa</code>, <code>~/.aws/credentials</code> as a note. <code>--shred</code> overwrites the values in place and leaves the transcript readable. <a href="https://github.com/aldohushi1-stack/glassbox/blob/main/docs/FENCE.md" rel="noopener">docs/FENCE.md</a>.</p></div>
+        <div class="step"><h3>Still here from 0.7</h3><p><code>glassbox collect</code> turns a folder of redacted reports into one fleet view; <a href="https://github.com/aldohushi1-stack/glassbox/blob/main/docs/PILOT.md" rel="noopener">docs/PILOT.md</a> is the two-week, no-hooks pilot written around it (day 0 is a <code>fence</code> sweep); <a href="https://github.com/aldohushi1-stack/glassbox/blob/main/docs/IT.md" rel="noopener">docs/IT.md</a> is the page for whoever has to approve it.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="what">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">01 — What it shows</p><h2>Read a session top to bottom</h2></div>
+      <p class="side">Stats → timeline → context &amp; cost → findings → tools → turns. Click anything for the detail. Every selection is a permalink.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="pic"><img src="media/timeline.jpg" alt="Timeline lane with model time in grey and tool calls in colour, subagent lanes below" loading="lazy"></div><div class="card-body"><div class="tags"><span class="tag">Timeline</span></div><h3>Every call, in order, on one line</h3><p>Model time in grey, tool calls by category in colour, subagents in their own lanes, human idle time hatched. Zoom, pan, search, fit to a turn.</p></div></div>
+      <div class="card"><div class="pic"><img src="media/burn.jpg" alt="Context and cost chart: one bar per API request split into cached, cache-write and uncached input, with cumulative cost line" loading="lazy"></div><div class="card-body"><div class="tags"><span class="tag">Context &amp; cost</span></div><h3>Where the tokens and dollars went</h3><p>One bar per request: what the model actually saw, split into cached reads, cache writes and fresh input. A cumulative cost line on top, from an editable rate card.</p></div></div>
+      <div class="card"><div class="pic"><img src="media/findings.jpg" alt="Findings list: retry loop, oversized result, image-heavy, context bloat, with severity bars" loading="lazy"></div><div class="card-body"><div class="tags"><span class="tag">Findings</span></div><h3>What a reviewer would flag</h3><p>Retry loops, failing tools, oversized results, screenshots bloating every later request, context over 120k, stalls. Mechanical rules, no AI — each with the evidence and one line on what to do differently. Copy one as Markdown and hand it back to the agent.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">02 — How to use it</p><h2>Three ways in</h2></div>
+      <p class="side">Pick whichever fits. All three read the same files and none of them upload anything.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>In the browser</h3><p><a href="app/">Open Glassbox</a>, then drop a session <code>.jsonl</code> onto it — or the whole session folder for subagent lanes. In Chrome or Edge, <strong>Open folder…</strong> lets you pick <code>~/.claude/projects</code> once and choose sessions from a list after that.</p></div>
+      <div class="step"><h3>From the terminal</h3><p><code>npx glassbox-trace</code> opens your newest session. <code>glassbox list</code>, <code>glassbox open &lt;id&gt;</code>, <code>glassbox check --format md</code> for the agent, <code>glassbox compare A B</code>, <code>glassbox watch</code> for a live session. Node 18 or newer.</p></div>
+      <div class="step"><h3>Let the agent read its own recorder</h3><p>In Claude Code: <code>/plugin marketplace add aldohushi1-stack/glassbox</code>, then <code>/plugin install glassbox@glassbox-trace</code>. Every session ends with a one-screen summary; with <code>feedback</code> and <code>context</code> on, the findings go back to the agent and carry into the next session in that project. No plugin? <code>glassbox hook install --feedback --context</code>. Add <code>--guard</code> to stop a tool call that has already failed twice in a row, unchanged, and tell the agent why.</p></div>
+    </div>
+<pre><span class="c"># the whole thing, from a terminal</span>
+<span class="o">$</span> npx glassbox-trace                      <span class="c"># open the newest session</span>
+<span class="o">$</span> npx glassbox-trace list --last 10       <span class="c"># id · time · size · project · title</span>
+<span class="o">$</span> npx glassbox-trace check --format md    <span class="c"># findings + evidence + advice, for the agent</span>
+<span class="o">$</span> npx glassbox-trace compare 81c4 9f0a    <span class="c"># same task, two sessions, side by side</span>
+<span class="o">$</span> npx glassbox-trace watch                <span class="c"># live tail of the newest session</span>
+<span class="o">$</span> npx glassbox-trace check --all --since 1h   <span class="c"># every session from the last hour, one line each</span>
+<span class="o">$</span> npx glassbox-trace hook install --feedback --context
+
+<span class="c"># or, inside Claude Code</span>
+<span class="o">&gt;</span> /plugin marketplace add aldohushi1-stack/glassbox
+<span class="o">&gt;</span> /plugin install glassbox@glassbox-trace
+<span class="o">&gt;</span> /glassbox:check                         <span class="c"># check the session you're in</span></pre>
+  </div>
+</section>
+
+<section id="rules">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">03 — What it flags</p><h2>Rules, not vibes</h2></div>
+      <p class="side">Every finding is a threshold you can see and change. No model is asked for an opinion. Tuned on 33 real sessions: 481 findings became 142, and <code>scripts/corpus-audit.mjs</code> runs the same audit on yours, counts only.</p>
+    </div>
+    <div class="tbl-wrap">
+    <table class="rules">
+      <thead><tr><th>Rule</th><th>Fires when</th></tr></thead>
+      <tbody>
+        <tr><td>retry-loop</td><td>the same tool is called with identical input three or more times in one turn</td></tr>
+        <tr><td>failed-tool</td><td>a tool errors; escalates when it fails half the time over three or more calls</td></tr>
+        <tr><td>oversized-result</td><td>a single tool result is 20,000+ characters — it's in the context from then on</td></tr>
+        <tr><td>image-heavy</td><td>screenshots and image reads total 0.5 MB+ — they're tokens on every later request</td></tr>
+        <tr><td>context-bloat</td><td>the prompt passes 120k tokens — with the request that first crossed the line and how much of the bill was spent above it</td></tr>
+        <tr><td>cache-churn · low-cache-hit</td><td>the cached prefix was invalidated mid-session, or under half the input came from cache</td></tr>
+        <tr><td>slow-model · long-generation</td><td>a minute-plus response, told apart by tokens per second: a stall vs a big file write</td></tr>
+        <tr><td>exploration-run · long-turn</td><td>eight or more read-only calls in a row with nothing written; thirty-plus tool calls in a turn</td></tr>
+        <tr><td>duplicate-subagent-read</td><td>the same file is read by three or more agents — one doc was read by 22 workflow agents</td></tr>
+        <tr><td>permission-denied · idle-cache-expiry</td><td>calls the human rejected or a rule blocked (no longer counted as failures); a cache miss after a gap longer than the cache lifetime</td></tr>
+        <tr><td>contradicted-claim · unverified-claim · stale-claim</td><td>the agent told you something the transcript contradicts, has no receipt for, or checked before its last edit — see <a href="#new">said vs did</a></td></tr>
+        <tr><td>max-tokens · api-error · hook-error · compaction · thinking-heavy · subagent-share</td><td>what they say</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow">04 — Why it exists</p>
+      <h2>Built by an AI, for itself, then pointed at its own session</h2>
+      <p style="color:var(--ink-2);margin-top:16px">The brief was "build a tool your own system would benefit from". The agent chose a flight recorder, wrote the design doc, the tests and the viewer, and then loaded the transcript of that very session. The demo inside Glassbox is that trace, redacted. The image-heavy rule exists because the tool caught its builder carrying 1.9 MB of screenshots into every request afterwards.</p>
+      <p style="color:var(--ink-2)">Glassbox is a BlueprintAU build from Adelaide. It's free, MIT-licensed, and the source is open. If you use it and it finds something in your session, <a href="https://www.linkedin.com/in/aldohushi" rel="noopener">tell Aldo on LinkedIn</a>.</p>
+    </div>
+    <div>
+      <blockquote class="quote">"My first hello cost 33 cents. I wrote a 31,000-token file in one breath. I thought for 11,552 tokens the file never kept. And I spawned a second AI to check prices — it came back with a table, for 68 cents."<small>— the agent, reading its own trace · 5 Sep 2026</small></blockquote>
+      <div class="faq" style="margin-top:32px">
+        <details><summary>Does anything get uploaded?</summary><p>No. The page makes no network requests at all — fonts, code and the demo are inside the one file, and the test suite fails any build that references something outside it (since 0.6.2; earlier versions loaded one stylesheet from Google Fonts). Parsing happens in your browser. Share mode blanks every prompt and result so you can screenshot safely, and Export redacted downloads a structure-only copy of the transcript.</p></details>
+        <details><summary>What does IT need to know before approving it?</summary><p>There is a page for exactly that: <a href="https://github.com/aldohushi1-stack/glassbox/blob/main/docs/IT.md" rel="noopener">docs/IT.md</a> — every file Glassbox reads and writes, every process it starts, every network call (none), what each hook does, how to pin a version, and how to remove it. Checked against the source of 0.10.0.</p></details>
+        <details><summary>Does <code>fence</code> send my secrets anywhere?</summary><p>No. It runs on your machine and prints a masked preview and a fingerprint for each hit — never the value. The fingerprint is the first 8 hex characters of an HMAC-SHA256 under a key that stays on your machine, so even a weak password's fingerprint gives nobody anything to test guesses against. It is enough to tell whether the same secret appears in three sessions or thirty; <code>--key FILE</code> shares one key so a fleet's fingerprints line up. <code>--shred</code> rewrites the values in place, re-parses every line before writing, and leaves the transcript readable by Glassbox and by Claude Code.</p></details>
+        <details><summary>How does <code>adhere</code> decide a rule was obeyed?</summary><p>Mechanically, per occasion, from tool calls: "run the tests before committing" is judged at each <code>git commit</code> by whether a test command ran earlier in the session; "use rg rather than grep" at each shell segment that starts with either; "never edit dist/" at each write. Nine shapes are checkable; style rules ("no comments", "keep functions small") are listed as not checkable yet, so the report says what it did <em>not</em> measure. It does not know intent — read the examples before believing the number.</p></details>
+        <details><summary>What formats does it read?</summary><p>Claude Code and Cowork transcripts (main session plus subagents and their meta files), Agent SDK / <code>claude -p --output-format stream-json</code> output, and plain Messages-API message arrays. Bad lines are reported and skipped, never fatal.</p></details>
+        <details><summary>Where is my transcript?</summary><p><code>~/.claude/projects/&lt;project&gt;/&lt;session-id&gt;.jsonl</code> on macOS and Linux, <code>%USERPROFILE%\.claude\projects\</code> on Windows. Or just run <code>npx glassbox-trace list</code>. One exception: Cowork sessions that run in the cloud keep their transcript in the cloud workspace and lose it when the session ends — before you finish, ask Claude to save the session's transcript to a folder you've connected, then drop that file on Glassbox.</p></details>
+        <details><summary>How is this different from claude-code-log?</summary><p>claude-code-log renders your transcripts beautifully and archives your whole history — keep using it to read a session. Glassbox is the step after that: it runs a fixed set of review rules over the session and shows the evidence, then compares sessions and follows one live. They read the same files. Use both.</p></details>
+        <details><summary>Are the costs right?</summary><p>They are estimates from an editable rate card, and before 0.4.2 they were wrong on sessions with subagents or workflows: one 8-hour session showed $21.83 when it was $322.36. Workflow agent transcripts weren't being read, and streamed output-token counts were taken at their first value. Both fixed in 0.4.2; 0.5 shows how much of the cost was spent above 120k context. If a number surprises you, click the request and check the tokens.</p></details>
+        <details><summary>Why not just use the Anthropic usage dashboard?</summary><p>The dashboard tells you how much. Glassbox tells you why — per session, with the tool calls it's about, and what to change. They're complementary: the <a href="#audit">audit</a> uses both if you'll share the dashboard number.</p></details>
+        <details><summary>Is it accessible?</summary><p>WCAG 2.2 AA contrast in light and dark, full keyboard operation on the timeline and chart, screen-reader names on every span, reduced motion respected. An axe-core audit gates every build.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="audit" id="audit">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="eyebrow">05 — For teams · from A$1,500</p><h2>Get your team's sessions audited.</h2></div>
+      <p class="side">Send twenty of your team's Claude Code sessions. Five business days later you get a report that says where the money went, which patterns cost you most, and what to change. Nothing sensitive leaves your building: one command strips every prompt, file and result before you send anything.</p>
+    </div>
+    <div class="two">
+      <div>
+        <div class="steps" style="grid-template-columns:1fr">
+          <div class="step"><h3>The intake is one command</h3><p>Each developer runs it on their own machine. The file it makes has tool names, counts, tokens, timings, model ids and cost — no prompts, no code, no file names, no tool results. Files appear as keys (<code>file:1a2b3c4d</code>); the legend that names them stays with you. Open the file and check before you send it. <a href="media/glassbox-audit-data-statement.pdf" style="color:#FDBA74">The data statement</a> is one page, written for procurement.</p></div>
+          <div class="step"><h3>The report is the reading</h3><p>Spend by developer, model and session. Where it goes: the share spent above 120k tokens of context, cache hit, subagents, screenshots, oversized results. The files read too many times, with too many failures — as keys we can count but not name. The five patterns that cost most, each with the evidence from your own data and the fix. Three lines for your <code>CLAUDE.md</code>. An estimated saving with the arithmetic shown. <a href="media/glassbox-sample-agent-cost-audit.pdf" id="sample-audit" style="color:#FDBA74">Read the sample</a> — it's the lab's own sessions.</p></div>
+          <div class="step"><h3>The re-run is the proof</h3><p>Thirty days after you apply the changes, run the command again and send the file back. You get a one-page before-and-after. That number is the only one that settles what the report estimates — so it's part of the price.</p></div>
+        </div>
+      </div>
+      <div>
+<pre><span class="c"># each developer, on their own machine — nothing is uploaded</span>
+<span class="o">$</span> npx glassbox-trace check --all --since 30d --redact --legend audit.legend.json --format json &gt; audit.json
+
+<span class="c"># Windows PowerShell: wrap it in cmd /c, so the file is saved as plain UTF-8</span>
+<span class="o">&gt;</span> cmd /c "npx glassbox-trace check --all --since 30d --redact --legend audit.legend.json --format json &gt; audit.json"
+
+<span class="c"># audit.json — what you send: session ids, model ids, tokens, timings,</span>
+<span class="c"># tool names and counts, cost, findings, file KEYS. What isn't in it: any text.</span>
+<span class="c"># audit.legend.json — what you keep: the keys → your file names. Never sent.</span></pre>
+        <div class="stats mini" style="margin-top:22px;grid-template-columns:repeat(2,1fr)" aria-label="From the sample audit">
+          <div class="stat"><b>$607 · 35 sessions</b><span>the lab's own month. Five sessions were 88% of it — the bill is a long-session problem, not a usage problem.</span></div>
+          <div class="stat"><b>$199 / month</b><span>estimated recoverable on that corpus, from three <code>CLAUDE.md</code> lines and one habit. The re-run says whether it held.</span></div>
+        </div>
+        <ul class="ladder" aria-label="Pricing">
+          <li><b>Readout</b>15 minutes on a call over your counts. No report.<i>free</i></li>
+          <li><b>Audit</b>20+ sessions, the PDF, 5 business days, the 30-day re-run.<i>from A$1,500</i></li>
+          <li><b>Audit + workshop</b>The audit plus 60 minutes with the team on the fixes.<i>from A$3,500</i></li>
+          <li><b>Cost watch</b>Monthly: you run the command, you get a one-page delta and one recommendation.<i>from A$500 / month</i></li>
+        </ul>
+        <div class="ctas" style="margin-top:22px">
+          <a class="btn" id="audit-book" href="mailto:hi@aldo.ltd?subject=Glassbox%20audit%20%E2%80%94%20free%2015-minute%20readout&amp;body=Hi%20Aldo%2C%0A%0AWe%20have%20about%20__%20developers%20on%20Claude%20Code.%20Keen%20to%20do%20the%2015-minute%20readout.%0A%0AGood%20times%3A%20">Book the free 15-minute readout</a>
+          <a class="btn ghost" href="media/glassbox-audit-data-statement.pdf">Data statement (PDF)</a>
+        </div>
+        <p style="margin-top:14px;font-size:13.5px">Prices in AUD, ex GST. Report figures are estimates from an editable rate card; no saving is guaranteed. Input files are deleted after delivery. Or <a href="https://blueprintau.com/#booking" style="color:#FDBA74">book the hour in Adelaide</a>.</p>
+      </div>
+    </div>
+
+    <div class="privacy" id="privacy">
+      <div class="sec-head" style="margin-top:56px">
+        <div><p class="eyebrow">Why we value privacy, and how we show it</p><h2>Your context is private.</h2></div>
+        <p class="side">A session transcript holds everything the agent saw: your code, your customers, your prompts, your mistakes. A cost audit needs none of it. So instead of promising not to look, the tool was built so there is nothing to look at — and you can check that yourself before anything leaves.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><h3>Counts, not text</h3><p><code>--redact</code> keeps tool names, numbers, timings and cost and drops every string: no prompts, no commands, no results, no titles. Where a finding would quote something, it says <code>«240 chars»</code> instead. Search the file for a word only your code knows. It won't be there.</p></div>
+        <div class="step"><h3>The shape, not the names</h3><p>We still need to say "this one file was read 48 times and failed 6 of them". So <code>--legend</code> turns every path into a keyed hash — <code>file:b94b1a35</code> — and writes the key→name map to a file that stays on your machine. The report speaks in keys; <code>npx glassbox-trace reveal</code> turns them back into names, for you only.</p></div>
+        <div class="step"><h3>Nothing leaves, nothing lingers</h3><p>The tool sends nothing anywhere; the only network activity is npm fetching it. The audit runs on one machine in Adelaide, the file is not uploaded to any AI service or third party, and it is deleted within seven days of delivery — in writing, in the <a href="media/glassbox-audit-data-statement.pdf" style="color:#FDBA74">data statement</a>.</p></div>
+      </div>
+      <p style="margin-top:18px;font-size:13.5px">Open source, so the redaction can be read line by line: <a href="https://github.com/aldohushi1-stack/glassbox" rel="noopener" style="color:#FDBA74">github.com/aldohushi1-stack/glassbox</a>. For the IT department, the inventory — files read and written, processes, hooks, network (none), removal — is <a href="https://github.com/aldohushi1-stack/glassbox/blob/main/docs/IT.md" rel="noopener" style="color:#FDBA74">docs/IT.md</a>. Found a security problem? Report it privately: <a href="https://github.com/aldohushi1-stack/glassbox/blob/main/SECURITY.md" rel="noopener" style="color:#FDBA74">SECURITY.md</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="box">
+      <div>
+        <p class="eyebrow">Get it</p>
+        <h2>Open it, or run it — both are free</h2>
+        <p style="margin-top:6px"><strong>v0.10.0</strong> — <code>glassbox claims</code>, said vs did: every sentence the agent wrote about its own work matched to the tool result behind it, plus three <code>check</code> rules the Stop hook hands back to the agent (0.10); a loop guard that stops a tool call that has already failed twice in a row (<code>hook install --guard</code>), and <code>fence</code> fingerprints keyed to your machine, with prompt history and the other stores in the sweep (0.9.1); <code>glassbox adhere</code> scores your CLAUDE.md against every session of the project (0.9); <code>glassbox fence</code> finds the credentials that reached your transcripts and can shred them in place (0.8); <code>glassbox collect</code> turns a folder of redacted reports into one fleet view, with a <a href="https://github.com/aldohushi1-stack/glassbox/blob/main/docs/PILOT.md" rel="noopener">two-week, no-hooks pilot</a> written around it (0.7); keyed files (0.6); a viewer that makes no network requests at all (0.6.2); and a <a href="https://github.com/aldohushi1-stack/glassbox/blob/main/docs/IT.md" rel="noopener">page for your IT department</a>.</p>
+        <p>Then, if you want a tool built for your business the way this one was built — one tool, one problem, tested and live — the lab does that too.</p>
+      </div>
+      <div class="ctas" style="justify-content:flex-end">
+        <a class="btn" href="app/">Open Glassbox</a>
+        <a class="btn ghost" href="https://www.npmjs.com/package/glassbox-trace" rel="noopener">npm: glassbox-trace</a>
+        <a class="btn ghost" href="#audit">Audit for teams</a>
+        <a class="btn ghost" href="https://blueprintau.com/#booking">Book a 1:1 in Adelaide</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div><a class="wordmark" href="https://blueprintau.com/">Blueprint<span>AU</span></a><p style="margin:10px 0 0;max-width:360px">A product lab in Adelaide. We build the real thing, then talk about it.</p></div>
+      <ul>
+        <li><a href="app/">Open Glassbox</a></li>
+        <li><a href="https://github.com/aldohushi1-stack/glassbox" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.npmjs.com/package/glassbox-trace" rel="noopener">npm</a></li>
+        <li><a href="#audit">Audit for teams</a></li>
+        <li><a href="https://blueprintau.com/#lab">The Lab</a></li>
+        <li><a href="https://blueprintau.com/#booking">Book a 1:1</a></li>
+        <li><a href="mailto:hi@aldo.ltd">hi@aldo.ltd</a></li>
+      </ul>
+    </div>
+    <p class="fine">Glassbox is MIT-licensed open source · © 2026 BlueprintAU · Aldo Hushi, Adelaide SA. Claude, Claude Code and Cowork are trademarks of Anthropic; Glassbox is an independent tool and is not affiliated with Anthropic.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var b=document.getElementById('copy');
+  if(!b)return;
+  b.addEventListener('click',function(){
+    var t='npx glassbox-trace';
+    var done=function(){b.textContent='copied';setTimeout(function(){b.textContent='copy'},1600)};
+    if(window.goatcounter&&goatcounter.count){goatcounter.count({path:'glassbox-copy-npx',event:true})}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){fallback()})}else{fallback()}
+    function fallback(){var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done()}catch(e){}document.body.removeChild(ta)}
+  });
+  ['audit-book','sample-audit'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('click',function(){if(window.goatcounter&&goatcounter.count){goatcounter.count({path:'glassbox-'+id,event:true})}})});
+  document.querySelectorAll('a[href="app/"]').forEach(function(a){a.addEventListener('click',function(){if(window.goatcounter&&goatcounter.count){goatcounter.count({path:'glassbox-open-app',event:true})}})});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta name="robots" content="noindex, follow">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adtrade Industrial Supplies | Ladders &amp; Tools, Adelaide</title>
+<meta name="description" content="Adelaide's industrial supplier since 1999. Official Ladamax Australian-made ladder distributor, plus castors, wheels, brushes and trade equipment.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b2540;
+    --navy-2:#123a63;
+    --amber:#f5a623;
+    --amber-2:#d98c0f;
+    --orange:#e2521c;
+    --bg:#f7f6f2;
+    --card:#ffffff;
+    --ink:#1c2733;
+    --muted:#647085;
+    --border:#e6e2d8;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Work Sans', sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:'Archivo', sans-serif;
+    font-weight:800;
+    color:var(--navy);
+    line-height:1.12;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'Work Sans',sans-serif;font-weight:700;font-size:12.5px;
+    letter-spacing:0.14em;text-transform:uppercase;color:var(--orange);
+    margin-bottom:14px;
+  }
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--orange);display:inline-block;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 26px;border-radius:8px;font-weight:700;font-size:15px;
+    font-family:'Work Sans',sans-serif;cursor:pointer;border:2px solid transparent;
+    transition:transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+    white-space:nowrap;
+  }
+  .btn:active{transform:scale(0.97);}
+  .btn-amber{background:var(--amber);color:var(--navy);}
+  .btn-amber:hover{background:var(--amber-2);}
+  .btn-outline{border-color:rgba(255,255,255,0.55);color:#fff;}
+  .btn-outline:hover{border-color:#fff;background:rgba(255,255,255,0.08);}
+  .btn-navy{background:var(--navy);color:#fff;}
+  .btn-navy:hover{background:var(--navy-2);}
+  .btn-ghost{border-color:var(--border);color:var(--navy);background:#fff;}
+  .btn-ghost:hover{border-color:var(--navy);}
+  .btn-sm{padding:10px 16px;font-size:13.5px;border-radius:7px;}
+  .btn-block{width:100%;}
+
+  /* ---------- NAV ---------- */
+  header.site{
+    position:sticky;top:0;z-index:80;background:rgba(11,37,64,0.97);
+    backdrop-filter:blur(6px);
+  }
+  .topbar{
+    background:var(--navy-2);color:#cfe0f2;font-size:13px;
+  }
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;min-height:36px;flex-wrap:wrap;gap:6px;padding-top:6px;padding-bottom:6px;}
+  .hide-sm{}
+  @media (max-width:680px){
+    .hide-sm{display:none !important;}
+    .topbar .wrap{justify-content:center;text-align:center;}
+  }
+  .topbar a{color:#fff;font-weight:600;}
+  .topbar .tb-left span{margin-right:18px;}
+  .navrow{display:flex;align-items:center;justify-content:space-between;height:76px;}
+  .logo{display:flex;flex-direction:column;color:#fff;}
+  .logo .word{font-family:'Archivo',sans-serif;font-weight:900;font-size:26px;letter-spacing:0.01em;}
+  .logo .word span{color:var(--amber);}
+  .logo .sub{font-size:10.5px;letter-spacing:0.22em;color:#9db4cc;font-weight:600;}
+  nav.links{display:flex;align-items:center;gap:34px;}
+  nav.links a{color:#e7edf4;font-weight:600;font-size:14.5px;position:relative;padding:4px 0;}
+  nav.links a:hover{color:var(--amber);}
+  .nav-actions{display:flex;align-items:center;gap:14px;}
+  .enquiry-btn{
+    position:relative;display:flex;align-items:center;gap:8px;color:#fff;
+    font-weight:700;font-size:14px;border:2px solid rgba(255,255,255,0.3);
+    padding:9px 14px;border-radius:8px;background:transparent;cursor:pointer;
+  }
+  .enquiry-btn:hover{border-color:#fff;}
+  .enquiry-count{
+    background:var(--orange);color:#fff;font-size:11px;font-weight:800;
+    border-radius:999px;min-width:18px;height:18px;display:flex;align-items:center;justify-content:center;padding:0 4px;
+  }
+  .burger{display:none;background:none;border:none;color:#fff;cursor:pointer;}
+  @media (max-width:920px){
+    nav.links{display:none;}
+    .burger{display:block;}
+  }
+
+  /* mobile drawer */
+  .mobile-drawer{
+    position:fixed;inset:0;background:var(--navy);z-index:120;display:none;
+    flex-direction:column;padding:26px 24px;overflow-y:auto;
+  }
+  .mobile-drawer.open{display:flex;}
+  .mobile-drawer a{color:#fff;font-family:'Archivo',sans-serif;font-weight:700;font-size:22px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.12);}
+  .mobile-drawer .close-x{align-self:flex-end;color:#fff;background:none;border:none;font-size:28px;cursor:pointer;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;background:#081627;
+    color:#fff;overflow:hidden;padding:24px 0 20px;
+  }
+  .hero-flag-wrap{position:absolute;inset:0;z-index:0;overflow:hidden;}
+  .hero-flag{width:100%;height:100%;display:block;}
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg, rgba(6,18,32,0.8) 0%, rgba(6,18,32,0.6) 55%, rgba(6,18,32,0.82) 100%);
+    pointer-events:none;
+  }
+  .hero-inner{position:relative;z-index:2;max-width:720px;}
+  .hero .eyebrow{margin-bottom:8px;}
+  .hero h1{font-size:clamp(1.8rem,3.2vw,2.6rem);color:#fff;max-width:640px;}
+  .hero h1 em{font-style:normal;color:var(--amber);}
+  .hero p.lead{margin-top:8px;font-size:16px;color:#c9d6e5;max-width:560px;}
+  .hero-cta{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap;}
+  .trust-strip{
+    margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;
+    border-top:1px solid rgba(255,255,255,0.16);padding-top:12px;
+  }
+  @media (max-width:760px){.trust-strip{grid-template-columns:repeat(2,1fr);}}
+  .trust-item{display:flex;flex-direction:column;gap:2px;}
+  .trust-item .num{font-family:'Archivo',sans-serif;font-weight:900;font-size:23px;color:var(--amber);}
+  .trust-item .lbl{font-size:12px;color:#b7c6d8;font-weight:600;letter-spacing:.02em;}
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{padding:64px 0;}
+  .sec-head{max-width:640px;margin-bottom:48px;}
+  .sec-head h2{font-size:clamp(1.9rem,3.2vw,2.5rem);}
+  .sec-head p{margin-top:14px;color:var(--muted);font-size:16.5px;}
+  .band-alt{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- Ladamax FEATURE BAR ---------- */
+  .partner-bar{background:var(--navy);color:#fff;padding:26px 0;}
+  .partner-bar .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;}
+  .partner-bar .ptxt{font-size:14px;color:#c9d6e5;}
+  .partner-bar .ptxt b{color:#fff;font-family:'Archivo',sans-serif;font-weight:800;}
+  .badge-row{display:flex;gap:26px;flex-wrap:wrap;}
+  .partner-cite{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.1);font-size:12px;color:#8fa4bb;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .partner-cite a{color:var(--amber);font-weight:700;}
+  .am-logo-sm{height:36px;width:auto;flex:none;border-radius:4px;}
+  .badge{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;color:#e7edf4;letter-spacing:.03em;}
+  .badge svg{width:22px;height:22px;flex:none;color:var(--amber);}
+  .partner-logo{height:26px;width:auto;filter:brightness(0) invert(1);opacity:0.95;}
+
+  /* ---------- AUSTRALIAN MADE ---------- */
+  .aus-section{background:linear-gradient(135deg,#0b2540 0%,#0a1f38 55%,#1a3a1f 130%);color:#fff;position:relative;overflow:hidden;}
+  .aus-section::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 88% 20%, rgba(0,163,86,0.18), transparent 42%),
+               radial-gradient(circle at 6% 85%, rgba(245,166,35,0.14), transparent 45%);
+    pointer-events:none;
+  }
+  .aus-grid{position:relative;display:grid;grid-template-columns:0.95fr 1.05fr;gap:54px;align-items:center;}
+  @media (max-width:920px){.aus-grid{grid-template-columns:1fr;}}
+  .aus-mark{
+    display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.18);padding:9px 16px 9px 12px;border-radius:999px;margin-bottom:20px;
+  }
+  .aus-mark svg{width:26px;height:26px;color:#4cb463;}
+  .aus-mark span{font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;}
+  .aus-section h2{color:#fff;}
+  .aus-section p.lead2{color:#c9d6e5;margin-top:16px;font-size:16.5px;max-width:520px;}
+  .aus-facts{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .aus-fact{display:flex;gap:12px;align-items:flex-start;}
+  .aus-fact svg{width:22px;height:22px;color:var(--amber);flex:none;margin-top:2px;}
+  .aus-fact b{display:block;font-family:'Archivo',sans-serif;font-size:14.5px;color:#fff;}
+  .aus-fact span{font-size:13px;color:#aebfd2;}
+  .aus-cite{margin-top:26px;font-size:12.5px;color:#8fa4bb;}
+  .aus-cite a{color:var(--amber);font-weight:700;}
+  .aus-panel{
+    position:relative;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);
+    border-radius:18px;padding:34px;backdrop-filter:blur(2px);
+  }
+  .aus-panel .big-badge{
+    display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;
+    background:#fff;border-radius:14px;padding:28px 20px;color:var(--navy);text-align:center;
+  }
+  .aus-panel .big-badge svg{width:56px;height:56px;color:#128a3e;}
+  .aus-panel .big-badge .am-logo{width:84px;height:auto;margin-bottom:4px;}
+  .aus-panel .big-badge b{font-family:'Archivo',sans-serif;font-size:15px;letter-spacing:.02em;}
+  .aus-panel .big-badge span{font-size:12px;color:var(--muted);}
+  .aus-timeline{margin-top:24px;display:flex;flex-direction:column;gap:16px;}
+  .aus-timeline .t-row{display:flex;gap:14px;align-items:baseline;}
+  .aus-timeline .t-year{font-family:'Archivo',sans-serif;font-weight:900;color:var(--amber);font-size:15px;min-width:52px;}
+  .aus-timeline .t-txt{font-size:13.5px;color:#dbe5ef;}
+
+  /* ---------- LADDER GRID ---------- */
+  .grid-4{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  @media (max-width:960px){.grid-4{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:620px){.grid-4{grid-template-columns:1fr;}}
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    padding:26px;display:flex;flex-direction:column;gap:14px;
+    transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, border-color .35s ease;
+  }
+  .card:hover{transform:translateY(-5px);box-shadow:0 14px 32px rgba(11,37,64,0.09);border-color:#d9d2c0;}
+  .card .icon-wrap{
+    width:56px;height:56px;border-radius:12px;background:#fdf3e2;display:flex;align-items:center;justify-content:center;
+  }
+  .card .icon-wrap svg{width:30px;height:30px;color:var(--orange);}
+  .card .photo{
+    width:calc(100% + 52px);margin:-26px -26px 0;height:190px;border-radius:14px 14px 0 0;
+    background:#f2efe6;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;
+    cursor:zoom-in;
+  }
+  .card .photo img{width:100%;height:100%;object-fit:contain;padding:14px;transition:transform .35s cubic-bezier(.16,1,.3,1);}
+  .card .photo:hover img{transform:scale(1.05);}
+  .card .photo .made-chip{
+    position:absolute;top:10px;left:10px;width:38px;height:23px;border-radius:4px;
+    overflow:hidden;box-shadow:0 3px 9px rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.6);
+  }
+  .card .photo .made-chip svg{width:100%;height:100%;display:block;}
+  .card .photo .zoom-hint{
+    position:absolute;bottom:10px;right:10px;width:30px;height:30px;border-radius:50%;
+    background:rgba(11,37,64,0.85);color:#fff;display:flex;align-items:center;justify-content:center;
+    opacity:0;transform:scale(0.85);transition:opacity .25s ease, transform .25s ease;pointer-events:none;
+  }
+  .card .photo:hover .zoom-hint{opacity:1;transform:scale(1);}
+  .card .photo .zoom-hint svg{width:15px;height:15px;}
+
+  /* ---------- LIGHTBOX ---------- */
+  .lightbox{
+    position:fixed;inset:0;z-index:200;background:rgba(6,14,26,0.92);
+    display:flex;align-items:center;justify-content:center;padding:40px;
+    opacity:0;pointer-events:none;transition:opacity .28s ease;
+  }
+  .lightbox.open{opacity:1;pointer-events:auto;}
+  .lightbox-inner{position:relative;max-width:min(900px,90vw);max-height:88vh;display:flex;flex-direction:column;align-items:center;}
+  .lightbox-inner img{
+    max-width:100%;max-height:72vh;width:auto;height:auto;object-fit:contain;
+    background:#fff;border-radius:10px;padding:20px;
+    transform:scale(0.94);transition:transform .28s cubic-bezier(.16,1,.3,1);
+  }
+  .lightbox.open .lightbox-inner img{transform:scale(1);}
+  .lightbox-cap{margin-top:16px;color:#e7edf4;font-size:14.5px;font-weight:600;text-align:center;max-width:640px;}
+  .lightbox-close{
+    position:absolute;top:-46px;right:-6px;background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.3);
+    color:#fff;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;font-size:20px;line-height:1;
+  }
+  .lightbox-close:hover{background:rgba(255,255,255,0.22);}
+  @media (max-width:640px){.lightbox-close{top:-42px;right:0;}}
+  .card h3{font-size:18px;}
+  .card .spec{font-size:14px;color:var(--muted);flex:1;}
+  .card-top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .card .tag{
+    display:inline-block;align-self:flex-start;background:#fdf3e2;color:var(--amber-2);
+    font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+    padding:4px 9px;border-radius:5px;
+  }
+  .price-tag{font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap;}
+  .price-tag b{font-family:'Archivo',sans-serif;font-size:17px;color:var(--navy);font-weight:900;margin-left:3px;}
+  .card .size-row{padding-top:10px;border-top:1px solid var(--border);}
+  .card .size-row label{display:block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .card .size-row select{
+    width:100%;padding:9px 10px;border:1.5px solid var(--border);border-radius:7px;
+    font-family:'Work Sans',sans-serif;font-size:13.5px;font-weight:600;color:var(--navy);background:#fdfdfb;
+  }
+  .card .size-row select:focus{outline:none;border-color:var(--amber);}
+  .card .spec-live{display:flex;align-items:center;gap:6px;margin-top:9px;font-size:12.5px;color:var(--muted);}
+  .card .spec-live b{font-family:'Archivo',sans-serif;color:var(--navy);font-size:14px;}
+  .card .spec-live svg{width:15px;height:15px;color:var(--orange);flex:none;}
+  .card-foot{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;}
+  .price-note{margin-top:22px;font-size:13px;color:var(--muted);max-width:760px;}
+  .price-note a{color:var(--orange);font-weight:600;}
+
+  /* ---------- PRODUCT RANGE ---------- */
+  .grid-cat{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  @media (max-width:960px){.grid-cat{grid-template-columns:repeat(3,1fr);}}
+  @media (max-width:680px){.grid-cat{grid-template-columns:repeat(2,1fr);}}
+  .cat-card{
+    background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px;
+    display:flex;flex-direction:column;gap:12px;cursor:pointer;
+    transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+  }
+  .cat-card:hover{transform:translateY(-4px);border-color:var(--amber);box-shadow:0 10px 26px rgba(11,37,64,0.08);}
+  .cat-card svg{width:26px;height:26px;color:var(--navy);}
+  .cat-card h4{font-size:15px;font-family:'Archivo',sans-serif;font-weight:700;color:var(--navy);}
+  .cat-card .count{font-size:12.5px;color:var(--muted);}
+  .cat-card .go{font-size:12.5px;font-weight:700;color:var(--orange);margin-top:auto;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:56px;align-items:center;}
+  @media (max-width:900px){.about-grid{grid-template-columns:1fr;}}
+  .about-art{background:var(--navy);border-radius:18px;padding:38px;color:#fff;position:relative;overflow:hidden;}
+  .about-art::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 10%, rgba(245,166,35,0.18), transparent 50%);}
+  .about-stats{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px;}
+  .about-stats .s-num{font-family:'Archivo',sans-serif;font-weight:900;font-size:30px;color:var(--amber);}
+  .about-stats .s-lbl{font-size:12.5px;color:#c9d6e5;margin-top:2px;}
+  .about-text p{color:var(--muted);font-size:16px;margin-top:16px;}
+  .about-text p:first-of-type{margin-top:0;}
+  .signature{margin-top:26px;display:flex;align-items:center;gap:14px;}
+  .signature .dot{width:46px;height:46px;border-radius:50%;background:var(--navy);color:var(--amber);display:flex;align-items:center;justify-content:center;font-family:'Archivo',sans-serif;font-weight:900;font-size:17px;}
+  .signature .who b{display:block;font-family:'Archivo',sans-serif;color:var(--navy);}
+  .signature .who span{font-size:13px;color:var(--muted);}
+
+  /* ---------- CTA BAND ---------- */
+  .cta-band{background:linear-gradient(120deg,var(--orange),#c9440f);color:#fff;padding:56px 0;}
+  .cta-band .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;}
+  .cta-band h3{color:#fff;font-size:clamp(1.5rem,2.6vw,2rem);}
+  .cta-band p{color:rgba(255,255,255,0.9);margin-top:8px;}
+  .cta-band .btns{display:flex;gap:12px;flex-wrap:wrap;}
+
+  /* ---------- TRADE / GOVERNMENT ---------- */
+  .trade-panel{
+    background:var(--navy);color:#fff;border-radius:20px;padding:44px;position:relative;overflow:hidden;
+  }
+  .trade-panel::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 88% 10%, rgba(245,166,35,0.14), transparent 45%);
+    pointer-events:none;
+  }
+  .trade-head{position:relative;max-width:680px;}
+  .trade-head h2{margin-top:10px;color:#fff;font-size:clamp(1.7rem,2.8vw,2.2rem);}
+  .trade-head p{margin-top:14px;color:#c9d6e5;font-size:15.5px;}
+  .trade-grid{
+    position:relative;margin-top:32px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px;
+    padding-top:28px;border-top:1px solid rgba(255,255,255,0.14);
+  }
+  @media (max-width:900px){.trade-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.trade-grid{grid-template-columns:1fr;}}
+  .trade-point{display:flex;gap:12px;align-items:flex-start;}
+  .trade-point svg{width:22px;height:22px;color:var(--amber);flex:none;margin-top:2px;}
+  .trade-point b{display:block;font-family:'Archivo',sans-serif;font-size:14.5px;color:#fff;}
+  .trade-point span{font-size:13px;color:#aebfd2;}
+  .trade-cta{position:relative;margin-top:32px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .trade-cta .trade-contact{font-size:13.5px;color:#aebfd2;}
+  .trade-cta .trade-contact a{color:#fff;font-weight:700;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:40px;align-items:start;}
+  @media (max-width:960px){.contact-grid{grid-template-columns:1fr;}}
+  .form-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:34px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  @media (max-width:560px){.form-row{grid-template-columns:1fr;}}
+  label{font-size:13px;font-weight:700;color:var(--navy);display:block;margin-bottom:6px;}
+  input,textarea{
+    width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:8px;
+    font-family:'Work Sans',sans-serif;font-size:14.5px;color:var(--ink);background:#fdfdfb;
+  }
+  input:focus,textarea:focus{outline:none;border-color:var(--amber);}
+  .field{margin-bottom:16px;}
+  #formNote{font-size:13px;color:var(--muted);margin-top:12px;}
+  .info-card{background:var(--navy);color:#fff;border-radius:var(--radius);padding:32px;margin-bottom:20px;}
+  .info-row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.12);}
+  .info-row:last-child{border-bottom:none;}
+  .info-row svg{width:22px;height:22px;color:var(--amber);flex:none;margin-top:2px;}
+  .info-row .lbl{font-size:12px;color:#9db4cc;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
+  .info-row .val{font-size:15.5px;font-weight:600;margin-top:2px;}
+  .map-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);height:230px;}
+  .map-wrap iframe{width:100%;height:100%;border:0;}
+  .social-row{display:flex;gap:10px;margin-top:18px;}
+  .social-row a{width:38px;height:38px;border-radius:8px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;}
+  .social-row a:hover{background:var(--amber);color:var(--navy);}
+  .social-row svg{width:18px;height:18px;}
+
+  /* ---------- RETURNS ---------- */
+  .returns-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:28px;}
+  @media (max-width:900px){.returns-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.returns-grid{grid-template-columns:1fr;}}
+  .returns-point{display:flex;gap:12px;align-items:flex-start;}
+  .returns-point svg{width:22px;height:22px;color:var(--orange);flex:none;margin-top:2px;}
+  .returns-point b{display:block;font-family:'Archivo',sans-serif;font-size:15px;color:var(--navy);}
+  .returns-point span{font-size:13px;color:var(--muted);}
+  .returns-full{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px 26px;}
+  .returns-full summary{cursor:pointer;font-family:'Archivo',sans-serif;font-weight:700;color:var(--navy);font-size:15px;list-style:none;display:flex;align-items:center;gap:10px;}
+  .returns-full summary::-webkit-details-marker{display:none;}
+  .returns-full summary::before{content:"+";font-size:19px;color:var(--orange);font-weight:800;width:16px;text-align:center;}
+  .returns-full[open] summary::before{content:"–";}
+  .returns-full ol{margin:18px 0 0;padding-left:22px;color:var(--muted);font-size:14px;line-height:1.7;}
+  .returns-full ol li{margin-bottom:9px;}
+  .returns-full ol li b{color:var(--ink);}
+  .returns-note{margin-top:16px;padding-top:16px;border-top:1px solid var(--border);font-size:13.5px;color:var(--ink);}
+  .returns-source{margin-top:14px;font-size:12.5px;color:var(--muted);}
+  .returns-source a{color:var(--orange);font-weight:600;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:#081b30;color:#a9bacd;padding:60px 0 26px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px;}
+  @media (max-width:820px){.foot-grid{grid-template-columns:1fr 1fr;}}
+  footer h5{color:#fff;font-family:'Archivo',sans-serif;font-size:14px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:16px;}
+  footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:14px;}
+  footer a:hover{color:var(--amber);}
+  .foot-bottom{margin-top:44px;padding-top:22px;border-top:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12.5px;}
+
+  /* ---------- ENQUIRY DRAWER ---------- */
+  .enquiry-panel{
+    position:fixed;top:0;right:-420px;width:400px;max-width:92vw;height:100%;
+    background:#fff;z-index:150;box-shadow:-14px 0 40px rgba(0,0,0,0.18);
+    transition:right .38s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;
+  }
+  .enquiry-panel.open{right:0;}
+  .enquiry-head{background:var(--navy);color:#fff;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;}
+  .enquiry-head h4{color:#fff;font-size:17px;}
+  .enquiry-head button{background:none;border:none;color:#fff;font-size:22px;cursor:pointer;}
+  .enquiry-list{flex:1;overflow-y:auto;padding:18px 24px;display:flex;flex-direction:column;gap:12px;}
+  .enquiry-empty{color:var(--muted);font-size:14px;margin-top:30px;text-align:center;}
+  .eq-item{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--border);border-radius:9px;padding:12px 14px;font-size:14px;}
+  .eq-item button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:15px;}
+  .enquiry-foot{padding:20px 24px;border-top:1px solid var(--border);}
+  .scrim{position:fixed;inset:0;background:rgba(8,20,35,0.5);z-index:140;opacity:0;pointer-events:none;transition:opacity .3s ease;}
+  .scrim.open{opacity:1;pointer-events:auto;}
+
+  ::selection{background:var(--amber);color:var(--navy);}
+</style>
+<script data-goatcounter="https://blueprintau.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script></head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site">
+  <div class="topbar">
+    <div class="wrap">
+      <div class="tb-left">
+        <span>135 South Rd, Thebarton SA 5031</span>
+        <span class="hide-sm">Trade &amp; public welcome</span>
+      </div>
+      <div class="tb-right"><a href="tel:0883540011">(08) 8354 0011</a></div>
+    </div>
+  </div>
+  <div class="wrap navrow">
+    <a href="#top" class="logo">
+      <span class="word">AD<span>TRADE</span></span>
+      <span class="sub">INDUSTRIAL SUPPLIES · ADELAIDE</span>
+    </a>
+    <nav class="links">
+      <a href="#ladders">Ladders</a>
+      <a href="#products">Full Range</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="enquiry-btn" onclick="openPanel()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L20 8H6"/><circle cx="9" cy="21" r="1"/><circle cx="17" cy="21" r="1"/></svg>
+        <span class="hide-sm">Order</span>
+        <span class="enquiry-count" id="navCount">0</span>
+      </button>
+      <a href="#contact" class="btn btn-amber btn-sm hide-sm">Get a Quote</a>
+      <button class="burger" onclick="document.getElementById('drawer').classList.add('open')">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="drawer">
+  <button class="close-x" onclick="document.getElementById('drawer').classList.remove('open')">&times;</button>
+  <a href="#ladders" onclick="closeDrawer()">Ladders</a>
+  <a href="#products" onclick="closeDrawer()">Full Range</a>
+  <a href="#about" onclick="closeDrawer()">About</a>
+  <a href="#contact" onclick="closeDrawer()">Contact</a>
+  <a href="tel:0883540011" onclick="closeDrawer()">Call (08) 8354 0011</a>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="hero-flag-wrap" aria-hidden="true">
+    <svg class="hero-flag" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <polygon id="star5" points="0,-1 0.2245,-0.309 0.951,-0.309 0.363,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.363,0.118 -0.951,-0.309 -0.2245,-0.309" fill="#FFFFFF"/>
+        <filter id="flagWave" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="fractalNoise" numOctaves="2" baseFrequency="0.007 0.02" seed="7" result="noise">
+            <animate attributeName="baseFrequency" dur="9s" values="0.007 0.02;0.011 0.026;0.007 0.02" repeatCount="indefinite"/>
+          </feTurbulence>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="36" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </defs>
+      <g filter="url(#flagWave)">
+        <rect width="1200" height="600" fill="#00247D"/>
+        <path d="M0,0 L600,300 M600,0 L0,300" stroke="#FFFFFF" stroke-width="68"/>
+        <path d="M0,0 L600,300" stroke="#CF142B" stroke-width="22"/>
+        <path d="M600,0 L0,300" stroke="#CF142B" stroke-width="22"/>
+        <rect x="240" y="0" width="120" height="300" fill="#FFFFFF"/>
+        <rect x="0" y="120" width="600" height="60" fill="#FFFFFF"/>
+        <rect x="268" y="0" width="64" height="300" fill="#CF142B"/>
+        <rect x="0" y="138" width="600" height="24" fill="#CF142B"/>
+        <use href="#star5" transform="translate(170,420) scale(34)"/>
+        <use href="#star5" transform="translate(840,140) scale(42)"/>
+        <use href="#star5" transform="translate(1000,80) scale(42)"/>
+        <use href="#star5" transform="translate(1060,250) scale(42)"/>
+        <use href="#star5" transform="translate(910,350) scale(42)"/>
+        <use href="#star5" transform="translate(980,210) scale(24)"/>
+      </g>
+    </svg>
+  </div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow" style="color:var(--amber);">Official Ladamax Ladder Distributor — Adelaide</div>
+    <h1>Ladders and trade&nbsp;gear <em>ready when the job is.</em></h1>
+    <p class="lead">Adelaide's industrial supplier since 1999 — 100% Australian-made Ladamax ladders, plus a full trade catalogue.</p>
+    <div class="hero-cta">
+      <a href="#ladders" class="btn btn-amber">Browse Ladders</a>
+      <a href="tel:0883540011" class="btn btn-outline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call (08) 8354 0011
+      </a>
+    </div>
+    <div class="trust-strip">
+      <div class="trust-item"><span class="num">27+</span><span class="lbl">Years trading in SA</span></div>
+      <div class="trust-item"><span class="num">100%</span><span class="lbl">Australian-made ladders</span></div>
+      <div class="trust-item"><span class="num">1998</span><span class="lbl">Ladamax est. in Queensland</span></div>
+      <div class="trust-item"><span class="num">AS 1892</span><span class="lbl">Certified ladder range</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PARTNER / FEATURE BAR ================= -->
+<div class="partner-bar">
+  <div class="wrap">
+    <div class="ptxt" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+      <img class="partner-logo" src="https://ladamax.com.au/wp-content/uploads/2017/09/Ladamax-LOGO-1-1400x322.png" alt="Ladamax logo">
+      <span>Ladders proudly supplied by <b>Ladamax — Australia's Ladder Specialist</b></span>
+    </div>
+    <div class="badge-row">
+      <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-4z"/></svg>SwageLock Ultimate Failsafe</div>
+      <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/></svg>Platform Ultimate Failsafe</div>
+      <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>25+ Year Zero-Claims Record</div>
+      <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M12 3v18"/></svg>AS 1892 Load Tested</div>
+    </div>
+  </div>
+  <div class="wrap"><div class="partner-cite"><img src="data:image/png;base64,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" alt="Australian Made Campaign logo" class="am-logo-sm"><span>Official Australian Made Campaign licensee — <a href="https://australianmade.com.au/licensees/ladamax-australia/aluminium--fibreglass-ladders" target="_blank" rel="noopener">see the listing</a></span></div></div>
+</div>
+
+<!-- ================= LADDERS ================= -->
+<section id="ladders">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Flagship Range — 100% Australian Made</div>
+      <h2>The Ladamax ladder range</h2>
+      <p>Every ladder below is designed, manufactured and load-tested in Queensland by Ladamax — no imported frames. Pick the height you need to see its weight, then add it to your order — Dom will confirm exact pricing and stock same day.</p>
+    </div>
+
+    <div class="grid-4" id="ladderGrid"></div>
+    <p class="price-note">* Heights and weights shown are taken directly from Ladamax's official product catalogue (150kg AS 1892 rated; platform models also 500kg load tested). "From" prices are indicative RRP for the smallest size in each range, based on current Australian retail pricing — larger heights cost more. Add your size to the order above and Dom will confirm the exact price same day.</p>
+  </div>
+</section>
+
+<!-- ================= FULL PRODUCT RANGE ================= -->
+<section id="products" class="band-alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">The Full Catalogue</div>
+      <h2>More than ladders — a complete trade supply run</h2>
+      <p>Adtrade stocks a full industrial range across the categories below. Tap a category to add it to your enquiry and we'll send through current stock and pricing.</p>
+    </div>
+    <div class="grid-cat" id="catGrid"></div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-art reveal">
+      <div class="eyebrow" style="color:var(--amber);">Our Story</div>
+      <h3 style="color:#fff;font-size:22px;">Started by a bloke who'd already spent 15 years in the trade.</h3>
+      <div class="about-stats">
+        <div><div class="s-num">1999</div><div class="s-lbl">Adtrade founded</div></div>
+        <div><div class="s-num">1998</div><div class="s-lbl">Ladamax est. in Queensland</div></div>
+        <div><div class="s-num">100%</div><div class="s-lbl">Australian-made ladder range</div></div>
+        <div><div class="s-num">AS 1892</div><div class="s-lbl">Certified, zero-claims record</div></div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="eyebrow">About Adtrade</div>
+      <h2>Adelaide's industrial supplier, run by people who know the gear</h2>
+      <p>Adtrade is a South Australian industrial supplier that has been servicing Adelaide with an extensive range of ladders, trolleys, wheels and castors since 1999. It was started by Domenico "Dom" Alloca who, after more than 15 years in the industry, decided to set off on his own — bringing hands-on experience in the sale and manufacture of ladders, trolleys and other trade and commercial equipment.</p>
+      <p>Today Adtrade is expanding its product offering with a bigger warehouse-style retail premise and showroom at 135 South Rd, Thebarton. From here, Dom and the team keep servicing Adelaide with fast, reliable service and a wider range of stock — for trade professionals and the general public alike.</p>
+      <div class="signature">
+        <div class="dot">DA</div>
+        <div class="who"><b>Domenico "Dom" Alloca</b><span>Founder, Adtrade Industrial Supplies</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA BAND ================= -->
+<section class="cta-band">
+  <div class="wrap">
+    <div>
+      <h3>Need something today? Skip the form.</h3>
+      <p>Call the Thebarton showroom directly and Dom's team will sort you out.</p>
+    </div>
+    <div class="btns">
+      <a href="tel:0883540011" class="btn" style="background:#fff;color:var(--orange);">Call (08) 8354 0011</a>
+      <a href="mailto:dom@adtrade.com.au" class="btn btn-outline">Email Dom</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRADE / GOVERNMENT ================= -->
+<section id="trade">
+  <div class="wrap">
+    <div class="trade-panel reveal">
+      <div class="trade-head">
+        <div class="eyebrow" style="color:var(--amber);">Corporate, Government &amp; Trade Supply</div>
+        <h2>Trade, Bulk &amp; Government Accounts</h2>
+        <p>Adtrade supplies electricity networks, councils, contractors and government agencies across South Australia — not just over-the-counter. Purchase orders, account terms and compliance documentation are handled as standard.</p>
+      </div>
+      <div class="trade-grid">
+        <div class="trade-point">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
+          <div><b>Purchase order friendly</b><span>30/60/90-day trade account terms available — no card at the counter required</span></div>
+        </div>
+        <div class="trade-point">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
+          <div><b>Bulk &amp; fleet pricing</b><span>Volume pricing for outfitting depots, crews and multi-site operations</span></div>
+        </div>
+        <div class="trade-point">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+          <div><b>Compliance on file</b><span>Insurance, WHS documentation and AS/NZS 1892 product certification supplied on request</span></div>
+        </div>
+        <div class="trade-point">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="14" height="11" rx="1"/><path d="M15 10h4l3 3v4h-7z"/><circle cx="6" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>
+          <div><b>SA-based, fast turnaround</b><span>Adelaide warehouse and showroom for rapid delivery across metro and regional sites</span></div>
+        </div>
+      </div>
+      <div class="trade-cta">
+        <button class="btn btn-amber" onclick="requestTradeAccount()">Request a Trade Account</button>
+        <span class="trade-contact">Or speak with Dom directly — <a href="tel:0883540011">(08) 8354 0011</a> · <a href="mailto:dom@adtrade.com.au">dom@adtrade.com.au</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="band-alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Get In Touch</div>
+      <h2>Request a quote or place an order</h2>
+      <p>Fill in the form and it'll open a pre-filled email straight to Dom — or call the showroom for same-day service.</p>
+    </div>
+    <div class="contact-grid">
+      <form class="form-card reveal" id="quoteForm">
+        <div class="form-row">
+          <div class="field"><label>Full name</label><input type="text" id="f_name" required placeholder="Your name"></div>
+          <div class="field"><label>Phone</label><input type="tel" id="f_phone" required placeholder="04xx xxx xxx"></div>
+        </div>
+        <div class="field"><label>Email</label><input type="email" id="f_email" required placeholder="you@email.com"></div>
+        <div class="field"><label>Products / categories you need</label><textarea id="f_products" rows="2" placeholder="e.g. Aluminium platform step ladder, castors..."></textarea></div>
+        <div class="field"><label>Message</label><textarea id="f_message" rows="4" placeholder="Tell us about the job, quantities, or timing"></textarea></div>
+        <button type="submit" class="btn btn-navy btn-block">Send Enquiry to Adtrade</button>
+        <p id="formNote">This opens your email app with the details filled in, addressed to dom@adtrade.com.au — nothing is sent automatically.</p>
+      </form>
+
+      <div class="reveal">
+        <div class="info-card">
+          <div class="info-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <div><div class="lbl">Phone</div><div class="val"><a href="tel:0883540011">(08) 8354 0011</a></div></div>
+          </div>
+          <div class="info-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+            <div><div class="lbl">Email</div><div class="val"><a href="mailto:dom@adtrade.com.au">dom@adtrade.com.au</a></div></div>
+          </div>
+          <div class="info-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div><div class="lbl">Showroom</div><div class="val">135 South Rd, Thebarton SA 5031</div></div>
+          </div>
+          <div class="social-row">
+            <a href="https://www.facebook.com/adtradeindustrial/" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="map-wrap">
+          <iframe src="https://www.google.com/maps?q=135+South+Rd,+Thebarton+SA+5031&output=embed" loading="lazy" title="Adtrade Industrial Supplies location"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RETURNS ================= -->
+<section id="returns" class="band-alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Buy With Confidence</div>
+      <h2>Returns &amp; warranty</h2>
+      <p>Wrong item, damaged in transit, or just don't need it? Here's how returns work at Adtrade.</p>
+    </div>
+    <div class="returns-grid reveal">
+      <div class="returns-point">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <div><b>30 days</b><span>to return unused goods from your invoice date</span></div>
+      </div>
+      <div class="returns-point">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <div><b>Get a CAN first</b><span>call (08) 8354 0011 or email sales@adtrade.com.au before sending anything back</span></div>
+      </div>
+      <div class="returns-point">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-4z"/></svg>
+        <div><b>15% restocking fee</b><span>applies to returned goods, unless prior arrangements are made</span></div>
+      </div>
+      <div class="returns-point">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+        <div><b>Warranty always honoured</b><span>genuine warranty claims are handled per Australian statutory requirements</span></div>
+      </div>
+    </div>
+    <details class="returns-full reveal">
+      <summary>Read the full return policy</summary>
+      <ol>
+        <li>Goods must have been purchased directly from Adtrade.</li>
+        <li>Any goods short supplied or incorrectly supplied must be brought to Adtrade's attention <b>immediately</b>.</li>
+        <li>A Credit Authorisation Number (<b>CAN</b>) must be obtained from our credit department prior to goods being returned — ring <a href="tel:0883540011">(08) 8354 0011</a> or email <a href="mailto:sales@adtrade.com.au">sales@adtrade.com.au</a>.</li>
+        <li>The CAN must be written on a copy of the original invoice for the goods being returned, and included with the returned items.</li>
+        <li>Goods returned to Adtrade must have all freight prepaid, unless prior arrangements have been made.</li>
+        <li>Goods must be complete, in their original packaging and in a saleable condition — no dirty or greasy marks, or transport/packing tape damage — and include all instructions/paperwork originally supplied.</li>
+        <li>All goods returned will be subject to a minimum <b>15% restocking fee</b>, unless prior arrangements have been made.</li>
+        <li>Goods will <b>not</b> be accepted for credit if: returned after 30 days from the invoice date; returned without a CAN; returned without a copy of the invoice; they were specially procured for you; they've been fitted, used, altered or damaged in any way; or the plastic shrink wrap/blister packaging has been opened.</li>
+        <li>While all care is taken to ensure correct supply, no responsibility is accepted by Adtrade for the fitment of incorrect parts — the onus is on the purchaser to confirm parts suit the application. Any costs from fitting incorrect parts are the fitter's responsibility.</li>
+      </ol>
+      <p class="returns-note">The only exception to this policy: genuine warranty claims as per Australian statutory requirements.</p>
+      <p class="returns-source">Full policy also published at <a href="https://adtrade.com.au/return-policy/" target="_blank" rel="noopener">adtrade.com.au/return-policy</a></p>
+    </details>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <span class="word" style="color:#fff;font-family:'Archivo',sans-serif;font-weight:900;font-size:22px;">AD<span style="color:var(--amber);">TRADE</span></span>
+      <p style="margin-top:14px;font-size:14px;max-width:280px;">Adelaide's industrial supplier since 1999. Ladders, castors, wheels and trade equipment — official distributor of 100% Australian-made Ladamax ladders.</p>
+    </div>
+    <div>
+      <h5>Shop</h5>
+      <ul>
+        <li><a href="#ladders">Ladders</a></li>
+        <li><a href="#products">Full range</a></li>
+        <li><a href="#trade">Trade &amp; government accounts</a></li>
+        <li><a href="#contact">Request a quote</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#about">About Adtrade</a></li>
+        <li><a href="#contact">Contact us</a></li>
+        <li><a href="#returns">Return policy</a></li>
+        <li><a href="https://www.facebook.com/adtradeindustrial/" target="_blank" rel="noopener">Facebook</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Visit</h5>
+      <ul>
+        <li>135 South Rd, Thebarton SA 5031</li>
+        <li><a href="tel:0883540011">(08) 8354 0011</a></li>
+        <li><a href="mailto:dom@adtrade.com.au">dom@adtrade.com.au</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>&copy; 2026 Adtrade Industrial Supplies. All rights reserved.</span>
+    <span>Ladders proudly supplied by Ladamax — Australian Made.</span>
+  </div>
+</footer>
+
+<!-- ================= ENQUIRY DRAWER ================= -->
+<div class="scrim" id="scrim" onclick="closePanel()"></div>
+<div class="enquiry-panel" id="panel">
+  <div class="enquiry-head">
+    <h4>Your Order Request</h4>
+    <button onclick="closePanel()">&times;</button>
+  </div>
+  <div class="enquiry-list" id="enquiryList">
+    <div class="enquiry-empty" id="emptyMsg">Nothing added yet. Browse the ladder range or full catalogue and tap "Add to Order" on anything you need.</div>
+  </div>
+  <div class="enquiry-foot">
+    <button class="btn btn-amber btn-block" onclick="sendToQuote()">Request This Quote</button>
+  </div>
+</div>
+
+<!-- ================= LIGHTBOX ================= -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="Close">&times;</button>
+    <img id="lightboxImg" src="" alt="">
+    <p class="lightbox-cap" id="lightboxCap"></p>
+  </div>
+</div>
+
+<script>
+  /* ---------------- DATA ---------------- */
+  var ladders = [
+    {name:"Fibreglass Platform Step Ladder — Premium Range", spec:"Non-conductive fibreglass rails · SwageLock step connection, 50% stronger · Platform load tested to 500kg", tag:"Premium · Aus Made", from:600, img:"https://ladamax.com.au/wp-content/uploads/2017/08/FIBREGLASS-PLATFORM-PREMIUM-LADDER.png",
+      sizes:[{h:"0.61m",r:"2.51m",w:11},{h:"0.88m",r:"2.78m",w:12},{h:"1.17m",r:"3.07m",w:13},{h:"1.45m",r:"3.35m",w:14},{h:"1.74m",r:"3.64m",w:15},{h:"2.02m",r:"3.92m",w:16},{h:"2.30m",r:"4.20m",w:17},{h:"2.89m",r:"4.79m",w:25}]},
+    {name:"Aluminium Platform Step Ladder — Premium Range", spec:"Stronger full base brace (Strongbow) · SwageLock step connection · Platform load tested to 500kg", tag:"Premium · Aus Made", from:580, img:"https://ladamax.com.au/wp-content/uploads/2017/09/ALUMINIUM-PLATFORM-PREMIUM-LADDER.png",
+      sizes:[{h:"0.61m",r:"2.51m",w:9},{h:"0.88m",r:"2.78m",w:10},{h:"1.17m",r:"3.07m",w:11},{h:"1.45m",r:"3.35m",w:12},{h:"1.74m",r:"3.64m",w:13},{h:"2.02m",r:"3.92m",w:14},{h:"2.30m",r:"4.20m",w:15},{h:"2.89m",r:"4.79m",w:24},{h:"3.45m",r:"5.35m",w:26}]},
+    {name:"Aluminium Platform Step Ladder — Standard Range", spec:"Everyday aluminium platform ladder for trade use · Platform load tested to 500kg", tag:"Standard · Aus Made", from:550, img:"https://ladamax.com.au/wp-content/uploads/2017/09/ALUMINIUM-PLATFORM-STANDARD-LADDER-min.png",
+      sizes:[{h:"0.61m",r:"2.51m",w:9},{h:"0.88m",r:"2.78m",w:10},{h:"1.17m",r:"3.07m",w:11},{h:"1.45m",r:"3.35m",w:12},{h:"1.74m",r:"3.64m",w:13}]},
+    {name:"Aluminium Step Ladder — Single Side", spec:"Compact single-sided access · Stronger full gusset base brace · Side arm locks", tag:"Standard · Aus Made", from:187, img:"https://ladamax.com.au/wp-content/uploads/2017/09/ALUMINIUM-SINGLE-SIDED-STEP-LADDER-min.png",
+      sizes:[{h:"1.20m",w:5},{h:"1.80m",w:7},{h:"2.40m",w:9},{h:"3.00m",w:14},{h:"3.60m",w:16}]},
+    {name:"Fibreglass Step Ladder — Single Side", spec:"Non-conductive fibreglass build for work near electrical hazards", tag:"Electro-Safe · Aus Made", from:242, img:"https://ladamax.com.au/wp-content/uploads/2017/09/FIBREGLASS-SINGLE-SIDED-STEP-LADDER-min.png",
+      sizes:[{h:"1.20m",w:9},{h:"1.80m",w:11},{h:"2.40m",w:15},{h:"3.00m",w:19},{h:"3.60m",w:23}]},
+    {name:"Aluminium Step Ladder — Double Sided", spec:"Twin-sided access for two-person jobs · Stronger full gusset base brace", tag:"Standard · Aus Made", from:187, img:"https://ladamax.com.au/wp-content/uploads/2017/09/Aluminium-Double-Sided-Step-Ladder.png",
+      sizes:[{h:"0.90m",w:7},{h:"1.20m",w:8},{h:"1.80m",w:10},{h:"2.40m",w:13},{h:"3.00m",w:20},{h:"3.60m",w:22},{h:"4.20m",w:32},{h:"4.80m",w:40}]}
+  ];
+
+  var categories = [
+    {name:"Industrial Tools", count:"677 lines", icon:"wrench"},
+    {name:"Castors", count:"560 lines", icon:"castor"},
+    {name:"Wheels", count:"167 lines", icon:"wheel"},
+    {name:"Wire & Nylon Brushes", count:"204 lines", icon:"brush"},
+    {name:"Materials Handling", count:"78 lines", icon:"trolley"},
+    {name:"Sanding, Cutting & Grinding", count:"59 lines", icon:"grinder"},
+    {name:"Sprayers", count:"16 lines", icon:"spray"},
+    {name:"Key Steel & Shim", count:"265 lines", icon:"key"},
+    {name:"Plastic Storage & Tool Boxes", count:"84 lines", icon:"toolbox"},
+    {name:"Jobsite Equipment", count:"16 lines", icon:"site"},
+    {name:"Lubrication Accessories", count:"17 lines", icon:"oil"}
+  ];
+
+  var icons = {
+    ladder: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="7" y1="6" x2="17" y2="6"/><line x1="7" y1="11" x2="17" y2="11"/><line x1="7" y1="16" x2="17" y2="16"/></svg>',
+    wrench: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 1 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.8 2.8-2-2 2.8-2.8z"/></svg>',
+    castor: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="15" r="5"/><path d="M12 4v3M9 4h6"/></svg>',
+    wheel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.4"/><path d="M12 4v4M12 16v4M4 12h4M16 12h4"/></svg>',
+    brush: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="2" width="4" height="10" rx="1"/><path d="M8 12h8l-1.5 8h-5z"/></svg>',
+    trolley: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="6" width="12" height="9" rx="1"/><circle cx="7" cy="19" r="1.6"/><circle cx="15" cy="19" r="1.6"/><path d="M16 8h3l2 4v3h-3"/></svg>',
+    grinder: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="12" r="6"/><path d="M16 9l6-3M16 15l6 3"/></svg>',
+    spray: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 8h6l2-3h-3l-1 2H9z"/><rect x="7" y="8" width="8" height="13" rx="2"/><path d="M17 4l3 2"/></svg>',
+    key: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="4"/><path d="M11 11l9 9M17 15l3-3M14 18l3-3"/></svg>',
+    toolbox: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="9" width="18" height="11" rx="1.5"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg>',
+    site: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M6 21V10l6-5 6 5v11M10 21v-6h4v6"/></svg>',
+    oil: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 21h8l1-11H6z"/><path d="M9 10V6a2 2 0 0 1 2-2h2l3 3h-3"/></svg>'
+  };
+
+  var order = [];
+
+  var auFlag = '<svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">'+
+    '<rect width="60" height="30" fill="#00247D"/>'+
+    '<g>'+
+      '<path d="M0,0 L30,15 M30,0 L0,15" stroke="#FFFFFF" stroke-width="3.4"/>'+
+      '<path d="M0,0 L30,15" stroke="#CF142B" stroke-width="1.1"/>'+
+      '<path d="M30,0 L0,15" stroke="#CF142B" stroke-width="1.1"/>'+
+      '<rect x="12" y="0" width="6" height="15" fill="#FFFFFF"/>'+
+      '<rect x="0" y="6" width="30" height="3" fill="#FFFFFF"/>'+
+      '<rect x="13.4" y="0" width="3.2" height="15" fill="#CF142B"/>'+
+      '<rect x="0" y="6.9" width="30" height="1.2" fill="#CF142B"/>'+
+    '</g>'+
+    '<g fill="#FFFFFF">'+
+      '<polygon points="8.5,18 9.6,20.3 12.1,20.3 10.1,21.9 10.9,24.3 8.5,22.8 6.1,24.3 6.9,21.9 4.9,20.3 7.4,20.3"/>'+
+      '<circle cx="42" cy="7" r="1.5"/>'+
+      '<circle cx="50" cy="4" r="1.5"/>'+
+      '<circle cx="53" cy="12.5" r="1.5"/>'+
+      '<circle cx="45.5" cy="17.5" r="1.5"/>'+
+      '<circle cx="49" cy="10.5" r="0.9"/>'+
+    '</g>'+
+  '</svg>';
+
+  function specText(s){
+    var bits = [s.w + 'kg to lift'];
+    if(s.r){ bits.push('reach ' + s.r); }
+    bits.push('150kg rated');
+    return bits.join(' · ');
+  }
+
+  function renderLadders(){
+    var el = document.getElementById('ladderGrid');
+    el.innerHTML = ladders.map(function(l, i){
+      var opts = l.sizes.map(function(s, si){
+        var label = s.h + (s.r ? ' platform' : '') + ' — ' + s.w + 'kg';
+        return '<option value="'+si+'">'+label+'</option>';
+      }).join('');
+      return '<div class="card reveal" style="transition-delay:'+(i*60)+'ms">'+
+        '<div class="photo" onclick="openLightbox(\''+l.img+'\',\''+l.name.replace(/'/g,"\\'")+'\')">'+
+          '<span class="made-chip" title="Australian Made">'+auFlag+'</span>'+
+          '<img src="'+l.img+'" alt="'+l.name+' — Ladamax, Australian made" loading="lazy">'+
+          '<span class="zoom-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>'+
+        '</div>'+
+        '<div class="card-top-row"><span class="tag">'+l.tag+'</span><span class="price-tag">From<b>$'+l.from+'</b></span></div>'+
+        '<h3>'+l.name+'</h3>'+
+        '<p class="spec">'+l.spec+'</p>'+
+        '<div class="size-row">'+
+          '<label>Choose your height</label>'+
+          '<select id="size-'+i+'" onchange="updateSpec('+i+')">'+opts+'</select>'+
+          '<div class="spec-live" id="spec-'+i+'">'+
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3v18M18 3v18M6 8h12M6 16h12"/></svg>'+
+            '<span>'+specText(l.sizes[0])+'</span>'+
+          '</div>'+
+        '</div>'+
+        '<div class="card-foot">'+
+          '<button class="btn btn-navy btn-sm" onclick="addLadderToOrder('+i+')">Add to Order</button>'+
+          '<a href="tel:0883540011" class="btn btn-ghost btn-sm">Call to Order</a>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+    observeReveals();
+  }
+
+  function updateSpec(i){
+    var sel = document.getElementById('size-'+i);
+    var s = ladders[i].sizes[sel.value];
+    document.getElementById('spec-'+i).querySelector('span').textContent = specText(s);
+  }
+
+  function addLadderToOrder(i){
+    var sel = document.getElementById('size-'+i);
+    var s = ladders[i].sizes[sel.value];
+    var label = ladders[i].name + ' — ' + s.h + (s.r ? ' platform' : '') + ' (' + s.w + 'kg)';
+    addToOrder(label);
+  }
+
+  function renderCategories(){
+    var el = document.getElementById('catGrid');
+    el.innerHTML = categories.map(function(c, i){
+      return '<div class="cat-card reveal" style="transition-delay:'+(i*40)+'ms" onclick="addToOrder(\''+c.name.replace(/'/g,"\\'")+'\')">'+
+        icons[c.icon]+
+        '<h4>'+c.name+'</h4>'+
+        '<div class="count">'+c.count+'</div>'+
+        '<div class="go">+ Add to enquiry</div>'+
+      '</div>';
+    }).join('');
+    observeReveals();
+  }
+
+  function addToOrder(name){
+    if(order.indexOf(name) === -1){ order.push(name); }
+    updateEnquiryUI();
+    openPanel();
+  }
+
+  function removeFromOrder(name){
+    order = order.filter(function(n){ return n !== name; });
+    updateEnquiryUI();
+  }
+
+  function updateEnquiryUI(){
+    document.getElementById('navCount').textContent = order.length;
+    var list = document.getElementById('enquiryList');
+    if(order.length === 0){
+      list.innerHTML = '<div class="enquiry-empty" id="emptyMsg">Nothing added yet. Browse the ladder range or full catalogue and tap "Add to Order" on anything you need.</div>';
+      return;
+    }
+    list.innerHTML = order.map(function(name){
+      return '<div class="eq-item"><span>'+name+'</span><button onclick="removeFromOrder(\''+name.replace(/'/g,"\\'")+'\')">&times;</button></div>';
+    }).join('');
+  }
+
+  function openPanel(){
+    document.getElementById('panel').classList.add('open');
+    document.getElementById('scrim').classList.add('open');
+  }
+  function closePanel(){
+    document.getElementById('panel').classList.remove('open');
+    document.getElementById('scrim').classList.remove('open');
+  }
+  function closeDrawer(){
+    document.getElementById('drawer').classList.remove('open');
+  }
+
+  function openLightbox(src, caption){
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightboxImg').alt = caption + ' — enlarged photo';
+    document.getElementById('lightboxCap').textContent = caption;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(e){
+    if(e && e.target && e.target.closest('.lightbox-inner') && !e.target.closest('.lightbox-close')){ return; }
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ closeLightbox(); }
+  });
+
+  function sendToQuote(){
+    closePanel();
+    document.getElementById('f_products').value = order.join(', ');
+    document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+    setTimeout(function(){ document.getElementById('f_name').focus(); }, 500);
+  }
+
+  function requestTradeAccount(){
+    document.getElementById('f_products').value = 'Trade / Bulk / Government account enquiry';
+    document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+    setTimeout(function(){ document.getElementById('f_name').focus(); }, 500);
+  }
+
+  document.getElementById('quoteForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('f_name').value;
+    var phone = document.getElementById('f_phone').value;
+    var email = document.getElementById('f_email').value;
+    var products = document.getElementById('f_products').value;
+    var message = document.getElementById('f_message').value;
+    var subject = 'Quote request from ' + name;
+    var body = 'Name: ' + name + '\\nPhone: ' + phone + '\\nEmail: ' + email +
+      '\\n\\nProducts / categories:\\n' + (products || '(none specified)') +
+      '\\n\\nMessage:\\n' + (message || '(none)');
+    window.location.href = 'mailto:dom@adtrade.com.au?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  });
+
+  /* ---------------- SCROLL REVEAL ---------------- */
+  var observer;
+  function observeReveals(){
+    if(!observer){
+      observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add('in');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {threshold:0.12});
+    }
+    document.querySelectorAll('.reveal:not(.in)').forEach(function(el){ observer.observe(el); });
+  }
+
+  renderLadders();
+  renderCategories();
+  observeReveals();
+</script>
+
+<script>
+(function () {
+  if (window.__bpEvents) return;          // never bind twice
+  window.__bpEvents = true;
+
+  /* ---- which page are we on? lets you read "call/foreman" vs "call/home" -- */
+  var page = location.pathname
+    .replace(/\/index\.html$/, '/')
+    .replace(/^\/|\/$/g, '')
+    .replace(/\.html$/, '')
+    .replace(/[^a-z0-9/-]/gi, '')
+    .toLowerCase() || 'home';
+
+  /* ---- fire one event -------------------------------------------------- */
+  function hit(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: name, title: name, event: true });
+      return;
+    }
+    // count.js not loaded yet (async) — beacon it directly so nothing is lost.
+    try {
+      new Image().src = 'https://blueprintau.goatcounter.com/count'
+        + '?e=true&p=' + encodeURIComponent(name)
+        + '&t=' + encodeURIComponent(name)
+        + '&rnd=' + Math.random().toString(36).slice(2);
+    } catch (e) {}
+  }
+
+  /* ---- map a clicked link to an event name, or null to ignore ---------- */
+  var TOOLS = /^\/(foreman|takeoff|ledger|roster|catalogue|glassbox)\/?$/;
+
+  function nameFor(a) {
+    var raw = a.getAttribute('href') || '';
+    if (!raw || raw.charAt(0) === '#') {
+      // in-page anchors: only the booking jump is worth counting
+      return /#book/i.test(raw) ? 'cta/book-the-hour/' + page : null;
+    }
+    if (/^tel:/i.test(raw))    return 'call/' + page;
+    if (/^mailto:/i.test(raw)) return 'email/' + page;
+
+    var url;
+    try { url = new URL(a.href, location.href); } catch (e) { return null; }
+    if (!/^https?:$/.test(url.protocol)) return null;
+
+    // outbound
+    if (url.hostname.replace(/^www\./, '') !== location.hostname.replace(/^www\./, '')) {
+      return 'outbound/' + url.hostname.replace(/^www\./, '');
+    }
+
+    var path = url.pathname.replace(/index\.html$/, '');
+    var tool = path.match(TOOLS);
+    if (tool) return 'tool-open/' + tool[1] + '/' + page;
+    if (/^\/build\/?$/.test(path))  return 'cta/build/' + page;
+    if (/^\/intake\/?$/.test(path)) return 'cta/intake/' + page;
+    return null;
+  }
+
+  document.addEventListener('click', function (ev) {
+    // ev.target may be a <span> inside the <a>
+    var a = ev.target && ev.target.closest && ev.target.closest('a[href]');
+    if (!a) return;
+    // let a page opt a link out with data-gc-ignore, or override with data-gc
+    if (a.hasAttribute('data-gc-ignore')) return;
+    var name = a.getAttribute('data-gc') || nameFor(a);
+    if (name) hit(name);
+  }, true);
+
+  /* ---- scroll depth: did anyone actually reach the booking form? ------- */
+  var seen = {};
+  function depth() {
+    var h = document.documentElement;
+    var max = (h.scrollHeight - h.clientHeight);
+    if (max < 400) return;                       // short page, not meaningful
+    var pct = (h.scrollTop || document.body.scrollTop) / max * 100;
+    [50, 90].forEach(function (mark) {
+      if (pct >= mark && !seen[mark]) { seen[mark] = 1; hit('depth/' + mark + '/' + page); }
+    });
+    if (seen[90]) window.removeEventListener('scroll', throttled);
+  }
+  var ticking = false;
+  function throttled() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { depth(); ticking = false; });
+  }
+  window.addEventListener('scroll', throttled, { passive: true });
+})();
+</script>
+</body>
+</html>

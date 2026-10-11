@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head><meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Takeoff — Free Plan Takeoff &amp; Estimating Software for Tradies</title>
+<meta name="description" content="Measure lengths, areas and counts off a PDF plan, price them with GST, export quote lines to Foreman. Free takeoff software for Australian trades.">
+<link rel="canonical" href="https://blueprintau.com/takeoff/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BlueprintAU">
+<meta property="og:title" content="Takeoff — Free Plan Takeoff &amp; Estimating Software for Tradies">
+<meta property="og:description" content="Drop in the plan, calibrate once, click your way to a priced scope. Free for Australian trades, from BlueprintAU in Adelaide.">
+<meta property="og:url" content="https://blueprintau.com/takeoff/">
+<meta property="og:image" content="https://blueprintau.com/assets/takeoff-og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Takeoff — Free Plan Takeoff &amp; Estimating Software for Tradies">
+<meta name="twitter:description" content="Drop in the plan, calibrate once, click your way to a priced scope. Free for Australian trades, from BlueprintAU in Adelaide.">
+<meta name="twitter:image" content="https://blueprintau.com/assets/takeoff-og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Takeoff", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "description": "Measure lengths, areas and counts off a PDF plan, price them with GST, export quote lines to Foreman. Free takeoff software for Australian trades.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "AUD", "availability": "https://schema.org/InStock"}, "publisher": {"@type": "Organization", "name": "BlueprintAU", "url": "https://blueprintau.com/", "address": {"@type": "PostalAddress", "addressLocality": "Adelaide", "addressRegion": "SA", "addressCountry": "AU"}}, "url": "https://blueprintau.com/takeoff/", "image": "https://blueprintau.com/assets/takeoff-og.png", "isAccessibleForFree": true, "areaServed": {"@type": "Country", "name": "Australia"}, "audience": {"@type": "BusinessAudience", "audienceType": "Australian trade businesses and sole traders"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What plan formats can I measure from?", "acceptedAnswer": {"@type": "Answer", "text": "PDF plans and common image formats (PNG, JPG). Drop the file in, pick a dimension you know — a 2,400 mm door opening, a 900 mm wall length — and Takeoff scales the whole sheet from it."}}, {"@type": "Question", "name": "How accurate is a takeoff from a PDF plan?", "acceptedAnswer": {"@type": "Answer", "text": "As accurate as the plan and your calibration. Calibrate against the longest dimension you can find on the sheet; a plan at scale is typically within a percent or two, which is well inside the allowance most trades already carry for waste."}}, {"@type": "Question", "name": "Is Takeoff free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, free forever. No trial period, no quote limits, no card. Nothing is uploaded — the plan and your measurements stay in your browser."}}, {"@type": "Question", "name": "Does it send the quote for me?", "acceptedAnswer": {"@type": "Answer", "text": "Takeoff produces the priced scope. Export it as quote lines and it drops straight into Foreman, the free quoting and invoicing app in the same suite, which sends the quote and turns it into a job and a tax invoice."}}, {"@type": "Question", "name": "Can I use my own rates?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Takeoff prices against your own price book — lineal, area and count rates — so a square metre of wall tiling or a downlight install is priced at what you actually charge."}}, {"@type": "Question", "name": "Which trades use plan takeoffs?", "acceptedAnswer": {"@type": "Answer", "text": "Electrical, plumbing, tiling, painting, plastering, carpentry, flooring, landscaping, fencing and small building work — any job where the quantities are on a drawing before they're on site."}}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script data-goatcounter="https://blueprintau.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<style>
+  :root{
+    --canvas:#F3F1EC; --surface:#FFFFFF; --surface-2:#FAF9F7;
+    --border:#E7E4DD; --border-soft:rgba(28,24,16,0.06);
+    --ink:#2B2E31; --ink-strong:#141619; --ink-2:#7D7A74; --ink-3:#ABA79F;
+    --brass:#A8814B; --brass-soft:#C9A76C;
+    --pale-red:#FBEAE9; --red-t:#9C3330;
+    --pale-blue:#E4F1FA; --blue-t:#22668F;
+    --pale-green:#E9F1E8; --green-t:#3A6440;
+    --pale-yellow:#F9F1DC; --yellow-t:#8F6510;
+    --sans:'Instrument Sans','SF Pro Display','Helvetica Neue',Helvetica,Arial,sans-serif;
+    --serif:'Instrument Serif','Lyon Text',Georgia,serif;
+    --mono:'JetBrains Mono','SF Mono',ui-monospace,Menlo,monospace;
+    --shadow-1:0 1px 2px rgba(24,20,12,0.03), 0 4px 16px rgba(24,20,12,0.03);
+    --shadow-2:0 1px 2px rgba(24,20,12,0.04), 0 6px 18px rgba(24,20,12,0.05), 0 20px 44px rgba(24,20,12,0.06);
+    --shadow-3:0 2px 4px rgba(24,20,12,0.05), 0 12px 32px rgba(24,20,12,0.08), 0 32px 72px rgba(24,20,12,0.10);
+    --ease:cubic-bezier(0.16,1,0.3,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{-webkit-font-smoothing:antialiased;}
+  body{
+    font-family:var(--sans);background:var(--canvas);color:var(--ink);
+    font-size:14px;line-height:1.5;height:100vh;overflow:hidden;
+  }
+  ::selection{background:rgba(168,129,75,0.22);}
+  button{font-family:inherit;cursor:pointer;}
+  input,select{font-family:inherit;font-size:13px;color:var(--ink);}
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-thumb{background:rgba(28,24,16,0.14);border-radius:8px;border:3px solid var(--surface);}
+  ::-webkit-scrollbar-track{background:transparent;}
+
+  .btn{
+    border:1px solid var(--border);background:var(--surface);color:var(--ink);
+    padding:7px 13px;border-radius:8px;font-size:12.5px;font-weight:500;
+    box-shadow:0 1px 2px rgba(24,20,12,0.04);
+    transition:background 180ms var(--ease), transform 130ms var(--ease), box-shadow 180ms var(--ease);
+    white-space:nowrap;
+  }
+  .btn:hover{background:var(--surface-2);box-shadow:var(--shadow-1);}
+  .btn:active{transform:scale(0.97);}
+  .btn.primary{
+    background:linear-gradient(180deg,#26292D,#131518);border-color:#131518;color:#F5F3EE;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.10), 0 2px 6px rgba(20,22,25,0.22);
+  }
+  .btn.primary:hover{background:linear-gradient(180deg,#31353A,#1B1E22);}
+  .btn.small{padding:4px 10px;font-size:11.5px;border-radius:6px;}
+  .btn.ghost{border-color:transparent;background:none;color:var(--ink-2);box-shadow:none;}
+  .btn.ghost:hover{background:rgba(28,24,16,0.05);color:var(--ink);box-shadow:none;}
+  .btn.danger{color:var(--red-t);}
+  .chip-demo{
+    display:inline-flex;align-items:center;gap:7px;border:none;border-radius:9999px;
+    background:var(--pale-yellow);color:var(--yellow-t);
+    padding:6px 13px;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;
+    white-space:nowrap;transition:color 150ms;
+  }
+  .chip-demo .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+  .chip-demo:hover{color:var(--ink-strong);}
+  .chip-demo[hidden]{display:none;}
+
+  /* ================= Layout ================= */
+  .app{display:flex;flex-direction:column;height:100vh;}
+  .topbar{
+    display:flex;align-items:center;gap:14px;
+    background:rgba(255,255,255,0.82);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border);
+    padding:10px 18px;z-index:20;flex:none;
+  }
+  .brand{display:flex;align-items:center;gap:11px;margin-right:6px;}
+  .mark{
+    width:34px;height:34px;border-radius:9px;flex:none;
+    background:linear-gradient(145deg,#23262A,#111316 58%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.12), 0 6px 16px rgba(20,22,25,0.28);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .mark svg{width:17px;height:17px;}
+  .wordmark{font-family:var(--serif);font-size:22px;letter-spacing:-0.01em;color:var(--ink-strong);line-height:1;}
+  .brand .tagline{font-family:var(--mono);font-size:8.5px;letter-spacing:0.13em;text-transform:uppercase;color:var(--ink-3);margin-top:4px;}
+  #proj-name{
+    border:1px solid transparent;border-radius:7px;background:none;
+    font-size:13.5px;font-weight:600;color:var(--ink-strong);padding:6px 10px;
+    width:220px;transition:border-color 160ms, box-shadow 160ms;
+  }
+  #proj-name:hover{border-color:var(--border);}
+  #proj-name:focus{outline:none;border-color:var(--brass-soft);box-shadow:0 0 0 3px rgba(168,129,75,0.13);background:var(--surface);}
+  .topbar .spacer{flex:1;}
+  .zoomctl{display:flex;align-items:center;gap:2px;border:1px solid var(--border);border-radius:8px;background:var(--surface);padding:2px;}
+  .zoomctl button{border:none;background:none;border-radius:6px;width:26px;height:26px;font-size:14px;color:var(--ink-2);}
+  .zoomctl button:hover{background:var(--surface-2);color:var(--ink);}
+  .zoomctl .zl{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);min-width:44px;text-align:center;}
+  .menu-wrap{position:relative;}
+  .menu{
+    position:absolute;right:0;top:calc(100% + 6px);z-index:50;
+    background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    box-shadow:var(--shadow-3);padding:6px;min-width:230px;display:none;
+  }
+  .menu.open{display:block;}
+  .menu button{
+    display:block;width:100%;text-align:left;background:none;border:none;
+    padding:9px 12px;border-radius:8px;font-size:13px;color:var(--ink);
+  }
+  .menu button:hover{background:var(--surface-2);}
+  .menu .m-note{font-family:var(--mono);font-size:9px;color:var(--ink-3);padding:4px 12px 6px;letter-spacing:0.05em;}
+  .menu hr{border:none;border-top:1px solid var(--border);margin:5px 6px;}
+
+  .body{display:flex;flex:1;min-height:0;}
+
+  /* tool rail */
+  .rail{
+    width:58px;flex:none;background:rgba(255,255,255,0.82);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-right:1px solid var(--border);
+    display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 0;z-index:15;
+  }
+  .tool{
+    width:40px;height:40px;border-radius:10px;border:1px solid transparent;
+    background:none;color:var(--ink-2);display:flex;align-items:center;justify-content:center;
+    position:relative;transition:all 160ms var(--ease);
+  }
+  .tool svg{width:19px;height:19px;}
+  .tool:hover{background:rgba(28,24,16,0.05);color:var(--ink);}
+  .tool.active{
+    background:var(--surface);border-color:var(--border);color:var(--brass);
+    box-shadow:var(--shadow-1);
+  }
+  .tool .tip{
+    position:absolute;left:calc(100% + 10px);top:50%;transform:translateY(-50%);
+    background:rgba(19,21,24,0.92);color:#F5F3EE;font-size:11px;border-radius:6px;
+    padding:4px 9px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 140ms;
+    font-family:var(--sans);z-index:60;
+  }
+  .tool:hover .tip{opacity:1;}
+  .rail .sep{width:26px;border-top:1px solid var(--border);margin:4px 0;}
+
+  /* viewport */
+  .stage{flex:1;position:relative;min-width:0;display:flex;flex-direction:column;}
+  #viewport{
+    flex:1;position:relative;overflow:hidden;min-height:0;
+    background:
+      radial-gradient(rgba(28,24,16,0.06) 1px, transparent 1.4px);
+    background-size:26px 26px;
+    cursor:default;
+  }
+  #viewport.tool-pan{cursor:grab;}
+  #viewport.panning{cursor:grabbing !important;}
+  #viewport.tool-length,#viewport.tool-area,#viewport.tool-calibrate{cursor:crosshair;}
+  #viewport.tool-count{cursor:copy;}
+  #world{position:absolute;left:0;top:0;transform-origin:0 0;}
+  #plan-img{display:block;user-select:none;-webkit-user-drag:none;pointer-events:none;
+    box-shadow:0 2px 8px rgba(24,20,12,0.10), 0 24px 70px rgba(24,20,12,0.16);background:#fff;}
+  #overlay{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;}
+  .statusbar{
+    flex:none;display:flex;align-items:center;gap:18px;
+    background:rgba(255,255,255,0.85);border-top:1px solid var(--border);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    padding:6px 16px;font-family:var(--mono);font-size:10px;color:var(--ink-2);
+    letter-spacing:0.04em;z-index:15;
+  }
+  .statusbar .hint{color:var(--ink-3);}
+  .statusbar .spacer{flex:1;}
+  .statusbar .cal{color:var(--brass);font-weight:700;}
+  .statusbar .cal.warn{color:var(--red-t);}
+
+  /* right panel */
+  .panel{
+    width:330px;flex:none;background:rgba(255,255,255,0.86);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-left:1px solid var(--border);
+    display:flex;flex-direction:column;min-height:0;z-index:15;
+  }
+  .panel-sec{border-bottom:1px solid var(--border);padding:14px 16px;}
+  .panel-sec h4{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:0.11em;text-transform:uppercase;
+    color:var(--ink-2);font-weight:500;margin-bottom:9px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .panel-scroll{flex:1;overflow-y:auto;min-height:0;}
+  .itemrow{
+    display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:8px;
+    font-size:12.5px;cursor:pointer;border:1px solid transparent;
+    transition:background 140ms;
+  }
+  .itemrow:hover{background:var(--surface-2);}
+  .itemrow.active{background:var(--surface);border-color:var(--border);box-shadow:var(--shadow-1);}
+  .itemrow .dot{width:11px;height:11px;border-radius:4px;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.12);}
+  .itemrow .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;color:var(--ink-strong);}
+  .itemrow .rt{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;}
+  .itemrow .edit{opacity:0;border:none;background:none;color:var(--ink-3);font-size:12px;padding:2px 4px;border-radius:5px;}
+  .itemrow:hover .edit{opacity:1;}
+  .itemrow .edit:hover{color:var(--ink);background:rgba(28,24,16,0.06);}
+
+  .mrow{
+    display:flex;align-items:center;gap:8px;padding:8px 16px;border-bottom:1px solid var(--border-soft);
+    font-size:12px;cursor:pointer;transition:background 140ms;
+  }
+  .mrow:hover{background:var(--surface-2);}
+  .mrow.selected{background:var(--pale-yellow);}
+  .mrow .dot{width:9px;height:9px;border-radius:3px;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.12);}
+  .mrow .lab{flex:1;min-width:0;}
+  .mrow .lab .t{font-weight:500;color:var(--ink-strong);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .mrow .lab .s{font-family:var(--mono);font-size:9.5px;color:var(--ink-2);}
+  .mrow .qty{font-family:var(--mono);font-size:11px;color:var(--ink);white-space:nowrap;}
+  .mrow .del{opacity:0;border:none;background:none;color:var(--ink-3);font-size:13px;padding:1px 5px;border-radius:5px;}
+  .mrow:hover .del{opacity:1;}
+  .mrow .del:hover{color:var(--red-t);background:var(--pale-red);}
+
+  .totals-card{
+    margin:12px 14px 14px;background:var(--surface);border:1px solid var(--border);
+    border-radius:13px;box-shadow:var(--shadow-1);padding:15px 17px;position:relative;overflow:hidden;flex:none;
+  }
+  .totals-card::before{content:"";position:absolute;top:0;left:16px;right:16px;height:2px;border-radius:0 0 3px 3px;
+    background:linear-gradient(90deg,transparent,var(--brass-soft),transparent);}
+  .trow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:3px 0;font-size:12.5px;font-variant-numeric:tabular-nums;}
+  .trow .lab{color:var(--ink-2);}
+  .trow.grand{border-top:1px solid var(--border);margin-top:7px;padding-top:9px;}
+  .trow.grand .lab{color:var(--ink-strong);font-weight:600;font-size:12.5px;}
+  .trow.grand .val{font-family:var(--serif);font-size:24px;letter-spacing:-0.01em;color:var(--ink-strong);}
+  .empty-note{padding:22px 16px;text-align:center;color:var(--ink-3);font-size:12px;}
+  .empty-note .e-title{font-family:var(--serif);font-size:17px;color:var(--ink-2);margin-bottom:3px;}
+
+  .badge{
+    display:inline-flex;align-items:center;gap:5px;border-radius:9999px;padding:2px 9px;
+    font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;white-space:nowrap;
+  }
+  .badge.warn{background:var(--pale-red);color:var(--red-t);}
+  .badge.okc{background:var(--pale-green);color:var(--green-t);}
+
+  /* modals & welcome (family style) */
+  .modal-scrim{
+    position:fixed;inset:0;z-index:90;background:rgba(24,21,15,0.42);
+    -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
+    display:flex;align-items:center;justify-content:center;padding:20px;
+    opacity:0;pointer-events:none;transition:opacity 240ms var(--ease);
+  }
+  .modal-scrim.open{opacity:1;pointer-events:auto;}
+  .modal{
+    background:var(--surface);border:1px solid var(--border);border-radius:16px;
+    box-shadow:var(--shadow-3);width:min(440px,100%);max-height:calc(100vh - 60px);overflow-y:auto;
+    padding:26px 28px 24px;position:relative;
+    transform:translateY(14px) scale(0.97);transition:transform 280ms var(--ease);
+  }
+  .modal-scrim.open .modal{transform:none;}
+  .modal h3{font-family:var(--serif);font-size:23px;font-weight:400;letter-spacing:-0.01em;color:var(--ink-strong);}
+  .modal .m-sub{font-size:12.5px;color:var(--ink-2);margin-top:4px;margin-bottom:16px;}
+  .modal .m-body{display:flex;flex-direction:column;gap:12px;}
+  .modal .m-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;}
+  .modal .m-x{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:7px;border:none;background:none;color:var(--ink-3);font-size:17px;display:flex;align-items:center;justify-content:center;}
+  .modal .m-x:hover{background:rgba(28,24,16,0.06);color:var(--ink);}
+  .field{display:flex;flex-direction:column;gap:5px;}
+  .field label{font-family:var(--mono);font-size:9.5px;letter-spacing:0.11em;text-transform:uppercase;color:var(--ink-2);}
+  .field input,.field select{
+    border:1px solid var(--border);border-radius:8px;background:var(--surface);
+    padding:8px 11px;outline:none;transition:border-color 180ms, box-shadow 180ms;
+  }
+  .field input:focus,.field select:focus{border-color:var(--brass-soft);box-shadow:0 0 0 3px rgba(168,129,75,0.13);}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .swatches{display:flex;gap:7px;flex-wrap:wrap;}
+  .swatch{width:26px;height:26px;border-radius:8px;border:2px solid transparent;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.12);}
+  .swatch.sel{border-color:var(--ink-strong);}
+
+  .welcome{
+    position:fixed;inset:0;z-index:80;background:rgba(28,24,16,0.34);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    display:flex;align-items:center;justify-content:center;padding:22px;
+    transition:opacity 380ms var(--ease);
+  }
+  .welcome.hidden{opacity:0;pointer-events:none;}
+  .w-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:20px;
+    box-shadow:var(--shadow-3);width:min(600px,100%);padding:40px 44px 32px;position:relative;overflow:hidden;
+    animation:fadeup 640ms var(--ease) both;
+  }
+  .w-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--brass),var(--brass-soft) 45%,transparent 90%);}
+  .w-brand{display:flex;align-items:center;gap:13px;margin-bottom:12px;}
+  .w-card h2{font-family:var(--serif);font-size:32px;font-weight:400;letter-spacing:-0.015em;color:var(--ink-strong);line-height:1.05;}
+  .w-card .w-tag{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3);margin-top:5px;}
+  .w-card p{font-size:13.5px;color:var(--ink-2);margin-bottom:22px;max-width:48ch;}
+  .w-opts{display:flex;flex-direction:column;gap:10px;}
+  .w-opt{
+    display:flex;align-items:center;gap:15px;text-align:left;width:100%;
+    background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:15px 17px;
+    transition:box-shadow 220ms var(--ease), transform 220ms var(--ease), border-color 220ms;
+  }
+  .w-opt:hover{box-shadow:var(--shadow-2);transform:translateY(-2px);border-color:#D9D4C9;}
+  .w-opt .w-ic{width:36px;height:36px;flex:none;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--border);}
+  .w-opt .w-ic svg{width:16px;height:16px;color:var(--brass);}
+  .w-opt .w-t{font-weight:600;font-size:14px;color:var(--ink-strong);}
+  .w-opt .w-s{font-size:12px;color:var(--ink-2);margin-top:1px;}
+  .w-opt .w-go{margin-left:auto;color:var(--ink-3);font-size:15px;transition:transform 200ms var(--ease),color 200ms;}
+  .w-opt:hover .w-go{transform:translateX(3px);color:var(--brass);}
+  .w-foot{margin-top:16px;font-size:11.5px;color:var(--ink-3);text-align:center;}
+  .w-foot a{color:var(--brass);font-weight:600;text-decoration:none;}
+  .w-foot a.plain{color:var(--ink-2);font-weight:400;}
+  @keyframes fadeup{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+
+  .toast{
+    position:fixed;bottom:44px;left:50%;transform:translateX(-50%) translateY(10px) scale(0.97);
+    background:rgba(19,21,24,0.86);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    color:#F5F3EE;border-radius:11px;border:1px solid rgba(255,255,255,0.09);
+    padding:10px 18px;font-size:13px;opacity:0;pointer-events:none;
+    box-shadow:0 12px 40px rgba(20,22,25,0.35);
+    transition:opacity 280ms var(--ease), transform 280ms var(--ease);z-index:95;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0) scale(1);}
+
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important;}
+  }
+  @media(max-width:900px){
+    .panel{width:270px;}
+    #proj-name{width:130px;}
+    .brand .tagline{display:none;}
+  }
+  @media(max-width:700px){
+    .topbar{flex-wrap:wrap;}
+    .body{flex-direction:column;}
+    .rail{width:100%;flex-direction:row;justify-content:center;padding:6px 0;border-right:none;border-bottom:1px solid var(--border);}
+    .rail .sep{display:none;}
+    .panel{width:100%;max-height:40vh;border-left:none;border-top:1px solid var(--border);}
+    .tool .tip{display:none;}
+    .statusbar{flex-wrap:wrap;gap:6px 14px;font-size:9px;}
+    .statusbar .hint,.statusbar #sb-pos{display:none;}
+  }
+
+  /* ---------- About / SEO copy (collapsible) ---------- */
+  .welcome{align-items:flex-start;overflow-y:auto;}
+  .w-card{margin:auto;}
+  .w-card h1{font-family:var(--serif);font-size:34px;font-weight:400;letter-spacing:-0.015em;color:var(--ink-strong);line-height:1.05;}
+  .w-about{margin-top:22px;border-top:1px solid var(--border);padding-top:14px;}
+  .w-about summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600;color:var(--ink);}
+  .w-about summary::-webkit-details-marker{display:none;}
+  .w-about summary::before{content:"+";font-family:var(--mono);color:var(--brass);font-size:15px;width:16px;text-align:center;}
+  .w-about[open] summary::before{content:"\2013";}
+  .w-about summary:hover{color:var(--brass);}
+  .w-about-body{margin-top:14px;font-size:13.5px;line-height:1.6;color:var(--ink-2);}
+  .w-about-body h3{font-size:14.5px;font-weight:600;color:var(--ink-strong);margin:16px 0 6px;}
+  .w-about-body h3:first-child{margin-top:0;}
+  .w-about-body p{margin:0 0 10px;max-width:none;font-size:13.5px;}
+  .w-about-body a{color:var(--brass);font-weight:600;text-decoration:none;}
+  .w-about-body a:hover{text-decoration:underline;}
+  .w-faq{margin-top:16px;border-top:1px dashed var(--border);padding-top:12px;}
+  .w-faq dt{font-weight:600;color:var(--ink-strong);margin-top:10px;font-size:13.5px;}
+  .w-faq dd{margin:3px 0 0;font-size:13px;color:var(--ink-2);}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">
+        <svg viewBox="0 0 17 17" fill="none">
+          <path d="M2.5 14.5L8.5 2.5l6 12" stroke="#C9A76C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5.4 9.2h6.2" stroke="#F5F3EE" stroke-width="2.2" stroke-linecap="round" opacity="0.9"/>
+        </svg>
+      </div>
+      <div>
+        <div class="wordmark">Takeoff</div>
+        <div class="tagline">Plan measurement</div>
+      </div>
+    </div>
+    <input id="proj-name" value="Untitled takeoff" spellcheck="false" aria-label="Project name">
+    <button class="btn" id="tb-open">Open plan</button>
+    <button class="btn" id="tb-calibrate">Calibrate scale</button>
+    <button class="chip-demo" id="demo-exit" hidden title="This is a sample takeoff"><span class="dot"></span>Demo — start your own</button>
+    <div class="spacer"></div>
+    <div class="zoomctl">
+      <button id="z-out" title="Zoom out">−</button>
+      <div class="zl" id="z-label">100%</div>
+      <button id="z-in" title="Zoom in">+</button>
+      <button id="z-fit" title="Fit plan" style="width:auto;padding:0 8px;font-size:11px">Fit</button>
+    </div>
+    <div class="menu-wrap">
+      <button class="btn primary" id="tb-export">Export ▾</button>
+      <div class="menu" id="export-menu">
+        <button id="ex-foreman">Excel for Foreman (.xlsx)</button>
+        <div class="m-note">OPENS IN FOREMAN AS A DRAFT QUOTE WITH LINE ITEMS</div>
+        <hr>
+        <button id="ex-png">Marked-up plan (.png)</button>
+        <button id="ex-save">Save project (.json)</button>
+        <button id="ex-load">Open project (.json)</button>
+        <hr>
+        <button id="ex-beer" style="color:var(--brass)">Shout us a beer &nearr;</button>
+        <button id="ex-reset" style="color:var(--red-t)">Start over</button>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="rail">
+      <button class="tool active" data-tool="pan" id="tool-pan">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 9V4.5a1.5 1.5 0 013 0V9m0-3a1.5 1.5 0 013 0v3.5m0-1.5a1.5 1.5 0 013 0V12c0 3.5-2.5 6-6 6s-5.2-1.8-6.4-4.6L2.4 10.5a1.4 1.4 0 012.4-1.4L7 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="tip">Pan / select — V</span>
+      </button>
+      <div class="sep"></div>
+      <button class="tool" data-tool="calibrate">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 15.5l13-13M4.5 13.5l1.5 1.5M7 11l1.5 1.5M9.5 8.5L11 10M12 6l1.5 1.5" stroke-linecap="round"/></svg>
+        <span class="tip">Calibrate scale — C</span>
+      </button>
+      <button class="tool" data-tool="length">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="3.5" cy="16.5" r="1.6"/><circle cx="16.5" cy="3.5" r="1.6"/><path d="M5 15L15 5" stroke-dasharray="2.5 2.5"/></svg>
+        <span class="tip">Length — L (click points, Enter to finish)</span>
+      </button>
+      <button class="tool" data-tool="area">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4.5L15.5 3l1 12.5L3.5 16.5z" stroke-linejoin="round"/><circle cx="4" cy="4.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="15.5" cy="3" r="1.4" fill="currentColor" stroke="none"/><circle cx="16.5" cy="15.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="3.5" cy="16.5" r="1.4" fill="currentColor" stroke="none"/></svg>
+        <span class="tip">Area — A (click corners, Enter to close)</span>
+      </button>
+      <button class="tool" data-tool="count">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2.2"/><circle cx="14.5" cy="9" r="2.2"/><circle cx="8" cy="14.5" r="2.2"/></svg>
+        <span class="tip">Count — N (tap to tally)</span>
+      </button>
+      <div class="sep"></div>
+      <button class="tool" id="tool-undo">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7.5 4L3.5 8l4 4M3.5 8h8a5 5 0 010 10" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,-2)"/></svg>
+        <span class="tip">Undo point — Z / Backspace</span>
+      </button>
+    </div>
+    <div class="stage">
+      <div id="viewport">
+        <div id="world">
+          <img id="plan-img" alt="Plan">
+          <svg id="overlay"></svg>
+        </div>
+      </div>
+      <div class="statusbar">
+        <span class="cal" id="sb-cal">NOT CALIBRATED</span>
+        <span id="sb-pos"></span>
+        <span class="hint" id="sb-hint">Open a plan to get started</span>
+        <span class="spacer"></span>
+        <span id="sb-total"></span>
+        <a href="https://ko-fi.com/blueprintau" target="_blank" rel="noopener" style="color:var(--brass);text-decoration:none;letter-spacing:0.08em" title="Free forever — but a beer a month keeps us shipping">SHOUT US A BEER ↗</a>
+        <a href="https://blueprintau.com" target="_blank" rel="noopener" style="color:var(--ink-3);text-decoration:none;letter-spacing:0.08em">BUILT BY BLUEPRINTAU ↗</a>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-sec">
+        <h4>Measure as <button class="btn small ghost" id="rb-add">+ Item</button></h4>
+        <div id="rate-book"></div>
+      </div>
+      <div class="panel-sec" style="border-bottom:none;padding-bottom:6px">
+        <h4>Measurements <span id="m-count" style="font-family:var(--mono);font-size:9.5px;color:var(--ink-3)"></span></h4>
+      </div>
+      <div class="panel-scroll" id="m-list"></div>
+      <div class="totals-card" id="totals"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="modal-scrim" id="modal-scrim"></div>
+<input type="file" id="file-plan" accept=".png,.jpg,.jpeg,.webp,.pdf" hidden>
+<input type="file" id="file-proj" accept=".json" hidden>
+
+<div class="welcome" id="welcome">
+  <div class="w-card">
+    <div class="w-brand">
+      <div class="mark" aria-hidden="true" style="width:40px;height:40px;border-radius:11px;">
+        <svg viewBox="0 0 17 17" fill="none" style="width:19px;height:19px">
+          <path d="M2.5 14.5L8.5 2.5l6 12" stroke="#C9A76C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5.4 9.2h6.2" stroke="#F5F3EE" stroke-width="2.2" stroke-linecap="round" opacity="0.9"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Takeoff</h1>
+        <div class="w-tag">Measure it off the plan · price it on the spot</div>
+      </div>
+    </div>
+    <p>Drop in the builder's plan, calibrate once, and click your way to a priced scope — lengths, areas and counts, GST done. Then send it straight to Foreman as a ready-made quote.</p>
+    <div class="w-opts">
+      <button class="w-opt" id="w-demo">
+        <span class="w-ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2.5l10.5 5.5L3 13.5V2.5z" stroke-linejoin="round"/></svg></span>
+        <span><span class="w-t">Explore the demo takeoff</span><br><span class="w-s">A house plan mid-measure — electrical fit-off, priced live</span></span>
+        <span class="w-go">&rarr;</span>
+      </button>
+      <button class="w-opt" id="w-plan">
+        <span class="w-ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v8m0 0l-3-3m3 3l3-3M2.5 13.5h11" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span><span class="w-t">Open your plan</span><br><span class="w-s">JPG, PNG or PDF — straight from the builder's email</span></span>
+        <span class="w-go">&rarr;</span>
+      </button>
+      <button class="w-opt" id="w-proj">
+        <span class="w-ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 4.5a1 1 0 011-1h3l1.5 1.5h4.5a1 1 0 011 1v6a1 1 0 01-1 1h-9a1 1 0 01-1-1v-7.5z" stroke-linejoin="round"/></svg></span>
+        <span><span class="w-t">Open a saved project</span><br><span class="w-s">Pick up a .json takeoff where you left it</span></span>
+        <span class="w-go">&rarr;</span>
+      </button>
+    </div>
+    <div class="w-foot">Pairs with <a href="https://blueprintau.com/foreman" target="_blank" rel="noopener">Foreman</a> — exports land as quote line items. Built &amp; shipped by <a href="https://blueprintau.com" target="_blank" rel="noopener">BlueprintAU</a>, product &#8470; 17.</div>
+    <details class="w-about" id="w-about">
+      <summary>What is Takeoff? Free plan measurement &amp; estimating for Australian tradies</summary>
+      <div class="w-about-body"><h3>Free takeoff software: measure the job off the plan, price it on the spot</h3>
+<p>Takeoff is a free plan-measurement and estimating tool for Australian tradies and small builders. Drop in a plan as a PDF or image, calibrate the scale once against a known dimension, and then click to measure what the job actually needs: lineal metres of skirting, cable run or pipework; square metres of tiling, paint, plasterboard or turf; counts of downlights, power points, doors or posts.</p>
+<p>Every measurement is tied to a rate from your own price book, so the scope is priced as you go — ex GST, GST at 10%, and the inc-GST figure your client will see. When you're done, the priced scope exports as quote line items straight into <a href="../foreman/">Foreman</a>, so the quote you send is built from the measurements you took rather than a number you guessed in the car park.</p>
+<h3>Why a free takeoff tool instead of a paid estimating platform</h3>
+<p>Construction takeoff and estimating software is usually sold to builders and estimators at $50 to $200 a month, and most of what it does is aimed at commercial tenders. Takeoff is built for the trade doing a bathroom reno, a rewire, a fence line or a landscaping job — where you need accurate quantities fast, not a bill of quantities for a tender. It runs entirely in your browser, there's no account to create, and your plans and measurements stay on your own device.</p>
+<p>Takeoff is one third of the BlueprintAU Trade Suite. Measure it here, run the job in <a href="../foreman/">Foreman</a>, and see what it did to your cash flow and BAS in <a href="../ledger/">Ledger</a>.</p>
+<h3>Built in Adelaide by BlueprintAU</h3>
+<p>Takeoff is built and shipped by <a href="https://blueprintau.com/">BlueprintAU</a>, a one-founder software lab in Adelaide, South Australia. It's free because the lab's paid work is building <a href="../build/">custom software for trade and small businesses</a> — and the best way to show what that looks like is to give the trade something useful for nothing.</p>
+<p>Want one built for your own job? <a href="../build/">See what a custom build costs</a>, or call Aldo on <a href="tel:+61423003680">0423&nbsp;003&nbsp;680</a>.</p>
+<dl class="w-faq"><h3>Common questions</h3><dt>What plan formats can I measure from?</dt><dd>PDF plans and common image formats (PNG, JPG). Drop the file in, pick a dimension you know — a 2,400 mm door opening, a 900 mm wall length — and Takeoff scales the whole sheet from it.</dd><dt>How accurate is a takeoff from a PDF plan?</dt><dd>As accurate as the plan and your calibration. Calibrate against the longest dimension you can find on the sheet; a plan at scale is typically within a percent or two, which is well inside the allowance most trades already carry for waste.</dd><dt>Is Takeoff free?</dt><dd>Yes, free forever. No trial period, no quote limits, no card. Nothing is uploaded — the plan and your measurements stay in your browser.</dd><dt>Does it send the quote for me?</dt><dd>Takeoff produces the priced scope. Export it as quote lines and it drops straight into Foreman, the free quoting and invoicing app in the same suite, which sends the quote and turns it into a job and a tax invoice.</dd><dt>Can I use my own rates?</dt><dd>Yes. Takeoff prices against your own price book — lineal, area and count rates — so a square metre of wall tiling or a downlight install is priced at what you actually charge.</dd><dt>Which trades use plan takeoffs?</dt><dd>Electrical, plumbing, tiling, painting, plastering, carpentry, flooring, landscaping, fencing and small building work — any job where the quantities are on a drawing before they're on site.</dd></dl></div>
+    </details>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* ============================= State ============================= */
+const GST = 0.10;
+const fmtAUD = new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD'});
+const money = n => fmtAUD.format(n);
+const esc = s => String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let uid = 1; const nid = () => 't'+(uid++);
+
+const COLORS = ['#22668F','#8F6510','#3A6440','#9C3330','#6B4FA0','#2E7D74','#A8814B','#4A5568'];
+
+let isDemo = false;
+let project = {
+  name:'Untitled takeoff',
+  planUrl:null, planW:0, planH:0,
+  calib:null,             // {x1,y1,x2,y2, meters}
+  items:[],               // {id, desc, unit:'m'|'m2'|'each', rate, color}
+  measurements:[],        // {id, type:'length'|'area'|'count', itemId, points:[{x,y}]}
+};
+
+const ui = {
+  tool:'pan', zoom:1, panX:60, panY:40,
+  activeItem:null, selected:null,
+  drawing:null,           // {type, points:[]} in-progress
+  calibPts:[],            // in-progress calibration clicks
+  cursor:null,            // world coords of pointer
+};
+
+/* ============================= DOM refs ============================= */
+const viewport = document.getElementById('viewport');
+const world = document.getElementById('world');
+const planImg = document.getElementById('plan-img');
+const overlay = document.getElementById('overlay');
+const toastEl = document.getElementById('toast');
+function toast(msg){
+  toastEl.textContent = msg; toastEl.classList.add('show');
+  clearTimeout(toastEl._h); toastEl._h = setTimeout(()=>toastEl.classList.remove('show'), 2800);
+}
+
+/* ============================= Geometry ============================= */
+const dist = (a,b) => Math.hypot(b.x-a.x, b.y-a.y);
+function pathLen(pts){ let s=0; for(let i=1;i<pts.length;i++) s+=dist(pts[i-1],pts[i]); return s; }
+function polyArea(pts){
+  let s=0;
+  for(let i=0;i<pts.length;i++){ const a=pts[i], b=pts[(i+1)%pts.length]; s += a.x*b.y - b.x*a.y; }
+  return Math.abs(s)/2;
+}
+function centroid(pts){
+  const n=pts.length; let x=0,y=0; pts.forEach(p=>{x+=p.x;y+=p.y}); return {x:x/n,y:y/n};
+}
+/* metres per plan pixel; null if not calibrated */
+function mpp(){
+  if(!project.calib) return null;
+  const c = project.calib;
+  const px = Math.hypot(c.x2-c.x1, c.y2-c.y1);
+  return px>0 ? c.meters/px : null;
+}
+function qtyOf(m){
+  const k = mpp();
+  if(m.type==='count') return m.points.length;
+  if(!k) return null;
+  if(m.type==='length') return pathLen(m.points)*k;
+  if(m.type==='area') return polyArea(m.points)*k*k;
+  return null;
+}
+function itemById(id){ return project.items.find(i=>i.id===id); }
+const UNIT_LABEL = {m:'m', m2:'m²', each:'ea'};
+function fmtQty(m){
+  const q = qtyOf(m);
+  if(q===null) return '—';
+  const it = itemById(m.itemId);
+  const u = it ? UNIT_LABEL[it.unit] : '';
+  return (m.type==='count' ? q : q.toFixed(2)) + ' ' + u;
+}
+
+/* ============================= Viewport transforms ============================= */
+function applyTransform(){
+  world.style.transform = `translate(${ui.panX}px, ${ui.panY}px) scale(${ui.zoom})`;
+  document.getElementById('z-label').textContent = Math.round(ui.zoom*100)+'%';
+}
+function worldPos(e){
+  const r = viewport.getBoundingClientRect();
+  return {x:(e.clientX - r.left - ui.panX)/ui.zoom, y:(e.clientY - r.top - ui.panY)/ui.zoom};
+}
+function zoomAt(cx, cy, factor){
+  const nz = Math.min(8, Math.max(0.08, ui.zoom*factor));
+  const r = viewport.getBoundingClientRect();
+  const wx = (cx - r.left - ui.panX)/ui.zoom, wy = (cy - r.top - ui.panY)/ui.zoom;
+  ui.zoom = nz;
+  ui.panX = cx - r.left - wx*nz;
+  ui.panY = cy - r.top - wy*nz;
+  applyTransform(); drawOverlay();
+}
+function fitPlan(){
+  if(!project.planW) return;
+  const r = viewport.getBoundingClientRect();
+  const pad = 44;
+  ui.zoom = Math.min((r.width-pad*2)/project.planW, (r.height-pad*2)/project.planH);
+  ui.zoom = Math.min(Math.max(ui.zoom, 0.08), 4);
+  ui.panX = (r.width - project.planW*ui.zoom)/2;
+  ui.panY = (r.height - project.planH*ui.zoom)/2;
+  applyTransform(); drawOverlay();
+}
+
+/* ============================= Overlay rendering ============================= */
+function svgEl(tag, attrs, text){
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for(const k in attrs) el.setAttribute(k, attrs[k]);
+  if(text!==undefined) el.textContent = text;
+  return el;
+}
+function labelAt(g, x, y, text, color){
+  const t1 = svgEl('text',{x,y,'font-size':13/Math.sqrt(ui.zoom),'font-family':"'JetBrains Mono',monospace",
+    'font-weight':'700','text-anchor':'middle',fill:color,stroke:'#FFFFFF','stroke-width':3.4/Math.sqrt(ui.zoom),
+    'paint-order':'stroke','stroke-linejoin':'round'}, text);
+  g.appendChild(t1);
+}
+function drawOverlay(){
+  overlay.setAttribute('width', project.planW);
+  overlay.setAttribute('height', project.planH);
+  overlay.innerHTML = '';
+  const sw = n => n/Math.sqrt(ui.zoom); /* keep strokes readable at any zoom */
+
+  /* calibration line */
+  if(project.calib){
+    const c = project.calib;
+    const g = svgEl('g',{});
+    g.appendChild(svgEl('line',{x1:c.x1,y1:c.y1,x2:c.x2,y2:c.y2,stroke:'#A8814B','stroke-width':sw(2),'stroke-dasharray':`${sw(7)} ${sw(5)}`}));
+    [[c.x1,c.y1],[c.x2,c.y2]].forEach(([x,y])=>g.appendChild(svgEl('circle',{cx:x,cy:y,r:sw(4),fill:'#A8814B'})));
+    labelAt(g, (c.x1+c.x2)/2, (c.y1+c.y2)/2 + sw(22), c.meters.toFixed(2)+' m', '#A8814B');
+    overlay.appendChild(g);
+  }
+  /* in-progress calibration */
+  if(ui.calibPts.length===1 && ui.cursor){
+    overlay.appendChild(svgEl('line',{x1:ui.calibPts[0].x,y1:ui.calibPts[0].y,x2:ui.cursor.x,y2:ui.cursor.y,
+      stroke:'#A8814B','stroke-width':sw(2),'stroke-dasharray':`${sw(6)} ${sw(5)}`,opacity:0.7}));
+    overlay.appendChild(svgEl('circle',{cx:ui.calibPts[0].x,cy:ui.calibPts[0].y,r:sw(4),fill:'#A8814B'}));
+  }
+
+  /* measurements */
+  project.measurements.forEach(m=>{
+    const it = itemById(m.itemId); if(!it) return;
+    const col = it.color;
+    const seld = ui.selected===m.id;
+    const g = svgEl('g',{'data-mid':m.id, opacity:seld?1:0.92});
+    if(m.type==='length' && m.points.length>=2){
+      const d = 'M'+m.points.map(p=>`${p.x} ${p.y}`).join(' L');
+      if(seld) g.appendChild(svgEl('path',{d,fill:'none',stroke:'#FFFFFF','stroke-width':sw(6.5),'stroke-linecap':'round','stroke-linejoin':'round'}));
+      g.appendChild(svgEl('path',{d,fill:'none',stroke:col,'stroke-width':sw(3),'stroke-linecap':'round','stroke-linejoin':'round'}));
+      m.points.forEach(p=>g.appendChild(svgEl('circle',{cx:p.x,cy:p.y,r:sw(3.2),fill:col})));
+      const mid = m.points[Math.floor((m.points.length-1)/2)];
+      labelAt(g, mid.x, mid.y - sw(10), fmtQty(m), col);
+    }else if(m.type==='area' && m.points.length>=3){
+      const d = 'M'+m.points.map(p=>`${p.x} ${p.y}`).join(' L')+' Z';
+      g.appendChild(svgEl('path',{d,fill:col,'fill-opacity':seld?0.28:0.16,stroke:col,'stroke-width':sw(seld?3:2),'stroke-linejoin':'round'}));
+      const c = centroid(m.points);
+      labelAt(g, c.x, c.y, fmtQty(m), col);
+    }else if(m.type==='count'){
+      m.points.forEach((p,i)=>{
+        g.appendChild(svgEl('circle',{cx:p.x,cy:p.y,r:sw(seld?8.5:7),fill:col,'fill-opacity':0.9,stroke:'#FFFFFF','stroke-width':sw(2)}));
+        const t = svgEl('text',{x:p.x,y:p.y+sw(3.4),'font-size':sw(9.5),'font-family':"'JetBrains Mono',monospace",'font-weight':'700','text-anchor':'middle',fill:'#FFFFFF'}, String(i+1));
+        g.appendChild(t);
+      });
+    }
+    overlay.appendChild(g);
+  });
+
+  /* in-progress drawing */
+  if(ui.drawing && ui.drawing.points.length){
+    const it = itemById(ui.activeItem);
+    const col = it ? it.color : '#A8814B';
+    const pts = ui.drawing.points.concat(ui.cursor && ui.drawing.type!=='count' ? [ui.cursor] : []);
+    const g = svgEl('g',{opacity:0.85});
+    if(ui.drawing.type==='length' && pts.length>=2){
+      g.appendChild(svgEl('path',{d:'M'+pts.map(p=>`${p.x} ${p.y}`).join(' L'),fill:'none',stroke:col,'stroke-width':sw(3),'stroke-dasharray':`${sw(7)} ${sw(5)}`,'stroke-linecap':'round'}));
+      const k = mpp();
+      if(k) labelAt(g, pts[pts.length-1].x, pts[pts.length-1].y - sw(12), (pathLen(pts)*k).toFixed(2)+' m', col);
+    }
+    if(ui.drawing.type==='area' && pts.length>=2){
+      g.appendChild(svgEl('path',{d:'M'+pts.map(p=>`${p.x} ${p.y}`).join(' L')+' Z',fill:col,'fill-opacity':0.10,stroke:col,'stroke-width':sw(2),'stroke-dasharray':`${sw(7)} ${sw(5)}`}));
+      const k = mpp();
+      if(k && pts.length>=3) labelAt(g, centroid(pts).x, centroid(pts).y, (polyArea(pts)*k*k).toFixed(2)+' m²', col);
+    }
+    ui.drawing.points.forEach(p=>g.appendChild(svgEl('circle',{cx:p.x,cy:p.y,r:sw(3.4),fill:col})));
+    overlay.appendChild(g);
+  }
+}
+
+/* ============================= Interactions ============================= */
+let panning = null;
+viewport.addEventListener('pointerdown', e=>{
+  if(e.button===1 || (e.button===0 && ui.tool==='pan') || spaceHeld){
+    panning = {x:e.clientX, y:e.clientY, px:ui.panX, py:ui.panY, moved:false};
+    viewport.classList.add('panning');
+    viewport.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  }
+});
+viewport.addEventListener('pointermove', e=>{
+  ui.cursor = worldPos(e);
+  if(panning){
+    const dx = e.clientX-panning.x, dy = e.clientY-panning.y;
+    if(Math.abs(dx)+Math.abs(dy)>3) panning.moved = true;
+    ui.panX = panning.px+dx; ui.panY = panning.py+dy;
+    applyTransform();
+  }
+  updateStatus();
+  if(ui.drawing || ui.calibPts.length) drawOverlay();
+});
+viewport.addEventListener('pointerup', e=>{
+  if(panning){
+    const wasPan = panning.moved;
+    panning = null; viewport.classList.remove('panning');
+    if(wasPan) return;
+    if(ui.tool==='pan' && e.button===0){ selectAt(worldPos(e)); return; }
+  }
+});
+viewport.addEventListener('click', e=>{
+  if(!project.planUrl) return;
+  const p = worldPos(e);
+  if(p.x<0||p.y<0||p.x>project.planW||p.y>project.planH){ if(ui.tool!=='pan') return; }
+  if(spaceHeld) return;
+  if(ui.tool==='calibrate'){
+    ui.calibPts.push(p);
+    if(ui.calibPts.length===2){ calibDistanceModal(); }
+    drawOverlay(); updateStatus();
+  }else if(ui.tool==='length' || ui.tool==='area'){
+    if(!requireItem()) return;
+    if(!ui.drawing) ui.drawing = {type:ui.tool, points:[]};
+    /* close area by clicking near start */
+    if(ui.tool==='area' && ui.drawing.points.length>=3 && dist(p, ui.drawing.points[0]) < 12/ui.zoom){
+      finishDrawing(); return;
+    }
+    ui.drawing.points.push(p);
+    drawOverlay(); updateStatus();
+  }else if(ui.tool==='count'){
+    if(!requireItem()) return;
+    let m = project.measurements.find(x=>x.type==='count' && x.itemId===ui.activeItem);
+    if(!m){ m = {id:nid(), type:'count', itemId:ui.activeItem, points:[]}; project.measurements.push(m); }
+    m.points.push(p);
+    ui.selected = m.id;
+    refresh();
+  }
+});
+viewport.addEventListener('dblclick', e=>{
+  if(ui.drawing){ e.preventDefault(); finishDrawing(); }
+});
+viewport.addEventListener('wheel', e=>{
+  e.preventDefault();
+  zoomAt(e.clientX, e.clientY, e.deltaY<0 ? 1.12 : 1/1.12);
+},{passive:false});
+
+let spaceHeld = false;
+document.addEventListener('keydown', e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT'||e.target.tagName==='TEXTAREA') return;
+  if(e.key===' '){ spaceHeld = true; viewport.classList.add('tool-pan'); e.preventDefault(); }
+  else if(e.key==='Enter'){ if(ui.drawing) finishDrawing(); }
+  else if(e.key==='Escape'){
+    if(modalScrim.classList.contains('open')) return;
+    ui.drawing=null; ui.calibPts=[]; drawOverlay(); updateStatus();
+  }
+  else if(e.key==='Backspace'||e.key==='z'||e.key==='Z'){ undoPoint(); }
+  else if(e.key==='Delete'){ if(ui.selected) deleteMeasurement(ui.selected); }
+  else if(e.key==='v'||e.key==='V') setTool('pan');
+  else if(e.key==='c'||e.key==='C') setTool('calibrate');
+  else if(e.key==='l'||e.key==='L') setTool('length');
+  else if(e.key==='a'||e.key==='A') setTool('area');
+  else if(e.key==='n'||e.key==='N') setTool('count');
+});
+document.addEventListener('keyup', e=>{
+  if(e.key===' '){ spaceHeld = false; if(ui.tool!=='pan') viewport.classList.remove('tool-pan'); }
+});
+
+function undoPoint(){
+  if(ui.drawing && ui.drawing.points.length){
+    ui.drawing.points.pop();
+    if(!ui.drawing.points.length) ui.drawing = null;
+    drawOverlay(); updateStatus(); return;
+  }
+  if(ui.calibPts.length){ ui.calibPts.pop(); drawOverlay(); return; }
+  /* undo last count marker on selected count measurement */
+  const m = project.measurements.find(x=>x.id===ui.selected);
+  if(m && m.type==='count' && m.points.length){
+    m.points.pop();
+    if(!m.points.length) project.measurements = project.measurements.filter(x=>x!==m);
+    refresh();
+  }
+}
+function finishDrawing(){
+  const d = ui.drawing; ui.drawing = null;
+  if(!d) return;
+  if((d.type==='length' && d.points.length<2) || (d.type==='area' && d.points.length<3)){ drawOverlay(); return; }
+  project.measurements.push({id:nid(), type:d.type, itemId:ui.activeItem, points:d.points});
+  ui.selected = project.measurements[project.measurements.length-1].id;
+  refresh();
+}
+function requireItem(){
+  if(ui.activeItem && itemById(ui.activeItem)) return true;
+  if(!project.items.length){ itemModal(null, true); return false; }
+  toast('Pick an item in the panel first — measurements need a rate.');
+  return false;
+}
+function selectAt(p){
+  const tol = 10/ui.zoom;
+  let hit = null;
+  for(const m of project.measurements){
+    if(m.type==='count'){ if(m.points.some(q=>dist(p,q)<tol+6/ui.zoom)) {hit=m;break;} }
+    else if(m.type==='length'){
+      for(let i=1;i<m.points.length;i++){
+        if(distToSeg(p, m.points[i-1], m.points[i])<tol){hit=m;break;}
+      }
+      if(hit)break;
+    }else if(m.type==='area'){ if(pointInPoly(p,m.points)){hit=m;break;} }
+  }
+  ui.selected = hit ? hit.id : null;
+  refresh();
+}
+function distToSeg(p,a,b){
+  const l2 = dist(a,b)**2; if(!l2) return dist(p,a);
+  let t = ((p.x-a.x)*(b.x-a.x)+(p.y-a.y)*(b.y-a.y))/l2;
+  t = Math.max(0,Math.min(1,t));
+  return dist(p,{x:a.x+t*(b.x-a.x), y:a.y+t*(b.y-a.y)});
+}
+function pointInPoly(p, pts){
+  let inside=false;
+  for(let i=0,j=pts.length-1;i<pts.length;j=i++){
+    if(((pts[i].y>p.y)!=(pts[j].y>p.y)) && (p.x < (pts[j].x-pts[i].x)*(p.y-pts[i].y)/(pts[j].y-pts[i].y)+pts[i].x)) inside=!inside;
+  }
+  return inside;
+}
+function deleteMeasurement(id){
+  project.measurements = project.measurements.filter(m=>m.id!==id);
+  if(ui.selected===id) ui.selected=null;
+  refresh();
+}
+
+/* ============================= Tools & status ============================= */
+const TOOL_HINTS = {
+  pan:'Drag to pan · scroll to zoom · click a measurement to select',
+  calibrate:'Click both ends of a known dimension on the plan',
+  length:'Click along the run · Enter or double-click to finish · Esc cancels',
+  area:'Click the corners · click the first point or Enter to close',
+  count:'Tap each symbol to tally it against the selected item',
+};
+function setTool(t){
+  ui.tool = t; ui.drawing = null; ui.calibPts = [];
+  document.querySelectorAll('.tool[data-tool]').forEach(b=>b.classList.toggle('active', b.dataset.tool===t));
+  viewport.className = '';
+  viewport.classList.add('tool-'+t);
+  drawOverlay(); updateStatus();
+}
+document.querySelectorAll('.tool[data-tool]').forEach(b=>b.addEventListener('click', ()=>setTool(b.dataset.tool)));
+document.getElementById('tool-undo').addEventListener('click', undoPoint);
+document.getElementById('tb-calibrate').addEventListener('click', ()=>setTool('calibrate'));
+
+function updateStatus(){
+  const k = mpp();
+  const cal = document.getElementById('sb-cal');
+  if(k){ cal.textContent = `CALIBRATED · 1 px = ${(k*1000).toFixed(1)} mm`; cal.classList.remove('warn'); }
+  else { cal.textContent = 'NOT CALIBRATED'; cal.classList.add('warn'); }
+  document.getElementById('sb-hint').textContent = TOOL_HINTS[ui.tool] || '';
+  const pos = document.getElementById('sb-pos');
+  pos.textContent = (k && ui.cursor) ? `${(ui.cursor.x*k).toFixed(2)}, ${(ui.cursor.y*k).toFixed(2)} m` : '';
+  const t = totals();
+  document.getElementById('sb-total').textContent = t.sub>0 ? `${money(t.sub*(1+GST))} INC GST` : '';
+}
+
+/* ============================= Zoom controls ============================= */
+document.getElementById('z-in').addEventListener('click', ()=>{ const r=viewport.getBoundingClientRect(); zoomAt(r.left+r.width/2, r.top+r.height/2, 1.25); });
+document.getElementById('z-out').addEventListener('click', ()=>{ const r=viewport.getBoundingClientRect(); zoomAt(r.left+r.width/2, r.top+r.height/2, 0.8); });
+document.getElementById('z-fit').addEventListener('click', fitPlan);
+window.addEventListener('resize', ()=>{ if(project.planW) fitPlan(); });
+
+/* ============================= Ko-fi: shout us a beer ============================= */
+function track(n){ try{ if(window.goatcounter && goatcounter.count) goatcounter.count({path:n, title:n, event:true}); }catch(e){} }
+const KOFI_URL = 'https://ko-fi.com/blueprintau';
+const BEER_KEY = 'blueprintau-beer-prompted';
+function beerSeen(){ try{ return localStorage.getItem(BEER_KEY)==='1'; }catch(e){ return true; } }
+function markBeerSeen(){ try{ localStorage.setItem(BEER_KEY,'1'); }catch(e){} }
+function beerPrompt(heading, line){
+  if(beerSeen()) return;
+  markBeerSeen();
+  setTimeout(()=>{
+    openModal(`
+      <h3>${heading}</h3>
+      <div class="m-sub" style="max-width:34ch">${line} It's free and staying that way — no catch, no walls. But if it's earning its keep on your Tuesdays, a beer a month keeps us shipping.</div>
+      <div class="m-actions">
+        <button class="btn" data-close>Not now</button>
+        <a class="btn primary" href="${KOFI_URL}" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center" data-close>Shout us a beer</a>
+      </div>
+    `);
+  }, 900);
+}
+
+/* ============================= Modal system ============================= */
+const modalScrim = document.getElementById('modal-scrim');
+function openModal(html){
+  modalScrim.innerHTML = `<div class="modal">${html}<button class="m-x" data-close aria-label="Close">&times;</button></div>`;
+  modalScrim.classList.add('open');
+  modalScrim.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click', closeModal));
+  const f = modalScrim.querySelector('input,select'); if(f) setTimeout(()=>{f.focus(); if(f.select)f.select();}, 60);
+  return modalScrim;
+}
+function closeModal(){ modalScrim.classList.remove('open'); setTimeout(()=>{ if(!modalScrim.classList.contains('open')) modalScrim.innerHTML=''; }, 260); }
+modalScrim.addEventListener('click', e=>{ if(e.target===modalScrim) closeModal(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && modalScrim.classList.contains('open')) closeModal(); });
+
+function calibDistanceModal(){
+  const [p1,p2] = ui.calibPts;
+  openModal(`
+    <h3>Set the scale</h3>
+    <div class="m-sub">How long is the line you just clicked, in real life? Read it off a dimension on the plan.</div>
+    <div class="m-body">
+      <div class="form-grid">
+        <div class="field"><label>Distance</label><input id="cal-val" type="number" min="0" step="0.01" value="${project.calib?project.calib.meters:''}" placeholder="e.g. 9.6"></div>
+        <div class="field"><label>Unit</label><select id="cal-unit"><option value="m">metres</option><option value="mm">millimetres</option></select></div>
+      </div>
+    </div>
+    <div class="m-actions"><button class="btn" data-close id="cal-cancel">Cancel</button><button class="btn primary" id="cal-go">Set scale</button></div>
+  `);
+  document.getElementById('cal-cancel').addEventListener('click', ()=>{ ui.calibPts=[]; drawOverlay(); });
+  const commit = ()=>{
+    let v = Number(document.getElementById('cal-val').value);
+    if(!v || v<=0){ toast('Enter the real distance first.'); return; }
+    if(document.getElementById('cal-unit').value==='mm') v = v/1000;
+    project.calib = {x1:p1.x,y1:p1.y,x2:p2.x,y2:p2.y, meters:v};
+    ui.calibPts = [];
+    closeModal(); setTool('pan');
+    toast(`Scale set — 1 px = ${(mpp()*1000).toFixed(1)} mm. Measure away.`);
+    refresh();
+  };
+  document.getElementById('cal-go').addEventListener('click', commit);
+  document.getElementById('cal-val').addEventListener('keydown', e=>{ if(e.key==='Enter') commit(); });
+}
+
+function itemModal(item, thenMeasure){
+  const isNew = !item;
+  const it = item || {desc:'', unit:'each', rate:'', color:COLORS[project.items.length%COLORS.length]};
+  openModal(`
+    <h3>${isNew?'New rate item':'Edit rate item'}</h3>
+    <div class="m-sub">What you're measuring, and what you charge for it.</div>
+    <div class="m-body">
+      <div class="field"><label>Description</label><input id="it-desc" value="${esc(it.desc)}" placeholder="e.g. Double GPO supply &amp; install"></div>
+      <div class="form-grid">
+        <div class="field"><label>Unit</label>
+          <select id="it-unit">
+            <option value="each" ${it.unit==='each'?'selected':''}>each (count)</option>
+            <option value="m" ${it.unit==='m'?'selected':''}>metre (length)</option>
+            <option value="m2" ${it.unit==='m2'?'selected':''}>m² (area)</option>
+          </select></div>
+        <div class="field"><label>Rate ex GST ($)</label><input id="it-rate" type="number" min="0" step="0.01" value="${it.rate}"></div>
+      </div>
+      <div class="field"><label>Colour on plan</label>
+        <div class="swatches">${COLORS.map(c=>`<div class="swatch ${c===it.color?'sel':''}" data-c="${c}" style="background:${c}"></div>`).join('')}</div>
+      </div>
+    </div>
+    <div class="m-actions">
+      ${!isNew?`<button class="btn danger" id="it-del" style="margin-right:auto">Delete</button>`:''}
+      <button class="btn" data-close>Cancel</button>
+      <button class="btn primary" id="it-save">${isNew?'Add item':'Save'}</button>
+    </div>
+  `);
+  let color = it.color;
+  modalScrim.querySelectorAll('.swatch').forEach(s=>s.addEventListener('click', ()=>{
+    color = s.dataset.c;
+    modalScrim.querySelectorAll('.swatch').forEach(x=>x.classList.toggle('sel', x===s));
+  }));
+  document.getElementById('it-save').addEventListener('click', ()=>{
+    const desc = document.getElementById('it-desc').value.trim();
+    if(!desc){ toast('Give the item a description.'); return; }
+    const rate = Number(document.getElementById('it-rate').value)||0;
+    const unit = document.getElementById('it-unit').value;
+    if(isNew){
+      const ni = {id:nid(), desc, unit, rate, color};
+      project.items.push(ni); ui.activeItem = ni.id;
+      if(thenMeasure) toast(`${desc} added — now click the plan to measure it.`);
+    }else{
+      Object.assign(item, {desc, unit, rate, color});
+    }
+    closeModal(); refresh();
+  });
+  const del = document.getElementById('it-del');
+  if(del) del.addEventListener('click', ()=>{
+    const used = project.measurements.filter(m=>m.itemId===item.id).length;
+    project.measurements = project.measurements.filter(m=>m.itemId!==item.id);
+    project.items = project.items.filter(i=>i!==item);
+    if(ui.activeItem===item.id) ui.activeItem = project.items[0] ? project.items[0].id : null;
+    closeModal(); refresh();
+    toast(used?`Item and its ${used} measurement${used===1?'':'s'} removed.`:'Item removed.');
+  });
+}
+document.getElementById('rb-add').addEventListener('click', ()=>itemModal(null,false));
+
+/* ============================= Panels ============================= */
+function totals(){
+  const byItem = {};
+  project.measurements.forEach(m=>{
+    const q = qtyOf(m); if(q===null) return;
+    byItem[m.itemId] = (byItem[m.itemId]||0)+q;
+  });
+  let sub = 0;
+  const lines = [];
+  project.items.forEach(it=>{
+    const q = byItem[it.id];
+    if(!q) return;
+    const amt = q*it.rate;
+    sub += amt;
+    lines.push({item:it, qty:q, amount:amt});
+  });
+  return {lines, sub};
+}
+function renderRateBook(){
+  const host = document.getElementById('rate-book');
+  if(!project.items.length){
+    host.innerHTML = `<div class="empty-note" style="padding:12px 4px"><div class="e-title">No rate items yet</div>Add what you measure — GPOs, cable runs, paint areas.</div>`;
+    return;
+  }
+  host.innerHTML = project.items.map(it=>`
+    <div class="itemrow ${it.id===ui.activeItem?'active':''}" data-item="${it.id}">
+      <span class="dot" style="background:${it.color}"></span>
+      <span class="nm">${esc(it.desc)}</span>
+      <span class="rt">$${it.rate}/${UNIT_LABEL[it.unit]}</span>
+      <button class="edit" data-edit="${it.id}" title="Edit">✎</button>
+    </div>`).join('');
+  host.querySelectorAll('.itemrow').forEach(r=>r.addEventListener('click', e=>{
+    if(e.target.dataset.edit) return;
+    ui.activeItem = r.dataset.item; renderRateBook();
+    const it = itemById(ui.activeItem);
+    const suggested = it.unit==='each'?'count':it.unit==='m'?'length':'area';
+    if(['length','area','count'].includes(ui.tool)) setTool(suggested);
+  }));
+  host.querySelectorAll('[data-edit]').forEach(b=>b.addEventListener('click', e=>{
+    e.stopPropagation(); itemModal(itemById(b.dataset.edit), false);
+  }));
+}
+function renderMeasurements(){
+  const host = document.getElementById('m-list');
+  document.getElementById('m-count').textContent = project.measurements.length || '';
+  if(!project.measurements.length){
+    host.innerHTML = `<div class="empty-note"><div class="e-title">Nothing measured yet</div>${project.calib?'Pick a tool on the left and start clicking.':'Calibrate the scale first, then start clicking.'}</div>`;
+    return;
+  }
+  const TYPE_LABEL = {length:'run', area:'area', count:'count'};
+  host.innerHTML = project.measurements.map(m=>{
+    const it = itemById(m.itemId); if(!it) return '';
+    return `<div class="mrow ${ui.selected===m.id?'selected':''}" data-m="${m.id}">
+      <span class="dot" style="background:${it.color}"></span>
+      <span class="lab"><div class="t">${esc(it.desc)}</div><div class="s">${TYPE_LABEL[m.type]} · ${m.points.length} pt${m.points.length===1?'':'s'}</div></span>
+      <span class="qty">${fmtQty(m)}</span>
+      <button class="del" data-del="${m.id}" title="Delete">&times;</button>
+    </div>`;
+  }).join('');
+  host.querySelectorAll('.mrow').forEach(r=>r.addEventListener('click', e=>{
+    if(e.target.dataset.del) return;
+    ui.selected = ui.selected===r.dataset.m ? null : r.dataset.m;
+    refresh();
+  }));
+  host.querySelectorAll('[data-del]').forEach(b=>b.addEventListener('click', e=>{
+    e.stopPropagation(); deleteMeasurement(b.dataset.del);
+  }));
+}
+function renderTotals(){
+  const t = totals();
+  const host = document.getElementById('totals');
+  const uncal = !project.calib && project.measurements.some(m=>m.type!=='count');
+  if(!t.lines.length){
+    host.innerHTML = `<div class="trow"><span class="lab">Priced scope</span><span class="badge ${project.calib?'okc':'warn'}">${project.calib?'ready to measure':'not calibrated'}</span></div>`;
+    return;
+  }
+  host.innerHTML = t.lines.map(l=>`
+    <div class="trow"><span class="lab" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(l.item.desc)}</span>
+    <span style="font-family:var(--mono);font-size:11px;white-space:nowrap">${l.item.unit==='each'?l.qty:l.qty.toFixed(2)} ${UNIT_LABEL[l.item.unit]} · ${money(l.amount)}</span></div>`).join('')
+    + `${uncal?`<div class="trow"><span class="badge warn">lengths &amp; areas need calibration</span></div>`:''}
+    <div class="trow" style="margin-top:5px"><span class="lab">Subtotal ex GST</span><span>${money(t.sub)}</span></div>
+    <div class="trow"><span class="lab">GST 10%</span><span>${money(t.sub*GST)}</span></div>
+    <div class="trow grand"><span class="lab">Inc GST</span><span class="val">${money(t.sub*(1+GST))}</span></div>`;
+}
+function refresh(){
+  drawOverlay(); renderRateBook(); renderMeasurements(); renderTotals(); updateStatus();
+  const dc = document.getElementById('demo-exit');
+  if(dc) dc.hidden = !isDemo;
+  persist();
+}
+
+/* ============================= Project name ============================= */
+const projName = document.getElementById('proj-name');
+projName.addEventListener('change', ()=>{ project.name = projName.value.trim()||'Untitled takeoff'; projName.value = project.name; persist(); });
+
+/* ============================= Persistence (gated, guarded) ============================= */
+const STORAGE_KEY = 'takeoff-workspace-v1';
+let workspaceChosen = false;
+function persist(){
+  if(!workspaceChosen) return;
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({project, activeItem:ui.activeItem, uid, isDemo}));
+  }catch(e){
+    /* quota (big plan images) or unavailable — try without the plan image so measurements survive */
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({project:{...project, planUrl:null}, activeItem:ui.activeItem, uid, planDropped:true, isDemo}));
+    }catch(e2){}
+  }
+}
+function loadPersisted(){
+  let raw;
+  try{ raw = localStorage.getItem(STORAGE_KEY); }catch(e){ return false; }
+  if(!raw) return false;
+  try{
+    const s = JSON.parse(raw);
+    if(!s.project) return false;
+    project = s.project;
+    ui.activeItem = s.activeItem || (project.items[0] && project.items[0].id) || null;
+    uid = s.uid || 1000;
+    isDemo = !!s.isDemo;
+    workspaceChosen = true;
+    if(s.planDropped || !project.planUrl){
+      toast('Plan image was too big to keep — reopen the plan file; your measurements are intact.');
+      project.planUrl = null;
+    }
+    return true;
+  }catch(e){ return false; }
+}
+function clearPersisted(){ try{ localStorage.removeItem(STORAGE_KEY); }catch(e){} }
+
+/* ============================= Plan loading ============================= */
+function setPlan(url, name){
+  const img = new Image();
+  img.onload = ()=>{
+    project.planUrl = url;
+    project.planW = img.naturalWidth; project.planH = img.naturalHeight;
+    planImg.src = url;
+    planImg.width = project.planW; planImg.height = project.planH;
+    if(name && (project.name==='Untitled takeoff'||!project.name)) {
+      project.name = name.replace(/\.(png|jpe?g|webp|pdf)$/i,'');
+      projName.value = project.name;
+    }
+    fitPlan(); refresh();
+    if(!project.calib) setTool('calibrate');
+    toast(project.calib ? 'Plan loaded.' : 'Plan loaded — now click both ends of a known dimension to set the scale.');
+  };
+  img.onerror = ()=>toast("Couldn't read that image.");
+  img.src = url;
+}
+
+let PDFJS_MAIN = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+let PDFJS_WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+function loadPdfJs(){
+  if(window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+  return new Promise((res,rej)=>{
+    const s = document.createElement('script');
+    s.src = PDFJS_MAIN;
+    s.onload = ()=>window.pdfjsLib?res(window.pdfjsLib):rej(new Error('pdfjs missing'));
+    s.onerror = ()=>rej(new Error('load failed'));
+    document.head.appendChild(s);
+    setTimeout(()=>rej(new Error('timeout')), 15000);
+  });
+}
+async function loadPdfPlan(file){
+  const lib = await loadPdfJs().catch(()=>null);
+  if(!lib){ toast('Needs internet to load the PDF engine — or screenshot the plan as PNG/JPG.'); return; }
+  try{ if(!lib.GlobalWorkerOptions.workerSrc) lib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER; }catch(e){}
+  try{
+    const doc = await lib.getDocument({data: await file.arrayBuffer()}).promise;
+    let pageNo = 1;
+    if(doc.numPages>1){
+      pageNo = await new Promise(resolve=>{
+        openModal(`
+          <h3>Which page?</h3>
+          <div class="m-sub">This PDF has ${doc.numPages} pages — pick the sheet with the plan on it.</div>
+          <div class="m-body"><div class="field"><label>Page (1–${doc.numPages})</label>
+          <input id="pdf-page" type="number" min="1" max="${doc.numPages}" value="1"></div></div>
+          <div class="m-actions"><button class="btn" data-close id="pdf-cancel">Cancel</button><button class="btn primary" id="pdf-go">Load page</button></div>
+        `);
+        document.getElementById('pdf-go').addEventListener('click', ()=>{
+          const v = Math.min(doc.numPages, Math.max(1, Number(document.getElementById('pdf-page').value)||1));
+          closeModal(); resolve(v);
+        });
+        document.getElementById('pdf-cancel').addEventListener('click', ()=>resolve(0));
+      });
+      if(!pageNo) return;
+    }
+    const page = await doc.getPage(pageNo);
+    const vp1 = page.getViewport({scale:1});
+    const scale = Math.min(3, 2400/Math.max(vp1.width, vp1.height));
+    const vp = page.getViewport({scale});
+    const cv = document.createElement('canvas');
+    cv.width = Math.round(vp.width); cv.height = Math.round(vp.height);
+    await page.render({canvasContext: cv.getContext('2d'), viewport: vp}).promise;
+    setPlan(cv.toDataURL('image/png'), file.name);
+  }catch(err){
+    toast('Could not read that PDF: '+(err && err.message ? err.message : 'unknown error'));
+  }
+}
+function handlePlanFile(file, fromWelcome){
+  const go = ()=>{
+    const start = ()=>{
+      if(/\.pdf$/i.test(file.name)){ loadPdfPlan(file); }
+      else{
+        const rd = new FileReader();
+        rd.onload = ()=>setPlan(rd.result, file.name);
+        rd.readAsDataURL(file);
+      }
+      if(fromWelcome){ workspaceChosen = true; hideWelcome(); }
+      isDemo = false;
+      track('takeoff-plan-opened');
+    };
+    start();
+  };
+  if(project.measurements.length && !fromWelcome){
+    openModal(`
+      <h3>New takeoff?</h3>
+      <div class="m-sub">Opening a new plan starts a fresh takeoff — the current measurements and scale will be cleared. Save the project first if you want to keep it.</div>
+      <div class="m-actions"><button class="btn" data-close>Cancel</button><button class="btn" id="np-save">Save current first</button><button class="btn primary" id="np-go">Start fresh</button></div>
+    `);
+    document.getElementById('np-save').addEventListener('click', saveProjectJson);
+    document.getElementById('np-go').addEventListener('click', ()=>{
+      closeModal();
+      project.measurements = []; project.calib = null; ui.selected = null;
+      project.name = 'Untitled takeoff'; projName.value = project.name;
+      go();
+    });
+  }else{
+    if(fromWelcome){ project.measurements = []; project.calib = null; }
+    go();
+  }
+}
+document.getElementById('tb-open').addEventListener('click', ()=>document.getElementById('file-plan').click());
+document.getElementById('file-plan').addEventListener('change', e=>{
+  const f = e.target.files[0];
+  if(f) handlePlanFile(f, !workspaceChosen);
+  e.target.value = '';
+});
+
+/* drag & drop a plan onto the viewport */
+viewport.addEventListener('dragover', e=>e.preventDefault());
+viewport.addEventListener('drop', e=>{
+  e.preventDefault();
+  const f = e.dataTransfer.files && e.dataTransfer.files[0];
+  if(f) handlePlanFile(f, !workspaceChosen);
+});
+
+/* ============================= Demo plan & seed ============================= */
+function demoPlanSvg(){
+  /* 9.6m x 7.2m residence at 0.13 px/mm; origin (120,150) */
+  const W=1488, H=1240;
+  const X=(mm)=>120+mm*0.13, Y=(mm)=>150+mm*0.13;
+  const wall = (x1,y1,x2,y2,w=4)=>`<line x1="${X(x1)}" y1="${Y(y1)}" x2="${X(x2)}" y2="${Y(y2)}" stroke="#2F3437" stroke-width="${w}" stroke-linecap="square"/>`;
+  const label = (mmx,mmy,t)=>`<text x="${X(mmx)}" y="${Y(mmy)}" font-family="Courier New,monospace" font-size="17" letter-spacing="2" fill="#8B8880" text-anchor="middle">${t}</text>`;
+  const door = (cx,cy,r,a0)=>`<path d="M ${X(cx)} ${Y(cy)} l ${r*Math.cos(a0)} ${r*Math.sin(a0)} A ${r} ${r} 0 0 1 ${X(cx)+r*Math.cos(a0+Math.PI/2)} ${Y(cy)+r*Math.sin(a0+Math.PI/2)}" fill="none" stroke="#ABA79F" stroke-width="1.5"/>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <rect width="${W}" height="${H}" fill="#FFFFFF"/>
+  <rect x="60" y="60" width="${W-120}" height="${H-120}" fill="none" stroke="#DDD9D0" stroke-width="1"/>
+  <!-- dimension line 9600 -->
+  <line x1="${X(0)}" y1="110" x2="${X(9600)}" y2="110" stroke="#8B8880" stroke-width="1.2"/>
+  <line x1="${X(0)}" y1="100" x2="${X(0)}" y2="120" stroke="#8B8880" stroke-width="1.2"/>
+  <line x1="${X(9600)}" y1="100" x2="${X(9600)}" y2="120" stroke="#8B8880" stroke-width="1.2"/>
+  <text x="${(X(0)+X(9600))/2}" y="98" font-family="Courier New,monospace" font-size="18" letter-spacing="3" fill="#5B5852" text-anchor="middle">9 600</text>
+  <!-- side dimension 7200 -->
+  <line x1="86" y1="${Y(0)}" x2="86" y2="${Y(7200)}" stroke="#8B8880" stroke-width="1.2"/>
+  <line x1="76" y1="${Y(0)}" x2="96" y2="${Y(0)}" stroke="#8B8880" stroke-width="1.2"/>
+  <line x1="76" y1="${Y(7200)}" x2="96" y2="${Y(7200)}" stroke="#8B8880" stroke-width="1.2"/>
+  <text x="70" y="${(Y(0)+Y(7200))/2}" font-family="Courier New,monospace" font-size="18" letter-spacing="3" fill="#5B5852" text-anchor="middle" transform="rotate(-90 70 ${(Y(0)+Y(7200))/2})">7 200</text>
+  <!-- outer walls (double line) -->
+  <rect x="${X(0)}" y="${Y(0)}" width="${X(9600)-X(0)}" height="${Y(7200)-Y(0)}" fill="none" stroke="#2F3437" stroke-width="7"/>
+  <rect x="${X(0)+5}" y="${Y(0)+5}" width="${X(9600)-X(0)-10}" height="${Y(7200)-Y(0)-10}" fill="none" stroke="#2F3437" stroke-width="1.4"/>
+  <!-- interior walls with door gaps -->
+  ${wall(5400,0,5400,1400)} ${wall(5400,2300,5400,7200)}
+  ${wall(0,4200,2100,4200)} ${wall(3000,4200,5400,4200)}
+  ${wall(5400,3000,8300,3000)} ${wall(9200,3000,9600,3000)}
+  ${wall(5400,5100,6600,5100)} ${wall(7500,5100,9600,5100)}
+  ${wall(7500,5100,7500,6300)} ${wall(7500,7000,7500,7200)}
+  ${door(5400,1400,116,Math.PI/2)} ${door(3000,4200,116,0)} ${door(8300,3000,116,0)} ${door(6600,5100,116,0)}
+  <!-- front door gap on south wall -->
+  <line x1="${X(2400)}" y1="${Y(7200)-4}" x2="${X(3300)}" y2="${Y(7200)-4}" stroke="#FFFFFF" stroke-width="10"/>
+  ${door(2400,7200,116,-Math.PI/2)}
+  <!-- windows -->
+  <line x1="${X(1200)}" y1="${Y(0)}" x2="${X(2600)}" y2="${Y(0)}" stroke="#8FB6CE" stroke-width="7"/>
+  <line x1="${X(6300)}" y1="${Y(0)}" x2="${X(7600)}" y2="${Y(0)}" stroke="#8FB6CE" stroke-width="7"/>
+  <line x1="${X(9600)}" y1="${Y(1000)}" x2="${X(9600)}" y2="${Y(2200)}" stroke="#8FB6CE" stroke-width="7"/>
+  <line x1="${X(9600)}" y1="${Y(3600)}" x2="${X(9600)}" y2="${Y(4600)}" stroke="#8FB6CE" stroke-width="7"/>
+  <line x1="${X(700)}" y1="${Y(7200)}" x2="${X(1800)}" y2="${Y(7200)}" stroke="#8FB6CE" stroke-width="7"/>
+  ${label(2700,2200,'LIVING')}
+  ${label(2700,5800,'KITCHEN / MEALS')}
+  ${label(7500,1600,'BED 1')}
+  ${label(7500,4100,'BED 2')}
+  ${label(6400,6300,'BATH')}
+  ${label(8550,6300,'LDY')}
+  ${label(8550,6650,'MSB &#9632;')}
+  <!-- north arrow -->
+  <g transform="translate(${W-150},130)">
+    <circle r="26" fill="none" stroke="#8B8880" stroke-width="1.4"/>
+    <path d="M0 -18 L8 12 L0 6 L-8 12 Z" fill="#5B5852"/>
+    <text y="-34" font-family="Courier New,monospace" font-size="14" fill="#5B5852" text-anchor="middle">N</text>
+  </g>
+  <!-- title block -->
+  <g font-family="Courier New,monospace" fill="#5B5852">
+    <rect x="${W-420}" y="${H-118}" width="${420-60}" height="58" fill="none" stroke="#DDD9D0" stroke-width="1"/>
+    <text x="${W-404}" y="${H-95}" font-size="14" letter-spacing="1">PROPOSED RESIDENCE — LOT 14 KESTREL CT</text>
+    <text x="${W-404}" y="${H-73}" font-size="12" letter-spacing="1" fill="#8B8880">SHEET A-02 · SCALE 1:100 · DEMO PLAN</text>
+  </g>
+</svg>`;
+}
+function loadDemo(){
+  const svg = demoPlanSvg();
+  const url = 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+  const X=(mm)=>120+mm*0.13, Y=(mm)=>150+mm*0.13;
+  project = {
+    name:'Lot 14 Kestrel Ct — electrical fit-off',
+    planUrl:url, planW:1488, planH:1240,
+    calib:{x1:X(0), y1:110, x2:X(9600), y2:110, meters:9.6},
+    items:[
+      {id:'i1', desc:'Double GPO supply & install', unit:'each', rate:118, color:'#22668F'},
+      {id:'i2', desc:'LED downlight supply & install', unit:'each', rate:95, color:'#8F6510'},
+      {id:'i3', desc:'2-way switch', unit:'each', rate:86, color:'#3A6440'},
+      {id:'i4', desc:'TPS 2.5mm cable run', unit:'m', rate:8.4, color:'#9C3330'},
+      {id:'i5', desc:'Ceiling batts R4.0', unit:'m2', rate:24, color:'#6B4FA0'},
+    ],
+    measurements:[
+      {id:'m1', type:'count', itemId:'i2', points:[
+        {x:X(1300),y:Y(1100)},{x:X(2700),y:Y(1100)},{x:X(4100),y:Y(1100)},
+        {x:X(1300),y:Y(3100)},{x:X(2700),y:Y(3100)},{x:X(4100),y:Y(3100)},
+        {x:X(1500),y:Y(5000)},{x:X(3900),y:Y(5000)},{x:X(1500),y:Y(6400)},{x:X(3900),y:Y(6400)},
+      ]},
+      {id:'m2', type:'count', itemId:'i1', points:[
+        {x:X(300),y:Y(3900)},{x:X(2600),y:Y(3950)},{x:X(5100),y:Y(3900)},
+        {x:X(300),y:Y(300)},{x:X(5100),y:Y(6900)},{x:X(300),y:Y(6900)},
+        {x:X(5700),y:Y(300)},{x:X(9300),y:Y(1500)},{x:X(5700),y:Y(4800)},{x:X(9300),y:Y(4000)},
+      ]},
+      {id:'m3', type:'count', itemId:'i3', points:[
+        {x:X(5150),y:Y(1700)},{x:X(2700),y:Y(6950)},{x:X(5650),y:Y(2600)},
+      ]},
+      {id:'m4', type:'length', itemId:'i4', points:[
+        {x:X(8550),y:Y(6800)},{x:X(8550),y:Y(5300)},{x:X(5600),y:Y(5300)},{x:X(5600),y:Y(300)},{x:X(300),y:Y(300)},
+      ]},
+      {id:'m5', type:'area', itemId:'i5', points:[
+        {x:X(5480),y:Y(80)},{x:X(9520),y:Y(80)},{x:X(9520),y:Y(2920)},{x:X(5480),y:Y(2920)},
+      ]},
+    ],
+  };
+  uid = 100;
+  isDemo = true;
+  ui.activeItem = 'i1'; ui.selected = null;
+  projName.value = project.name;
+  setPlan(url);
+}
+
+/* ============================= Exports ============================= */
+let XLSX_URL = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+function loadSheetJS(){
+  if(window.XLSX) return Promise.resolve(window.XLSX);
+  return new Promise((res,rej)=>{
+    const s = document.createElement('script');
+    s.src = XLSX_URL;
+    s.onload = ()=>window.XLSX?res(window.XLSX):rej(new Error('missing'));
+    s.onerror = ()=>rej(new Error('load failed'));
+    document.head.appendChild(s);
+    setTimeout(()=>rej(new Error('timeout')), 12000);
+  });
+}
+const round2 = n => Math.round(n*100)/100;
+const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40)||'takeoff';
+const isoToday = () => new Date().toISOString().slice(0,10);
+
+async function exportForeman(){
+  const t = totals();
+  if(!t.lines.length){ toast('Nothing to export yet — measure something first.'); return; }
+  const X = await loadSheetJS().catch(()=>null);
+  if(!X){ toast('Needs internet to load the Excel engine for export.'); return; }
+  const UNIT_X = {m:'m', m2:'m2', each:'each'};
+  const wb = X.utils.book_new();
+  X.utils.book_append_sheet(wb, X.utils.json_to_sheet([{
+    Title: project.name, Site:'', Date: isoToday(), Status:'draft', TotalExGST: round2(t.sub),
+  }]), 'Quotes');
+  X.utils.book_append_sheet(wb, X.utils.json_to_sheet(t.lines.map(l=>({
+    Quote: project.name, Description: l.item.desc,
+    Qty: l.item.unit==='each' ? l.qty : round2(l.qty),
+    Unit: UNIT_X[l.item.unit], Rate: l.item.rate,
+  }))), 'Quote Lines');
+  X.utils.book_append_sheet(wb, X.utils.json_to_sheet(t.lines.map(l=>({
+    Description: l.item.desc, Unit: UNIT_X[l.item.unit], Rate: l.item.rate,
+  }))), 'Price Book');
+  X.writeFile(wb, `takeoff-${slug(project.name)}.xlsx`);
+  toast('Exported — import it in Foreman and the quote is ready, lines and all.');
+  track('takeoff-export-foreman');
+  beerPrompt('Scope priced, quote ready.', 'That takeoff just went from plan to quote without a scale ruler in sight.');
+}
+
+function saveProjectJson(){
+  const blob = new Blob([JSON.stringify({app:'takeoff', v:1, project}, null, 1)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${slug(project.name)}.takeoff.json`;
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+  toast('Project saved.');
+}
+function openProjectJson(file, fromWelcome){
+  const rd = new FileReader();
+  rd.onload = ()=>{
+    try{
+      const data = JSON.parse(rd.result);
+      if(!data.project || data.app!=='takeoff') throw new Error('not a takeoff project');
+      project = data.project;
+      let mx = 0;
+      project.measurements.forEach(m=>{ const n=Number(String(m.id).replace(/\D/g,'')); if(n>mx)mx=n; });
+      project.items.forEach(i=>{ const n=Number(String(i.id).replace(/\D/g,'')); if(n>mx)mx=n; });
+      uid = mx+1;
+      ui.activeItem = project.items[0] ? project.items[0].id : null;
+      ui.selected = null;
+      isDemo = false;
+      projName.value = project.name;
+      if(fromWelcome){ workspaceChosen = true; hideWelcome(); }
+      if(project.planUrl){ planImg.src = project.planUrl; planImg.onload = fitPlan; }
+      refresh(); fitPlan();
+      toast(`${project.name} opened — ${project.measurements.length} measurements.`);
+    }catch(err){
+      toast('Not a Takeoff project file.');
+    }
+  };
+  rd.readAsText(file);
+}
+document.getElementById('file-proj').addEventListener('change', e=>{
+  const f = e.target.files[0];
+  if(f) openProjectJson(f, !workspaceChosen);
+  e.target.value = '';
+});
+
+function exportPng(){
+  if(!project.planUrl){ toast('No plan loaded.'); return; }
+  const scale = Math.min(2, 2600/Math.max(project.planW, project.planH));
+  const cv = document.createElement('canvas');
+  cv.width = Math.round(project.planW*scale); cv.height = Math.round(project.planH*scale);
+  const cx = cv.getContext('2d');
+  cx.scale(scale, scale);
+  cx.fillStyle = '#FFFFFF'; cx.fillRect(0,0,project.planW,project.planH);
+  const img = new Image();
+  img.onload = ()=>{
+    cx.drawImage(img, 0, 0);
+    const lbl = (x,y,text,color,size=15)=>{
+      cx.font = `700 ${size}px 'JetBrains Mono', monospace`;
+      cx.textAlign = 'center'; cx.lineJoin = 'round';
+      cx.strokeStyle = '#FFFFFF'; cx.lineWidth = 4; cx.strokeText(text,x,y);
+      cx.fillStyle = color; cx.fillText(text,x,y);
+    };
+    if(project.calib){
+      const c = project.calib;
+      cx.strokeStyle = '#A8814B'; cx.lineWidth = 2.4; cx.setLineDash([8,6]);
+      cx.beginPath(); cx.moveTo(c.x1,c.y1); cx.lineTo(c.x2,c.y2); cx.stroke();
+      cx.setLineDash([]);
+      lbl((c.x1+c.x2)/2, (c.y1+c.y2)/2-10, c.meters.toFixed(2)+' m', '#A8814B');
+    }
+    project.measurements.forEach(m=>{
+      const it = itemById(m.itemId); if(!it) return;
+      if(m.type==='length' && m.points.length>=2){
+        cx.strokeStyle = it.color; cx.lineWidth = 3.2; cx.lineCap='round'; cx.lineJoin='round';
+        cx.beginPath(); m.points.forEach((p,i)=>i?cx.lineTo(p.x,p.y):cx.moveTo(p.x,p.y)); cx.stroke();
+        const mid = m.points[Math.floor((m.points.length-1)/2)];
+        lbl(mid.x, mid.y-11, fmtQty(m), it.color);
+      }else if(m.type==='area' && m.points.length>=3){
+        cx.beginPath(); m.points.forEach((p,i)=>i?cx.lineTo(p.x,p.y):cx.moveTo(p.x,p.y)); cx.closePath();
+        cx.fillStyle = it.color+'2B'; cx.fill();
+        cx.strokeStyle = it.color; cx.lineWidth = 2.2; cx.stroke();
+        const c0 = centroid(m.points);
+        lbl(c0.x, c0.y, fmtQty(m), it.color);
+      }else if(m.type==='count'){
+        m.points.forEach((p,i)=>{
+          cx.beginPath(); cx.arc(p.x,p.y,8,0,7);
+          cx.fillStyle = it.color; cx.fill();
+          cx.strokeStyle = '#FFFFFF'; cx.lineWidth = 2; cx.stroke();
+          cx.font = `700 9.5px 'JetBrains Mono', monospace`; cx.textAlign='center';
+          cx.fillStyle = '#FFFFFF'; cx.fillText(String(i+1), p.x, p.y+3.4);
+        });
+      }
+    });
+    /* legend strip */
+    const t = totals();
+    if(t.lines.length){
+      const pad=14, lh=21, w=310, h=pad*2 + lh*(t.lines.length+1) + 8;
+      cx.save();
+      cx.globalAlpha = 0.96;
+      cx.fillStyle = '#FFFFFF'; cx.strokeStyle = '#E7E4DD'; cx.lineWidth = 1.5;
+      const bx = 16, by = 16;
+      cx.beginPath(); cx.roundRect(bx,by,w,h,10); cx.fill(); cx.stroke();
+      cx.globalAlpha = 1;
+      cx.textAlign = 'left';
+      cx.font = `700 11px 'JetBrains Mono', monospace`; cx.fillStyle = '#7D7A74';
+      cx.fillText(project.name.toUpperCase().slice(0,38), bx+pad, by+pad+6);
+      t.lines.forEach((l,i)=>{
+        const y = by+pad+6+lh*(i+1);
+        cx.fillStyle = l.item.color; cx.beginPath(); cx.roundRect(bx+pad, y-9, 11, 11, 3); cx.fill();
+        cx.font = `500 12px 'Instrument Sans', sans-serif`; cx.fillStyle = '#2B2E31'; cx.textAlign='left';
+        cx.fillText(l.item.desc.slice(0,26), bx+pad+18, y);
+        cx.font = `700 11px 'JetBrains Mono', monospace`; cx.textAlign='right';
+        cx.fillText((l.item.unit==='each'?l.qty:l.qty.toFixed(1))+' '+UNIT_LABEL[l.item.unit], bx+w-pad, y);
+      });
+      const y2 = by+pad+6+lh*(t.lines.length+1);
+      cx.font = `700 12px 'JetBrains Mono', monospace`; cx.fillStyle = '#141619'; cx.textAlign='right';
+      cx.fillText(money(t.sub*(1+GST))+' INC GST', bx+w-pad, y2);
+      cx.textAlign='left'; cx.font = `700 9px 'JetBrains Mono', monospace`; cx.fillStyle='#ABA79F';
+      cx.fillText('TAKEOFF · BLUEPRINTAU.COM', bx+pad, y2);
+      cx.restore();
+    }
+    const a = document.createElement('a');
+    a.href = cv.toDataURL('image/png');
+    a.download = `takeoff-${slug(project.name)}.png`;
+    a.click();
+    toast('Marked-up plan exported.');
+  };
+  img.src = project.planUrl;
+}
+
+/* ============================= Export menu, welcome, boot ============================= */
+const exportMenu = document.getElementById('export-menu');
+document.getElementById('tb-export').addEventListener('click', e=>{
+  e.stopPropagation(); exportMenu.classList.toggle('open');
+});
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.menu-wrap')) exportMenu.classList.remove('open');
+});
+document.getElementById('ex-foreman').addEventListener('click', ()=>{ exportMenu.classList.remove('open'); exportForeman(); });
+document.getElementById('ex-png').addEventListener('click', ()=>{ exportMenu.classList.remove('open'); exportPng(); });
+document.getElementById('ex-save').addEventListener('click', ()=>{ exportMenu.classList.remove('open'); saveProjectJson(); });
+document.getElementById('ex-load').addEventListener('click', ()=>{ exportMenu.classList.remove('open'); document.getElementById('file-proj').click(); });
+document.getElementById('ex-beer').addEventListener('click', ()=>{
+  exportMenu.classList.remove('open');
+  window.open(KOFI_URL, '_blank', 'noopener');
+});
+function startOverModal(){
+  exportMenu.classList.remove('open');
+  openModal(`
+    <h3>Start over?</h3>
+    <div class="m-sub">Clears this takeoff and returns to the welcome screen. Save the project first if you want to keep it.</div>
+    <div class="m-actions">
+      <button class="btn" data-close>Cancel</button>
+      <button class="btn" id="rs-save">Save first</button>
+      <button class="btn primary" id="rs-go">Start over</button>
+    </div>
+  `);
+  document.getElementById('rs-save').addEventListener('click', saveProjectJson);
+  document.getElementById('rs-go').addEventListener('click', ()=>{ clearPersisted(); location.reload(); });
+}
+document.getElementById('ex-reset').addEventListener('click', startOverModal);
+document.getElementById('demo-exit').addEventListener('click', startOverModal);
+
+const welcomeEl = document.getElementById('welcome');
+function hideWelcome(){ welcomeEl.classList.add('hidden'); }
+document.getElementById('w-demo').addEventListener('click', ()=>{
+  workspaceChosen = true; loadDemo(); hideWelcome(); track('takeoff-demo-opened');
+});
+document.getElementById('w-plan').addEventListener('click', ()=>document.getElementById('file-plan').click());
+document.getElementById('w-proj').addEventListener('click', ()=>document.getElementById('file-proj').click());
+
+/* ============================= Boot ============================= */
+if(loadPersisted()){
+  hideWelcome();
+  projName.value = project.name;
+  if(project.planUrl){
+    const img = new Image();
+    img.onload = ()=>{ planImg.src = project.planUrl; planImg.width=project.planW; planImg.height=project.planH; fitPlan(); refresh(); };
+    img.src = project.planUrl;
+  }
+}
+setTool('pan');
+refresh();
+</script>
+<script>
+(function () {
+  if (window.__bpEvents) return;          // never bind twice
+  window.__bpEvents = true;
+
+  /* ---- which page are we on? lets you read "call/foreman" vs "call/home" -- */
+  var page = location.pathname
+    .replace(/\/index\.html$/, '/')
+    .replace(/^\/|\/$/g, '')
+    .replace(/\.html$/, '')
+    .replace(/[^a-z0-9/-]/gi, '')
+    .toLowerCase() || 'home';
+
+  /* ---- fire one event -------------------------------------------------- */
+  function hit(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: name, title: name, event: true });
+      return;
+    }
+    // count.js not loaded yet (async) — beacon it directly so nothing is lost.
+    try {
+      new Image().src = 'https://blueprintau.goatcounter.com/count'
+        + '?e=true&p=' + encodeURIComponent(name)
+        + '&t=' + encodeURIComponent(name)
+        + '&rnd=' + Math.random().toString(36).slice(2);
+    } catch (e) {}
+  }
+
+  /* ---- map a clicked link to an event name, or null to ignore ---------- */
+  var TOOLS = /^\/(foreman|takeoff|ledger|roster|catalogue|glassbox)\/?$/;
+
+  function nameFor(a) {
+    var raw = a.getAttribute('href') || '';
+    if (!raw || raw.charAt(0) === '#') {
+      // in-page anchors: only the booking jump is worth counting
+      return /#book/i.test(raw) ? 'cta/book-the-hour/' + page : null;
+    }
+    if (/^tel:/i.test(raw))    return 'call/' + page;
+    if (/^mailto:/i.test(raw)) return 'email/' + page;
+
+    var url;
+    try { url = new URL(a.href, location.href); } catch (e) { return null; }
+    if (!/^https?:$/.test(url.protocol)) return null;
+
+    // outbound
+    if (url.hostname.replace(/^www\./, '') !== location.hostname.replace(/^www\./, '')) {
+      return 'outbound/' + url.hostname.replace(/^www\./, '');
+    }
+
+    var path = url.pathname.replace(/index\.html$/, '');
+    var tool = path.match(TOOLS);
+    if (tool) return 'tool-open/' + tool[1] + '/' + page;
+    if (/^\/build\/?$/.test(path))  return 'cta/build/' + page;
+    if (/^\/intake\/?$/.test(path)) return 'cta/intake/' + page;
+    return null;
+  }
+
+  document.addEventListener('click', function (ev) {
+    // ev.target may be a <span> inside the <a>
+    var a = ev.target && ev.target.closest && ev.target.closest('a[href]');
+    if (!a) return;
+    // let a page opt a link out with data-gc-ignore, or override with data-gc
+    if (a.hasAttribute('data-gc-ignore')) return;
+    var name = a.getAttribute('data-gc') || nameFor(a);
+    if (name) hit(name);
+  }, true);
+
+  /* ---- scroll depth: did anyone actually reach the booking form? ------- */
+  var seen = {};
+  function depth() {
+    var h = document.documentElement;
+    var max = (h.scrollHeight - h.clientHeight);
+    if (max < 400) return;                       // short page, not meaningful
+    var pct = (h.scrollTop || document.body.scrollTop) / max * 100;
+    [50, 90].forEach(function (mark) {
+      if (pct >= mark && !seen[mark]) { seen[mark] = 1; hit('depth/' + mark + '/' + page); }
+    });
+    if (seen[90]) window.removeEventListener('scroll', throttled);
+  }
+  var ticking = false;
+  function throttled() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { depth(); ticking = false; });
+  }
+  window.addEventListener('scroll', throttled, { passive: true });
+})();
+</script>
+<style>
+.seo-about{box-sizing:border-box;width:calc(100% - 32px);max-width:760px;margin:40px auto 24px;padding:28px 26px;background:#fff;color:#1e293b;border:1px solid #e2e8f0;border-radius:14px;font:15px/1.65 Inter,system-ui,sans-serif;}
+.seo-about h2{font-size:22px;line-height:1.3;margin:0 0 10px;color:#0f172a;}
+.seo-about h3{font-size:16px;margin:20px 0 4px;color:#0f172a;}
+.seo-about p{margin:0 0 8px;}
+.seo-about a{color:#c2410c;font-weight:600;}
+</style>
+<section class="seo-about" aria-labelledby="seo-about-h"><h2 id="seo-about-h">Takeoff — free plan takeoff and estimating for tradies</h2><p>Measure lengths, areas and counts off a PDF plan, price them with GST, export quote lines to Foreman. Free takeoff software for Australian trades.</p><h3>What plan formats can I measure from?</h3><p>PDF plans and common image formats (PNG, JPG). Drop the file in, pick a dimension you know — a 2,400 mm door opening, a 900 mm wall length — and Takeoff scales the whole sheet from it.</p><h3>How accurate is a takeoff from a PDF plan?</h3><p>As accurate as the plan and your calibration. Calibrate against the longest dimension you can find on the sheet; a plan at scale is typically within a percent or two, which is well inside the allowance most trades already carry for waste.</p><h3>Is Takeoff free?</h3><p>Yes, free forever. No trial period, no quote limits, no card. Nothing is uploaded — the plan and your measurements stay in your browser.</p><h3>Does it send the quote for me?</h3><p>Takeoff produces the priced scope. Export it as quote lines and it drops straight into Foreman, the free quoting and invoicing app in the same suite, which sends the quote and turns it into a job and a tax invoice.</p><h3>Can I use my own rates?</h3><p>Yes. Takeoff prices against your own price book — lineal, area and count rates — so a square metre of wall tiling or a downlight install is priced at what you actually charge.</p><h3>Which trades use plan takeoffs?</h3><p>Electrical, plumbing, tiling, painting, plastering, carpentry, flooring, landscaping, fencing and small building work — any job where the quantities are on a drawing before they&#x27;re on site.</p><p style="margin-top:18px;">Need a tool built around how your business works? <a href="../build/">Custom software, one tool, $2,000 fixed →</a></p></section>
+</body>
+</html>

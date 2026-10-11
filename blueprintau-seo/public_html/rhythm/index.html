@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta name="robots" content="noindex, follow">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rhythm — Prototype</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 72 44%22%3E%3Cpath d=%22M6 22 C20 4 52 4 66 22 C52 40 20 40 6 22 Z%22 fill=%22%23F7F6F1%22 stroke=%22%2326302B%22 stroke-width=%223%22/%3E%3Cpath d=%22M2 22 H14 L17.5 22 21 12 25.5 32 28.5 22%22 fill=%22none%22 stroke=%22%231E7D3C%22 stroke-width=%223%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M43.5 22 H70%22 stroke=%22%231E7D3C%22 stroke-width=%223%22 stroke-linecap=%22round%22/%3E%3Ccircle cx=%2236%22 cy=%2222%22 r=%227.5%22 fill=%22%231E7D3C%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F6F1; --card:#FFFFFF; --ink:#26302B; --sub:#6E7A72; --line:#E4E1D8;
+  --pulse:#1E7D3C; --pulse-soft:#E3F1E7;
+  --sun:#B97A10; --sun-soft:#FBF0DA; --sun-line:#E8C580;
+  --alert:#C0392B; --alert-soft:#F9E5E1; --alert-line:#E5A79C;
+  --sky:#3B6EA5; --sky-soft:#E4EDF6;
+  --pro:#6C4FD8; --pro-soft:#ECE7FB;
+  --disp:'Fraunces',serif; --body:'Atkinson Hyperlegible',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:#ECE9E0;font-family:var(--body);color:var(--ink);min-height:100vh;padding:18px 10px 40px}
+.protobar{max-width:420px;margin:0 auto 12px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.pchip{font-family:var(--body);font-size:12px;border:1px solid var(--line);background:var(--card);color:var(--sub);
+  border-radius:999px;padding:6px 12px;cursor:pointer}
+.pchip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pchip.toggle.on{background:var(--pulse);border-color:var(--pulse)}
+.phone{max-width:400px;margin:0 auto;background:var(--paper);border-radius:34px;border:1px solid #D8D4C8;
+  box-shadow:0 18px 50px rgba(38,48,43,.18);overflow:hidden;min-height:760px;position:relative}
+.notch{height:26px;display:flex;align-items:center;justify-content:center}
+.notch span{width:110px;height:5px;border-radius:3px;background:#D8D4C8}
+.screen{display:none;padding:10px 22px 30px;animation:fade .18s ease}
+.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+h1{font-family:var(--disp);font-weight:600;font-size:26px;line-height:1.2}
+h2{font-family:var(--disp);font-weight:600;font-size:20px}
+.sub{color:var(--sub);font-size:15px;line-height:1.5}
+.back{background:none;border:none;font-family:var(--body);font-size:16px;color:var(--sub);
+  display:flex;align-items:center;gap:4px;cursor:pointer;padding:8px 0;margin-bottom:4px}
+
+/* heartbeat signature */
+.ecg{display:block;margin:2px auto 0}
+.ecg path{fill:none;stroke:var(--pulse);stroke-width:2;stroke-linecap:round;
+  stroke-dasharray:220;stroke-dashoffset:220;animation:beatline 2.6s linear infinite}
+@keyframes beatline{to{stroke-dashoffset:-220}}
+
+/* elder home */
+.greet{text-align:center;font-size:18px;color:var(--sub);margin:6px 0 18px}
+.ringwrap{display:flex;flex-direction:column;align-items:center;margin-bottom:20px}
+.ring{width:216px;height:216px;border-radius:50%;background:var(--sky-soft);position:relative;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ring svg{position:absolute;inset:0}
+.ring .n{font-family:var(--disp);font-weight:600;font-size:64px;color:var(--sky);line-height:1}
+.ring .t{font-size:16px;color:var(--sky);max-width:150px;line-height:1.35;margin-top:6px;font-weight:700}
+.goodbtn{width:100%;background:var(--pulse);color:#fff;border:none;border-radius:18px;padding:20px;
+  font-family:var(--body);font-weight:700;font-size:21px;cursor:pointer;display:flex;flex-direction:column;
+  align-items:center;gap:2px;box-shadow:0 6px 0 #175F2E;transition:transform .08s,box-shadow .08s}
+.goodbtn:active{transform:translateY(4px);box-shadow:0 2px 0 #175F2E}
+.goodbtn .ecg path{stroke:#CDEBD5}
+.away{width:100%;background:none;border:none;color:var(--sub);font-family:var(--body);font-size:15px;
+  padding:12px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;margin-bottom:8px}
+.away.onmode{color:var(--sun);font-weight:700;text-decoration:none}
+.secthead{font-family:var(--disp);font-size:19px;font-weight:600;margin:8px 0 12px}
+.contact{width:100%;display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);
+  border-radius:16px;padding:14px;margin-bottom:10px;cursor:pointer;text-align:left;font-family:var(--body)}
+.contact:active{background:#F2F0E9}
+.ava{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:16px;flex-shrink:0}
+.contact .nm{font-size:17px;color:var(--ink);flex:1;font-weight:700}
+.contact .nm small{display:block;font-weight:400;font-size:13px;color:var(--sub)}
+.beat{width:14px;height:14px;border-radius:50%;background:var(--pulse);flex-shrink:0;animation:pulse 1.7s ease-in-out infinite}
+.beat.d1{animation-delay:.4s}.beat.d2{animation-delay:.9s}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(30,125,60,.45)}70%{box-shadow:0 0 0 11px rgba(30,125,60,0)}100%{box-shadow:0 0 0 0 rgba(30,125,60,0)}}
+.beat.y{background:var(--sun);animation-name:pulsey}
+@keyframes pulsey{0%{box-shadow:0 0 0 0 rgba(185,122,16,.5)}70%{box-shadow:0 0 0 11px rgba(185,122,16,0)}100%{box-shadow:0 0 0 0 rgba(185,122,16,0)}}
+.beat.r{background:var(--alert);animation-name:pulser;animation-duration:1s}
+@keyframes pulser{0%{box-shadow:0 0 0 0 rgba(192,57,43,.55)}70%{box-shadow:0 0 0 12px rgba(192,57,43,0)}100%{box-shadow:0 0 0 0 rgba(192,57,43,0)}}
+
+/* cards & bits */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
+.rowline{display:flex;align-items:center;gap:12px}
+.rowline .lbl{font-size:14px;color:var(--sub)}
+.rowline .val{font-size:18px;font-weight:700}
+.mini-map{height:112px;border-radius:12px;background:#EFEDE6;position:relative;overflow:hidden;margin-top:12px}
+.mini-map::before{content:"";position:absolute;inset:0;
+  background-image:linear-gradient(#E1DED4 1px,transparent 1px),linear-gradient(90deg,#E1DED4 1px,transparent 1px);
+  background-size:22px 22px}
+.pin{position:absolute;width:16px;height:16px;border-radius:50%;background:var(--sky);box-shadow:0 0 0 7px rgba(59,110,165,.2)}
+.notegps{display:flex;align-items:center;gap:10px;color:var(--sub);font-size:15px;padding:6px 4px}
+.badge{font-size:11px;font-weight:700;border-radius:6px;padding:3px 7px;letter-spacing:.04em}
+.badge.pro{background:var(--pro-soft);color:var(--pro)}
+.badge.y{background:var(--sun-soft);color:var(--sun)}
+.badge.r{background:var(--alert-soft);color:var(--alert)}
+.badge.g{background:var(--pulse-soft);color:var(--pulse)}
+
+/* toggles */
+.permrow{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.permrow .pl{display:flex;align-items:center;gap:8px;font-size:15px}
+.sw{position:relative;width:44px;height:26px;flex-shrink:0;cursor:pointer}
+.sw input{opacity:0;width:0;height:0}
+.sw .tr{position:absolute;inset:0;background:#D8D4C8;border-radius:13px;transition:background .15s}
+.sw .tr::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .15s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.sw input:checked + .tr{background:var(--pulse)}
+.sw input:checked + .tr::after{transform:translateX(18px)}
+
+/* buttons */
+.btn{width:100%;border:none;border-radius:14px;padding:15px;font-family:var(--body);font-weight:700;
+  font-size:16px;cursor:pointer;margin-bottom:10px}
+.btn.primary{background:var(--ink);color:#fff}
+.btn.green{background:var(--pulse);color:#fff}
+.btn.ghost{background:none;border:1px solid var(--line);color:var(--ink)}
+.btn.prov{background:var(--pro);color:#fff}
+.btn.call{background:var(--alert);color:#fff;display:flex;align-items:center;justify-content:center;gap:8px}
+
+/* watcher list */
+.wrow{width:100%;display:flex;align-items:center;gap:12px;border-radius:14px;padding:12px;margin-bottom:8px;
+  cursor:pointer;text-align:left;font-family:var(--body);background:none;border:none}
+.wrow .nm{flex:1;font-size:16px;color:var(--ink);font-weight:700}
+.wrow .nm small{display:block;font-weight:400;font-size:12.5px;color:var(--sub)}
+.wrow.flag-y{background:var(--sun-soft);border:2px solid var(--sun-line)}
+.wrow.flag-y .nm,.wrow.flag-y .nm small{color:var(--sun)}
+.wrow.flag-r{background:var(--alert-soft);border:2px solid var(--alert-line)}
+.wrow.flag-r .nm,.wrow.flag-r .nm small{color:var(--alert)}
+.divider{height:1px;background:var(--line);margin:10px 4px}
+
+/* chart */
+.legend{display:flex;gap:16px;font-size:13px;color:var(--sub);margin:10px 0 6px}
+.legend span{display:flex;align-items:center;gap:5px}
+.lk{width:14px;height:0;border-top:3px solid #B9B5A8;display:inline-block}
+.lk.dash{border-top-style:dashed}
+.lk.red{border-top-color:var(--alert)}
+
+/* toast */
+.toast{position:absolute;left:50%;bottom:26px;transform:translateX(-50%) translateY(80px);opacity:0;
+  background:var(--ink);color:#fff;font-size:14px;padding:12px 18px;border-radius:12px;transition:all .25s;
+  white-space:nowrap;z-index:40;pointer-events:none}
+.toast.show{transform:translateX(-50%);opacity:1}
+
+/* modal */
+.modal-ov{position:absolute;inset:0;background:rgba(38,48,43,.45);display:none;align-items:flex-end;z-index:30}
+.modal-ov.on{display:flex}
+.modal{background:var(--card);border-radius:24px 24px 0 0;padding:24px 22px 30px;width:100%;animation:up .2s ease}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+
+/* onboarding */
+.ob-hero{text-align:center;padding:34px 6px 8px}
+.ob-hero h1{font-size:34px;margin-bottom:8px}
+.ob-hero .brand{color:var(--pulse)}
+.steps{margin:20px 0}
+.step{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px}
+.step .ic{width:40px;height:40px;border-radius:12px;background:var(--pulse-soft);color:var(--pulse);
+  display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;font-weight:700}
+.step p{font-size:15px;line-height:1.5}
+.step p b{display:block;font-size:16px}
+
+/* invite */
+.codebox{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;
+  display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:14px}
+.codebig{font-family:var(--disp);font-weight:600;font-size:38px;letter-spacing:.18em}
+.qr{width:132px;height:132px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px}
+.warn{background:var(--sun-soft);border-radius:12px;padding:11px 13px;display:flex;gap:9px;align-items:flex-start;
+  font-size:13.5px;color:var(--sun);line-height:1.45}
+
+.pending-ic{width:60px;height:60px;border-radius:50%;background:var(--card);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 14px}
+.center{text-align:center}
+icon{font-style:normal}
+</style>
+<script data-goatcounter="https://blueprintau.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script></head>
+<body>
+
+<div class="protobar" id="protobar">
+  <button class="pchip on" data-s="ob">Onboarding</button>
+  <button class="pchip" data-s="ehome">Elder home</button>
+  <button class="pchip" data-s="perms">Permissions</button>
+  <button class="pchip" data-s="invite">Invite</button>
+  <button class="pchip" data-s="wlist">Watcher list</button>
+  <button class="pchip" data-s="accept">Accept invite</button>
+  <button class="pchip toggle" id="alertToggle">Simulate alerts: OFF</button>
+  <button class="pchip toggle" id="proToggle">Pro: OFF</button>
+</div>
+
+<div class="phone">
+<div class="notch"><span></span></div>
+<div class="toast" id="toast"></div>
+<!-- ============ ONBOARDING ============ -->
+<section class="screen on" id="s-ob">
+  <div class="ob-hero">
+    <div style="display:flex;justify-content:center;margin-bottom:12px"><svg class="logomark" width="86" height="54" viewBox="0 0 72 44" aria-label="Rhythm logo">
+      <path d="M6 22 C20 4 52 4 66 22 C52 40 20 40 6 22 Z" fill="#FFFFFF" stroke="#26302B" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M2 22 H14 L17.5 22 21 12 25.5 32 28.5 22" fill="none" stroke="#1E7D3C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M43.5 22 H70" fill="none" stroke="#1E7D3C" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="36" cy="22" r="7.5" fill="#1E7D3C"/>
+      <circle cx="33.6" cy="19.6" r="2.1" fill="#CDEBD5"/>
+    </svg></div>
+    <h1>Rhythm<span class="brand">.</span></h1>
+    <p class="sub">Your family, quietly looking out for each other.</p>
+    <svg class="ecg" width="220" height="34" viewBox="0 0 220 34"><path d="M0 17 H70 L80 17 86 6 94 28 100 17 H150 L158 17 164 9 171 25 176 17 H220"/></svg>
+  </div>
+  <div class="steps">
+    <div class="step"><span class="ic">1</span><p><b>Use your phone like always</b>It learns your daily rhythm on its own. Nothing to press, nothing to remember.</p></div>
+    <div class="step"><span class="ic">2</span><p><b>Invite the people you trust</b>Only people you invite can see anything, and you choose exactly what each one sees.</p></div>
+    <div class="step"><span class="ic">3</span><p><b>They'll know you're okay</b>If your day looks unusual, they get a gentle nudge to give you a call.</p></div>
+  </div>
+  <button class="btn green" onclick="go('ehome')">Get started</button>
+  <p class="sub center" style="font-size:13px">No one can see anything until you invite them.</p>
+</section>
+
+<!-- ============ ELDER HOME ============ -->
+<section class="screen" id="s-ehome">
+  <div style="display:flex;justify-content:center;padding-top:6px"><svg width="40" height="25" viewBox="0 0 72 44" aria-hidden="true" style="display:block">
+    <path d="M6 22 C20 4 52 4 66 22 C52 40 20 40 6 22 Z" fill="#FFFFFF" stroke="#26302B" stroke-width="3.4" stroke-linejoin="round"/>
+    <path d="M2 22 H14 L17.5 22 21 12 25.5 32 28.5 22" fill="none" stroke="#1E7D3C" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M43.5 22 H70" fill="none" stroke="#1E7D3C" stroke-width="3.4" stroke-linecap="round"/>
+    <circle cx="36" cy="22" r="7.5" fill="#1E7D3C"/>
+    <circle cx="33.6" cy="19.6" r="2.1" fill="#CDEBD5"/>
+  </svg></div>
+  <p class="greet" id="greet" style="margin-top:4px">Good morning, Elaine</p>
+  <div class="ringwrap">
+    <div class="ring">
+      <svg viewBox="0 0 216 216" fill="none">
+        <circle cx="108" cy="108" r="103" stroke="#C9D9EA" stroke-width="6"/>
+        <circle cx="108" cy="108" r="103" stroke="#3B6EA5" stroke-width="6" stroke-linecap="round"
+          stroke-dasharray="647" stroke-dashoffset="404" transform="rotate(-90 108 108)"/>
+      </svg>
+      <span class="n" id="checkCount">3</span>
+      <span class="t">people checked on you today</span>
+    </div>
+  </div>
+  <button class="goodbtn" onclick="imGood()">
+    I'm doing good
+    <svg class="ecg" width="150" height="24" viewBox="0 0 150 24"><path d="M0 12 H48 L56 12 61 4 68 20 73 12 H150"/></svg>
+  </button>
+  <button class="away" id="awayBtn" onclick="toggleAway()">I'm away for a while</button>
+  <p class="secthead">People you watch over</p>
+  <div id="elderContacts"></div>
+  <button class="btn ghost" onclick="go('invite')">Invite someone to watch over you</button>
+  <button class="btn ghost" onclick="go('perms')" style="margin-bottom:0">Who's watching me</button>
+</section>
+
+<!-- ============ CONTACT STATUS (dynamic) ============ -->
+<section class="screen" id="s-cstat">
+  <button class="back" onclick="go('ehome')">&#8249; Back</button>
+  <div class="center" style="margin-bottom:20px">
+    <div class="ava" id="csAva" style="width:88px;height:88px;font-size:28px;margin:0 auto 12px"></div>
+    <h2 id="csName"></h2>
+    <p style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px">
+      <span class="beat" style="width:12px;height:12px"></span>
+      <span style="color:var(--pulse);font-weight:700;font-size:16px">Doing good</span>
+    </p>
+  </div>
+  <div class="card"><div class="rowline"><icon style="font-size:20px">&#128337;</icon><div><p class="lbl">Last active</p><p class="val" id="csActive"></p></div></div></div>
+  <div class="card" id="csGpsCard">
+    <div class="rowline"><icon style="font-size:20px">&#128205;</icon><div><p class="lbl">Last known location</p><p class="val" id="csPlace"></p></div></div>
+    <div class="mini-map"><span class="pin" style="top:55%;left:62%"></span></div>
+  </div>
+  <p class="notegps" id="csNoGps" style="display:none"><icon>&#128683;</icon><span id="csNoGpsText"></span></p>
+</section>
+
+<!-- ============ PERMISSIONS ============ -->
+<section class="screen" id="s-perms">
+  <button class="back" onclick="go('ehome')">&#8249; Back</button>
+  <h2>Who's watching over you</h2>
+  <p class="sub" style="margin:4px 0 16px">Turn each person's access on or off, any time. They're told when it changes.</p>
+  <div id="permCards"></div>
+  <button class="btn primary" onclick="go('invite')">Invite someone new</button>
+</section>
+
+<!-- ============ INVITE ============ -->
+<section class="screen" id="s-invite">
+  <button class="back" onclick="go('ehome')">&#8249; Back</button>
+  <h2>Invite someone to watch over you</h2>
+  <p class="sub" style="margin:4px 0 16px">They'll join with no access until you turn it on for them.</p>
+  <div class="codebox">
+    <svg class="qr" viewBox="0 0 100 100"><rect width="100" height="100" fill="#fff"/><g fill="#26302B"><rect x="4" y="4" width="24" height="24"/><rect x="10" y="10" width="12" height="12" fill="#fff"/><rect x="14" y="14" width="4" height="4"/><rect x="72" y="4" width="24" height="24"/><rect x="78" y="10" width="12" height="12" fill="#fff"/><rect x="82" y="14" width="4" height="4"/><rect x="4" y="72" width="24" height="24"/><rect x="10" y="78" width="12" height="12" fill="#fff"/><rect x="14" y="82" width="4" height="4"/><rect x="36" y="6" width="6" height="6"/><rect x="48" y="4" width="4" height="8"/><rect x="58" y="8" width="6" height="4"/><rect x="34" y="18" width="8" height="4"/><rect x="50" y="16" width="4" height="6"/><rect x="60" y="18" width="4" height="4"/><rect x="6" y="34" width="6" height="6"/><rect x="4" y="48" width="8" height="4"/><rect x="8" y="58" width="4" height="6"/><rect x="34" y="34" width="8" height="8"/><rect x="48" y="36" width="6" height="4"/><rect x="36" y="48" width="4" height="8"/><rect x="46" y="50" width="8" height="6"/><rect x="58" y="34" width="4" height="6"/><rect x="64" y="40" width="8" height="4"/><rect x="58" y="50" width="6" height="6"/><rect x="72" y="36" width="6" height="6"/><rect x="84" y="34" width="6" height="8"/><rect x="74" y="50" width="8" height="4"/><rect x="88" y="52" width="6" height="6"/><rect x="36" y="62" width="6" height="6"/><rect x="48" y="64" width="8" height="4"/><rect x="60" y="60" width="4" height="8"/><rect x="72" y="62" width="6" height="4"/><rect x="84" y="64" width="8" height="6"/><rect x="34" y="74" width="4" height="8"/><rect x="44" y="78" width="8" height="4"/><rect x="56" y="72" width="6" height="8"/><rect x="36" y="88" width="8" height="6"/><rect x="50" y="88" width="4" height="6"/><rect x="60" y="86" width="6" height="6"/><rect x="72" y="74" width="4" height="6"/><rect x="80" y="78" width="8" height="8"/><rect x="74" y="90" width="8" height="4"/></g></svg>
+    <div class="center"><p class="sub" style="font-size:13px;margin-bottom:4px">Or share this code</p><p class="codebig">7K2M</p></div>
+  </div>
+  <button class="btn green" onclick="toast('Share sheet opens \u2014 pick a contact')">&#8599;&#xFE0E; Share invite link</button>
+  <p class="sub center" style="font-size:12.5px;margin-bottom:14px">Opens your phone's share sheet — text, WhatsApp, email, whatever's easiest.</p>
+  <div class="warn"><icon>&#9202;</icon><span>This code works once and expires in 24 hours. You can always make a new one.</span></div>
+</section>
+<!-- ============ WATCHER LIST ============ -->
+<section class="screen" id="s-wlist">
+  <div style="display:flex;align-items:center;gap:10px;margin:6px 0 2px"><svg width="40" height="25" viewBox="0 0 72 44" aria-hidden="true" style="display:block">
+    <path d="M6 22 C20 4 52 4 66 22 C52 40 20 40 6 22 Z" fill="#FFFFFF" stroke="#26302B" stroke-width="3.4" stroke-linejoin="round"/>
+    <path d="M2 22 H14 L17.5 22 21 12 25.5 32 28.5 22" fill="none" stroke="#1E7D3C" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M43.5 22 H70" fill="none" stroke="#1E7D3C" stroke-width="3.4" stroke-linecap="round"/>
+    <circle cx="36" cy="22" r="7.5" fill="#1E7D3C"/>
+    <circle cx="33.6" cy="19.6" r="2.1" fill="#CDEBD5"/>
+  </svg><h1>Your people</h1></div>
+  <p class="sub" id="wlistSub" style="margin-bottom:16px">Everyone's doing fine today.</p>
+  <div id="wlistRows"></div>
+</section>
+
+<!-- ============ WATCHER PROFILE (dynamic) ============ -->
+<section class="screen" id="s-wprof">
+  <button class="back" onclick="go('wlist')">&#8249; Back</button>
+  <div class="rowline" style="margin-bottom:14px">
+    <div class="ava" id="wpAva" style="width:52px;height:52px;font-size:17px"></div>
+    <div style="flex:1">
+      <h2 id="wpName"></h2>
+      <p style="margin-top:3px"><span class="badge" id="wpBadge"></span> <span class="sub" id="wpReason" style="font-size:13.5px"></span></p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="legend"><span><span class="lk dash"></span>Usual pattern</span><span><span class="lk red" id="lkToday"></span>Today</span></div>
+    <svg id="wpChart" width="100%" height="130" viewBox="0 0 320 130" preserveAspectRatio="none"></svg>
+    <div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--sub);margin-top:4px">
+      <span>5am</span><span>7am</span><span>9am</span><span>11am</span><span>1pm</span>
+    </div>
+  </div>
+  <div class="card" style="display:flex;gap:16px">
+    <div style="flex:1"><p class="lbl" style="font-size:13px;color:var(--sub)">Last active</p><p class="val" id="wpActive" style="font-size:16px"></p></div>
+    <div style="flex:1"><p class="lbl" style="font-size:13px;color:var(--sub)">Battery</p><p class="val" id="wpBattery" style="font-size:16px"></p></div>
+  </div>
+  <div class="card" id="wpGps">
+    <div class="rowline" style="justify-content:space-between">
+      <div class="rowline"><icon style="font-size:18px">&#128205;</icon><div><p class="lbl">Location</p><p class="val" id="wpPlace" style="font-size:16px"></p></div></div>
+      <span class="badge pro">PRO</span>
+    </div>
+    <div class="mini-map" id="wpMap"><span class="pin" style="top:48%;left:44%"></span></div>
+    <button class="btn prov" id="wpUpsell" style="margin:12px 0 0" onclick="openPro()">See where they are — try Pro</button>
+  </div>
+  <div id="wpActions"></div>
+</section>
+
+<!-- ============ ACCEPT INVITE ============ -->
+<section class="screen" id="s-accept">
+  <div class="center" style="padding-top:26px;margin-bottom:20px">
+    <div class="ava" style="width:72px;height:72px;font-size:24px;background:var(--pulse-soft);color:var(--pulse);margin:0 auto 14px">EM</div>
+    <h2>Elaine wants you to help watch over her</h2>
+    <p class="sub" style="margin-top:4px">on Rhythm</p>
+  </div>
+  <div class="card">
+    <p style="font-weight:700;font-size:15px;margin-bottom:10px">What this means</p>
+    <p class="sub" style="margin-bottom:8px">&#128336;&#xFE0E; You may see when she's been active, if she turns it on for you.</p>
+    <p class="sub" style="margin-bottom:8px">&#128205;&#xFE0E; You may see her location, if she turns it on for you.</p>
+    <p class="sub">&#128274;&#xFE0E; Right now you have neither. She controls both, any time.</p>
+  </div>
+  <button class="btn green" onclick="go('pending')">Accept and join</button>
+  <button class="btn ghost" onclick="toast('Invite declined')">Not now</button>
+</section>
+
+<!-- ============ PENDING ============ -->
+<section class="screen" id="s-pending">
+  <div class="center" style="padding-top:60px">
+    <div class="pending-ic">&#8987;</div>
+    <h2>You're in, waiting on Elaine</h2>
+    <p class="sub" style="margin:8px 0 22px">She hasn't turned on your access yet. This updates by itself once she does.</p>
+  </div>
+  <div class="card">
+    <div class="permrow" style="border-top:none"><span class="pl">&#128336;&#xFE0E; Seen (activity)</span><span class="sub">Not yet</span></div>
+    <div class="permrow"><span class="pl">&#128205;&#xFE0E; GPS location</span><span class="sub">Not yet</span></div>
+  </div>
+  <button class="btn ghost" onclick="go('wlist')">Go to your people</button>
+</section>
+
+<!-- ============ PRO PAYWALL (modal) ============ -->
+<div class="modal-ov" id="proModal">
+  <div class="modal">
+    <p class="badge pro" style="display:inline-block;margin-bottom:10px">RHYTHM PRO</p>
+    <h2 style="margin-bottom:6px">Know where, not just when</h2>
+    <p class="sub" style="margin-bottom:16px">One plan covers your whole circle around Elaine. She never pays a thing.</p>
+    <div class="card" style="margin-bottom:14px">
+      <p class="sub" style="margin-bottom:7px">&#128205;&#xFE0E; <b style="color:var(--ink)">Live location</b> on every contact you're allowed to see</p>
+      <p class="sub" style="margin-bottom:7px">&#127968;&#xFE0E; <b style="color:var(--ink)">Home zone</b> — know if they've wandered unusually far</p>
+      <p class="sub">&#128721;&#xFE0E; <b style="color:var(--ink)">No-movement signal</b> makes red alerts smarter</p>
+    </div>
+    <button class="btn prov" onclick="enablePro()">Start Pro — $4.99/month</button>
+    <button class="btn ghost" style="margin-bottom:0" onclick="closePro()">Not now</button>
+  </div>
+</div>
+</div>
+
+<p style="text-align:center;color:#6E7A72;font-size:12.5px;margin-top:14px;font-family:'Atkinson Hyperlegible',system-ui,sans-serif"><a href="./terms.html" style="color:#6E7A72">Terms</a> &middot; <a href="./privacy.html" style="color:#6E7A72">Privacy</a></p>
+
+<script>
+const $=id=>document.getElementById(id);
+const S={
+  alerts:false, pro:false, away:false, checkCount:3,
+  elderContacts:[
+    {ini:'MJ',name:'Mum',sub:'Doing good',c:'#E4EDF6',t:'#3B6EA5',active:'25 minutes ago',place:'Home',gps:true},
+    {ini:'TJ',name:'Grandson Tom',sub:'Doing good',c:'#ECE7FB',t:'#6C4FD8',active:'10 minutes ago',place:'Riverside Park',gps:true},
+    {ini:'SB',name:'Sister Betty',sub:'Doing good',c:'#FBF0DA',t:'#B97A10',active:'1 hour ago',place:null,gps:false}
+  ],
+  watched:[
+    {ini:'GD',name:'Grandpa',c:'#F9E5E1',t:'#C0392B',state:'y',reason:'Off his routine, worth a call',active:'3h ago',battery:'62%',place:'Home',phone:'grandpa'},
+    {ini:'EM',name:'Grandma Elaine',c:'#E4EDF6',t:'#3B6EA5',state:'g',reason:'Active as usual',active:'12 min ago',battery:'81%',place:'Home',phone:'elaine'},
+    {ini:'SB',name:'Sister Betty',c:'#FBF0DA',t:'#B97A10',state:'r',reason:'Quiet 6h · phone off since 9:12am',active:'6h ago',battery:'Phone off',place:'Unknown',phone:'betty'}
+  ],
+  perms:[
+    {ini:'MJ',name:'Mum',c:'#E4EDF6',t:'#3B6EA5',seen:true,gps:true},
+    {ini:'TJ',name:'Grandson Tom',c:'#ECE7FB',t:'#6C4FD8',seen:true,gps:false},
+    {ini:'SB',name:'Sister Betty',c:'#FBF0DA',t:'#B97A10',seen:false,gps:false}
+  ]
+};
+
+function go(s){
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));
+  $('s-'+s).classList.add('on');
+  document.querySelectorAll('.protobar .pchip[data-s]').forEach(c=>c.classList.toggle('on',c.dataset.s===s));
+  if(s==='ehome')renderElder();
+  if(s==='perms')renderPerms();
+  if(s==='wlist')renderWlist();
+}
+document.querySelectorAll('.protobar .pchip[data-s]').forEach(c=>c.onclick=()=>go(c.dataset.s));
+
+let toastT=null;
+function toast(msg){
+  const t=$('toast');t.textContent=msg;t.classList.add('show');
+  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+/* ---------- elder side ---------- */
+function renderElder(){
+  const h=new Date().getHours();
+  $('greet').textContent=(h<12?'Good morning':(h<18?'Good afternoon':'Good evening'))+', Elaine';
+  $('checkCount').textContent=S.checkCount;
+  $('elderContacts').innerHTML=S.elderContacts.map((c,i)=>`
+    <button class="contact" onclick="openContact(${i})">
+      <span class="ava" style="background:${c.c};color:${c.t}">${c.ini}</span>
+      <span class="nm">${c.name}<small>${c.sub}</small></span>
+      <span class="beat ${i===1?'d1':(i===2?'d2':'')}"></span>
+    </button>`).join('');
+  const a=$('awayBtn');
+  a.textContent=S.away?'Away mode on — watchers can see you\u2019re travelling. Tap to turn off.':'I\u2019m away for a while';
+  a.classList.toggle('onmode',S.away);
+}
+function imGood(){
+  S.checkCount=0;renderElder();
+  toast('Everyone\u2019s been told you\u2019re doing good \u2764');
+}
+function toggleAway(){
+  S.away=!S.away;renderElder();
+  toast(S.away?'Alerts paused while you\u2019re away':'Welcome back \u2014 alerts back on');
+}
+function openContact(i){
+  const c=S.elderContacts[i];
+  $('csAva').style.background=c.c;$('csAva').style.color=c.t;$('csAva').textContent=c.ini;
+  $('csName').textContent=c.name;
+  $('csActive').textContent=c.active;
+  if(c.gps){
+    $('csGpsCard').style.display='';$('csNoGps').style.display='none';
+    $('csPlace').textContent=c.place;
+  }else{
+    $('csGpsCard').style.display='none';$('csNoGps').style.display='flex';
+    $('csNoGpsText').textContent=c.name.split(' ').pop()+' hasn\u2019t shared their location with you';
+  }
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));
+  $('s-cstat').classList.add('on');
+}
+
+/* ---------- permissions ---------- */
+function renderPerms(){
+  $('permCards').innerHTML=S.perms.map((p,i)=>`
+    <div class="card">
+      <div class="rowline" style="margin-bottom:6px">
+        <span class="ava" style="width:40px;height:40px;font-size:14px;background:${p.c};color:${p.t}">${p.ini}</span>
+        <span style="font-weight:700;font-size:16px">${p.name}</span>
+      </div>
+      <div class="permrow"><span class="pl">&#128336;&#xFE0E; Seen (activity)</span>
+        <label class="sw"><input type="checkbox" ${p.seen?'checked':''} onchange="setPerm(${i},'seen',this.checked)"><span class="tr"></span></label></div>
+      <div class="permrow"><span class="pl">&#128205;&#xFE0E; GPS location <span class="badge pro">PRO</span></span>
+        <label class="sw"><input type="checkbox" ${p.gps?'checked':''} onchange="setGps(${i},this)"><span class="tr"></span></label></div>
+    </div>`).join('');
+}
+function setPerm(i,k,v){
+  S.perms[i][k]=v;
+  toast(S.perms[i].name+(v?' can now see your activity':' can no longer see your activity'));
+}
+function setGps(i,el){
+  if(el.checked&&!S.pro){
+    el.checked=false;
+    openPro();
+    return;
+  }
+  S.perms[i].gps=el.checked;
+  toast(S.perms[i].name+(el.checked?' can now see your location':' can no longer see your location'));
+}
+
+/* ---------- watcher side ---------- */
+function renderWlist(){
+  let list=[...S.watched];
+  if(!S.alerts)list=list.map(w=>({...w,state:'g',reason:'Active as usual',battery:w.battery==='Phone off'?'74%':w.battery}));
+  const rank={r:0,y:1,g:2};
+  const flagged=list.filter(w=>w.state!=='g').sort((a,b)=>rank[a.state]-rank[b.state]);
+  const calm=list.filter(w=>w.state==='g').sort((a,b)=>a.name.localeCompare(b.name));
+  $('wlistSub').textContent=flagged.length? (flagged.length===1?'One person needs your attention.':flagged.length+' people need your attention.') :'Everyone\u2019s doing fine today.';
+  const row=(w,i)=>`
+    <button class="wrow ${w.state==='y'?'flag-y':(w.state==='r'?'flag-r':'')}" onclick="openWprof('${w.phone}')">
+      <span class="ava" style="width:42px;height:42px;font-size:14px;background:${w.state==='g'?w.c:'#fff'};color:${w.t}">${w.ini}</span>
+      <span class="nm">${w.name}<small>${w.state==='y'?'Yellow \u00b7 ':(w.state==='r'?'Red \u00b7 ':'')}${w.reason}</small></span>
+      <span class="beat ${w.state==='y'?'y':(w.state==='r'?'r':'')}" style="width:11px;height:11px"></span>
+    </button>`;
+  $('wlistRows').innerHTML=flagged.map(row).join('')+(flagged.length&&calm.length?'<div class="divider"></div>':'')+calm.map(row).join('');
+}
+function chartPath(pts,W,H){
+  return pts.map((v,i)=>(i===0?'M':'L')+(i/(pts.length-1)*W).toFixed(1)+' '+((1-v)*(H-16)+8).toFixed(1)).join(' ');
+}
+function openWprof(key){
+  let w=S.watched.find(x=>x.phone===key);
+  if(!S.alerts)w={...w,state:'g',reason:'Active as usual',battery:w.battery==='Phone off'?'74%':w.battery,active:'12 min ago'};
+  $('wpAva').style.background=w.c;$('wpAva').style.color=w.t;$('wpAva').textContent=w.ini;
+  $('wpName').textContent=w.name;
+  const b=$('wpBadge');
+  b.className='badge '+(w.state==='y'?'y':(w.state==='r'?'r':'g'));
+  b.textContent=w.state==='y'?'YELLOW':(w.state==='r'?'RED':'ALL GOOD');
+  $('wpReason').textContent=w.reason;
+  $('wpActive').textContent=w.active;
+  $('wpBattery').textContent=w.battery;
+  const usual=[0,.06,.3,.85,.7,.5,.55,.62,.75,.68];
+  const today=w.state==='g'?[0,.05,.26,.8,.66,.52,.5,.58,null,null]:[0,.05,.22,.12,.07,.05,.05,.04,.04,.04];
+  const svg=$('wpChart');
+  const col=w.state==='y'?'#B97A10':(w.state==='r'?'#C0392B':'#1E7D3C');
+  $('lkToday').style.borderTopColor=col;
+  const t=today.filter(v=>v!==null);
+  svg.innerHTML=
+    '<path d="'+chartPath(usual,320,130)+'" fill="none" stroke="#B9B5A8" stroke-width="2.5" stroke-dasharray="6 5"/>'+
+    '<path d="'+chartPath(t,320*(t.length-1)/(usual.length-1),130)+'" fill="none" stroke="'+col+'" stroke-width="3" stroke-linecap="round"/>';
+  const gpsAllowed=true;
+  if(S.pro){
+    $('wpMap').style.display='';$('wpUpsell').style.display='none';
+    $('wpPlace').textContent=w.place;
+  }else{
+    $('wpMap').style.display='none';$('wpUpsell').style.display='';
+    $('wpPlace').textContent='\u2014';
+  }
+  $('wpActions').innerHTML=w.state==='g'?'':(
+    '<button class="btn call" onclick="toast(\'Calling '+w.name+'\u2026\')">&#128222;&#xFE0E; Call '+w.name+' now</button>'+
+    (w.state==='r'?'<button class="btn primary" onclick="toast(\'Everyone in the circle has been alerted\')">Alert the whole circle</button>':'')+
+    '<button class="btn ghost" onclick="toast(\'Marked as okay \u2014 back to normal\')">I spoke to them \u2014 all good</button>');
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));
+  $('s-wprof').classList.add('on');
+}
+
+/* ---------- pro ---------- */
+function openPro(){$('proModal').classList.add('on');}
+function closePro(){$('proModal').classList.remove('on');}
+function enablePro(){
+  S.pro=true;closePro();syncChips();
+  toast('Pro is on for your whole circle');
+  if($('s-wprof').classList.contains('on'))renderWlist();
+}
+
+/* ---------- prototype chrome ---------- */
+function syncChips(){
+  $('alertToggle').textContent='Simulate alerts: '+(S.alerts?'ON':'OFF');
+  $('alertToggle').classList.toggle('on',S.alerts);
+  $('proToggle').textContent='Pro: '+(S.pro?'ON':'OFF');
+  $('proToggle').classList.toggle('on',S.pro);
+}
+$('alertToggle').onclick=()=>{S.alerts=!S.alerts;syncChips();if($('s-wlist').classList.contains('on'))renderWlist();else go('wlist');};
+$('proToggle').onclick=()=>{S.pro=!S.pro;syncChips();};
+syncChips();renderElder();
+</script>
+<script>
+(function () {
+  if (window.__bpEvents) return;          // never bind twice
+  window.__bpEvents = true;
+
+  /* ---- which page are we on? lets you read "call/foreman" vs "call/home" -- */
+  var page = location.pathname
+    .replace(/\/index\.html$/, '/')
+    .replace(/^\/|\/$/g, '')
+    .replace(/\.html$/, '')
+    .replace(/[^a-z0-9/-]/gi, '')
+    .toLowerCase() || 'home';
+
+  /* ---- fire one event -------------------------------------------------- */
+  function hit(name) {
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: name, title: name, event: true });
+      return;
+    }
+    // count.js not loaded yet (async) — beacon it directly so nothing is lost.
+    try {
+      new Image().src = 'https://blueprintau.goatcounter.com/count'
+        + '?e=true&p=' + encodeURIComponent(name)
+        + '&t=' + encodeURIComponent(name)
+        + '&rnd=' + Math.random().toString(36).slice(2);
+    } catch (e) {}
+  }
+
+  /* ---- map a clicked link to an event name, or null to ignore ---------- */
+  var TOOLS = /^\/(foreman|takeoff|ledger|roster|catalogue|glassbox)\/?$/;
+
+  function nameFor(a) {
+    var raw = a.getAttribute('href') || '';
+    if (!raw || raw.charAt(0) === '#') {
+      // in-page anchors: only the booking jump is worth counting
+      return /#book/i.test(raw) ? 'cta/book-the-hour/' + page : null;
+    }
+    if (/^tel:/i.test(raw))    return 'call/' + page;
+    if (/^mailto:/i.test(raw)) return 'email/' + page;
+
+    var url;
+    try { url = new URL(a.href, location.href); } catch (e) { return null; }
+    if (!/^https?:$/.test(url.protocol)) return null;
+
+    // outbound
+    if (url.hostname.replace(/^www\./, '') !== location.hostname.replace(/^www\./, '')) {
+      return 'outbound/' + url.hostname.replace(/^www\./, '');
+    }
+
+    var path = url.pathname.replace(/index\.html$/, '');
+    var tool = path.match(TOOLS);
+    if (tool) return 'tool-open/' + tool[1] + '/' + page;
+    if (/^\/build\/?$/.test(path))  return 'cta/build/' + page;
+    if (/^\/intake\/?$/.test(path)) return 'cta/intake/' + page;
+    return null;
+  }
+
+  document.addEventListener('click', function (ev) {
+    // ev.target may be a <span> inside the <a>
+    var a = ev.target && ev.target.closest && ev.target.closest('a[href]');
+    if (!a) return;
+    // let a page opt a link out with data-gc-ignore, or override with data-gc
+    if (a.hasAttribute('data-gc-ignore')) return;
+    var name = a.getAttribute('data-gc') || nameFor(a);
+    if (name) hit(name);
+  }, true);
+
+  /* ---- scroll depth: did anyone actually reach the booking form? ------- */
+  var seen = {};
+  function depth() {
+    var h = document.documentElement;
+    var max = (h.scrollHeight - h.clientHeight);
+    if (max < 400) return;                       // short page, not meaningful
+    var pct = (h.scrollTop || document.body.scrollTop) / max * 100;
+    [50, 90].forEach(function (mark) {
+      if (pct >= mark && !seen[mark]) { seen[mark] = 1; hit('depth/' + mark + '/' + page); }
+    });
+    if (seen[90]) window.removeEventListener('scroll', throttled);
+  }
+  var ticking = false;
+  function throttled() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { depth(); ticking = false; });
+  }
+  window.addEventListener('scroll', throttled, { passive: true });
+})();
+</script>
+</body>
+</html>
