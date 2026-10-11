@@ -24,7 +24,7 @@
 | Tea Tree Gully | ✅ built (adopted minutes, 30 June 2026) | $905,000 → $2,396 |
 | Gawler | ✅ built (includes $290 waste charge; homes only) | $760,000 → $2,885 |
 | Campbelltown | ✅ built (6.6% cap; levy rate **estimated** from the $1.55m levy total and labelled so) | $1,210,000 → $2,561 |
-| Port Adelaide Enfield | 🔎 minimum $1,190 confirmed; council page no longer lists the **rate in the dollar**: get it from the 9 June 2026 minutes | — |
+| Port Adelaide Enfield | ⏸ held back: the 2026-27 **rate in the dollar** is only in the 9 June 2026 rate declaration; the figures online are labelled 2025-26. Fix: those minutes, a 2026-27 rates notice, or call 8405 6600 | — |
 
 The "To check" notes for each council, with exact links, are in `data/checks-2026-27.json`. To clear a 🔎 council: open its link in a browser, confirm or fix the figures in `data/council-rates-2026-27.json`, delete its `"verified": false` line, and run `python3 build.py`.
 
