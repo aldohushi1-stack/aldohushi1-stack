@@ -202,7 +202,7 @@
       "average_residential_rate": null,
       "average_residential_increase_pct": null,
       "landscape_levy": {
-        "board": "Landscape SA",
+        "board": "Regional Landscape",
         "rate": 8.406e-05
       },
       "service_charge": 290,
@@ -480,7 +480,6 @@
       "checked": "2026-10-11"
     },
     "prospect": {
-      "verified": false,
       "name": "City of Prospect",
       "csv_council": "Prospect",
       "basis": "capital value",
@@ -497,7 +496,7 @@
         "rate": 5.722e-05
       },
       "rate_cap_pct": null,
-      "rate_cap_note": null,
+      "rate_cap_note": "Not mentioned on Prospect’s 2026/27 rates page — ask council about hardship options if your rates jump.",
       "instalments": [
         "September",
         "December",
@@ -509,9 +508,9 @@
         "Vacant land (residential zone)": 0.0058357,
         "Vacant land (non-residential zone)": 0.01733392
       },
-      "adopted": null,
-      "source_title": "City of Prospect, Annual Business Plan, Budget and Long-Term Financial Plan 2026-2027, Appendix 5 Rating Policy",
-      "source_url": "https://www.prospect.sa.gov.au/council/council-documents/business-plans-budgets",
+      "adopted": "2026/27",
+      "source_title": "City of Prospect, Rates page (differential rates set for 2026/2027)",
+      "source_url": "https://www.prospect.sa.gov.au/live/residents/rates",
       "source_pdf": "https://www.prospect.sa.gov.au/__data/assets/pdf_file/0017/2009510/COP-ABPB-and-LTFP-2026-27-V1-Pages.pdf",
       "council_rates_url": "https://www.prospect.sa.gov.au/live/residents/rates",
       "council_phone": "8269 5355",
@@ -646,24 +645,23 @@
       "checked": "2026-10-11"
     },
     "walkerville": {
-      "verified": false,
       "name": "Town of Walkerville",
       "csv_council": "Walkerville",
       "basis": "capital value",
-      "residential_rate": 0.00156083,
+      "residential_rate": 0.00155792,
       "residential_rate_prev": 0.00161989,
       "minimum_rate": 1560,
       "minimum_rate_prev": 1487,
       "fixed_charge": null,
-      "share_on_minimum_pct": 31.6,
+      "share_on_minimum_pct": null,
       "average_residential_rate": null,
       "average_residential_increase_pct": null,
       "landscape_levy": {
         "board": "Green Adelaide",
-        "rate": 6e-05
+        "rate": 5.945e-05
       },
       "rate_cap_pct": null,
-      "rate_cap_note": null,
+      "rate_cap_note": "No. Walkerville resolved not to cap rate rises on principal places of residence for 2026/27 — ask council about hardship options if yours jumps.",
       "instalments": [
         "September",
         "December",
@@ -671,11 +669,11 @@
         "June"
       ],
       "other_categories": {
-        "Commercial and other": 0.00257537,
-        "Vacant land": 0.00304362
+        "Commercial, industrial, primary production and other": 0.00257057,
+        "Vacant land": 0.00303795
       },
       "adopted": "29 June 2026",
-      "source_title": "Town of Walkerville, Special Council Minutes 29 June 2026 (declaration of rates 2026/27)",
+      "source_title": "Town of Walkerville, Special Council Minutes 29 June 2026, item 4 (resolutions 4-9, declaration of rates 2026/27)",
       "source_url": "https://www.walkerville.sa.gov.au/council/council/agendas/council-agendas-and-minutes",
       "source_pdf": "https://www.walkerville.sa.gov.au/__data/assets/file/0022/2007490/Special-Council-Minutes-29-June-2026.pdf",
       "council_rates_url": "https://www.walkerville.sa.gov.au/council/rates",

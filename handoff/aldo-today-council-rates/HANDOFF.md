@@ -2,7 +2,7 @@
 
 **Goal:** win "charles sturt council rates calculator" and "charles sturt council rates", then the same search for all 19 councils. No official Charles Sturt calculator turned up in search. The only competing calculators are generic and don't use real council numbers.
 
-**Status (11 Oct 2026):** 13 of 19 councils are built from adopted 2026/27 budgets and ready to paste. The other 6 have their figures filled in but need a quick browser check, because their sites block automated access. The aldo.today site source isn't on GitHub, so nothing is live yet. Publishing happens on your PC.
+**Status (11 Oct 2026):** 15 of 19 councils are built from adopted 2026/27 budgets and ready to paste. The other 4 have their figures filled in but need a quick browser check, because their sites block automated access. The aldo.today site source isn't on GitHub, so nothing is live yet. Publishing happens on your PC.
 
 | Council | Status | Typical house → rates/yr |
 |---|---|---|
@@ -19,12 +19,12 @@
 | Unley | ✅ built | $1,780,000 → $3,047 |
 | West Torrens | ✅ built | $1,180,000 → $2,091 |
 | Salisbury | ✅ built (high-value discount for homes over $969k) | $828,000 → $2,231 |
+| Prospect | ✅ built (confirmed from council page) | $1,505,000 → $3,014 |
+| Walkerville | ✅ built (adopted minutes, 29 June 2026) | $2,300,000 → $3,720 |
 | Campbelltown | 🔎 check: levy rate missing | — |
-| Gawler | 🔎 check: all figures from search snippets; $290 waste charge | — |
-| Prospect | 🔎 check: all figures from search snippets | — |
-| Tea Tree Gully | 🔎 check: levy rate missing | — |
-| Port Adelaide Enfield | 🔎 check: minimum $1,190 (unchanged, from the draft plan) and rates from search snippets | — |
-| Walkerville | 🔎 check: **draft** figures pre-filled; swap in the adopted ones from the 29 June 2026 minutes | — |
+| Gawler | 🔎 rate, levy and $290 waste charge confirmed; need the **minimum rate** | — |
+| Tea Tree Gully | 🔎 rates and minimum confirmed; need the **Green Adelaide levy** | — |
+| Port Adelaide Enfield | 🔎 minimum $1,190 confirmed; council page no longer lists the **rate in the dollar**: get it from the 9 June 2026 minutes | — |
 
 The "To check" notes for each council, with exact links, are in `data/checks-2026-27.json`. To clear a 🔎 council: open its link in a browser, confirm or fix the figures in `data/council-rates-2026-27.json`, delete its `"verified": false` line, and run `python3 build.py`.
 
@@ -97,8 +97,7 @@ In the JSON, rates are stored in **dollars** per dollar, so divide the council's
 
 ## Finishing the last councils
 
-- **🔎 Browser checks (Campbelltown, Gawler, Port Adelaide Enfield, Prospect, Tea Tree Gully, Walkerville):** follow `data/checks-2026-27.json`. These sites put automated browsers behind a Cloudflare check, so they need a real person's browser.
-- **Port Adelaide Enfield and Walkerville:** their figures are filled in. PAE only needs a check against its rates page. Walkerville's are the **draft** figures, so replace them with the adopted ones from the 29 June 2026 Special Council Minutes. Links and steps are in `checks-2026-27.json`.
+- **🔎 Browser checks (Campbelltown, Gawler, Port Adelaide Enfield, Tea Tree Gully):** follow `data/checks-2026-27.json`. These sites put automated browsers behind a Cloudflare check, so they need a real person's browser.
 - **New-year refresh (each July):**
   - add a 2027/28 JSON;
   - run `merge_results.py` to load researched figures. It rejects rates that look like cents instead of dollars, so a forgotten ÷100 gets caught.

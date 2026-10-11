@@ -20,8 +20,8 @@
     "anomalies": "TO CHECK IN A BROWSER: Green Adelaide levy rate (missing), rate cap, instalment months, and confirm 0.00205820 / $1,239 in the Gazette PDF. Single general rate for all land uses (no differentials)."
   },
   "prospect": {
-    "confidence": "medium: all figures from search-engine text of council's own rates page (two queries agree); site returned 403",
-    "anomalies": "TO CHECK IN A BROWSER: confirm rate/minimum/levy on the rates page, adoption date, whether there is a rate cap. Two vacant-land rates by zone."
+    "confidence": "high: Aldo's screenshot of prospect.sa.gov.au/live/residents/rates, 11 Oct 2026 ('The differential rates set for the current 2026/2027 year') — data/evidence-prospect-rates-page.jpg",
+    "anomalies": "Minimum $1,610; residential 0.00194523; non-residential 0.00533351; vacant (residential zone) 0.00583570; vacant (non-residential zone) 0.01733392; Green Adelaide levy 0.00005722. Rate cap and adoption date not on the page."
   },
   "west-torrens": {
     "confidence": "high (adopted minutes verbatim, matches council rates pages)",
@@ -40,12 +40,12 @@
     "anomalies": "ANNUAL VALUE basis, rates already in dollars per dollar of annual value (about 3-5% of capital value). Calculator must ask for annual value, not capital value, and the suburb-median table can't be used. Rundle Mall separate rate is non-residential only. build.py skips it until it has its own page."
   },
   "gawler": {
-    "confidence": "low-medium: figures from search-engine text of the council's rates page (worked example adds up); site and Gazette returned 403",
-    "anomalies": "TO CHECK IN A BROWSER: rate 0.003331, minimum $1,320, levy 0.00008406 and its board name (Northern and Yorke?), non-residential rates (tiered), Gawler East separate rate. $290 waste service charge on most properties: build.py adds service_charge to the total."
+    "confidence": "medium-high: Aldo's screenshot of the council's worked example (data/evidence-gawler-rates-example.jpg) confirms residential 0.003331, RL levy 0.00008406 and the $290 waste charge (CV $624,500 -> $2,422.70).",
+    "anomalies": "STILL NEEDED: the 2026/27 MINIMUM RATE (expected $1,320, same rates page), ideally the year heading above the worked example, and which landscape board the levy is for. Non-residential rates are tiered (not modelled). Then delete \"verified\": false."
   },
   "walkerville": {
-    "confidence": "low: these are the DRAFT 2026/27 figures (consultation ABP), pre-filled so you only need to confirm or correct. The adopted figures are in the 29 June 2026 Special Council Minutes and the Gazette (No. 41, 9 July 2026, p. 2231); the council site and Gazette block automated access and no search engine has indexed the numbers.",
-    "anomalies": "TO CHECK IN A BROWSER (5 min): open https://www.walkerville.sa.gov.au/__data/assets/file/0022/2007490/Special-Council-Minutes-29-June-2026.pdf (or https://www.walkerville.sa.gov.au/council/rates). Replace residential_rate (draft 0.00156083), minimum_rate (draft $1,560), other_categories (draft 0.00257537 / 0.00304362), landscape levy (draft 0.000060), share on minimum (draft 31.6%) with the adopted figures, fill rate_cap_note, then delete \"verified\": false. Adopted valuations ($6,789.6m) are 0.15% above the draft ($6,779.6m), so the adopted rate is likely slightly lower than the draft. Phone 8342 7100 not verified from a fetched page."
+    "confidence": "high: adopted Special Council Minutes 29 June 2026 (motion CARRIED), supplied by Aldo — data/evidence-walkerville-special-council-minutes-29-june-2026.pdf",
+    "anomalies": "Residential 0.00155792 (draft was 0.00156083); commercial/industrial/primary production/other 0.00257057; vacant 0.00303795; minimum $1,560; Green Adelaide levy 0.00005945; no rate cap (s153(3)); instalments Sep/Dec/Mar/Jun. Share on minimum not restated for the adopted rates, so left blank."
   },
   "onkaparinga": {
     "confidence": "high (adopted budget table and Rating Policy agree)",
