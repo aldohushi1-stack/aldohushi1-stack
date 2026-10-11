@@ -16,8 +16,8 @@
     "anomalies": "Jetty Road Mainstreet and Patawalonga Marina separate rates (commercial/marina only). 6.6% is total rate revenue, not average residential, so left blank."
   },
   "campbelltown": {
-    "confidence": "medium-low: rate and minimum from search-engine text of the Gazette only; sites returned 403",
-    "anomalies": "TO CHECK IN A BROWSER: Green Adelaide levy rate (missing), rate cap, instalment months, and confirm 0.00205820 / $1,239 in the Gazette PDF. Single general rate for all land uses (no differentials)."
+    "confidence": "high for rate and minimum: Aldo's screenshot of the council rates page (data/evidence-campbelltown-rates-page.jpg) — single general rate 0.00205820 set 7 July 2026, minimum $1,239 for 2026/2027; $54.3m general rates.",
+    "anomalies": "STILL NEEDED: the 2026/27 Green Adelaide (Regional Landscape) levy rate, and whether there is a rate cap. Probably lower on the same rates page. Then delete \"verified\": false. Single rate for all land uses."
   },
   "prospect": {
     "confidence": "high: Aldo's screenshot of prospect.sa.gov.au/live/residents/rates, 11 Oct 2026 ('The differential rates set for the current 2026/2027 year') — data/evidence-prospect-rates-page.jpg",
