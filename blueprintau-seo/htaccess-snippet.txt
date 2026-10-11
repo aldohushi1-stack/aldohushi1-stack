@@ -1,0 +1,17 @@
+# --- BlueprintAU SEO: paste at the TOP of public_html/.htaccess ---
+# Back up the old .htaccess first.
+
+# 1. Tell Google to drop the side projects from search.
+#    Pages still load for anyone with the link. No page edits needed.
+SetEnvIf Request_URI "^/(dating|aquawell|rhythm|brunos|dontsignthat|projects/adtrade|glassbox/app|lab)(/|$)" SIDEPROJECT
+Header set X-Robots-Tag "noindex, follow" env=SIDEPROJECT
+
+# 2. /build/index.html -> /build/ (same for every folder), so Google sees one URL per page.
+RewriteEngine On
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
+RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L]
+
+# Check after uploading:
+#   curl -sI https://blueprintau.com/dating/ | grep -i x-robots   -> X-Robots-Tag: noindex, follow
+#   curl -sI https://blueprintau.com/build/index.html | head -3    -> 301 to /build/
+#   curl -sI https://blueprintau.com/build/ | head -1               -> 200 (no X-Robots-Tag)
