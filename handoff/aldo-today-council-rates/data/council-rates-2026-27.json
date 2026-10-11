@@ -571,7 +571,6 @@
       ]
     },
     "tea-tree-gully": {
-      "verified": false,
       "name": "City of Tea Tree Gully",
       "csv_council": "Tea Tree Gully",
       "basis": "capital value",
@@ -585,10 +584,10 @@
       "average_residential_increase_pct": null,
       "landscape_levy": {
         "board": "Green Adelaide",
-        "rate": null
+        "rate": 5.90938e-05
       },
       "rate_cap_pct": null,
-      "rate_cap_note": "Council decides each year whether to cap rises on a principal place of residence; where it does, the rebate is applied automatically (not for rises from improvements, rezoning, a land-use change or a change of owner). Check your notice or ask council for the 2026/27 cap.",
+      "rate_cap_note": "No rate cap was declared for 2026/27 in Tea Tree Gully’s rates resolutions (30 June 2026) — ask council about hardship options if your rates jump.",
       "instalments": [
         "September",
         "December",
@@ -601,9 +600,9 @@
         "Primary production and other": 0.002588
       },
       "adopted": "30 June 2026",
-      "source_title": "City of Tea Tree Gully, Rates page (differential rating 2026-2027) and Rating Policy (18 June 2024)",
+      "source_title": "City of Tea Tree Gully, Council Meeting Minutes 30 June 2026, items 8-10 (declaration of rates 2026/27)",
       "source_url": "https://yoursay.cttg.sa.gov.au/abp-26-27",
-      "source_pdf": "https://www.teatreegully.sa.gov.au/__data/assets/pdf_file/0022/2009515/Annual-Business-Plan-2026-2027.pdf",
+      "source_pdf": "https://www.teatreegully.sa.gov.au/__data/assets/pdf_file/0021/2008290/Council-Meeting-Minutes-30-June-2026.pdf",
       "council_rates_url": "https://www.teatreegully.sa.gov.au/services/council-rates",
       "council_phone": "8397 7444",
       "checked": "2026-10-11"

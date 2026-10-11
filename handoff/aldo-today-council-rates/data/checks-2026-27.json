@@ -68,7 +68,7 @@
     "anomalies": "Fixed charge $940 (was $880), no minimum. CWMS service charge in seven townships ($770 occupied / $360 vacant) not included. Stirling business separate rate non-residential only."
   },
   "tea-tree-gully": {
-    "confidence": "high for rates and minimum: confirmed from Aldo's screenshot of teatreegully.sa.gov.au/services/council-rates, 11 Oct 2026 (data/evidence-tea-tree-gully-rates-page.jpg): residential/primary production/other 0.0025880, commercial/industrial 0.0056418, vacant 0.0051760, minimum $1,573. Rating Policy (18 June 2024, supplied by Aldo): levy collected for Green Adelaide; instalments Sep/Dec/Mar/Jun; rate cap set annually under s153(3) for principal place of residence, applied automatically.",
-    "anomalies": "STILL NEEDED: the 2026/27 Green Adelaide levy rate in the dollar (not on the differential rating section or in the 2024 policy). Look for a 'Regional Landscape Levy' section on the same rates page, or on a rates notice. Also the 2026/27 rate-cap % if any. Then delete \"verified\": false."
+    "confidence": "high: adopted Council Meeting Minutes 30 June 2026 items 8-10 (motions carried), supplied by Aldo — data/evidence-tea-tree-gully-council-minutes-30-june-2026.pdf; also matches the rates-page screenshot.",
+    "anomalies": "Minutes label all rates 'cents-in-the-dollar' but they are dollars per dollar (residential 0.0025880 matches the $ figure on the rates page), so the Green Adelaide levy 0.0000590938 is dollars per dollar. No s153(3) rate cap in the resolutions. Instalments: first Tuesday of Sep, Dec, Mar, Jun."
   }
 }
