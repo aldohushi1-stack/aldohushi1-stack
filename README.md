@@ -8,6 +8,6 @@ Founder of [BlueprintAU](https://blueprintau.com), an Adelaide product lab with 
 - **Foreman**: free job console for tradies → https://blueprintau.com/foreman/
 - **Takeoff / Ledger**: quoting and books for the trades
 - **Brass Register**: bar and restaurant POS
-- **Glassbox**: flight-recorder viewer for AI agent sessions
+- **Glassbox**: flight-recorder viewer for AI agent sessions → [Claude Code cost audit](https://aldo.ltd/audit/)
 
-Based in Adelaide, South Australia · [blueprintau.com](https://blueprintau.com) · [LinkedIn](https://www.linkedin.com/in/aldohushi) · [X](https://x.com/aldo_hushi)
+Based in Adelaide, South Australia · [aldo.ltd](https://aldo.ltd) · [blueprintau.com](https://blueprintau.com) · [LinkedIn](https://www.linkedin.com/in/aldohushi) · [X](https://x.com/aldo_hushi)

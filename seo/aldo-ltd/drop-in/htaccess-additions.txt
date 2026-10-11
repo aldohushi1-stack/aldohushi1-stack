@@ -1,0 +1,16 @@
+# Add near the top of /.htaccess on aldo.ltd (LiteSpeed reads Apache rules).
+
+# 1. /index.html (and /blog/index.html etc.) answers 200 today, a duplicate of "/".
+#    Send it to the clean URL with a 301.
+RewriteEngine On
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
+RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L]
+
+# 2. Serve a real 404 page with the site nav instead of the server default.
+#    Create /404.html first (copy the site header/footer, link Home, Audit, Blog).
+ErrorDocument 404 /404.html
+
+# 3. Icons and manifest: cache for a year (they change rarely).
+<FilesMatch "^(favicon\.(ico|svg)|apple-touch-icon\.png|icon-(192|512)\.png|site\.webmanifest)$">
+  Header set Cache-Control "public, max-age=31536000"
+</FilesMatch>

@@ -1,0 +1,26 @@
+{
+  "@type": "Person",
+  "@id": "https://aldo.ltd/#aldo",
+  "name": "Aldo Hushi",
+  "givenName": "Aldo",
+  "familyName": "Hushi",
+  "url": "https://aldo.ltd/",
+  "image": "https://aldo.ltd/media/aldo-692.jpg",
+  "email": "mailto:hi@aldo.ltd",
+  "telephone": "+61423003680",
+  "jobTitle": "Software developer",
+  "description": "Adelaide software developer, founder of BlueprintAU and author of Glassbox (npm: glassbox-trace), the open-source flight recorder and cost audit tool for Claude Code sessions.",
+  "address": {"@type": "PostalAddress", "addressLocality": "Adelaide", "addressRegion": "SA", "addressCountry": "AU"},
+  "worksFor": {"@type": "Organization", "@id": "https://blueprintau.com/#org", "name": "BlueprintAU", "url": "https://blueprintau.com/"},
+  "alumniOf": {"@type": "CollegeOrUniversity", "name": "Schiller International University, Paris"},
+  "knowsLanguage": ["en", "de", "fr", "hu"],
+  "knowsAbout": ["Claude Code", "AI agent cost optimisation", "LLM observability", "Node.js", "Custom software for small business", "SEO", "Generative engine optimisation"],
+  "sameAs": [
+    "https://www.linkedin.com/in/aldohushi",
+    "https://github.com/aldohushi1-stack",
+    "https://x.com/aldo_hushi",
+    "https://www.facebook.com/profile.php?id=61593482654519",
+    "https://www.npmjs.com/~REPLACE-WITH-NPM-USERNAME",
+    "https://blueprintau.com/#aldo"
+  ]
+}

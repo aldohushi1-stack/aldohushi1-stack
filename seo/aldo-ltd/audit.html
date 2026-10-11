@@ -1,0 +1,205 @@
+<title>aldo.ltd SEO Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<style>
+/* Layout: one reading column, a findings ledger with severity stripes, tables scroll inside their own box. Palette and faces follow aldo.ltd itself. */
+:root{
+  --bg:#F7EFE3; --surface:#FFF9F0; --ink:#231A12; --ink-2:#5B4B3C; --line:#E3D5C1;
+  --accent:#B4532A; --earth:#9C6B42;
+  --p0:#B4362A; --p1:#B9821C; --p2:#5E7A5A; --ok:#3F7A4E;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#16110C; --surface:#1F1812; --ink:#F2E8DA; --ink-2:#BBA993; --line:#3A2E23;
+  --accent:#E07A4A; --earth:#C49166; --p0:#E8665A; --p1:#E2AE4A; --p2:#93B38E; --ok:#7CC08D; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#16110C; --surface:#1F1812; --ink:#F2E8DA; --ink-2:#BBA993; --line:#3A2E23;
+  --accent:#E07A4A; --earth:#C49166; --p0:#E8665A; --p1:#E2AE4A; --p2:#93B38E; --ok:#7CC08D; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);padding-inline:16px;padding-block:40px 64px}
+.wrap{max-width:760px;margin:0 auto;display:grid;gap:48px}
+h1,h2,h3{font-family:var(--serif);font-weight:500;text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(34px,6vw,52px)}
+h2{font-size:clamp(26px,4vw,32px)}
+h3{font-size:20px}
+p{margin:0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+code{font:500 13.5px/1.4 var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:1px 5px;overflow-wrap:anywhere}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--earth)}
+section{display:grid;gap:18px}
+header{display:grid;gap:14px}
+.lede{font-family:var(--serif);font-size:clamp(20px,2.6vw,24px);line-height:1.35;color:var(--ink-2)}
+.meta{color:var(--ink-2);font-size:14px}
+.verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.verdict div{background:var(--surface);padding:18px 20px;display:grid;gap:4px;min-width:0}
+.verdict b{font:500 34px/1 var(--serif);font-variant-numeric:tabular-nums}
+.verdict span{font-size:14px;color:var(--ink-2)}
+.verdict .bad b{color:var(--p0)} .verdict .good b{color:var(--ok)}
+.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 11.5px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.pass{color:var(--ok);font-weight:600} .fail{color:var(--p0);font-weight:600}
+.findings{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.f{border:1px solid var(--line);border-left:4px solid var(--sev);border-radius:8px;background:var(--surface);padding:16px 18px;display:grid;gap:8px;min-width:0}
+.f.p0{--sev:var(--p0)} .f.p1{--sev:var(--p1)} .f.p2{--sev:var(--p2)}
+.f h3{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.chip{font:500 11px/1 var(--mono);letter-spacing:.06em;color:var(--sev);border:1px solid var(--sev);border-radius:99px;padding:4px 8px;flex:none}
+.f p{color:var(--ink-2);font-size:15px}
+.f p strong{color:var(--ink)}
+.f .fix{color:var(--ink)}
+.f .fix::before{content:"Fix: ";font-weight:600}
+.weeks{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.weeks li{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:start}
+.weeks time{font:500 12px/1.6 var(--mono);color:var(--earth);text-transform:uppercase;letter-spacing:.06em}
+.weeks ul{margin:0;padding-left:18px;display:grid;gap:4px}
+@media (max-width:520px){.weeks li{grid-template-columns:1fr;gap:4px}}
+.note{font-size:14px;color:var(--ink-2);border-top:1px solid var(--line);padding-top:18px}
+ul.plain{margin:0;padding-left:20px;display:grid;gap:6px}
+</style>
+
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">SEO audit · aldo.ltd · 11 Oct 2026</p>
+  <h1>The code is ready to rank. Nobody has been told it exists.</h1>
+  <p class="lede">On-page work is better than most agency sites in Adelaide. The gap is discovery and authority: search engines barely know the domain, and Aldo's own properties hardly point at it.</p>
+  <p class="meta">Method: crawled all 21 sitemap URLs plus 16 probes (icons, 404, redirects, feed, llms.txt), tested 18 crawler user agents, checked headers, schema and internal links, and ran live web searches. Search Console data and the site source weren't available, so rankings and click data aren't covered here.</p>
+</header>
+
+<section>
+  <div class="verdict">
+    <div class="good"><b>0</b><span>broken internal links across 28 URLs</span></div>
+    <div class="good"><b>19/19</b><span>sitemap pages with canonical, OG image and JSON-LD</span></div>
+    <div class="bad"><b>0</b><span>results for "aldo.ltd" Aldo Hushi in web search (the ALDO shoe brand fills them)</span></div>
+    <div class="bad"><b>0</b><span>links from the homepage to the 10-post SEO cluster</span></div>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">What already passes</p>
+  <div class="tablebox"><table>
+    <thead><tr><th>Check</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>HTTPS, HSTS, http→https and non-slash→slash 301s</td><td class="pass">Pass</td></tr>
+      <tr><td>Brotli compression, 1-week cache on CSS and images</td><td class="pass">Pass</td></tr>
+      <tr><td>Titles 35–70 chars, one H1 per page, questions as H2s</td><td class="pass">Pass</td></tr>
+      <tr><td>BlogPosting / Article / Breadcrumb / Service / SoftwareApplication schema</td><td class="pass">Pass</td></tr>
+      <tr><td>Image alt text and width/height on every image, hero preloaded as WebP</td><td class="pass">Pass</td></tr>
+      <tr><td>RSS feed, llms.txt, robots.txt with sitemap line</td><td class="pass">Pass</td></tr>
+      <tr><td>Googlebot, Bingbot, GPTBot, OAI-SearchBot, PerplexityBot, Claude-SearchBot</td><td class="pass">200</td></tr>
+      <tr><td>Crawlable favicon, meta description length on 2 key pages, sitemap dates</td><td class="fail">Fail, below</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <p class="eyebrow">Findings, worst first</p>
+  <ol class="findings">
+
+    <li class="f p0">
+      <h3><span class="chip">P0</span>Search engines don't know the site</h3>
+      <p>A web search for <code>"aldo.ltd" Aldo Hushi</code> returns only the ALDO footwear brand. A search for "Claude Code cost audit Glassbox flight recorder" lists ccusage-style competitors, Claude Flight Recorder and blackbox, but not Glassbox or aldo.ltd.</p>
+      <p class="fix">Verify the domain in Google Search Console and Bing Webmaster Tools (DNS TXT record), submit <code>/sitemap.xml</code>, and use URL Inspection → Request indexing on <code>/</code>, <code>/audit/</code>, <code>/claude-code-cost-patterns/</code>, <code>/redact-claude-code-session/</code>, <code>/sample-agent-cost-audit/</code> and the six-rungs pillar. Bing matters twice: ChatGPT search and Copilot draw on its index. Turn on IndexNow in Bing Webmaster so every publish pings it.</p>
+    </li>
+
+    <li class="f p0">
+      <h3><span class="chip">P0</span>Aldo's own properties barely link to it</h3>
+      <p>The Glassbox and Bearings <code>package.json</code> homepages point at GitHub. The GitHub profile README linked BlueprintAU but not aldo.ltd. These are the links Aldo controls and the first ones a crawler follows to a new domain.</p>
+      <p class="fix">Done in this repo: the profile README now links <code>aldo.ltd</code> and <code>aldo.ltd/audit/</code>. Still to do: add a "Want a person to read it? → aldo.ltd/audit" line near the top of the Glassbox README; put aldo.ltd in the LinkedIn, X, GitHub and npm profile website fields; link aldo.ltd from the BlueprintAU footer and from aldo.today.</p>
+    </li>
+
+    <li class="f p0">
+      <h3><span class="chip">P0</span>No crawlable favicon</h3>
+      <p><code>/favicon.ico</code>, <code>/apple-touch-icon.png</code> and <code>/site.webmanifest</code> all 404. The icon is a <code>data:</code> URI in the head, which Google doesn't use for search results, so aldo.ltd shows a blank globe next to its listing.</p>
+      <p class="fix">Upload the six files in <code>seo/aldo-ltd/drop-in/</code> to the web root and swap the head lines for <code>head-snippet.html</code>. They are the same sun-over-water mark, rendered to ICO, SVG and PNG.</p>
+    </li>
+
+    <li class="f p1">
+      <h3><span class="chip">P1</span>Meta descriptions cut off on the two pages that sell</h3>
+      <p>Home is 219 characters and <code>/audit/</code> is 294. Google cuts around 155, so the audit snippet loses its price and its promise.</p>
+      <p class="fix">Paste the rewrites from <code>meta-descriptions.md</code> (147 and 153 characters).</p>
+    </li>
+
+    <li class="f p1">
+      <h3><span class="chip">P1</span>"Glassbox" is already a company name</h3>
+      <p>Glassbox is also an established session-replay analytics company. Without a qualifier, Google and the AI engines will attach mentions of Glassbox to that company instead of to Aldo.</p>
+      <p class="fix">Always write the qualified name in titles, H1s, alt text and the first sentence: "Glassbox for Claude Code" or "glassbox-trace". Make the SoftwareApplication <code>name</code> "Glassbox for Claude Code" and add <code>"alternateName": "glassbox-trace"</code>.</p>
+    </li>
+
+    <li class="f p1">
+      <h3><span class="chip">P1</span>The Person entity changes from page to page</h3>
+      <p>There are three different <code>jobTitle</code> values (home, /audit/, the guides), and the <code>sameAs</code> lists differ: blog posts have 4 links and no Facebook, home has 5. Knowledge-graph systems trust an entity that describes itself the same way everywhere.</p>
+      <p class="fix">Paste <code>person.jsonld</code> into the <code>@graph</code> of every page. It adds <code>worksFor</code> BlueprintAU, <code>knowsAbout</code> and the npm profile (fill in the username).</p>
+    </li>
+
+    <li class="f p1">
+      <h3><span class="chip">P1</span>One domain, three audiences</h3>
+      <p>aldo.ltd talks to Claude Code teams (audit, guides), recruiters (agent) and Adelaide small businesses (the ten six-rung SEO posts). The SEO cluster has no link from the homepage, and its calls to action send readers to <code>blueprintau.com/check/</code>. Mixed topics dilute what Google thinks the site is about.</p>
+      <p class="fix">Recommended, Aldo's call: move the six-rung cluster to <code>blueprintau.com/blog/</code> with a 301 per URL, so it sits next to the $2,000 offer it sells, and keep aldo.ltd focused on Aldo and Claude Code costs. If it stays, add a "Writing" block on the homepage that links the pillar post.</p>
+    </li>
+
+    <li class="f p1">
+      <h3><span class="chip">P1</span>ClaudeBot and Meta's crawler get blocked, against robots.txt</h3>
+      <p>The server answers <code>418</code> to ClaudeBot and meta-externalagent on aldo.ltd and blueprintau.com, while robots.txt says <code>Allow: /</code> and the GEO post tells readers to let AI crawlers in. Claude-SearchBot and Claude-User get through, so Claude's search still reaches the site; the block hits the training crawlers.</p>
+      <p class="fix">Pick one policy. Either turn off the AI-bot block in the hosting panel or firewall, or keep it and add matching <code>Disallow</code> groups in robots.txt so what the site says matches what it does.</p>
+    </li>
+
+    <li class="f p2">
+      <h3><span class="chip">P2</span>Sitemap dates are stale</h3>
+      <p>Every <code>lastmod</code> says 23 Sep. The server says home changed 6 Oct and /audit/ 29 Sep. Google ignores lastmod once it learns the dates are unreliable.</p>
+      <p class="fix">Use <code>drop-in/sitemap.xml</code>, built from each URL's real Last-Modified, which adds the engagement letter PDF. Update lastmod only when content changes.</p>
+    </li>
+
+    <li class="f p2">
+      <h3><span class="chip">P2</span>Duplicate /index.html and a bare 404</h3>
+      <p><code>/index.html</code> answers 200 (the canonical tag covers it). Unknown URLs get the server's default 404, with no nav and no way back.</p>
+      <p class="fix">Add the rules in <code>htaccess-additions.txt</code> and a <code>/404.html</code> with the site header and links to Home, Audit and Blog.</p>
+    </li>
+
+    <li class="f p2">
+      <h3><span class="chip">P2</span>Diary entries are thin</h3>
+      <p>The two diary posts have 223 and 358 words, no breadcrumb and a standalone author block. That's fine for a diary, but they won't rank.</p>
+      <p class="fix">Give them the shared <code>@graph</code> (Person and Breadcrumb). Spend writing time on the pages below instead. Skip FAQPage schema: since 2023 Google shows FAQ rich results only for government and health sites.</p>
+    </li>
+  </ol>
+</section>
+
+<section>
+  <p class="eyebrow">Keyword → page map</p>
+  <h2>Own the narrow queries first.</h2>
+  <p style="color:var(--ink-2)">"Adelaide software developer" is a fight against agencies with ten-year-old domains. The Claude Code cost queries are new, specific, and have few good answers. aldo.ltd can win those first.</p>
+  <div class="tablebox"><table>
+    <thead><tr><th>Query people type</th><th>Page</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>aldo hushi</td><td><code>/</code></td><td>Exists; needs indexing</td></tr>
+      <tr><td>claude code cost / claude code too expensive / reduce claude code tokens</td><td><code>/claude-code-cost-patterns/</code></td><td>Exists</td></tr>
+      <tr><td>claude code cost audit / agent spend audit</td><td><code>/audit/</code></td><td>Exists; fix description</td></tr>
+      <tr><td>redact claude code transcript / share claude code session</td><td><code>/redact-claude-code-session/</code></td><td>Exists</td></tr>
+      <tr><td>claude code subagent cost not counted</td><td><code>/claude-code-subagent-cost/</code></td><td>New: the $21.83 → $322.36 night as its own post. Unique data gets linked.</td></tr>
+      <tr><td>claude code jsonl / read claude code transcript / session viewer</td><td><code>/claude-code-jsonl/</code></td><td>New: a format explainer ending in <code>npx glassbox-trace</code></td></tr>
+      <tr><td>ccusage alternative / ccusage vs …</td><td><code>/ccusage-vs-glassbox/</code></td><td>New: a fair comparison that says when ccusage is enough</td></tr>
+      <tr><td>custom software adelaide / app developer adelaide</td><td>blueprintau.com</td><td>Belongs there, with a Google Business Profile</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <p class="eyebrow">Next 30 days</p>
+  <h2>The order to do it in.</h2>
+  <ol class="weeks">
+    <li><time>Week 1</time><ul><li>Search Console and Bing Webmaster verified, sitemap submitted, 6 URLs requested</li><li>Upload the drop-in files, head snippet, descriptions, unified Person block</li><li>Profile website fields and Glassbox README link to aldo.ltd</li></ul></li>
+    <li><time>Week 2</time><ul><li>Decide where the six-rung cluster lives; 301 it if it moves</li><li>Publish the subagent-cost post</li><li>Pick an AI-crawler policy; make robots.txt match the server</li></ul></li>
+    <li><time>Week 3</time><ul><li>Show HN for Glassbox, linking the subagent-cost post</li><li>PR Glassbox into the awesome-claude-code lists; post in r/ClaudeAI</li><li>Cross-post the cost-patterns guide to dev.to with the canonical set to aldo.ltd</li></ul></li>
+    <li><time>Week 4</time><ul><li>Publish the jsonl and ccusage comparison pages</li><li>Read Search Console: queries with impressions but position 8–20 get their titles and H2s rewritten first</li></ul></li>
+  </ol>
+</section>
+
+<p class="note">All drop-in files are in the repo at <code>seo/aldo-ltd/drop-in/</code> on branch <code>ccr-79e3e3a7-xo90az</code>. Every number here comes from the crawl on 11 Oct 2026. No ranking positions are claimed, because none were measured.</p>
+
+</div>
