@@ -30,6 +30,7 @@ function patch(name, from, to) {
 
 if (site) {
   patch('preview url', /(<meta property="og:url" content="https:\/\/aldo\.today\/adelaide\/[a-z0-9-]+)\/miniature"/, '$1/ad"');
+  if (!/<meta property="og:type"/.test(html)) patch('preview type', /(<meta property="og:url"[^>]*>)/, '$1\n<meta property="og:type" content="website">');
   patch('preview text', /(<meta (?:property="og:description"|name="description") content=")([^"]*?), SA (\d{4}),[^"]*"/g,
     (_, a, name, pc) => `${a}A 30-second flyover of ${name}, SA ${pc}, built from real map data. One board in the suburb, one name on it."`);
 } else {
