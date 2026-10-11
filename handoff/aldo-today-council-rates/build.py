@@ -33,9 +33,21 @@ def cents(rate):
     return f"{rate * 100:.9f}".rstrip("0")
 
 
+def tier_discount(cv, rate, tiers):
+    # Salisbury-style high-value adjustment: a % off the rates on each slice of value inside a band.
+    off = 0
+    for lo, hi, pct in tiers or []:
+        slice_ = max(0, min(cv, hi or cv) - lo)
+        off += slice_ * rate * pct
+    return off
+
+
 def rates_for(cv, c, rate=None):
+    residential = rate is None
     rate = c["residential_rate"] if rate is None else rate
     general = max(cv * rate, c["minimum_rate"] or 0) + (c["fixed_charge"] or 0)
+    if residential:
+        general -= tier_discount(cv, rate, c.get("value_tiers"))
     lv = c["landscape_levy"]
     levy = cv * lv["rate"] if lv.get("rate") else lv.get("fixed") or 0
     # A service charge (e.g. Gawler's waste charge) sits on the notice but isn't a general rate.
@@ -203,6 +215,7 @@ def build(slug, c):
         "levyFixed": 0 if levy.get("rate") else (levy.get("fixed") or 0),
         "levyName": levy["board"] + " levy",
         "service": c.get("service_charge") or 0,
+        "tiers": c.get("value_tiers") or [],
         "cap": c["rate_cap_pct"],
         "typical": typical,
     }
@@ -234,7 +247,8 @@ def build(slug, c):
       below a capital value of about {money(min_below)}.</li>
 """ if c["minimum_rate"] else ""}{f"""    <li><b>Plus a fixed charge of {money(c["fixed_charge"])}</b>, the same for every property.</li>
 """ if c["fixed_charge"] else ""}{f"""    <li><b>Plus a {money(c["service_charge"])} waste service charge</b> on most properties with a building.</li>
-""" if c.get("service_charge") else ""}    <li><b>Plus the {escape(levy["board"])} levy</b> — {levy_text(levy)}, collected for the state.{" " + escape(levy["note"]) if levy.get("note") else ""}</li>
+""" if c.get("service_charge") else ""}{f"""    <li><b>Less the high-value adjustment</b> for homes (not commercial use or multiple dwellings): {"; ".join(f"{pct * 100:g}% off the rates on value {money(lo)}–{money(hi)}" if hi else f"{pct * 100:g}% off the rates on value above {money(lo)}" for lo, hi, pct in c["value_tiers"])}.</li>
+""" if c.get("value_tiers") else ""}    <li><b>Plus the {escape(levy["board"])} levy</b> — {levy_text(levy)}, collected for the state.{" " + escape(levy["note"]) if levy.get("note") else ""}</li>
   </ol>
   <p>Business and other land pays a different rate in the dollar:
     {"; ".join(f"{escape(k.lower())} {cents(v)}¢" for k, v in c["other_categories"].items() if v)}. Pick it in the calculator.</p>

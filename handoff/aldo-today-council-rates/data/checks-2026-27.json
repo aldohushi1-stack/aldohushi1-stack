@@ -53,7 +53,7 @@
   },
   "salisbury": {
     "confidence": "high for the figures (adopted ABP and minutes agree)",
-    "anomalies": "TO CHECK BEFORE PUBLISHING: high-value residential adjustment (s158) cuts general rates 10% for value $969,001-$1,065,000, 20% for $1,065,001-$1,205,000, 35% above $1,205,000. Confirm whether the cut is on the whole rate or only the slice of value in each band (see ABP pp.124-127), then add it to rates_for() in build.py and rates-calc.js. Without it the calculator overstates rates on homes over $969k."
+    "anomalies": "Verified: high-value adjustment is marginal (ABP p.127: 'a reduction of 10% of the general rates payable on the value above $969,000 up to and including $1,065,000'; 20% on $1,065,001-$1,205,000; 35% above $1,205,000). Homes only (not commercial use, multiple dwellings or mandatory rebate). Implemented as value_tiers."
   },
   "port-adelaide-enfield": {
     "confidence": "medium-high. Minimum $1,190 for 2026-27: the draft ABP (read directly, p.27) says 'minimum charge, which is forecast to be $1,190 for 2026–27', and the council rates page (adopted 9 June 2026, via search snippets) still shows $1,190. Average general rate $1,440 (+5.8%) from the draft ABP table. Rates in the dollar (residential 0.0016365, commercial/industrial/other and vacant 0.0043291, levy 0.0000585) come from search-engine text of the council rates page only; they fit the draft's $1,440 average (an average CV of about $880k). No residential rate cap in the draft rating policy (Appendix 7). Instalments 1 Sep / Dec / Mar / Jun.",

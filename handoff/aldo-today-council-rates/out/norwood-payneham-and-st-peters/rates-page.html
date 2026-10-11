@@ -15,7 +15,7 @@
       <input id="rc-last" name="last" inputmode="decimal" autocomplete="off" placeholder="e.g. 1,800"></p>
     <output class="ratescalc__out" for="rc-cv rc-use rc-last" aria-live="polite"></output>
   </form>
-  <script type="application/json" id="rates-cfg">{"council": "City of Norwood Payneham & St Peters", "residential": 0.0018287, "categories": {"Commercial, industrial and vacant land": 0.0023773, "Primary production and other": 0.0021944}, "minimum": 1386, "fixed": 0, "levy": 6.035e-05, "levyFixed": 0, "levyName": "Green Adelaide levy", "service": 0, "cap": 15.8, "typical": 1530000}</script>
+  <script type="application/json" id="rates-cfg">{"council": "City of Norwood Payneham & St Peters", "residential": 0.0018287, "categories": {"Commercial, industrial and vacant land": 0.0023773, "Primary production and other": 0.0021944}, "minimum": 1386, "fixed": 0, "levy": 6.035e-05, "levyFixed": 0, "levyName": "Green Adelaide levy", "service": 0, "tiers": [], "cap": 15.8, "typical": 1530000}</script>
 
   <h2 class="hub__h2">How Norwood Payneham &amp; St Peters works out your rates</h2>
   <ol>
@@ -131,11 +131,17 @@
     var byValue = cv * rate;
     var onMin = byValue < cfg.minimum;
     var general = Math.max(byValue, cfg.minimum) + cfg.fixed;
+    // High-value adjustment (Salisbury): a % off the rates on each slice of value in a band, homes only.
+    var tierOff = 0;
+    if (use.selectedIndex === 0) (cfg.tiers || []).forEach(function (t) {
+      tierOff += Math.max(0, Math.min(cv, t[1] || cv) - t[0]) * rate * t[2];
+    });
+    general -= tierOff;
     var levy = cv * cfg.levy + (cfg.levyFixed || 0);
     var total = general + levy + (cfg.service || 0);
     var html = '<div class="big">' + fmt.format(total) + ' a year</div>' +
       '<div>about ' + fmt.format(total / 4) + ' a quarter</div><dl>' +
-      row('General rates' + (onMin ? ' (minimum)' : ''), fmt.format(general)) +
+      row('General rates' + (onMin ? ' (minimum)' : '') + (tierOff ? ' after ' + fmt.format(tierOff) + ' high-value adjustment' : ''), fmt.format(general)) +
       row(cfg.levyName, fmt.format(levy)) +
       (cfg.service ? row('Waste service charge', fmt.format(cfg.service)) : '') + '</dl>';
     if (onMin) html += '<p class="fine">' + fmt.format(cv) + ' × ' + +(rate * 100).toFixed(9) + '¢ = ' + fmt.format(byValue) +

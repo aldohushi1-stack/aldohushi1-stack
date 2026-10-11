@@ -518,7 +518,6 @@
       "checked": "2026-10-11"
     },
     "salisbury": {
-      "verified": false,
       "name": "City of Salisbury",
       "csv_council": "Salisbury",
       "basis": "capital value",
@@ -553,7 +552,24 @@
       "source_pdf": "https://www.salisbury.sa.gov.au/assets/downloads/Council/2026/Long-Term-Financial-Plan-202627/000.-2026.27-LTFP-ABP-Final-26.06.2026.pdf",
       "council_rates_url": "https://www.salisbury.sa.gov.au/services/rates",
       "council_phone": "8406 8222",
-      "checked": "2026-10-11"
+      "checked": "2026-10-11",
+      "value_tiers": [
+        [
+          969000,
+          1065000,
+          0.1
+        ],
+        [
+          1065000,
+          1205000,
+          0.2
+        ],
+        [
+          1205000,
+          null,
+          0.35
+        ]
+      ]
     },
     "tea-tree-gully": {
       "verified": false,
