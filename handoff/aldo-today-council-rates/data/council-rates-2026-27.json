@@ -171,8 +171,8 @@
         "board": "Green Adelaide",
         "rate": null
       },
-      "rate_cap_pct": null,
-      "rate_cap_note": null,
+      "rate_cap_pct": 6.6,
+      "rate_cap_note": "Rises on a principal place of residence are capped at 6.6% for 2026/27, applied automatically where the property has had no change of owner, land use or improvements since 1 July 2025.",
       "instalments": [
         "September",
         "December",
