@@ -155,7 +155,6 @@
       "checked": "2026-10-11"
     },
     "campbelltown": {
-      "verified": false,
       "name": "Campbelltown City Council",
       "csv_council": "Campbelltown",
       "basis": "capital value",
@@ -164,12 +163,13 @@
       "minimum_rate": 1239,
       "minimum_rate_prev": 1200,
       "fixed_charge": null,
-      "share_on_minimum_pct": null,
+      "share_on_minimum_pct": 11.6,
       "average_residential_rate": null,
-      "average_residential_increase_pct": null,
+      "average_residential_increase_pct": 3.3,
       "landscape_levy": {
         "board": "Green Adelaide",
-        "rate": null
+        "rate": 5.87e-05,
+        "note": "Campbelltown doesn’t publish the levy rate, so this is estimated from its $1,546,800 levy total and the total value of rateable property — within about $1 a year on a typical home. Your rates notice has the exact figure."
       },
       "rate_cap_pct": 6.6,
       "rate_cap_note": "Rises on a principal place of residence are capped at 6.6% for 2026/27, applied automatically where the property has had no change of owner, land use or improvements since 1 July 2025.",
@@ -179,9 +179,11 @@
         "March",
         "June"
       ],
-      "other_categories": {},
+      "other_categories": {
+        "All other land uses (single rate)": 0.0020582
+      },
       "adopted": "7 July 2026",
-      "source_title": "Campbelltown City Council, Rates information page (single general rate and minimum set 7 July 2026)",
+      "source_title": "Campbelltown City Council, 2026/2027 Annual Business Plan & Budget (adopted), Impact of the Plan on Rates pp. 19-22, and Rates information page",
       "source_url": "https://www.campbelltown.sa.gov.au/residents/rates/rates-information",
       "source_pdf": "https://www.sa.gov.au/__data/assets/pdf_file/0016/1020733/Gaz-Not-PP-26_0025-16-Jul-2026.pdf",
       "council_rates_url": "https://www.campbelltown.sa.gov.au/residents/rates/rates-information",

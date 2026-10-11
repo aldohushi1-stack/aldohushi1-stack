@@ -16,8 +16,8 @@
     "anomalies": "Jetty Road Mainstreet and Patawalonga Marina separate rates (commercial/marina only). 6.6% is total rate revenue, not average residential, so left blank."
   },
   "campbelltown": {
-    "confidence": "high for rate and minimum: Aldo's screenshot of the council rates page (data/evidence-campbelltown-rates-page.jpg) — single general rate 0.00205820 set 7 July 2026, minimum $1,239 for 2026/2027; $54.3m general rates. Rate cap 6.60% for 2026/2027, automatic for principal place of residence (data/evidence-campbelltown-rate-capping.jpg).",
-    "anomalies": "STILL NEEDED: the 2026/27 Green Adelaide (Regional Landscape) levy rate — not on the rates page; should be in the 2026/2027 Annual Business Plan and Budget linked under 'Further information'. Then delete \"verified\": false."
+    "confidence": "high for rate 0.0020582 (single rate, all land uses), minimum $1,239 (11.6% of properties), rate cap 6.60%: council rates page and adopted ABP pp.19-22 (Aldo's screenshots in data/evidence-campbelltown-*.jpg). Levy ESTIMATED.",
+    "anomalies": "Green Adelaide levy rate is not published in the ABP or rates page; ABP gives the 2026/27 levy total $1,546,800. Estimated rate = 1,546,800 / (gross general rates 54,260,744 / 0.0020582 = $26.36bn) = 0.0000587; that is a lower bound (gross rates include minimum top-ups), error ~1-2% of the levy (~$1/yr on a typical home). Page labels it as an estimate. Replace with the exact rate from a 2026/27 rates notice or the 7 July 2026 declaration if found."
   },
   "prospect": {
     "confidence": "high: Aldo's screenshot of prospect.sa.gov.au/live/residents/rates, 11 Oct 2026 ('The differential rates set for the current 2026/2027 year') — data/evidence-prospect-rates-page.jpg",
