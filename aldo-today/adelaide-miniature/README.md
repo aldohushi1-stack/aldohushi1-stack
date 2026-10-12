@@ -35,6 +35,7 @@ dist/mini/adelaide.jpg                         fallback-card poster (slot.poster
 dist/mini/adelaide-card.png                    og:image / twitter:image (1200×630)
 src/page.html  src/engine.js  src/boot.js      page template, engine (Henley's plus the changes above), boot (unchanged)
 engine-from-henley.patch                       the engine changes as a diff against Henley's live engine, to port into bait
+ENGINE-NOTES.md                                what changed and why, the traps, and how to keep an A/B test fair
 build/data.js                                  the CBD's D_* data and PLAN
 tools/extract_cbd.py                           OSM → build/data.js (stdlib; caches Overpass answers in .osm-cache/)
 tools/build_page.py                            src/ + build/ → dist/ (stdlib)
