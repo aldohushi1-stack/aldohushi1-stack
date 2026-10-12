@@ -1,0 +1,4 @@
+/* v3.43: the CBD miniature's data credit, bottom-left of the 3D map while it's open (append to journal.css) */
+.atlas__credit { position: absolute; left: 8px; bottom: 8px; z-index: 3; padding: 3px 9px; border-radius: 999px; background: var(--sheet); color: var(--ink-3); font-size: .72rem; text-decoration: none; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+.atlas__credit:hover, .atlas__credit:focus-visible { color: var(--ink); text-decoration: underline; }
+.atlas__credit[hidden] { display: none; }

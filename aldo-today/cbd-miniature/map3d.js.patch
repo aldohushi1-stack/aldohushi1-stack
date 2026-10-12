@@ -1,0 +1,314 @@
+--- a/assets/map3d.js
++++ b/assets/map3d.js
+@@ -3,7 +3,10 @@
+    map's own shapes, colours and data, so nothing else is fetched. The flat SVG stays the real, accessible map.
+ 
+    One shader patch (RISE) raises the suburbs on the GPU: the lit model, its shadow pass, the outlines and the
+-   picking pass all use it, so whatever you see is what the shadows, the hover and the click agree on. */
++   picking pass all use it, so whatever you see is what the shadows, the hover and the click agree on.
++
++   v3.43: the CBD is a miniature. Every building in Adelaide 5000 (OpenStreetMap, tools/build_cbd.py → cbd-3d.json)
++   stands on the city's roof, in card, at four times its real height; the roof is still the tab's number. */
+ (function () {
+   'use strict';
+   var A = window.AtlasMap, THREE = window.THREE;
+@@ -16,6 +19,10 @@
+     .then(function (r) { return r.ok ? r.json() : null; })
+     .then(function (d) { return d && typeof d.d === 'string' && /^[MLZ0-9,.\-]*$/.test(d.d) ? d.d : null; })
+     .catch(function () { return null; }) : Promise.resolve(null);
++  // v3.43: the CBD's buildings. Not waited for: the city goes up without them and they join it when they land.
++  var cbdTown = window.fetch ? fetch('/assets/cbd-3d.json' + (me.indexOf('?') > 0 ? me.slice(me.indexOf('?')) : ''))
++    .then(function (r) { return r.ok ? r.json() : null; })
++    .catch(function () { return null; }) : Promise.resolve(null);
+   var seaD = null, waiting = false;
+   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+   var phone = Math.min(screen.width, screen.height) < 760 || (window.matchMedia && matchMedia('(pointer: coarse)').matches);
+@@ -38,6 +45,10 @@
+   var FOV = 30;
+   var SUN = new THREE.Vector3(-0.55, 0.72, -0.42).normalize();   // afternoon sun from the north-west
+   var END = { phi: 0.88, theta: -0.36, margin: 0.9 };             // the finished view: from the south-south-west, the whole city in frame
++  var CBD = 'adelaide';
++  var CBD_VX = 4;             // v3.43: the CBD's buildings at four times their real height (138 m ≈ 10 units), so a two-storey shop still reads
++  var CBD_RISE = 0.42;        // ...and they go up once the city's roof is nearly there
++  var CBD_R = 340;            // how close "Find a suburb: Adelaide" flies, to see them
+ 
+   // ---------------------------------------------------------------- colours, straight from the stylesheet
+   var css = function (name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); };
+@@ -83,7 +94,8 @@
+   // ---------------------------------------------------------------- the shader patch everything shares
+   var U = {
+     uT: { value: 0 }, uLit: { value: 0 }, uHover: { value: -1 }, uFocus: { value: -1 }, uLift: { value: LIFT },
+-    uInk: { value: new THREE.Color() }, uHot: { value: new THREE.Color() }, uHatch: { value: new THREE.Color() }
++    uInk: { value: new THREE.Color() }, uHot: { value: new THREE.Color() }, uHatch: { value: new THREE.Color() },
++    uBase: { value: 0 }, uTownAt: { value: 0 }, uTownId: { value: -1 }
+   };
+   var RISE_DECL = [
+     'attribute float aHeight;', 'attribute float aDelay;', 'attribute float aId;',
+@@ -150,11 +162,59 @@
+     });
+   }
+ 
++  // v3.43: the CBD's buildings. Their feet sit on the city's roof (uBase, the RISE height of that one suburb, lift
++  // and all) and their own heights grow in after it; walls darken toward the roof, like a card model under a lamp.
++  var TOWN_DECL = [
++    'uniform float uT;', 'uniform float uHover;', 'uniform float uFocus;', 'uniform float uLift;',
++    'uniform float uBase;', 'uniform float uTownAt;', 'uniform float uTownId;',
++    'varying float vHot;', 'varying float vShade;'
++  ].join('\n');
++  var TOWN_BODY = [
++    'vec3 transformed = vec3( position );',
++    'float rk = clamp( ( uT - uTownAt ) / 0.55, 0.0, 1.0 ); rk = rk * rk * ( 3.0 - 2.0 * rk );',
++    'float tk = clamp( ( uT - uTownAt - ' + CBD_RISE.toFixed(3) + ' ) / 0.5, 0.0, 1.0 ); tk = tk * tk * ( 3.0 - 2.0 * tk );',
++    'vHot = max( 1.0 - step( 0.5, abs( uTownId - uHover ) ), 1.0 - step( 0.5, abs( uTownId - uFocus ) ) );',
++    'transformed.y = ( uBase + vHot * uLift ) * rk + position.y * tk;',
++    'transformed *= step( 1e-4, tk );',   // not up yet: every vertex at one point, so nothing draws (flat, they'd be white footprints on the map)
++    'vShade = normal.y > 0.5 ? 1.0 : mix( 0.7, 1.0, smoothstep( 0.0, 1.6, position.y ) );'
++  ].join('\n');
++  function townVertex(shader) {
++    shader.vertexShader = shader.vertexShader
++      .replace('#include <common>', '#include <common>\n' + TOWN_DECL)
++      .replace('#include <begin_vertex>', TOWN_BODY);
++  }
++  var TOWN_U = ['uT', 'uHover', 'uFocus', 'uLift', 'uBase', 'uTownAt', 'uTownId'];
++  function townMaterial() {
++    var m = new THREE.MeshLambertMaterial({ color: 0xffffff });
++    m.onBeforeCompile = function (s) {
++      townVertex(s); link(s, TOWN_U.concat('uLit'));
++      s.fragmentShader = s.fragmentShader
++        .replace('#include <common>', '#include <common>\nuniform float uLit;\nvarying float vHot;\nvarying float vShade;')
++        .replace('#include <color_fragment>', '#include <color_fragment>\ndiffuseColor.rgb *= vShade;')
++        .replace('#include <tonemapping_fragment>', UNLIT);
++    };
++    return m;
++  }
++  function townDepthMaterial() {
++    var m = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking });
++    m.onBeforeCompile = function (s) { townVertex(s); link(s, TOWN_U); };
++    return m;
++  }
++  function townPickMaterial() {   // a building picks as the CBD
++    return new THREE.ShaderMaterial({
++      uniforms: U,
++      vertexShader: TOWN_DECL + '\nvoid main() {\n' + TOWN_BODY + '\ngl_Position = projectionMatrix * modelViewMatrix * vec4( transformed, 1.0 );\n}',
++      fragmentShader: 'uniform float uTownId;\nvoid main() { float id = uTownId + 1.0; gl_FragColor = vec4( mod( id, 256.0 ) / 255.0, floor( id / 256.0 ) / 255.0, 0.0, 1.0 ); }'
++    });
++  }
++  var townK = function () { var k = Math.min(1, Math.max(0, (U.uT.value - U.uTownAt.value - CBD_RISE) / 0.5)); return k * k * (3 - 2 * k); };
++
+   // ---------------------------------------------------------------- state
+   var built = false, open = false, broken = false;
+   var renderer, scene, camera, sun, hemi, ground, groundMat, shadeMat, seaMat, seaLineMat, mesh, lines, pickScene, pickTarget, colAttr, hAttr, lhAttr;
+-  var slugs = [], ranges = [], lranges = [], cls = {}, heights = [], index = {}, tops = [], noneAttr = null, boxes = [];
+-  var canvas, resetBtn, hint, labels = [];
++  var slugs = [], ranges = [], lranges = [], cls = {}, heights = [], delays = [], index = {}, tops = [], noneAttr = null, boxes = [];
++  var town = null, townId = -1, townTop = 0, townCount = 0;
++  var canvas, resetBtn, hint, credit = null, labels = [];
+   var PLACES = [
+     { name: 'Gulf St Vincent', at: [-60, 760], sea: true },
+     { name: 'City', slug: 'adelaide' },
+@@ -230,7 +290,7 @@
+         }
+       });
+       index[slug] = id;
+-      slugs.push(slug); heights.push(h); boxes.push(box);
++      slugs.push(slug); heights.push(h); delays.push(dl); boxes.push(box);
+       ranges.push([start, P.length / 3 - start]);
+       lranges.push([lstart, LP.length / 3 - lstart]);
+       cls[slug] = p.getAttribute('class') || '';
+@@ -312,6 +372,7 @@
+     var sc = sun.shadow.camera;
+     sc.left = -half; sc.right = half; sc.top = half; sc.bottom = -half; sc.near = 100; sc.far = 6000;
+     sc.updateProjectionMatrix();
++    wholeSun = { cx: cx, cz: cz, half: half };
+ 
+     pickScene = new THREE.Scene();
+     pickScene.add(new THREE.Mesh(g, pickMaterial()));
+@@ -346,6 +407,71 @@
+     if (window.ResizeObserver) new ResizeObserver(function () { if (open) { place(); invalidate(); } }).observe(svg);
+     else window.addEventListener('resize', function () { if (open) { place(); invalidate(); } });
+     built = true;
++    cbdTown.then(function (doc) { try { addTown(doc); } catch (e) { town = null; } });   // no buildings is just the old flat roof
++  }
++
++  // v3.43: cbd-3d.json → one mesh. Each building is [height dm, base dm, outer ring, courtyards…]; a ring is its first
++  // point from the file's origin and then steps, in hundredths of a map unit. Heights are real metres in the file.
++  function addTown(doc) {
++    var id = index[CBD];
++    if (town || id === undefined || !doc || !doc.b || !doc.m || !doc.o) return;
++    var q = doc.q || 0.01, k = CBD_VX / doc.m, P = [], N = [], top = 0, n = 0;
++    var put = function (a, b, c, nm) {
++      var ux = b[0] - a[0], uy = b[1] - a[1], uz = b[2] - a[2], vx = c[0] - a[0], vy = c[1] - a[1], vz = c[2] - a[2];
++      if ((uy * vz - uz * vy) * nm[0] + (uz * vx - ux * vz) * nm[1] + (ux * vy - uy * vx) * nm[2] < 0) { var t = b; b = c; c = t; }
++      P.push(a[0], a[1], a[2], b[0], b[1], b[2], c[0], c[1], c[2]);
++      N.push(nm[0], nm[1], nm[2], nm[0], nm[1], nm[2], nm[0], nm[1], nm[2]);
++    };
++    var v2 = function (p) { return new THREE.Vector2(p[0], p[1]); };
++    doc.b.forEach(function (b) {
++      var hi = b[0] / 10 * k, lo = b[1] / 10 * k;
++      var rings = b.slice(2).map(function (f, j) {
++        var X = Math.round(doc.o[0] / q), Z = Math.round(doc.o[1] / q), r = [];
++        for (var i = 0; i + 1 < f.length; i += 2) { X += f[i]; Z += f[i + 1]; r.push([X * q, Z * q]); }
++        if ((area(r) > 0) !== (j === 0)) r.reverse();     // the outline positive, courtyards negative: every wall faces out of the building
++        return r;
++      }).filter(function (r) { return r.length >= 3; });
++      if (!rings.length || hi <= lo) return;
++      var all = [].concat.apply([], rings);
++      THREE.ShapeUtils.triangulateShape(rings[0].map(v2), rings.slice(1).map(function (r) { return r.map(v2); })).forEach(function (f) {
++        put([all[f[0]][0], hi, all[f[0]][1]], [all[f[1]][0], hi, all[f[1]][1]], [all[f[2]][0], hi, all[f[2]][1]], [0, 1, 0]);
++      });
++      rings.forEach(function (r) {
++        for (var i = 0; i < r.length; i++) {
++          var a = r[i], c = r[(i + 1) % r.length], dx = c[0] - a[0], dz = c[1] - a[1], len = Math.hypot(dx, dz) || 1, nm = [dz / len, 0, -dx / len];
++          put([a[0], lo, a[1]], [c[0], lo, c[1]], [c[0], hi, c[1]], nm);
++          put([a[0], lo, a[1]], [c[0], hi, c[1]], [a[0], hi, a[1]], nm);
++        }
++      });
++      top = Math.max(top, hi); n++;
++    });
++    if (!n) return;
++    var g = new THREE.BufferGeometry();
++    g.setAttribute('position', new THREE.Float32BufferAttribute(P, 3));
++    g.setAttribute('normal', new THREE.Float32BufferAttribute(N, 3));
++    town = new THREE.Mesh(g, townMaterial());
++    town.customDepthMaterial = townDepthMaterial();
++    town.castShadow = town.receiveShadow = true;
++    town.frustumCulled = false;
++    townId = id; townTop = top; townCount = n;
++    U.uTownId.value = id; U.uTownAt.value = delays[id]; U.uBase.value = heights[id];
++    scene.add(town);
++    var pick = new THREE.Mesh(g, townPickMaterial());
++    pick.frustumCulled = false;
++    pickScene.add(pick);
++    paintTown();
++    credit = document.createElement('a');           // ODbL: the buildings say where they're from, while they're on screen
++    credit.className = 'atlas__credit'; credit.href = 'https://www.openstreetmap.org/copyright'; credit.rel = 'noopener';
++    credit.textContent = 'Buildings © OpenStreetMap'; credit.hidden = !open || rising;
++    mapEl.appendChild(credit);
++    renderer.compile(scene, camera);   // now, not in the middle of the rise; the shadow pass compiles on the next frame, still before it
++    shadowsDirty = true;
++    invalidate();
++  }
++  function paintTown() {          // card: the page's paper in the light, its ink (a warm off-white) in the dark
++    if (!town) return;
++    var dark = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches;
++    town.material.color.copy(dark ? col('--ink', '#efe6d6') : col('--sheet', '#fbf7ee'));
+   }
+ 
+   function applyTheme() {
+@@ -363,6 +489,7 @@
+     shadeK = dark ? 0.42 : 0.2;
+     light(U.uLit.value);
+     if (seaMat) { seaMat.color.copy(col('--sea', '#dbe5e3')); seaLineMat.color.copy(col('--sea-edge', '#b4c8c6')); }
++    paintTown();
+     shadowsDirty = true;
+   }
+ 
+@@ -386,6 +513,7 @@
+       for (v = l[0]; v < l[0] + l[1]; v++) b[v] = h;
+       heights[i] = h;
+     }
++    if (townId >= 0) U.uBase.value = heights[townId];   // the CBD's buildings ride its roof from tab to tab
+     hAttr.needsUpdate = lhAttr.needsUpdate = true;
+     shadowsDirty = true;
+   }
+@@ -509,8 +637,32 @@
+     render(!lowQ || !tweens.length);
+     if (tweens.length) raf = requestAnimationFrame(frame);
+   }
++  // v3.43: zoomed in, the sun's shadow box closes in on what's in view (a little ahead of the target, where the
++  // tilted view sees most ground), so the CBD's buildings get shadows their own size. It moves in steps, so a drag
++  // or a zoom redraws the shadows now and then, not every frame; zoomed out it is the whole-city box, as before.
++  var wholeSun = null, sunKey = '';
++  function fitSun() {
++    if (!wholeSun) return;
++    var half = wholeSun.half, cx = wholeSun.cx, cz = wholeSun.cz;
++    var near = Math.pow(1.25, Math.ceil(Math.log(Math.max(60, view.R * 1.2)) / Math.log(1.25)));
++    if (near < half) {
++      var ahead = 0.4 * view.R * Math.sin(view.phi), snap = near / 12;
++      half = near;
++      cx = Math.round((view.tx - ahead * Math.sin(view.theta)) / snap) * snap;
++      cz = Math.round((view.tz - ahead * Math.cos(view.theta)) / snap) * snap;
++    }
++    var key = half + ',' + cx + ',' + cz;
++    if (key === sunKey) return;
++    sunKey = key;
++    sun.target.position.set(cx, 0, cz);
++    sun.position.set(cx + SUN.x * 3000, SUN.y * 3000, cz + SUN.z * 3000);
++    var sc = sun.shadow.camera;
++    sc.left = -half; sc.right = half; sc.top = half; sc.bottom = -half;
++    sc.updateProjectionMatrix();
++    shadowsDirty = true;
++  }
+   function render(withShadows) {
+-    clampView(); applyView();
++    clampView(); applyView(); fitSun();
+     if (withShadows && shadowsDirty) { renderer.shadowMap.needsUpdate = true; shadowsDirty = false; }
+     renderer.render(scene, camera);
+     placeLabels();
+@@ -519,7 +671,7 @@
+   function placeLabels() {
+     var w = canvas.clientWidth, h = canvas.clientHeight, k = U.uLit.value;
+     labels.forEach(function (l) {
+-      var y = l.id >= 0 ? heights[l.id] * U.uT.value + 4 : 0;
++      var y = l.id >= 0 ? heights[l.id] * U.uT.value + 4 + (l.id === townId ? townTop * townK() : 0) : 0;   // "City" clears the towers
+       _v.set(l.x, y, l.z).project(camera);
+       var x = (_v.x + 1) / 2 * w, yy = (1 - _v.y) / 2 * h;
+       var show = k > 0.05 && _v.z < 1 && x > 40 && x < w - 40 && yy > 16 && yy < h - 16;
+@@ -555,7 +707,7 @@
+   }
+   function roofOnScreen(id) {     // where a suburb's roof is on screen, for the tooltip
+     var d = data[slugs[id]]; if (!d || !d.c) return null;
+-    var v = new THREE.Vector3(d.c[0], heights[id] * U.uT.value + (U.uFocus.value === id ? LIFT : 0), d.c[1]).project(camera);
++    var v = new THREE.Vector3(d.c[0], heights[id] * U.uT.value + (U.uFocus.value === id ? LIFT : 0) + (id === townId ? townTop * townK() : 0), d.c[1]).project(camera);
+     var r = canvas.getBoundingClientRect();
+     return [r.left + (v.x + 1) / 2 * r.width, r.top + (1 - v.y) / 2 * r.height];
+   }
+@@ -690,7 +842,7 @@
+         view = lerpView(from, to, e);
+         riseTo(Math.min(1, e * 1.08));
+         light(Math.min(1, e * 1.7));
+-      }, function () { rising = false; riseTo(1); light(1); resetBtn.hidden = false; invalidate(); });
++      }, function () { rising = false; riseTo(1); light(1); resetBtn.hidden = false; if (credit) credit.hidden = false; invalidate(); });
+       t.camera = true;
+     };
+     if (reduce || settled) go(); else goTimer = setTimeout(go, 220);
+@@ -699,6 +851,7 @@
+     if (!open) return;
+     A.hideTip(); hoverId(-1); focusId(-1);
+     resetBtn.hidden = true;
++    if (credit) credit.hidden = true;
+     rising = true;
+     var to = flatView(), uT0 = U.uT.value, lit0 = U.uLit.value;
+     tweens.forEach(function (t) { t.dead = true; });
+@@ -719,6 +872,7 @@
+     mapEl.classList.remove('is-3d');
+     svg.removeAttribute('inert'); svg.inert = false;
+     if (resetBtn) resetBtn.hidden = true;
++    if (credit) credit.hidden = true;
+     if (btn) { btn.setAttribute('aria-pressed', 'false'); if (broken) btn.hidden = true; }
+   }
+   function focusSlug(slug) {
+@@ -728,7 +882,12 @@
+     focusId(id);
+     var d = data[slug];
+     if (!d || !d.c) return;
+-    var t = flyView({ tx: d.c[0], tz: d.c[1], R: Math.min(view.R, 900), phi: Math.max(view.phi, 0.75), theta: view.theta }, 900, function () {
++    var to = { tx: d.c[0], tz: d.c[1], R: Math.min(view.R, 900), phi: Math.max(view.phi, 0.75), theta: view.theta };
++    if (id === townId) {           // v3.43: the city comes in close and steep, over its neighbours' roofs, aimed at its own
++      var off = (heights[id] + townTop / 2) * Math.tan(0.6);
++      to = { tx: d.c[0] - off * Math.sin(view.theta), tz: d.c[1] - off * Math.cos(view.theta), R: CBD_R, phi: 0.6, theta: view.theta };
++    }
++    var t = flyView(to, 900, function () {
+       var at = roofOnScreen(id);
+       if (at) A.showSlug(slug, at[0], at[1]);
+     });
+@@ -749,7 +908,8 @@
+       look: function (v) { for (var k in v) view[k] = v[k]; render(true); return view; },
+       roof: function (slug) { applyView(); return roofOnScreen(index[slug]); },
+       pick: function (x, y) { var id = pickAt(x, y); return id < 0 ? null : slugs[id]; },
+-      state: function () { return { open: open, rising: rising, lowQ: lowQ, uT: U.uT.value, uLit: U.uLit.value, suburbs: slugs.length, view: view }; }
++      state: function () { return { open: open, rising: rising, lowQ: lowQ, uT: U.uT.value, uLit: U.uLit.value, suburbs: slugs.length, view: view }; },
++      town: function () { return town ? { buildings: townCount, top: townTop, up: townK(), base: U.uBase.value } : null; }
+     }
+   };
+ })();
