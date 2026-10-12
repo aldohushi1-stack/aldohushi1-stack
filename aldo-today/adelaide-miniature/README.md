@@ -1,5 +1,7 @@
 # Adelaide in Miniature: the CBD board (`/adelaide/adelaide/miniature`)
 
+**Names:** **Miniature A** is Henley Beach's look (the toy model). **Miniature B** is this CBD board's look (the real one). Both use the same page, the same board and the same data format; only the look differs.
+
 This is the Henley Beach board's format applied to Adelaide 5000, the crown jewel, built to look real. Every building is at its real footprint and real height, on real streets, with the Park Lands, the Torrens Lake and every tree OpenStreetMap has. Trams run down King William Street, trains run out of Adelaide Railway Station, crews row on the lake and riders use the river path. The page works the same way as Henley's: Fly over, Explore, The board, Find your street, What's my place worth?, the slot, the beacon and the fallback card.
 
 ![Share card](dist/mini/adelaide-card.png)
@@ -10,9 +12,9 @@ This is the Henley Beach board's format applied to Adelaide 5000, the crown jewe
 
 For comparison, Henley's board: ![](preview/henley-for-comparison.jpg)
 
-## Less cartoony: what changed from Henley's engine
+## Miniature B vs Miniature A: what changed from Henley's engine
 
-| | Henley (toy) | Adelaide CBD (real) |
+| | Miniature A (Henley) | Miniature B (CBD) |
 |---|---|---|
 | Buildings | Boxes with a hipped cap | The real OSM footprint (courtyards included), extruded to its real height |
 | Walls | Flat colour | Facades drawn per storey: curtain-wall glass, two kinds of concrete office, apartments with balconies, North Terrace sandstone, brick institutions, shopfronts, cottages, open-deck car parks |
@@ -35,7 +37,7 @@ dist/mini/adelaide.jpg                         fallback-card poster (slot.poster
 dist/mini/adelaide-card.png                    og:image / twitter:image (1200×630)
 src/page.html  src/engine.js  src/boot.js      page template, engine (Henley's plus the changes above), boot (unchanged)
 engine-from-henley.patch                       the engine changes as a diff against Henley's live engine, to port into bait
-ENGINE-NOTES.md                                what changed and why, the traps, and how to keep an A/B test fair
+ENGINE-NOTES.md                                Miniature A vs B: what changed and why, the traps, and how to keep the A/B test fair
 build/data.js                                  the CBD's D_* data and PLAN
 tools/extract_cbd.py                           OSM → build/data.js (stdlib; caches Overpass answers in .osm-cache/)
 tools/build_page.py                            src/ + build/ → dist/ (stdlib)

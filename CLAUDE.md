@@ -16,6 +16,10 @@ Products:
 - **Brass Register** — POS for bars and restaurants.
 - **Glassbox** — flight-recorder viewer for Claude Code / Agent SDK sessions.
 
+**aldo.today miniatures:** two looks, being A/B tested.
+- **Miniature A**: Henley Beach's look, the toy model (https://aldo.today/adelaide/henley-beach/miniature).
+- **Miniature B**: the CBD board's look, the realistic one (`/adelaide/adelaide/miniature`; source and notes in `aldo-today/adelaide-miniature/`).
+
 ## Open-source repos (github.com/aldohushi1-stack)
 
 - `glassbox` — npm `glassbox-trace`, CLI `glassbox`. Timeline, cost and findings for agent session `.jsonl` transcripts; CI check, Stop/SessionStart hooks, loop guard.

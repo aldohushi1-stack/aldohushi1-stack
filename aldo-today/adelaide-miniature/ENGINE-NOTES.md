@@ -1,10 +1,12 @@
-# Engine notes: the realistic board vs Henley's
+# Engine notes: Miniature A vs Miniature B
 
-Kept for the A/B test (toy vs real). `engine-from-henley.patch` is the full diff (20 hunks) against Henley's live engine. This file explains what each change is, the traps hit on the way, and what to hold steady between the two arms.
+**Miniature A** is Henley Beach's look (the toy model). **Miniature B** is the CBD board's look (the real one).
+
+Kept for the A/B test. `engine-from-henley.patch` is the full diff (20 hunks) against Henley's live engine. This file explains what each change is, the traps hit on the way, and what to hold steady between the two arms.
 
 ## What changed, by section of the engine
 
-| Section | Toy (Henley) | Real (CBD) |
+| Section | Miniature A (Henley) | Miniature B (CBD) |
 |---|---|---|
 | `parseData` | `D_BLD` boxes; road width by kind | Adds `D_FOOT` (real footprints, delta-coded, courtyards) and `D_TREES`. A road code can carry its width (`p22`). Henley's format still parses. |
 | Renderer | Display colour, no tone mapping | `outputEncoding = sRGB`, ACES filmic, exposure .97. Every hex colour goes through `C()` (sRGB → linear); canvas textures through `srgbTex()`. |
@@ -31,8 +33,8 @@ Kept for the A/B test (toy vs real). `engine-from-henley.patch` is the full diff
 
 ## A/B: keeping it a fair test
 
-- **One suburb per comparison.** Henley-toy vs CBD-real mixes style with suburb. Build both looks for the same suburb: the CBD in toy colours is Henley's engine with this data, and Henley real is this engine with Henley's data.
-- **Telling the arms apart needs no code.** The server fills the slot, and `safePath` accepts a query, so give each arm its own beacon, e.g. `"beacon":"/adelaide/adelaide/miniature/seen?arm=real"` and `…?arm=toy`.
+- **One suburb per comparison.** Henley in A against the CBD in B mixes the look with the suburb. Build both looks for the same suburb: the CBD in A is Henley's engine with this data, and Henley in B is this engine with Henley's data.
+- **Telling the arms apart needs no code.** The server fills the slot, and `safePath` accepts a query, so give each arm its own beacon, e.g. `"beacon":"/adelaide/adelaide/miniature/seen?arm=b"` and `…?arm=a`.
 - **What the beacon already reports:**
   - `moving`: first frame, with `ms` (time to it) and `phone`
   - `ask`: a tap on the board or "What's my place worth?"
@@ -40,4 +42,4 @@ Kept for the A/B test (toy vs real). `engine-from-henley.patch` is the full diff
   
   Ask rate per `moving` is the conversion. `ms`, and `fallback` with `lost`, show the price of the heavier page.
 - **Hold steady:** the panel words, the board's text, the ask link and the camera path. Change only the look.
-- **Weight differs.** The real page is 1.05 MB (367 KB gzipped) against Henley's 0.25 MB, and it draws more triangles. Expect a later `moving` on phones, and count `lost` fallbacks separately.
+- **Weight differs.** B is 1.05 MB (367 KB gzipped) against A's 0.25 MB (Henley), and it draws more triangles. Expect a later `moving` on phones, and count `lost` fallbacks separately.
