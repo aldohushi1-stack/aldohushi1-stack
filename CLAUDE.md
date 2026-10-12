@@ -18,7 +18,7 @@ Products:
 
 **aldo.today miniatures:** two looks, being A/B tested.
 - **Miniature A**: Henley Beach's look, the toy model (https://aldo.today/adelaide/henley-beach/miniature).
-- **Miniature B**: the CBD board's look, the realistic one (`/adelaide/adelaide/miniature`; source and notes in `aldo-today/adelaide-miniature/`).
+- **Miniature B**: the realistic look: the CBD board (`/adelaide/adelaide/miniature`) and Henley Beach's B arm for the A/B test. Source and notes in `aldo-today/miniature-b/`.
 
 ## Open-source repos (github.com/aldohushi1-stack)
 

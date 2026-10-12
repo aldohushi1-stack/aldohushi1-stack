@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Adelaide (5000) in miniature: the board's map data and plan, from OpenStreetMap.
 
-    python3 tools/extract_cbd.py                      # fetch (cached in .osm-cache/), write build/data.js
-    python3 tools/extract_cbd.py --cache DIR --out build/data.js
+    python3 tools/extract_cbd.py                      # fetch (cached in .osm-cache/), write build/adelaide.data.js
+    python3 tools/extract_cbd.py --cache DIR --out build/adelaide.data.js
 
 Writes the D_* constants and PLAN that the bait page reads (format 2), plus three the CBD board adds:
   D_FOOT   real footprints: "H B k[r] x,z dx,dz …[/x,z dx,dz …]" joined by ";" — wall height and base in metres,
@@ -871,7 +871,7 @@ def plan(P, box, bnd, bs, rds, ars, lakes, tree_pts, rest, poi):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--cache', default='.osm-cache')
-    ap.add_argument('--out', default='build/data.js')
+    ap.add_argument('--out', default='build/adelaide.data.js')
     a = ap.parse_args()
 
     bq = '[out:json][timeout:120];rel(%d);out geom;' % REL
@@ -938,7 +938,7 @@ def main():
             names['water'].append({'name': l['name'], 'area': round(l['a']), 'x': round(c[0]), 'z': round(c[1])})
 
     PLAN = {'slug': 'adelaide', 'name': 'Adelaide', 'postcode': '5000', 'seed': 50000501, 'box': list(box),
-            'buildingsInSuburb': insub, 'fly': pl['fly'], 'traffic': pl['traffic'], 'localCars': 26, 'board': pl['board'],
+            'buildingsInSuburb': insub, 'zoom': [70, 3800], 'ground': 0x88837a, 'fly': pl['fly'], 'traffic': pl['traffic'], 'localCars': 26, 'board': pl['board'],
             'labels': pl['labels'], 'sea': [], 'lakes': pl['lakes'], 'yachts': [], 'jetties': [], 'landmarks': pl['landmarks'],
             'hideBld': [], 'rowing': None, 'regatta': None, 'bldMoves': [], 'clear': [], 'streets': pl['streets'], 'warnings': warn}
     when = time.strftime('%Y-%m-%d', time.gmtime(stamp))
