@@ -3,6 +3,8 @@
 I build custom software for Adelaide trade and small business: one tool, one problem, $2,000.
 Founder of [BlueprintAU](https://blueprintau.com), an Adelaide product lab with 25+ working builds.
 
+Data map and miniature all with the stamp, at www.aldo.today
+
 - **Foreman**: free job console for tradies → https://blueprintau.com/foreman/
 - **Takeoff / Ledger**: quoting and books for the trades
 - **Brass Register**: bar and restaurant POS
